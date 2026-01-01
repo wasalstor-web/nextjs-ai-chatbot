@@ -1,11 +1,42 @@
 import { NextRequest, NextResponse } from "next/server";
-import { auth } from "@/app/(auth)/auth";
-import {
-  getPublishedAgents,
-  createAgent,
-  getAgentByExternalId,
-  updateAgent,
-} from "@/lib/db/agents-queries";
+
+// In-memory storage for agents (production should use database)
+// biome-ignore lint/suspicious/noExplicitAny: needed for flexibility
+const agentsStore: Map<string, any> = new Map();
+
+// Initialize with some sample agents
+const sampleAgents = [
+  {
+    id: "agent_sample_1",
+    externalId: "sample_1",
+    name: "كاتب المحتوى الذكي",
+    description: "إنشاء مقالات ومحتوى تسويقي احترافي بالعربية والإنجليزية",
+    category: "creative",
+    status: "published",
+    capabilities: ["مقالات SEO", "إعلانات", "رسائل بريدية"],
+    rating: 4.9,
+    usageCount: 12000,
+    source: "mubasat",
+    createdAt: new Date().toISOString(),
+  },
+  {
+    id: "agent_sample_2",
+    externalId: "sample_2",
+    name: "مساعد البرمجة",
+    description: "كتابة وتصحيح وشرح الأكواد البرمجية بسهولة",
+    category: "coding",
+    status: "published",
+    capabilities: ["كتابة الأكواد", "تصحيح الأخطاء", "شرح مفصل"],
+    rating: 4.9,
+    usageCount: 5000,
+    source: "mubasat",
+    createdAt: new Date().toISOString(),
+  },
+];
+
+for (const agent of sampleAgents) {
+  agentsStore.set(agent.id, agent);
+}
 
 // CORS headers for external API access
 const corsHeaders = {
@@ -23,10 +54,13 @@ export async function OPTIONS() {
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
-    const limit = parseInt(searchParams.get("limit") || "50");
+    const limit = Number.parseInt(searchParams.get("limit") || "50");
+    const status = searchParams.get("status") || "published";
     
-    const agents = await getPublishedAgents({ limit });
-    
+    const agents = Array.from(agentsStore.values())
+      .filter(a => status === "all" || a.status === status)
+      .slice(0, limit);
+
     return NextResponse.json(
       {
         success: true,
@@ -38,7 +72,7 @@ export async function GET(request: NextRequest) {
   } catch (error) {
     console.error("Error fetching agents:", error);
     return NextResponse.json(
-      { success: false, error: "Failed to fetch agents" },
+      { success: false, error: "Failed to fetch agents", agents: [] },
       { status: 500, headers: corsHeaders }
     );
   }
@@ -48,7 +82,7 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    
+
     // Validate required fields
     if (!body.name) {
       return NextResponse.json(
@@ -58,26 +92,27 @@ export async function POST(request: NextRequest) {
     }
 
     // Check if agent with this external ID already exists
-    if (body.externalId || body.id) {
-      const existingAgent = await getAgentByExternalId({ 
-        externalId: body.externalId || body.id 
-      });
-      
+    const externalId = body.externalId || body.id;
+    if (externalId) {
+      const existingAgent = Array.from(agentsStore.values()).find(
+        a => a.externalId === externalId
+      );
+
       if (existingAgent) {
         // Update existing agent
-        const updated = await updateAgent({
-          id: existingAgent.id,
-          name: body.name,
-          description: body.description,
-          category: body.category,
-          capabilities: body.capabilities,
-          systemPrompt: body.systemPrompt,
-          modelId: body.modelId,
+        const updated = {
+          ...existingAgent,
+          name: body.name || existingAgent.name,
+          description: body.description || existingAgent.description,
+          category: body.category || existingAgent.category,
+          capabilities: body.capabilities || existingAgent.capabilities,
+          systemPrompt: body.systemPrompt || existingAgent.systemPrompt,
+          modelId: body.modelId || existingAgent.modelId,
           status: body.status || existingAgent.status,
-          apiEndpoint: body.apiEndpoint,
-          iconUrl: body.iconUrl,
-        });
-        
+          updatedAt: new Date().toISOString(),
+        };
+        agentsStore.set(existingAgent.id, updated);
+
         return NextResponse.json(
           {
             success: true,
@@ -91,8 +126,10 @@ export async function POST(request: NextRequest) {
     }
 
     // Create new agent
-    const agent = await createAgent({
-      externalId: body.externalId || body.id,
+    const agentId = "agent_" + Date.now() + "_" + Math.random().toString(36).substring(2, 11);
+    const agent = {
+      id: agentId,
+      externalId: externalId || agentId,
       name: body.name,
       description: body.description || "وكيل ذكاء اصطناعي متقدم",
       category: body.category || "assistant",
@@ -100,11 +137,15 @@ export async function POST(request: NextRequest) {
       systemPrompt: body.systemPrompt,
       modelId: body.modelId || "gpt-4o",
       status: body.autoPublish ? "published" : "draft",
-      apiEndpoint: body.apiEndpoint,
-      iconUrl: body.iconUrl,
+      rating: 5.0,
+      usageCount: 0,
       source: body.source || "nagra-ai",
       price: body.price || 0,
-    });
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    };
+
+    agentsStore.set(agentId, agent);
 
     return NextResponse.json(
       {
@@ -112,7 +153,7 @@ export async function POST(request: NextRequest) {
         agent,
         action: "created",
         message: "تم إنشاء الوكيل بنجاح",
-        marketplaceUrl: `https://nextjs-v0-project.vercel.app/marketplace/${agent.id}`,
+        marketplaceUrl: "https://mubasat-ai.vercel.app/market",
       },
       { status: 201, headers: corsHeaders }
     );
