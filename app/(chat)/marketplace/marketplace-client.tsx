@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Bot, Search, Star, Users, Zap, TrendingUp, Package, Sparkles, ArrowLeft } from "lucide-react";
+import { Bot, Search, Star, Users, Zap, TrendingUp, Package, Sparkles, ArrowLeft, X, MessageCircle, Globe, Code, Copy, Check, ExternalLink, Smartphone } from "lucide-react";
 import Link from "next/link";
 
 interface Agent {
@@ -22,6 +22,16 @@ interface MarketplaceClientProps {
   initialAgents: Agent[];
 }
 
+interface IntegrationOption {
+  id: string;
+  name: string;
+  nameEn: string;
+  icon: any;
+  color: string;
+  bgColor: string;
+  description: string;
+}
+
 const categories = [
   { id: "all", name: "الكل", icon: Package },
   { id: "assistant", name: "مساعد", icon: Bot },
@@ -30,11 +40,53 @@ const categories = [
   { id: "creative", name: "إبداعي", icon: Sparkles },
 ];
 
+const integrationOptions: IntegrationOption[] = [
+  {
+    id: "telegram",
+    name: "تيليجرام",
+    nameEn: "Telegram",
+    icon: MessageCircle,
+    color: "text-sky-400",
+    bgColor: "bg-sky-500/20 hover:bg-sky-500/30 border-sky-500/50",
+    description: "ربط الوكيل ببوت تيليجرام للتواصل المباشر"
+  },
+  {
+    id: "whatsapp",
+    name: "واتساب",
+    nameEn: "WhatsApp",
+    icon: Smartphone,
+    color: "text-green-400",
+    bgColor: "bg-green-500/20 hover:bg-green-500/30 border-green-500/50",
+    description: "ربط الوكيل برقم واتساب للرد التلقائي"
+  },
+  {
+    id: "website",
+    name: "موقع إلكتروني",
+    nameEn: "Website Widget",
+    icon: Globe,
+    color: "text-purple-400",
+    bgColor: "bg-purple-500/20 hover:bg-purple-500/30 border-purple-500/50",
+    description: "إضافة ويدجت الدردشة لموقعك الإلكتروني"
+  },
+  {
+    id: "api",
+    name: "واجهة برمجية",
+    nameEn: "REST API",
+    icon: Code,
+    color: "text-orange-400",
+    bgColor: "bg-orange-500/20 hover:bg-orange-500/30 border-orange-500/50",
+    description: "دمج الوكيل عبر API في تطبيقك"
+  },
+];
+
 export function MarketplaceClient({ initialAgents }: MarketplaceClientProps) {
   const [agents, setAgents] = useState<Agent[]>(initialAgents);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [loading, setLoading] = useState(false);
+  const [selectedAgent, setSelectedAgent] = useState<Agent | null>(null);
+  const [selectedIntegration, setSelectedIntegration] = useState<IntegrationOption | null>(null);
+  const [copied, setCopied] = useState(false);
 
   // Filter agents
   const filteredAgents = agents.filter((agent) => {
@@ -59,6 +111,108 @@ export function MarketplaceClient({ initialAgents }: MarketplaceClientProps) {
       console.error("Failed to refresh agents:", error);
     }
     setLoading(false);
+  };
+
+  // Handle agent selection
+  const handleSelectAgent = (agent: Agent) => {
+    setSelectedAgent(agent);
+    setSelectedIntegration(null);
+  };
+
+  // Close modal
+  const closeModal = () => {
+    setSelectedAgent(null);
+    setSelectedIntegration(null);
+  };
+
+  // Copy to clipboard
+  const copyToClipboard = (text: string) => {
+    navigator.clipboard.writeText(text);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  // Generate integration code/config
+  const getIntegrationConfig = (agent: Agent, integration: IntegrationOption) => {
+    const apiKey = "YOUR_API_KEY";
+    const agentId = agent.id;
+    
+    switch (integration.id) {
+      case "telegram":
+        return {
+          title: "إعداد بوت تيليجرام",
+          steps: [
+            "1. أنشئ بوت جديد عبر @BotFather في تيليجرام",
+            "2. احصل على Bot Token",
+            "3. أضف الإعدادات التالية في لوحة التحكم"
+          ],
+          code: `{
+  "bot_token": "YOUR_BOT_TOKEN",
+  "agent_id": "${agentId}",
+  "api_endpoint": "https://mubasat-api.vercel.app/api/agents/${agentId}/chat",
+  "webhook_url": "https://your-server.com/telegram/webhook"
+}`
+        };
+      case "whatsapp":
+        return {
+          title: "إعداد واتساب بيزنس",
+          steps: [
+            "1. اذهب إلى Meta Business Suite",
+            "2. أنشئ تطبيق WhatsApp Business",
+            "3. احصل على Access Token و Phone Number ID",
+            "4. أضف الإعدادات التالية"
+          ],
+          code: `{
+  "phone_number_id": "YOUR_PHONE_ID",
+  "access_token": "YOUR_ACCESS_TOKEN",
+  "agent_id": "${agentId}",
+  "api_endpoint": "https://mubasat-api.vercel.app/api/agents/${agentId}/chat",
+  "verify_token": "YOUR_VERIFY_TOKEN"
+}`
+        };
+      case "website":
+        return {
+          title: "إضافة ويدجت الموقع",
+          steps: [
+            "1. انسخ الكود التالي",
+            "2. الصقه قبل إغلاق </body> في موقعك"
+          ],
+          code: `<script>
+  (function(w,d,s,o,f,js,fjs){
+    w['MubasatWidget']=o;w[o]=w[o]||function(){
+    (w[o].q=w[o].q||[]).push(arguments)};
+    js=d.createElement(s);fjs=d.getElementsByTagName(s)[0];
+    js.id=o;js.src=f;js.async=1;fjs.parentNode.insertBefore(js,fjs);
+  }(window,document,'script','mw','https://mubasat-ai.vercel.app/widget.js'));
+  mw('init', { agentId: '${agentId}' });
+</script>`
+        };
+      case "api":
+        return {
+          title: "استخدام الـ API",
+          steps: [
+            "1. احصل على API Key من لوحة التحكم",
+            "2. استخدم الكود التالي للتواصل مع الوكيل"
+          ],
+          code: `// إرسال رسالة للوكيل
+const response = await fetch('https://mubasat-api.vercel.app/api/agents/${agentId}/chat', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer ${apiKey}'
+  },
+  body: JSON.stringify({
+    message: 'مرحباً، كيف يمكنك مساعدتي؟',
+    session_id: 'unique-session-id'
+  })
+});
+
+const data = await response.json();
+console.log(data.reply);`
+        };
+      default:
+        return { title: "", steps: [], code: "" };
+    }
   };
 
   return (
@@ -261,13 +415,13 @@ export function MarketplaceClient({ initialAgents }: MarketplaceClientProps) {
                       </span>
                     </div>
 
-                    {/* Action */}
-                    <Link
-                      href={`/chat?agent=${agent.id}`}
+                    {/* Action - Opens Integration Modal */}
+                    <button
+                      onClick={() => handleSelectAgent(agent)}
                       className="block w-full py-3 bg-emerald-500 hover:bg-emerald-400 text-white font-medium rounded-xl text-center transition-colors"
                     >
-                      استخدام الوكيل
-                    </Link>
+                      اختر هذا الوكيل
+                    </button>
                   </div>
                 </div>
               ))}
@@ -275,6 +429,146 @@ export function MarketplaceClient({ initialAgents }: MarketplaceClientProps) {
           )}
         </div>
       </section>
+
+      {/* Integration Modal */}
+      {selectedAgent && (
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+          <div className="bg-zinc-900 rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-hidden border border-zinc-800 shadow-2xl">
+            {/* Modal Header */}
+            <div className="p-6 border-b border-zinc-800">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-4">
+                  <div className="w-14 h-14 bg-gradient-to-br from-emerald-500/20 to-teal-500/20 rounded-xl flex items-center justify-center">
+                    <Bot className="w-7 h-7 text-emerald-400" />
+                  </div>
+                  <div>
+                    <h2 className="text-xl font-bold text-white">{selectedAgent.name}</h2>
+                    <p className="text-sm text-zinc-500">اختر طريقة التكامل</p>
+                  </div>
+                </div>
+                <button
+                  onClick={closeModal}
+                  className="p-2 bg-zinc-800 hover:bg-zinc-700 rounded-lg text-zinc-400 hover:text-white transition-colors"
+                >
+                  <X size={20} />
+                </button>
+              </div>
+            </div>
+
+            {/* Modal Content */}
+            <div className="p-6 overflow-y-auto max-h-[calc(90vh-200px)]">
+              {!selectedIntegration ? (
+                <>
+                  <h3 className="text-lg font-semibold text-white mb-4">اختر منصة التكامل</h3>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {integrationOptions.map((option) => (
+                      <button
+                        key={option.id}
+                        onClick={() => setSelectedIntegration(option)}
+                        className={`p-5 rounded-xl border ${option.bgColor} transition-all text-right`}
+                      >
+                        <div className="flex items-center gap-3 mb-3">
+                          <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${option.bgColor}`}>
+                            <option.icon className={`w-6 h-6 ${option.color}`} />
+                          </div>
+                          <div>
+                            <h4 className={`font-semibold ${option.color}`}>{option.name}</h4>
+                            <p className="text-xs text-zinc-500">{option.nameEn}</p>
+                          </div>
+                        </div>
+                        <p className="text-sm text-zinc-400">{option.description}</p>
+                      </button>
+                    ))}
+                  </div>
+
+                  {/* Quick Use Option */}
+                  <div className="mt-6 pt-6 border-t border-zinc-800">
+                    <Link
+                      href={`/chat?agent=${selectedAgent.id}`}
+                      className="flex items-center justify-center gap-2 w-full py-3 bg-zinc-800 hover:bg-zinc-700 text-white font-medium rounded-xl transition-colors"
+                    >
+                      <ExternalLink size={18} />
+                      استخدام مباشر في المنصة
+                    </Link>
+                  </div>
+                </>
+              ) : (
+                <>
+                  {/* Back Button */}
+                  <button
+                    onClick={() => setSelectedIntegration(null)}
+                    className="flex items-center gap-2 text-zinc-400 hover:text-white mb-6 transition-colors"
+                  >
+                    <ArrowLeft size={18} />
+                    <span>العودة لخيارات التكامل</span>
+                  </button>
+
+                  {/* Integration Details */}
+                  <div className="flex items-center gap-3 mb-6">
+                    <div className={`w-14 h-14 rounded-xl flex items-center justify-center ${selectedIntegration.bgColor}`}>
+                      <selectedIntegration.icon className={`w-7 h-7 ${selectedIntegration.color}`} />
+                    </div>
+                    <div>
+                      <h3 className={`text-xl font-bold ${selectedIntegration.color}`}>
+                        {selectedIntegration.name}
+                      </h3>
+                      <p className="text-sm text-zinc-500">{selectedIntegration.nameEn}</p>
+                    </div>
+                  </div>
+
+                  {(() => {
+                    const config = getIntegrationConfig(selectedAgent, selectedIntegration);
+                    return (
+                      <>
+                        <h4 className="text-lg font-semibold text-white mb-4">{config.title}</h4>
+                        
+                        {/* Steps */}
+                        <div className="bg-zinc-800/50 rounded-xl p-4 mb-6">
+                          <h5 className="text-sm font-medium text-zinc-400 mb-3">خطوات الإعداد:</h5>
+                          <ul className="space-y-2">
+                            {config.steps.map((step, i) => (
+                              <li key={i} className="text-sm text-zinc-300 flex items-start gap-2">
+                                <span className="text-emerald-400">•</span>
+                                {step}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+
+                        {/* Code Block */}
+                        <div className="relative">
+                          <div className="flex items-center justify-between bg-zinc-800 rounded-t-xl px-4 py-2 border-b border-zinc-700">
+                            <span className="text-xs text-zinc-500">
+                              {selectedIntegration.id === "website" ? "HTML" : selectedIntegration.id === "api" ? "JavaScript" : "JSON"}
+                            </span>
+                            <button
+                              onClick={() => copyToClipboard(config.code)}
+                              className="flex items-center gap-1 text-xs text-zinc-400 hover:text-white transition-colors"
+                            >
+                              {copied ? <Check size={14} className="text-emerald-400" /> : <Copy size={14} />}
+                              {copied ? "تم النسخ!" : "نسخ"}
+                            </button>
+                          </div>
+                          <pre className="bg-zinc-950 rounded-b-xl p-4 overflow-x-auto text-sm">
+                            <code className="text-zinc-300 whitespace-pre">{config.code}</code>
+                          </pre>
+                        </div>
+
+                        {/* Help Link */}
+                        <div className="mt-6 p-4 bg-emerald-500/10 border border-emerald-500/30 rounded-xl">
+                          <p className="text-sm text-emerald-400">
+                            💡 تحتاج مساعدة؟ تواصل معنا عبر support@mubasat.ai
+                          </p>
+                        </div>
+                      </>
+                    );
+                  })()}
+                </>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Footer */}
       <footer className="border-t border-zinc-800 py-8 px-4">
