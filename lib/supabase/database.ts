@@ -7,15 +7,22 @@ import { createSupabaseAdminClient } from "./client";
 export class SupabaseDatabase {
   private client;
 
+  private clientPromise: Promise<any>;
+
   constructor() {
-    this.client = createSupabaseAdminClient();
+    this.clientPromise = createSupabaseAdminClient();
+  }
+
+  private async getClient() {
+    return this.clientPromise;
   }
 
   /**
    * Execute a raw SQL query
    */
   async query(sql: string, params?: unknown[]) {
-    const { data, error } = await this.client.rpc("exec_sql", {
+    const client = await this.getClient();
+    const { data, error } = await client.rpc("exec_sql", {
       sql,
       params: params || [],
     });
@@ -31,14 +38,16 @@ export class SupabaseDatabase {
    * Get data from a table
    */
   async from(table: string) {
-    return this.client.from(table);
+    const client = await this.getClient();
+    return client.from(table);
   }
 
   /**
    * Insert data into a table
    */
   async insert(table: string, data: unknown) {
-    const { data: result, error } = await this.client
+    const client = await this.getClient();
+    const { data: result, error } = await client
       .from(table)
       .insert(data)
       .select();
@@ -54,7 +63,8 @@ export class SupabaseDatabase {
    * Update data in a table
    */
   async update(table: string, data: unknown, filter: Record<string, unknown>) {
-    let query = this.client.from(table).update(data);
+    const client = await this.getClient();
+    let query = client.from(table).update(data);
 
     for (const [key, value] of Object.entries(filter)) {
       query = query.eq(key, value);
@@ -73,7 +83,8 @@ export class SupabaseDatabase {
    * Delete data from a table
    */
   async delete(table: string, filter: Record<string, unknown>) {
-    let query = this.client.from(table).delete();
+    const client = await this.getClient();
+    let query = client.from(table).delete();
 
     for (const [key, value] of Object.entries(filter)) {
       query = query.eq(key, value);
