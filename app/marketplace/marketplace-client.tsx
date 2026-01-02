@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Bot, Search, Star, Users, Zap, TrendingUp, Package, Sparkles, X, MessageCircle, Globe, Code, Copy, Check, ExternalLink, Smartphone, RefreshCw } from "lucide-react";
 
 interface Agent {
@@ -81,6 +81,11 @@ export function MarketplaceClientStandalone({ initialAgents }: { initialAgents: 
   const [selectedAgent, setSelectedAgent] = useState<Agent | null>(null);
   const [selectedIntegration, setSelectedIntegration] = useState<IntegrationOption | null>(null);
   const [copied, setCopied] = useState(false);
+
+  // Sync agents state when initialAgents prop changes
+  useEffect(() => {
+    setAgents(initialAgents);
+  }, [initialAgents]);
 
   const filteredAgents = agents.filter((agent) => {
     const matchesSearch = agent.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
