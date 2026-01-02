@@ -3,7 +3,7 @@ import Script from "next/script";
 import { Suspense } from "react";
 import { redirect } from "next/navigation";
 import { AdminSidebar } from "@/components/admin/admin-sidebar";
-import { DataStreamProvider } from "@/components/data-stream-provider";
+import { DataStreamProviderWrapper } from "@/components/data-stream-provider-wrapper";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { auth } from "../(auth)/auth";
 import { isAdmin } from "@/lib/auth/admin";
@@ -15,11 +15,11 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         src="https://cdn.jsdelivr.net/pyodide/v0.23.4/full/pyodide.js"
         strategy="beforeInteractive"
       />
-      <DataStreamProvider>
+      <DataStreamProviderWrapper>
         <Suspense fallback={<div className="flex h-dvh" />}>
           <SidebarWrapper>{children}</SidebarWrapper>
         </Suspense>
-      </DataStreamProvider>
+      </DataStreamProviderWrapper>
     </>
   );
 }
