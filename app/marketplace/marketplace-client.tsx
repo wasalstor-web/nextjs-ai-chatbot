@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Bot, Search, Star, Users, Zap, TrendingUp, Package, Sparkles, X, MessageCircle, Globe, Code, Copy, Check, ExternalLink, Smartphone, RefreshCw } from "lucide-react";
 
 interface Agent {
@@ -74,18 +74,15 @@ const integrationOptions: IntegrationOption[] = [
 ];
 
 export function MarketplaceClientStandalone({ initialAgents }: { initialAgents: Agent[] }) {
-  const [agents, setAgents] = useState<Agent[]>(initialAgents);
+  // Use lazy initialization to set initial value only once on mount
+  // This prevents resetting agents when parent re-renders with new array reference
+  const [agents, setAgents] = useState<Agent[]>(() => initialAgents);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [loading, setLoading] = useState(false);
   const [selectedAgent, setSelectedAgent] = useState<Agent | null>(null);
   const [selectedIntegration, setSelectedIntegration] = useState<IntegrationOption | null>(null);
   const [copied, setCopied] = useState(false);
-
-  // Sync agents state when initialAgents prop changes
-  useEffect(() => {
-    setAgents(initialAgents);
-  }, [initialAgents]);
 
   const filteredAgents = agents.filter((agent) => {
     const matchesSearch = agent.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
