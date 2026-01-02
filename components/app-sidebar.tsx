@@ -6,7 +6,7 @@ import type { User } from "next-auth";
 import { useEffect, useState } from "react";
 import { Search } from "lucide-react";
 import { toast } from "sonner";
-import { useSWRConfig } from "swr";
+import useSWR, { useSWRConfig } from "swr";
 import { unstable_serialize } from "swr/infinite";
 import { PlusIcon, TrashIcon } from "@/components/icons";
 import {
@@ -36,6 +36,7 @@ import {
 } from "./ui/alert-dialog";
 import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
 import type { ChatHistory } from "@/components/sidebar-history";
+import { fetcher } from "@/lib/utils";
 
 export function AppSidebar({ user }: { user: User | undefined }) {
   const router = useRouter();
@@ -43,25 +44,18 @@ export function AppSidebar({ user }: { user: User | undefined }) {
   const { mutate } = useSWRConfig();
   const [showDeleteAllDialog, setShowDeleteAllDialog] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
-  const [allChats, setAllChats] = useState<ChatHistory["chats"]>([]);
 
-  // Fetch all chats for search
-  useEffect(() => {
-    if (user) {
-      const fetchAllChats = async () => {
-        try {
-          const response = await fetch("/api/history?limit=1000");
-          const data = await response.json();
-          if (data.chats) {
-            setAllChats(data.chats);
-          }
-        } catch (error) {
-          console.error("Failed to fetch chats for search:", error);
-        }
-      };
-      fetchAllChats();
+  // Use SWR to fetch and cache chats for search - only fetch when search is opened
+  const { data: searchData } = useSWR<ChatHistory>(
+    user && showSearch ? "/api/history?limit=500" : null,
+    fetcher,
+    {
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false,
     }
-  }, [user]);
+  );
+
+  const allChats = searchData?.chats || [];
 
   // Keyboard shortcut for search (Cmd/Ctrl + K)
   useEffect(() => {
@@ -85,8 +79,8 @@ export function AppSidebar({ user }: { user: User | undefined }) {
       loading: "Deleting all chats...",
       success: () => {
         mutate(unstable_serialize(getChatHistoryPaginationKey));
+        mutate("/api/history?limit=500"); // Also invalidate search cache
         setShowDeleteAllDialog(false);
-        setAllChats([]);
         router.replace("/");
         router.refresh();
         return "All chats deleted successfully";

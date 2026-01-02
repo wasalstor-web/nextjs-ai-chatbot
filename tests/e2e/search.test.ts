@@ -15,8 +15,8 @@ test.describe("Chat Search Feature", () => {
   });
 
   test("can open search with keyboard shortcut Cmd/Ctrl+K", async ({ page }) => {
-    // Press Cmd/Ctrl+K
-    const isMac = process.platform === "darwin";
+    // Detect platform from browser
+    const isMac = await page.evaluate(() => navigator.platform.includes("Mac"));
     await page.keyboard.press(isMac ? "Meta+k" : "Control+k");
     
     // Search dialog should open
@@ -42,8 +42,9 @@ test.describe("Chat Search Feature", () => {
   });
 
   test("can type in search input", async ({ page }) => {
-    // Try to open search with keyboard shortcut
-    await page.keyboard.press("Control+k");
+    // Detect platform from browser
+    const isMac = await page.evaluate(() => navigator.platform.includes("Mac"));
+    await page.keyboard.press(isMac ? "Meta+k" : "Control+k");
     
     const searchInput = page.getByTestId("chat-search-input");
     
@@ -54,8 +55,9 @@ test.describe("Chat Search Feature", () => {
   });
 
   test("date filters are present in search dialog", async ({ page }) => {
-    // Open search
-    await page.keyboard.press("Control+k");
+    // Detect platform from browser
+    const isMac = await page.evaluate(() => navigator.platform.includes("Mac"));
+    await page.keyboard.press(isMac ? "Meta+k" : "Control+k");
     
     // Check for date filter badges
     const todayFilter = page.getByText("Today");
@@ -65,8 +67,9 @@ test.describe("Chat Search Feature", () => {
   });
 
   test("can close search dialog with Escape key", async ({ page }) => {
-    // Open search
-    await page.keyboard.press("Control+k");
+    // Detect platform from browser
+    const isMac = await page.evaluate(() => navigator.platform.includes("Mac"));
+    await page.keyboard.press(isMac ? "Meta+k" : "Control+k");
     
     // Close with Escape
     await page.keyboard.press("Escape");
