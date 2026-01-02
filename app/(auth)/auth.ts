@@ -6,6 +6,12 @@ import { DUMMY_PASSWORD } from "@/lib/constants";
 import { createGuestUser, getUser } from "@/lib/db/queries";
 import { authConfig } from "./auth.config";
 
+if (!process.env.AUTH_SECRET) {
+  throw new Error(
+    "AUTH_SECRET is not set. Please set it in your environment variables."
+  );
+}
+
 export type UserType = "guest" | "regular";
 
 declare module "next-auth" {
@@ -38,6 +44,7 @@ export const {
   signOut,
 } = NextAuth({
   ...authConfig,
+  secret: process.env.AUTH_SECRET,
   providers: [
     Credentials({
       credentials: {},

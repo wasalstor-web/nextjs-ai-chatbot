@@ -2,12 +2,18 @@ import { cookies } from "next/headers";
 import { Suspense } from "react";
 import { Chat } from "@/components/chat";
 import { DataStreamHandler } from "@/components/data-stream-handler";
+import { Loader } from "@/components/elements/loader";
 import { DEFAULT_CHAT_MODEL } from "@/lib/ai/models";
 import { generateUUID } from "@/lib/utils";
 
 export default function Page() {
   return (
-    <Suspense fallback={<div className="flex h-dvh" />}>
+    <Suspense fallback={
+      <div className="flex h-dvh flex-col items-center justify-center gap-4">
+        <Loader size={32} />
+        <p className="text-sm text-muted-foreground">جاري التحميل...</p>
+      </div>
+    }>
       <NewChatPage />
     </Suspense>
   );
