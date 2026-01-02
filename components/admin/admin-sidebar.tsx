@@ -14,6 +14,7 @@ import {
   Settings,
   Shield,
   Package,
+  Image as ImageIcon,
 } from "lucide-react";
 import { SidebarUserNav } from "@/components/sidebar-user-nav";
 import {
@@ -80,6 +81,11 @@ const menuItems = [
     title: "السوق",
     icon: Package,
     href: "/marketplace",
+  },
+  {
+    title: "مولد الصور",
+    icon: ImageIcon,
+    href: "/image",
   },
 ];
 
