@@ -1,10 +1,12 @@
 // Dynamic import for Supabase to make it optional
-let createClientFn: typeof import("@supabase/supabase-js").createClient | null = null;
+// biome-ignore lint/suspicious/noExplicitAny: Supabase is optional, type will be resolved at runtime
+let createClientFn: ((url: string, key: string, options?: any) => any) | null = null;
 
 async function getCreateClient() {
   if (!createClientFn) {
     try {
-      const supabaseModule = await import("@supabase/supabase-js");
+      // biome-ignore lint/suspicious/noExplicitAny: Dynamic import type
+      const supabaseModule: any = await import("@supabase/supabase-js");
       createClientFn = supabaseModule.createClient;
     } catch {
       throw new Error("Supabase is not installed. Please install @supabase/supabase-js");
