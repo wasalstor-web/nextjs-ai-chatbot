@@ -30,17 +30,17 @@ SUPABASE_SERVICE_ROLE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhY
 
 1. **استخدام Supabase Client**:
 ```typescript
-import { createSupabaseClient } from "@/lib/supabase/client";
+import { getSupabaseClient } from "@/lib/supabase/client";
 
-const supabase = createSupabaseClient();
+const supabase = await getSupabaseClient();
 const { data, error } = await supabase.from("users").select("*");
 ```
 
 2. **استخدام Supabase Admin Client** (على السيرفر فقط):
 ```typescript
-import { createSupabaseAdminClient } from "@/lib/supabase/client";
+import { getSupabaseAdminClient } from "@/lib/supabase/client";
 
-const supabase = createSupabaseAdminClient();
+const supabase = await getSupabaseAdminClient();
 const { data, error } = await supabase.from("users").select("*");
 ```
 
