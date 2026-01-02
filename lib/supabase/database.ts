@@ -1,5 +1,14 @@
 import "server-only";
-import { createSupabaseAdminClient } from "./client";
+
+// Optional Supabase import - will work even if package is not installed
+let createSupabaseAdminClient: (() => any) | null = null;
+
+try {
+  const supabaseModule = require("./client");
+  createSupabaseAdminClient = supabaseModule.createSupabaseAdminClient;
+} catch {
+  // Supabase not installed, will throw error when used
+}
 
 /**
  * Database operations using Supabase
@@ -8,6 +17,9 @@ export class SupabaseDatabase {
   private client;
 
   constructor() {
+    if (!createSupabaseAdminClient) {
+      throw new Error("Supabase is not installed. Please install @supabase/supabase-js");
+    }
     this.client = createSupabaseAdminClient();
   }
 
