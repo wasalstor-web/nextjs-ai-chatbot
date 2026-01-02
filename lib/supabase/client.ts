@@ -5,6 +5,7 @@ let createClientFn: ((url: string, key: string, options?: any) => any) | null = 
 async function getCreateClient() {
   if (!createClientFn) {
     try {
+      // @ts-expect-error - Supabase is optional, module may not be installed
       // biome-ignore lint/suspicious/noExplicitAny: Dynamic import type
       const supabaseModule: any = await import("@supabase/supabase-js");
       createClientFn = supabaseModule.createClient;
