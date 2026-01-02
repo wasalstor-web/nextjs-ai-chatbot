@@ -1,9 +1,8 @@
 import { cookies } from "next/headers";
 import Script from "next/script";
 import { Suspense } from "react";
-import { AppSidebar } from "@/components/app-sidebar";
 import { DataStreamProviderWrapper } from "@/components/data-stream-provider-wrapper";
-import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
+import { SidebarWrapperClient } from "@/components/sidebar-wrapper";
 import { auth } from "../(auth)/auth";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
@@ -27,9 +26,11 @@ async function SidebarWrapper({ children }: { children: React.ReactNode }) {
   const isCollapsed = cookieStore.get("sidebar_state")?.value !== "true";
 
   return (
-    <SidebarProvider defaultOpen={!isCollapsed}>
-      <AppSidebar user={session?.user} />
-      <SidebarInset>{children}</SidebarInset>
-    </SidebarProvider>
+    <SidebarWrapperClient
+      user={session?.user}
+      defaultOpen={!isCollapsed}
+    >
+      {children}
+    </SidebarWrapperClient>
   );
 }

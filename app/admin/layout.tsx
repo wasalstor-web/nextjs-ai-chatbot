@@ -2,9 +2,8 @@ import { cookies } from "next/headers";
 import Script from "next/script";
 import { Suspense } from "react";
 import { redirect } from "next/navigation";
-import { AdminSidebar } from "@/components/admin/admin-sidebar";
 import { DataStreamProviderWrapper } from "@/components/data-stream-provider-wrapper";
-import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
+import { AdminSidebarWrapperClient } from "@/components/admin-sidebar-wrapper";
 import { auth } from "../(auth)/auth";
 import { isAdmin } from "@/lib/auth/admin";
 
@@ -40,10 +39,12 @@ async function SidebarWrapper({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <SidebarProvider defaultOpen={!isCollapsed}>
-      <AdminSidebar user={session.user} />
-      <SidebarInset>{children}</SidebarInset>
-    </SidebarProvider>
+    <AdminSidebarWrapperClient
+      user={session.user}
+      defaultOpen={!isCollapsed}
+    >
+      {children}
+    </AdminSidebarWrapperClient>
   );
 }
 
