@@ -33,6 +33,10 @@
   - [Vercel Blob](https://vercel.com/storage/blob) for efficient file storage
 - [Auth.js](https://authjs.dev)
   - Simple and secure authentication
+- Advanced Search
+  - Quick search through chat history with keyboard shortcut (⌘K / Ctrl+K)
+  - Filter by date ranges (Today, Yesterday, Last 7 days, Last 30 days)
+  - Real-time search results with formatted timestamps
 
 ## Model Providers
 

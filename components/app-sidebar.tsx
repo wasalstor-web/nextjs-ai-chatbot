@@ -122,6 +122,7 @@ export function AppSidebar({ user }: { user: User | undefined }) {
                           onClick={() => setShowSearch(true)}
                           type="button"
                           variant="ghost"
+                          data-testid="search-button"
                         >
                           <Search className="h-4 w-4" />
                         </Button>

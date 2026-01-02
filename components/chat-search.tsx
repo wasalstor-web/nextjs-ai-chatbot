@@ -96,6 +96,7 @@ export function ChatSearch({ chats, open, onOpenChange }: ChatSearchProps) {
           placeholder="Search your chats..."
           value={searchQuery}
           onValueChange={setSearchQuery}
+          data-testid="chat-search-input"
         />
         
         {/* Date Filter Pills */}
