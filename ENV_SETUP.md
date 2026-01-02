@@ -21,9 +21,9 @@ SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
 - **مطلوب**: نعم (إذا لم تستخدم PostgreSQL مباشر)
 - **الوصف**: إعدادات Supabase
 - **مثال**: 
-  - URL: `https://gdfvktjkmdyvpewqycpd.supabase.co`
-  - Anon Key: JWT token مع role: "anon"
-  - Service Role Key: JWT token مع role: "service_role"
+  - URL: `https://your-project.supabase.co`
+  - Anon Key: احصل عليه من Supabase Dashboard → Settings → API
+  - Service Role Key: احصل عليه من Supabase Dashboard → Settings → API (⚠️ سري جداً!)
 
 ### 2. المصادقة (Authentication)
 ```env
