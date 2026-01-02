@@ -1,11 +1,15 @@
 import { config } from "dotenv";
+import { existsSync } from "node:fs";
 import { drizzle } from "drizzle-orm/postgres-js";
 import { migrate } from "drizzle-orm/postgres-js/migrator";
 import postgres from "postgres";
 
-config({
-  path: ".env.local",
-});
+// Only load .env.local in development (not needed on Vercel where env vars are available directly)
+if (existsSync(".env.local")) {
+  config({
+    path: ".env.local",
+  });
+}
 
 const runMigrate = async () => {
   if (!process.env.POSTGRES_URL) {
