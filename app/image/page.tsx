@@ -163,12 +163,15 @@ export default function ImagePage() {
                 <CardTitle>الصورة المُنشأة</CardTitle>
               </CardHeader>
               <CardContent>
-                <ImageEditor
-                  title={prompt}
-                  content={imageData}
-                  status="complete"
-                  isInline={false}
-                />
+                <div className="flex w-full flex-row items-center justify-center min-h-[400px]">
+                  <picture>
+                    <img
+                      alt={prompt}
+                      className="h-fit w-full max-w-[800px] rounded-md"
+                      src={`data:image/png;base64,${imageData}`}
+                    />
+                  </picture>
+                </div>
                 <div className="mt-4 flex gap-2">
                   <Button
                     variant="outline"
