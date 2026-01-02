@@ -1,4 +1,5 @@
 import { Suspense } from "react";
+import { Loader } from "@/components/elements/loader";
 
 export default function AdminFilesPage() {
   return (
@@ -9,7 +10,12 @@ export default function AdminFilesPage() {
           عرض وإدارة جميع الملفات المرفوعة في النظام
         </p>
       </div>
-      <Suspense fallback={<div className="flex h-dvh" />}>
+      <Suspense fallback={
+        <div className="flex h-64 flex-col items-center justify-center gap-4">
+          <Loader size={32} />
+          <p className="text-sm text-muted-foreground">جاري التحميل...</p>
+        </div>
+      }>
         <div className="rounded-lg border p-6">
           <p className="text-muted-foreground">قريباً: صفحة إدارة الملفات</p>
         </div>
