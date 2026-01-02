@@ -132,7 +132,11 @@ export function MarketplaceClientStandalone({ initialAgents }: { initialAgents: 
       return `<script src="https://mubasat-ai.vercel.app/widget.js"></script>\n<script>MubasatWidget.init({ agentId: '${id}' });</script>`;
     }
     if (integration.id === "subspace") {
-      return `{\n  "subspace_api_key": "YOUR_SUBSPACE_API_KEY",\n  "agent_id": "${id}",\n  "endpoint": "https://mubasat-api.vercel.app/api/agents/${id}/chat",\n  "webhook_url": "https://your-subspace-webhook.com"\n}`;
+      const webhookUrl = typeof window !== "undefined" 
+        ? `${window.location.origin}/api/subspace/webhook`
+        : "https://mubasat-api.vercel.app/api/subspace/webhook";
+      
+      return `{\n  "subspace_api_key": "YOUR_SUBSPACE_API_KEY",\n  "agent_id": "${id}",\n  "endpoint": "https://mubasat-api.vercel.app/api/agents/${id}/chat",\n  "webhook_url": "${webhookUrl}",\n  "send_url": "https://mubasat-api.vercel.app/api/subspace/send"\n}`;
     }
     return `fetch('https://mubasat-api.vercel.app/api/agents/${id}/chat', {\n  method: 'POST',\n  headers: { 'Content-Type': 'application/json' },\n  body: JSON.stringify({ message: 'مرحبا' })\n});`;
   };
