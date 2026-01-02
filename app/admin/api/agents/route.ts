@@ -1,14 +1,24 @@
 import { NextResponse } from "next/server";
 import { auth } from "@/app/(auth)/auth";
 import { getAllAgents } from "@/lib/db/agents-queries";
+import { isAdmin } from "@/lib/auth/admin";
 
 export async function GET() {
   const session = await auth();
 
-  // TODO: Add admin role check
-  // if (!session?.user || session.user.role !== "admin") {
-  //   return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  // }
+  // Check if user is authenticated
+  if (!session?.user) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  // Check if user has admin access
+  const userIsAdmin = await isAdmin();
+  if (!userIsAdmin) {
+    return NextResponse.json(
+      { error: "Forbidden: Admin access required" },
+      { status: 403 }
+    );
+  }
 
   try {
     const agents = await getAllAgents({ limit: 1000 });
