@@ -27,54 +27,52 @@ export default function ImagePage() {
     setImageData(null);
 
     try {
-      const response = await fetch("/api/chat", {
+      // Try the dedicated image generation API first
+      const response = await fetch("/api/image/generate", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          message: {
-            role: "user",
-            content: `ارسم صورة: ${prompt}`,
-          },
-          selectedChatModel: "grok-2-vision-1212",
+          prompt: prompt,
+          model: "grok-2-vision-1212",
         }),
       });
 
       if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        if (errorData.message) {
+          toast.info(errorData.message);
+        }
         throw new Error("فشل في إنشاء الصورة");
       }
 
-      const reader = response.body?.getReader();
-      if (!reader) {
-        throw new Error("لا يمكن قراءة الاستجابة");
-      }
-
-      let fullContent = "";
-      while (true) {
-        const { done, value } = await reader.read();
-        if (done) break;
-
-        const chunk = new TextDecoder().decode(value);
-        fullContent += chunk;
-
-        // البحث عن base64 image في الـ stream
-        const base64Match = chunk.match(/data:image\/[^;]+;base64,([A-Za-z0-9+/=]+)/);
-        if (base64Match) {
-          setImageData(base64Match[1]);
-          setStatus("complete");
-        }
-      }
-
-      if (!imageData) {
-        // محاولة استخراج الصورة من المحتوى الكامل
-        const base64Match = fullContent.match(/data:image\/[^;]+;base64,([A-Za-z0-9+/=]+)/);
-        if (base64Match) {
-          setImageData(base64Match[1]);
-          setStatus("complete");
+      const data = await response.json();
+      
+      if (data.success && data.image) {
+        // Handle different image formats
+        if (typeof data.image === "string") {
+          // Base64 string
+          setImageData(data.image.replace(/^data:image\/[^;]+;base64,/, ""));
+        } else if (data.image.base64) {
+          // Object with base64 property
+          setImageData(data.image.base64);
+        } else if (data.image.url) {
+          // URL - fetch and convert to base64
+          const imgResponse = await fetch(data.image.url);
+          const blob = await imgResponse.blob();
+          const reader = new FileReader();
+          reader.onloadend = () => {
+            const base64 = reader.result as string;
+            setImageData(base64.replace(/^data:image\/[^;]+;base64,/, ""));
+          };
+          reader.readAsDataURL(blob);
         } else {
-          throw new Error("لم يتم العثور على صورة في الاستجابة");
+          throw new Error("تنسيق الصورة غير مدعوم");
         }
+        setStatus("complete");
+      } else {
+        throw new Error(data.error || "لم يتم إنشاء الصورة");
       }
     } catch (error) {
       console.error("Error generating image:", error);
