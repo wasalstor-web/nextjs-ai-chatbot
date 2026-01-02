@@ -1,5 +1,7 @@
 import { MarketplaceClientStandalone } from "./marketplace-client";
 
+export const dynamic = "force-dynamic";
+
 export default async function MarketplacePage() {
   let agents: any[] = [];
 
