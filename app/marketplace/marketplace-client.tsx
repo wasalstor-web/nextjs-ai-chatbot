@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Bot, Search, Star, Users, Zap, TrendingUp, Package, Sparkles, X, MessageCircle, Globe, Code, Copy, Check, ExternalLink, Smartphone, RefreshCw } from "lucide-react";
+import { Bot, Search, Star, Users, Zap, TrendingUp, Package, Sparkles, X, MessageCircle, Globe, Code, Copy, Check, ExternalLink, Smartphone, RefreshCw, Rocket } from "lucide-react";
 
 interface Agent {
   id: string;
@@ -71,6 +71,15 @@ const integrationOptions: IntegrationOption[] = [
     bgColor: "bg-orange-500/20 hover:bg-orange-500/30 border border-orange-500/50",
     description: "دمج عبر API"
   },
+  {
+    id: "subspace",
+    name: "Subspace",
+    nameEn: "Subspace",
+    icon: Rocket,
+    color: "text-cyan-400",
+    bgColor: "bg-cyan-500/20 hover:bg-cyan-500/30 border border-cyan-500/50",
+    description: "ربط الوكيل مع Subspace"
+  },
 ];
 
 export function MarketplaceClientStandalone({ initialAgents }: { initialAgents: Agent[] }) {
@@ -121,6 +130,9 @@ export function MarketplaceClientStandalone({ initialAgents }: { initialAgents: 
     }
     if (integration.id === "website") {
       return `<script src="https://mubasat-ai.vercel.app/widget.js"></script>\n<script>MubasatWidget.init({ agentId: '${id}' });</script>`;
+    }
+    if (integration.id === "subspace") {
+      return `{\n  "subspace_api_key": "YOUR_SUBSPACE_API_KEY",\n  "agent_id": "${id}",\n  "endpoint": "https://mubasat-api.vercel.app/api/agents/${id}/chat",\n  "webhook_url": "https://your-subspace-webhook.com"\n}`;
     }
     return `fetch('https://mubasat-api.vercel.app/api/agents/${id}/chat', {\n  method: 'POST',\n  headers: { 'Content-Type': 'application/json' },\n  body: JSON.stringify({ message: 'مرحبا' })\n});`;
   };
