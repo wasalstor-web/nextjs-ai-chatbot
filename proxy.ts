@@ -69,7 +69,8 @@ export async function proxy(request: NextRequest) {
   });
 
   if (!token) {
-    const redirectUrl = encodeURIComponent(request.url);
+    const redirectPath = pathname + request.nextUrl.search;
+    const redirectUrl = encodeURIComponent(redirectPath);
 
     return NextResponse.redirect(
       new URL(`/api/auth/guest?redirectUrl=${redirectUrl}`, request.url)

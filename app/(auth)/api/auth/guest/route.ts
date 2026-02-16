@@ -5,7 +5,11 @@ import { isDevelopmentEnvironment } from "@/lib/constants";
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
-  const redirectUrl = searchParams.get("redirectUrl") || "/";
+  const redirectParam = searchParams.get("redirectUrl") || "/";
+  // Ensure redirectTo is a relative path (not localhost URL from reverse proxy)
+  const redirectTo = redirectParam.startsWith("http")
+    ? new URL(redirectParam).pathname
+    : redirectParam;
 
   const token = await getToken({
     req: request,
@@ -17,5 +21,5 @@ export async function GET(request: Request) {
     return NextResponse.redirect(new URL("/", request.url));
   }
 
-  return signIn("guest", { redirect: true, redirectTo: redirectUrl });
+  return signIn("guest", { redirect: true, redirectTo });
 }
