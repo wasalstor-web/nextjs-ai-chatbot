@@ -1,12 +1,12 @@
 import equal from "fast-deep-equal";
-import { memo } from "react";
+import { memo, useState } from "react";
 import { toast } from "sonner";
 import { useSWRConfig } from "swr";
 import { useCopyToClipboard } from "usehooks-ts";
 import type { Vote } from "@/lib/db/schema";
 import type { ChatMessage } from "@/lib/types";
 import { Action, Actions } from "./elements/actions";
-import { CopyIcon, PencilEditIcon, ThumbDownIcon, ThumbUpIcon } from "./icons";
+import { CopyIcon, PencilEditIcon, ThumbDownIcon, ThumbUpIcon, SpeakerIcon } from "./icons";
 
 export function PureMessageActions({
   chatId,
@@ -23,6 +23,8 @@ export function PureMessageActions({
 }) {
   const { mutate } = useSWRConfig();
   const [_, copyToClipboard] = useCopyToClipboard();
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [audio, setAudio] = useState<HTMLAudioElement | null>(null);
 
   if (isLoading) {
     return null;
@@ -42,6 +44,50 @@ export function PureMessageActions({
 
     await copyToClipboard(textFromParts);
     toast.success("Copied to clipboard!");
+  };
+
+  const handleSpeak = async () => {
+    if (!textFromParts) {
+      toast.error("لا يوجد نص للقراءة!");
+      return;
+    }
+
+    if (isPlaying && audio) {
+      audio.pause();
+      setIsPlaying(false);
+      setAudio(null);
+      return;
+    }
+
+    try {
+      setIsPlaying(true);
+      const response = await fetch("/api/speech", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ text: textFromParts, voice: "alloy" }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to generate speech");
+      }
+
+      const audioBlob = await response.blob();
+      const audioUrl = URL.createObjectURL(audioBlob);
+      const newAudio = new Audio(audioUrl);
+      
+      newAudio.onended = () => {
+        setIsPlaying(false);
+        setAudio(null);
+        URL.revokeObjectURL(audioUrl);
+      };
+
+      newAudio.play();
+      setAudio(newAudio);
+    } catch (error) {
+      console.error("Speech error:", error);
+      toast.error("فشل تشغيل الصوت");
+      setIsPlaying(false);
+    }
   };
 
   // User messages get edit (on hover) and copy actions
@@ -71,6 +117,10 @@ export function PureMessageActions({
     <Actions className="-ml-0.5">
       <Action onClick={handleCopy} tooltip="Copy">
         <CopyIcon />
+      </Action>
+
+      <Action onClick={handleSpeak} tooltip={isPlaying ? "إيقاف" : "استمع"}>
+        <SpeakerIcon />
       </Action>
 
       <Action

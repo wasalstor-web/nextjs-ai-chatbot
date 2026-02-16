@@ -1,4 +1,6 @@
 import { Suspense } from "react";
+import { UsersManagement } from "@/components/admin/users-management";
+import { AdminTableSkeleton } from "@/components/admin/admin-table-skeleton";
 
 export default function AdminUsersPage() {
   return (
@@ -9,10 +11,8 @@ export default function AdminUsersPage() {
           عرض وإدارة جميع المستخدمين في النظام
         </p>
       </div>
-      <Suspense fallback={<div className="flex h-dvh" />}>
-        <div className="rounded-lg border p-6">
-          <p className="text-muted-foreground">قريباً: صفحة إدارة المستخدمين</p>
-        </div>
+      <Suspense fallback={<AdminTableSkeleton />}>
+        <UsersManagement />
       </Suspense>
     </div>
   );

@@ -26,7 +26,7 @@ import {
   ModelSelectorLogo,
   ModelSelectorName,
   ModelSelectorTrigger,
-} from "@/components/ai-elements/model-selector";
+} from "@/components/elements/model-selector";
 import {
   chatModels,
   DEFAULT_CHAT_MODEL,
@@ -41,7 +41,7 @@ import {
   PromptInputToolbar,
   PromptInputTools,
 } from "./elements/prompt-input";
-import { ArrowUpIcon, PaperclipIcon, StopIcon } from "./icons";
+import { ArrowUpIcon, PaperclipIcon, StopIcon, MicIcon } from "./icons";
 import { PreviewAttachment } from "./preview-attachment";
 import { SuggestedActions } from "./suggested-actions";
 import { Button } from "./ui/button";
@@ -381,6 +381,10 @@ function PureMultimodalInput({
               selectedModelId={selectedModelId}
               status={status}
             />
+            <VoiceButton
+              status={status}
+              onTranscription={(text) => setInput((prev) => prev + text)}
+            />
             <ModelSelectorCompact
               onModelChange={onModelChange}
               selectedModelId={selectedModelId}
@@ -457,6 +461,99 @@ function PureAttachmentsButton({
 }
 
 const AttachmentsButton = memo(PureAttachmentsButton);
+
+function PureVoiceButton({
+  status,
+  onTranscription,
+}: {
+  status: UseChatHelpers<ChatMessage>["status"];
+  onTranscription: (text: string) => void;
+}) {
+  const [isRecording, setIsRecording] = useState(false);
+  const [mediaRecorder, setMediaRecorder] = useState<MediaRecorder | null>(null);
+  const chunksRef = useRef<Blob[]>([]);
+
+  const startRecording = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      const recorder = new MediaRecorder(stream, { mimeType: "audio/webm" });
+      chunksRef.current = [];
+
+      recorder.ondataavailable = (e) => {
+        if (e.data.size > 0) {
+          chunksRef.current.push(e.data);
+        }
+      };
+
+      recorder.onstop = async () => {
+        const audioBlob = new Blob(chunksRef.current, { type: "audio/webm" });
+        stream.getTracks().forEach((track) => track.stop());
+
+        // Send to transcription API
+        const formData = new FormData();
+        formData.append("audio", audioBlob, "recording.webm");
+
+        try {
+          const response = await fetch("/api/voice", {
+            method: "POST",
+            body: formData,
+          });
+
+          if (response.ok) {
+            const data = await response.json();
+            if (data.text) {
+              onTranscription(data.text);
+            }
+          } else {
+            toast.error("فشل تحويل الصوت إلى نص");
+          }
+        } catch (error) {
+          console.error("Transcription error:", error);
+          toast.error("حدث خطأ أثناء تحويل الصوت");
+        }
+      };
+
+      recorder.start();
+      setMediaRecorder(recorder);
+      setIsRecording(true);
+    } catch (error) {
+      console.error("Error accessing microphone:", error);
+      toast.error("لا يمكن الوصول إلى الميكروفون");
+    }
+  };
+
+  const stopRecording = () => {
+    if (mediaRecorder && isRecording) {
+      mediaRecorder.stop();
+      setIsRecording(false);
+      setMediaRecorder(null);
+    }
+  };
+
+  return (
+    <Button
+      className={cn(
+        "aspect-square h-8 rounded-lg p-1 transition-colors hover:bg-accent",
+        isRecording && "bg-red-500 text-white hover:bg-red-600"
+      )}
+      data-testid="voice-button"
+      disabled={status !== "ready"}
+      onClick={(event) => {
+        event.preventDefault();
+        if (isRecording) {
+          stopRecording();
+        } else {
+          startRecording();
+        }
+      }}
+      variant="ghost"
+    >
+      <MicIcon size={14} style={{ width: 14, height: 14 }} />
+    </Button>
+  );
+}
+
+const VoiceButton = memo(PureVoiceButton);
 
 function PureModelSelectorCompact({
   selectedModelId,

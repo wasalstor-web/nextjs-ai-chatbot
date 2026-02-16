@@ -37,6 +37,11 @@ yarn-error.log*
 .vercel
 .env*.local
 
+# Cloudflare
+.open-next
+.dev.vars
+cloudflare-env.d.ts
+
 # Playwright
 /test-results/
 /playwright-report/

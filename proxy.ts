@@ -17,6 +17,27 @@ export async function proxy(request: NextRequest) {
     return NextResponse.next();
   }
 
+  // Public pages (builder output) — no auth required
+  if (pathname.startsWith("/p/")) {
+    return NextResponse.next();
+  }
+
+  // Builder routes require admin authentication
+  if (pathname.startsWith("/builder")) {
+    const builderToken = await getToken({
+      req: request,
+      secret: process.env.AUTH_SECRET,
+      secureCookie: !isDevelopmentEnvironment,
+    });
+
+    if (!builderToken) {
+      return NextResponse.redirect(new URL("/login", request.url));
+    }
+
+    // Role checked server-side in layout.tsx via isAdmin()
+    return NextResponse.next();
+  }
+
   const token = await getToken({
     req: request,
     secret: process.env.AUTH_SECRET,

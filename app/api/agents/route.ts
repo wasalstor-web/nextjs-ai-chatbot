@@ -1,37 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
-
-// In-memory storage for agents
-const agentsStore: Map<string, any> = new Map();
-
-// Sample agents
-const sampleAgents = [
-  {
-    id: "agent_sample_1",
-    name: "كاتب المحتوى الذكي",
-    description: "إنشاء مقالات ومحتوى تسويقي احترافي",
-    category: "creative",
-    status: "published",
-    capabilities: ["مقالات", "إعلانات"],
-    rating: 4.9,
-    usageCount: 12000,
-    source: "mubasat",
-  },
-  {
-    id: "agent_sample_2",
-    name: "مساعد البرمجة",
-    description: "كتابة وتصحيح الأكواد",
-    category: "coding",
-    status: "published",
-    capabilities: ["كتابة الأكواد", "تصحيح"],
-    rating: 4.9,
-    usageCount: 5000,
-    source: "mubasat",
-  },
-];
-
-for (const agent of sampleAgents) {
-  agentsStore.set(agent.id, agent);
-}
+import {
+  getPublishedAgents,
+  createAgent,
+} from "@/lib/db/agents-queries";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -44,33 +15,54 @@ export async function OPTIONS() {
 }
 
 export async function GET() {
-  const agents = Array.from(agentsStore.values()).filter(a => a.status === "published");
-  return NextResponse.json({ success: true, agents, count: agents.length }, { headers: corsHeaders });
+  try {
+    const agents = await getPublishedAgents({ limit: 100 });
+    return NextResponse.json(
+      { success: true, agents, count: agents.length },
+      { headers: corsHeaders }
+    );
+  } catch (error) {
+    console.error("Failed to fetch agents:", error);
+    return NextResponse.json(
+      { success: false, agents: [], count: 0, error: "Failed to fetch agents" },
+      { status: 500, headers: corsHeaders }
+    );
+  }
 }
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
     if (!body.name) {
-      return NextResponse.json({ success: false, error: "Name required" }, { status: 400, headers: corsHeaders });
+      return NextResponse.json(
+        { success: false, error: "Name required" },
+        { status: 400, headers: corsHeaders }
+      );
     }
-    
-    const agentId = "agent_" + Date.now();
-    const agent = {
-      id: agentId,
+
+    const agent = await createAgent({
       name: body.name,
       description: body.description || "",
       category: body.category || "assistant",
       status: body.autoPublish ? "published" : "draft",
       capabilities: body.capabilities || [],
-      rating: 5.0,
-      usageCount: 0,
-      source: body.source || "nagra-ai",
-    };
-    
-    agentsStore.set(agentId, agent);
-    return NextResponse.json({ success: true, agent }, { status: 201, headers: corsHeaders });
-  } catch {
-    return NextResponse.json({ success: false, error: "Error" }, { status: 500, headers: corsHeaders });
+      systemPrompt: body.systemPrompt,
+      modelId: body.modelId || "gpt-4o",
+      apiEndpoint: body.apiEndpoint,
+      iconUrl: body.iconUrl,
+      source: body.source || "api",
+      price: body.price || 0,
+    });
+
+    return NextResponse.json(
+      { success: true, agent },
+      { status: 201, headers: corsHeaders }
+    );
+  } catch (error) {
+    console.error("Failed to create agent:", error);
+    return NextResponse.json(
+      { success: false, error: "Failed to create agent" },
+      { status: 500, headers: corsHeaders }
+    );
   }
 }

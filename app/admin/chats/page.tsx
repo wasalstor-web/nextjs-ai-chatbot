@@ -1,4 +1,6 @@
 import { Suspense } from "react";
+import { ChatsManagement } from "@/components/admin/chats-management";
+import { AdminTableSkeleton } from "@/components/admin/admin-table-skeleton";
 
 export default function AdminChatsPage() {
   return (
@@ -9,10 +11,8 @@ export default function AdminChatsPage() {
           عرض وإدارة جميع المحادثات في النظام
         </p>
       </div>
-      <Suspense fallback={<div className="flex h-dvh" />}>
-        <div className="rounded-lg border p-6">
-          <p className="text-muted-foreground">قريباً: صفحة إدارة المحادثات</p>
-        </div>
+      <Suspense fallback={<AdminTableSkeleton />}>
+        <ChatsManagement />
       </Suspense>
     </div>
   );

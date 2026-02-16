@@ -14,6 +14,7 @@ import {
   Settings,
   Shield,
   Package,
+  ShoppingBag,
 } from "lucide-react";
 import { SidebarUserNav } from "@/components/sidebar-user-nav";
 import {
@@ -35,6 +36,11 @@ const menuItems = [
     title: "لوحة التحكم",
     icon: LayoutDashboard,
     href: "/admin",
+  },
+  {
+    title: "المتاجر",
+    icon: ShoppingBag,
+    href: "/admin/stores",
   },
   {
     title: "الوكلاء",

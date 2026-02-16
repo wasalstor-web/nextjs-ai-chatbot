@@ -1,4 +1,5 @@
 import { Suspense } from "react";
+import { AnalyticsDashboard } from "@/components/admin/analytics-dashboard";
 
 export default function AdminAnalyticsPage() {
   return (
@@ -9,10 +10,19 @@ export default function AdminAnalyticsPage() {
           عرض الإحصائيات والتحليلات التفصيلية للنظام
         </p>
       </div>
-      <Suspense fallback={<div className="flex h-dvh" />}>
-        <div className="rounded-lg border p-6">
-          <p className="text-muted-foreground">قريباً: صفحة الإحصائيات والتحليلات</p>
-        </div>
+      <Suspense
+        fallback={
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {Array.from({ length: 6 }).map((_, i) => (
+              <div
+                key={`analytics-fallback-${i}`}
+                className="h-24 animate-pulse rounded-lg border bg-muted/40"
+              />
+            ))}
+          </div>
+        }
+      >
+        <AnalyticsDashboard />
       </Suspense>
     </div>
   );

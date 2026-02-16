@@ -1,4 +1,3 @@
-import { geolocation } from "@vercel/functions";
 import {
   convertToModelMessages,
   createUIMessageStream,
@@ -12,6 +11,32 @@ import {
   createResumableStreamContext,
   type ResumableStreamContext,
 } from "resumable-stream";
+
+// Cloudflare-compatible geolocation extraction
+function getGeolocation(request: Request) {
+  // Try Cloudflare headers first
+  const cfLat = request.headers.get("cf-iplatitude");
+  const cfLon = request.headers.get("cf-iplongitude");
+  const cfCity = request.headers.get("cf-ipcity");
+  const cfCountry = request.headers.get("cf-ipcountry");
+
+  if (cfLat || cfCountry) {
+    return {
+      latitude: cfLat || undefined,
+      longitude: cfLon || undefined,
+      city: cfCity ? decodeURIComponent(cfCity) : undefined,
+      country: cfCountry || undefined,
+    };
+  }
+
+  // Fallback: try Vercel headers
+  return {
+    latitude: request.headers.get("x-vercel-ip-latitude") || undefined,
+    longitude: request.headers.get("x-vercel-ip-longitude") || undefined,
+    city: request.headers.get("x-vercel-ip-city") ? decodeURIComponent(request.headers.get("x-vercel-ip-city")!) : undefined,
+    country: request.headers.get("x-vercel-ip-country") || undefined,
+  };
+}
 import { auth, type UserType } from "@/app/(auth)/auth";
 import { entitlementsByUserType } from "@/lib/ai/entitlements";
 import { type RequestHints, systemPrompt } from "@/lib/ai/prompts";
@@ -127,7 +152,7 @@ export async function POST(request: Request) {
       ? (messages as ChatMessage[])
       : [...convertToUIMessages(messagesFromDb), message as ChatMessage];
 
-    const { longitude, latitude, city, country } = geolocation(request);
+    const { longitude, latitude, city, country } = getGeolocation(request);
 
     const requestHints: RequestHints = {
       longitude,
@@ -282,13 +307,11 @@ export async function POST(request: Request) {
 
     return new Response(stream.pipeThrough(new JsonToSseTransformStream()));
   } catch (error) {
-    const vercelId = request.headers.get("x-vercel-id");
-
     if (error instanceof ChatSDKError) {
       return error.toResponse();
     }
 
-    // Check for Vercel AI Gateway credit card error
+    // Check for AI Gateway credit card error
     if (
       error instanceof Error &&
       error.message?.includes(
@@ -298,7 +321,7 @@ export async function POST(request: Request) {
       return new ChatSDKError("bad_request:activate_gateway").toResponse();
     }
 
-    console.error("Unhandled error in chat API:", error, { vercelId });
+    console.error("Unhandled error in chat API:", error);
     return new ChatSDKError("offline:chat").toResponse();
   }
 }

@@ -38,9 +38,9 @@ export function AppSidebar({ user }: { user: User | undefined }) {
   const router = useRouter();
   const { setOpenMobile } = useSidebar();
   const { mutate } = useSWRConfig();
-  const [showDeleteAllDialog, setShowDeleteAllDialog] = useState(false);
+  const [showdeleteDialog, setShowdeleteDialog] = useState(false);
 
-  const handleDeleteAll = () => {
+  const handledelete = () => {
     const deletePromise = fetch("/api/history", {
       method: "DELETE",
     });
@@ -49,7 +49,7 @@ export function AppSidebar({ user }: { user: User | undefined }) {
       loading: "Deleting all chats...",
       success: () => {
         mutate(unstable_serialize(getChatHistoryPaginationKey));
-        setShowDeleteAllDialog(false);
+        setShowdeleteDialog(false);
         router.replace("/");
         router.refresh();
         return "All chats deleted successfully";
@@ -81,7 +81,7 @@ export function AppSidebar({ user }: { user: User | undefined }) {
                     <TooltipTrigger asChild>
                       <Button
                         className="h-8 p-1 md:h-fit md:p-2"
-                        onClick={() => setShowDeleteAllDialog(true)}
+                        onClick={() => setShowdeleteDialog(true)}
                         type="button"
                         variant="ghost"
                       >
@@ -123,8 +123,8 @@ export function AppSidebar({ user }: { user: User | undefined }) {
       </Sidebar>
 
       <AlertDialog
-        onOpenChange={setShowDeleteAllDialog}
-        open={showDeleteAllDialog}
+        onOpenChange={setShowdeleteDialog}
+        open={showdeleteDialog}
       >
         <AlertDialogContent>
           <AlertDialogHeader>
@@ -136,7 +136,7 @@ export function AppSidebar({ user }: { user: User | undefined }) {
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction onClick={handleDeleteAll}>
+            <AlertDialogAction onClick={handledelete}>
               Delete All
             </AlertDialogAction>
           </AlertDialogFooter>

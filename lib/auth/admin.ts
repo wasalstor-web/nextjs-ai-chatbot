@@ -1,27 +1,39 @@
 import { auth } from "@/app/(auth)/auth";
+import { eq } from "drizzle-orm";
+import { drizzle } from "drizzle-orm/postgres-js";
+import postgres from "postgres";
+import { user } from "@/lib/db/schema";
+
+const client = postgres(process.env.POSTGRES_URL!);
+const db = drizzle(client);
 
 /**
- * Check if the current user is an admin
- * For now, we'll use email-based check. In production, you should add a role field to the User table.
+ * Check if the current user is an admin using DB role field
  */
 export async function isAdmin(): Promise<boolean> {
   const session = await auth();
-  
-  if (!session?.user) {
+
+  if (!session?.user?.id) {
     return false;
   }
 
-  // TODO: Replace with proper role-based check after adding role field to User table
-  // For now, check if email matches admin emails (you can configure this via env variable)
+  // Check admin emails from env (fast path)
   const adminEmails = process.env.ADMIN_EMAILS?.split(",").map((e) => e.trim()) || [];
-  
   if (session.user.email && adminEmails.includes(session.user.email)) {
     return true;
   }
 
-  // Fallback: Check if user type is regular (for now, only regular users can be admins)
-  // This is a temporary solution until role field is added
-  return session.user.type === "regular";
+  // Check role in DB
+  try {
+    const [dbUser] = await db
+      .select({ role: user.role })
+      .from(user)
+      .where(eq(user.id, session.user.id));
+
+    return dbUser?.role === "admin" || dbUser?.role === "super_admin";
+  } catch {
+    return false;
+  }
 }
 
 /**
@@ -29,7 +41,7 @@ export async function isAdmin(): Promise<boolean> {
  */
 export async function requireAdmin() {
   const isUserAdmin = await isAdmin();
-  
+
   if (!isUserAdmin) {
     throw new Error("Unauthorized: Admin access required");
   }

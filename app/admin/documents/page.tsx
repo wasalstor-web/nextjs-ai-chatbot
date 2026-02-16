@@ -1,4 +1,6 @@
 import { Suspense } from "react";
+import { DocumentsManagement } from "@/components/admin/documents-management";
+import { AdminTableSkeleton } from "@/components/admin/admin-table-skeleton";
 
 export default function AdminDocumentsPage() {
   return (
@@ -9,10 +11,8 @@ export default function AdminDocumentsPage() {
           عرض وإدارة جميع المستندات في النظام
         </p>
       </div>
-      <Suspense fallback={<div className="flex h-dvh" />}>
-        <div className="rounded-lg border p-6">
-          <p className="text-muted-foreground">قريباً: صفحة إدارة المستندات</p>
-        </div>
+      <Suspense fallback={<AdminTableSkeleton />}>
+        <DocumentsManagement />
       </Suspense>
     </div>
   );

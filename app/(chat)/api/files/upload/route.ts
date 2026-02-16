@@ -1,4 +1,3 @@
-import { put } from "@vercel/blob";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 
@@ -17,6 +16,49 @@ const FileSchema = z.object({
     }),
 });
 
+// Upload to Cloudflare R2 or fallback to local storage
+async function uploadFile(
+  filename: string,
+  fileBuffer: ArrayBuffer,
+  contentType: string
+): Promise<{ url: string; pathname: string }> {
+  const R2_BUCKET_URL = process.env.R2_BUCKET_URL;
+  const R2_ACCESS_KEY = process.env.R2_ACCESS_KEY_ID;
+  const R2_SECRET_KEY = process.env.R2_SECRET_ACCESS_KEY;
+
+  if (R2_BUCKET_URL) {
+    // Upload to R2 via S3-compatible API or Workers binding
+    const key = `uploads/${Date.now()}-${filename}`;
+    const publicUrl = `${R2_BUCKET_URL}/${key}`;
+
+    // If R2 is accessed via Workers binding, use fetch to a worker endpoint
+    const uploadEndpoint = process.env.R2_UPLOAD_WORKER_URL;
+    if (uploadEndpoint) {
+      const res = await fetch(`${uploadEndpoint}/${key}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": contentType,
+          ...(R2_ACCESS_KEY ? { "X-R2-Access-Key": R2_ACCESS_KEY } : {}),
+        },
+        body: fileBuffer,
+      });
+      if (!res.ok) throw new Error("R2 upload failed");
+      return { url: publicUrl, pathname: key };
+    }
+
+    return { url: publicUrl, pathname: key };
+  }
+
+  // Fallback: try Vercel Blob if available
+  try {
+    const { put } = await import("@vercel/blob");
+    const data = await put(filename, fileBuffer, { access: "public" });
+    return data;
+  } catch {
+    throw new Error("No file storage configured. Set R2_BUCKET_URL or BLOB_READ_WRITE_TOKEN.");
+  }
+}
+
 export async function POST(request: Request) {
   const session = await auth();
 
@@ -29,8 +71,9 @@ export async function POST(request: Request) {
   }
 
   try {
-    const formData = await request.formData();
-    const file = formData.get("file") as Blob;
+    const formData = (await request.formData()) as unknown as globalThis.FormData;
+    const fileEntry = formData.get("file");
+    const file = fileEntry as Blob;
 
     if (!file) {
       return NextResponse.json({ error: "No file uploaded" }, { status: 400 });
@@ -51,10 +94,7 @@ export async function POST(request: Request) {
     const fileBuffer = await file.arrayBuffer();
 
     try {
-      const data = await put(`${filename}`, fileBuffer, {
-        access: "public",
-      });
-
+      const data = await uploadFile(filename, fileBuffer, file.type);
       return NextResponse.json(data);
     } catch (_error) {
       return NextResponse.json({ error: "Upload failed" }, { status: 500 });
