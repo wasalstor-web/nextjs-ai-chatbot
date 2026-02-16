@@ -1,3 +1,44 @@
 {
-  "recommendations": ["biomejs.biome"]
+  "recommendations": [
+    // 🔧 Essential - Code Quality
+    "biomejs.biome",
+    "dbaeumer.vscode-eslint",
+
+    // 🎨 Styling & Design
+    "bradlc.vscode-tailwindcss",
+
+    // ⚛️ React & Next.js
+    "dsznajder.es7-react-js-snippets",
+
+    // 📦 Database
+    "cweijan.vscode-database-client2",
+
+    // 🤖 AI Assistant
+    "github.copilot",
+    "github.copilot-chat",
+
+    // 🔍 Code Navigation
+    "christian-kohler.path-intellisense",
+    "streetsidesoftware.code-spell-checker",
+
+    // 🎭 Git & Version Control
+    "eamodio.gitlens",
+    "mhutchie.git-graph",
+
+    // 📝 Markdown
+    "yzhang.markdown-all-in-one",
+
+    // 🖼️ Icons & Themes
+    "pkief.material-icon-theme",
+
+    // 🔒 Security
+    "snyk-security.snyk-vulnerability-scanner",
+
+    // ⚡ Developer Experience
+    "formulahendry.auto-rename-tag",
+    "naumovs.color-highlight"
+  ],
+  "unwantedRecommendations": [
+    "esbenp.prettier-vscode"
+  ]
 }

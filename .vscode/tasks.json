@@ -1,0 +1,72 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "🚀 Dev Server",
+      "type": "shell",
+      "command": "pnpm dev",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": [],
+      "detail": "Start development server with Turbopack"
+    },
+    {
+      "label": "📦 Build",
+      "type": "shell",
+      "command": "pnpm build",
+      "group": "build",
+      "problemMatcher": [],
+      "detail": "Build for production"
+    },
+    {
+      "label": "🔍 Lint",
+      "type": "shell",
+      "command": "pnpm lint",
+      "group": "test",
+      "problemMatcher": [],
+      "detail": "Check code quality"
+    },
+    {
+      "label": "✨ Format",
+      "type": "shell",
+      "command": "pnpm format",
+      "group": "test",
+      "problemMatcher": [],
+      "detail": "Fix code formatting"
+    },
+    {
+      "label": "🧪 Test",
+      "type": "shell",
+      "command": "pnpm test",
+      "group": "test",
+      "problemMatcher": [],
+      "detail": "Run Playwright tests"
+    },
+    {
+      "label": "🗄️ DB Migrate",
+      "type": "shell",
+      "command": "pnpm db:migrate",
+      "group": "none",
+      "problemMatcher": [],
+      "detail": "Run database migrations"
+    },
+    {
+      "label": "🖥️ DB Studio",
+      "type": "shell",
+      "command": "pnpm db:studio",
+      "group": "none",
+      "problemMatcher": [],
+      "detail": "Open Drizzle Studio"
+    },
+    {
+      "label": "☁️ Deploy to Cloudflare",
+      "type": "shell",
+      "command": "pnpm cf:deploy",
+      "group": "none",
+      "problemMatcher": [],
+      "detail": "Deploy to Cloudflare Pages"
+    }
+  ]
+}

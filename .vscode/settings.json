@@ -1,5 +1,46 @@
 {
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  // ═══════════════════════════════════════════════════════════
+  // 🎨 Editor Settings
+  // ═══════════════════════════════════════════════════════════
+  "editor.defaultFormatter": "biomejs.biome",
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": true,
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "editor.wordWrap": "on",
+  "editor.minimap.enabled": false,
+  "editor.bracketPairColorization.enabled": true,
+  "editor.guides.bracketPairs": true,
+  "editor.linkedEditing": true,
+  "editor.smoothScrolling": true,
+  "editor.cursorBlinking": "smooth",
+  "editor.cursorSmoothCaretAnimation": "on",
+  "editor.stickyScroll.enabled": true,
+  "editor.inlineSuggest.enabled": true,
+
+  // ═══════════════════════════════════════════════════════════
+  // 📁 File & Explorer Settings
+  // ═══════════════════════════════════════════════════════════
+  "files.autoSave": "afterDelay",
+  "files.autoSaveDelay": 1000,
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+  "files.exclude": {
+    "**/.git": true,
+    "**/.next": true,
+    "**/node_modules": true,
+    "**/.wrangler": true,
+    "**/.open-next": true,
+    "**/nextjs-ai-chatbot-mobile": true,
+    "**/mobile-app": true,
+    "**/.expo": true
+  },
+  "explorer.confirmDelete": false,
+  "explorer.compactFolders": false,
+
+  // ═══════════════════════════════════════════════════════════
+  // 🔧 Language-Specific Formatters
+  // ═══════════════════════════════════════════════════════════
   "[javascript]": {
     "editor.defaultFormatter": "biomejs.biome"
   },
@@ -21,17 +62,48 @@
   "[css]": {
     "editor.defaultFormatter": "biomejs.biome"
   },
-  "[graphql]": {
-    "editor.defaultFormatter": "biomejs.biome"
+  "[markdown]": {
+    "editor.wordWrap": "on",
+    "editor.quickSuggestions": false
   },
+
+  // ═══════════════════════════════════════════════════════════
+  // 🛠️ TypeScript & JavaScript
+  // ═══════════════════════════════════════════════════════════
   "typescript.tsdk": "node_modules/typescript/lib",
-  "editor.formatOnSave": true,
-  "editor.formatOnPaste": true,
-  "emmet.showExpandedAbbreviation": "never",
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "typescript.preferences.importModuleSpecifier": "non-relative",
+  "typescript.suggest.autoImports": true,
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "javascript.updateImportsOnFileMove.enabled": "always",
+
+  // ═══════════════════════════════════════════════════════════
+  // 🔍 Code Actions & Linting
+  // ═══════════════════════════════════════════════════════════
   "editor.codeActionsOnSave": {
     "source.fixAll.biome": "explicit",
     "source.organizeImports.biome": "explicit"
   },
+  "emmet.showExpandedAbbreviation": "never",
+  "emmet.excludeLanguages": ["markdown"],
+
+  // ═══════════════════════════════════════════════════════════
+  // 🎯 Tailwind CSS
+  // ═══════════════════════════════════════════════════════════
+  "tailwindCSS.experimental.classRegex": [
+    ["cn\\(([^)]*)\\)", "[\"'`]([^\"'`]*)[\"'`]"],
+    ["cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*)[\"'`]"],
+    ["clsx\\(([^)]*)\\)", "[\"'`]([^\"'`]*)[\"'`]"]
+  ],
+  "tailwindCSS.emmetCompletions": true,
+  "tailwindCSS.includeLanguages": {
+    "typescript": "javascript",
+    "typescriptreact": "javascript"
+  },
+
+  // ═══════════════════════════════════════════════════════════
+  // 🤖 GitHub Copilot
+  // ═══════════════════════════════════════════════════════════
   "github.copilot.enable": {
     "*": true,
     "yaml": true,
@@ -41,5 +113,23 @@
     "javascript": true,
     "typescriptreact": true,
     "javascriptreact": true
-  }
+  },
+
+  // ═══════════════════════════════════════════════════════════
+  // 🔎 Search Settings
+  // ═══════════════════════════════════════════════════════════
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/.next": true,
+    "**/pnpm-lock.yaml": true,
+    "**/.git": true,
+    "**/.wrangler": true
+  },
+
+  // ═══════════════════════════════════════════════════════════
+  // 📺 Terminal Settings
+  // ═══════════════════════════════════════════════════════════
+  "terminal.integrated.defaultProfile.windows": "PowerShell",
+  "terminal.integrated.fontFamily": "Cascadia Code, Consolas, monospace",
+  "terminal.integrated.fontSize": 14
 }

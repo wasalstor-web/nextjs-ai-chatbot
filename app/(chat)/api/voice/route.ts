@@ -3,9 +3,12 @@ import OpenAI from "openai";
 import { auth } from "@/app/(auth)/auth";
 import { ChatSDKError } from "@/lib/errors";
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
+// Lazy initialization to avoid build-time errors
+function getOpenAIClient() {
+  return new OpenAI({
+    apiKey: process.env.OPENAI_API_KEY,
+  });
+}
 
 export async function POST(request: Request) {
   const session = await auth();
@@ -26,6 +29,7 @@ export async function POST(request: Request) {
     }
 
     // Transcribe audio using OpenAI Whisper
+    const openai = getOpenAIClient();
     const transcription = await openai.audio.transcriptions.create({
       file: audioFile,
       model: "whisper-1",
