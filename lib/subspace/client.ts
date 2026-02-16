@@ -28,13 +28,15 @@ export class SubspaceClient {
   /**
    * Send a message to Subspace channel
    */
-  async sendMessage(message: SubspaceMessage): Promise<{ success: boolean; data?: unknown; error?: string }> {
+  async sendMessage(
+    message: SubspaceMessage
+  ): Promise<{ success: boolean; data?: unknown; error?: string }> {
     try {
       const response = await fetch(`${this.apiUrl}/messages`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${this.apiKey}`,
+          Authorization: `Bearer ${this.apiKey}`,
         },
         body: JSON.stringify({
           channel_id: message.channel_id,
@@ -70,7 +72,11 @@ export class SubspaceClient {
   /**
    * Verify webhook signature
    */
-  verifyWebhookSignature(signature: string, payload: string, secret: string): boolean {
+  verifyWebhookSignature(
+    signature: string,
+    payload: string,
+    secret: string
+  ): boolean {
     // TODO: Implement signature verification based on Subspace documentation
     // For now, return true if signature exists
     return Boolean(signature);
@@ -88,7 +94,8 @@ export class SubspaceClient {
   }): Promise<{ success: boolean; response?: unknown; error?: string }> {
     if (webhookData.event_type === "message.received") {
       // Extract message text
-      const messageText = webhookData.message?.text || webhookData.message?.content || "";
+      const messageText =
+        webhookData.message?.text || webhookData.message?.content || "";
 
       // Forward to agent chat endpoint
       const agentId = webhookData.agent_id;
@@ -99,7 +106,8 @@ export class SubspaceClient {
         };
       }
 
-      const appUrl = process.env.NEXT_PUBLIC_APP_URL || "https://mubasat-api.vercel.app";
+      const appUrl =
+        process.env.NEXT_PUBLIC_APP_URL || "https://mubasat-api.vercel.app";
       const agentChatUrl = `${appUrl}/api/agents/${agentId}/chat`;
 
       try {
@@ -125,7 +133,10 @@ export class SubspaceClient {
       } catch (error) {
         return {
           success: false,
-          error: error instanceof Error ? error.message : "Failed to process webhook",
+          error:
+            error instanceof Error
+              ? error.message
+              : "Failed to process webhook",
         };
       }
     }
@@ -151,4 +162,3 @@ export function createSubspaceClient(): SubspaceClient | null {
     webhookUrl: process.env.SUBSPACE_WEBHOOK_URL,
   });
 }
-

@@ -122,10 +122,7 @@ export function AppSidebar({ user }: { user: User | undefined }) {
         <SidebarFooter>{user && <SidebarUserNav user={user} />}</SidebarFooter>
       </Sidebar>
 
-      <AlertDialog
-        onOpenChange={setShowdeleteDialog}
-        open={showdeleteDialog}
-      >
+      <AlertDialog onOpenChange={setShowdeleteDialog} open={showdeleteDialog}>
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>Delete all chats?</AlertDialogTitle>

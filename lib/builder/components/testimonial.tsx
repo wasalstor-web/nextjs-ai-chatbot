@@ -24,25 +24,25 @@ export const Testimonial: ComponentConfig<TestimonialProps> = {
   },
   render: ({ quote, author, role, avatar }) => {
     return (
-      <blockquote className="rounded-lg border bg-card p-6 space-y-4">
-        <p className="text-lg italic text-foreground leading-relaxed">
+      <blockquote className="space-y-4 rounded-lg border bg-card p-6">
+        <p className="text-foreground text-lg italic leading-relaxed">
           &ldquo;{quote}&rdquo;
         </p>
         <footer className="flex items-center gap-3">
           {avatar ? (
             <img
-              src={avatar}
               alt={author}
               className="size-10 rounded-full object-cover"
+              src={avatar}
             />
           ) : (
-            <div className="flex size-10 items-center justify-center rounded-full bg-primary text-primary-foreground text-sm font-bold">
+            <div className="flex size-10 items-center justify-center rounded-full bg-primary font-bold text-primary-foreground text-sm">
               {author.charAt(0)}
             </div>
           )}
           <div>
-            <p className="text-sm font-semibold">{author}</p>
-            <p className="text-xs text-muted-foreground">{role}</p>
+            <p className="font-semibold text-sm">{author}</p>
+            <p className="text-muted-foreground text-xs">{role}</p>
           </div>
         </footer>
       </blockquote>

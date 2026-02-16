@@ -33,10 +33,13 @@ function getGeolocation(request: Request) {
   return {
     latitude: request.headers.get("x-vercel-ip-latitude") || undefined,
     longitude: request.headers.get("x-vercel-ip-longitude") || undefined,
-    city: request.headers.get("x-vercel-ip-city") ? decodeURIComponent(request.headers.get("x-vercel-ip-city")!) : undefined,
+    city: request.headers.get("x-vercel-ip-city")
+      ? decodeURIComponent(request.headers.get("x-vercel-ip-city")!)
+      : undefined,
     country: request.headers.get("x-vercel-ip-country") || undefined,
   };
 }
+
 import { auth, type UserType } from "@/app/(auth)/auth";
 import { entitlementsByUserType } from "@/lib/ai/entitlements";
 import { type RequestHints, systemPrompt } from "@/lib/ai/prompts";

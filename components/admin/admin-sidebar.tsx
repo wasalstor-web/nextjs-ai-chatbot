@@ -1,21 +1,21 @@
 "use client";
 
+import {
+  BarChart3,
+  Bot,
+  FileText,
+  LayoutDashboard,
+  MessageSquare,
+  Package,
+  Settings,
+  Shield,
+  ShoppingBag,
+  Upload,
+  Users,
+} from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { User } from "next-auth";
-import {
-  LayoutDashboard,
-  Bot,
-  Users,
-  MessageSquare,
-  FileText,
-  Upload,
-  BarChart3,
-  Settings,
-  Shield,
-  Package,
-  ShoppingBag,
-} from "lucide-react";
 import { SidebarUserNav } from "@/components/sidebar-user-nav";
 import {
   Sidebar,
@@ -97,10 +97,7 @@ export function AdminSidebar({ user }: { user: User | undefined }) {
       <SidebarHeader>
         <SidebarMenu>
           <div className="flex flex-row items-center justify-between">
-            <Link
-              className="flex flex-row items-center gap-3"
-              href="/admin"
-            >
+            <Link className="flex flex-row items-center gap-3" href="/admin">
               <span className="cursor-pointer rounded-md px-2 font-semibold text-lg hover:bg-muted">
                 لوحة الإدارة
               </span>
@@ -115,16 +112,19 @@ export function AdminSidebar({ user }: { user: User | undefined }) {
             <SidebarMenu>
               {menuItems.map((item) => {
                 const Icon = item.icon;
-                const isActive = pathname === item.href || pathname?.startsWith(`${item.href}/`);
+                const isActive =
+                  pathname === item.href ||
+                  pathname?.startsWith(`${item.href}/`);
                 return (
                   <SidebarMenuItem key={item.href}>
                     <SidebarMenuButton
                       asChild
-                      isActive={isActive}
                       className={cn(
                         "w-full justify-start",
-                        isActive && "bg-sidebar-accent text-sidebar-accent-foreground"
+                        isActive &&
+                          "bg-sidebar-accent text-sidebar-accent-foreground"
                       )}
+                      isActive={isActive}
                     >
                       <Link href={item.href}>
                         <Icon className="ml-2 h-4 w-4" />
@@ -142,4 +142,3 @@ export function AdminSidebar({ user }: { user: User | undefined }) {
     </Sidebar>
   );
 }
-

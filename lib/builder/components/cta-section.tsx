@@ -43,33 +43,31 @@ export const CTASection: ComponentConfig<CTASectionProps> = {
     return (
       <section
         className={cn(
-          "w-full py-16 px-6 rounded-lg",
+          "w-full rounded-lg px-6 py-16",
           bg === "primary" && "bg-primary text-primary-foreground",
           bg === "muted" && "bg-muted",
-          bg === "card" && "bg-card border",
+          bg === "card" && "border bg-card",
           bg === "transparent" && "bg-transparent"
         )}
       >
         <div
           className={cn(
-            "max-w-screen-md mx-auto space-y-4",
+            "mx-auto max-w-screen-md space-y-4",
             align === "center" && "text-center",
             align === "left" && "text-left",
             align === "right" && "text-right"
           )}
         >
-          <h2 className="text-3xl font-bold tracking-tight">{title}</h2>
+          <h2 className="font-bold text-3xl tracking-tight">{title}</h2>
           <p
             className={cn(
               "text-lg",
-              isPrimary
-                ? "text-primary-foreground/80"
-                : "text-muted-foreground"
+              isPrimary ? "text-primary-foreground/80" : "text-muted-foreground"
             )}
           >
             {subtitle}
           </p>
-          <div className="pt-4 flex gap-3 justify-center">
+          <div className="flex justify-center gap-3 pt-4">
             <DropZone zone="content" />
           </div>
         </div>

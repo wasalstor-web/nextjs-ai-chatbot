@@ -18,10 +18,7 @@ export async function POST(request: Request) {
     const { text, voice = "alloy" } = await request.json();
 
     if (!text) {
-      return NextResponse.json(
-        { error: "No text provided" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "No text provided" }, { status: 400 });
     }
 
     // Generate speech using OpenAI TTS

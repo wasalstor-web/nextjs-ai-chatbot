@@ -1,8 +1,5 @@
-import { NextRequest, NextResponse } from "next/server";
-import {
-  getPublishedAgents,
-  createAgent,
-} from "@/lib/db/agents-queries";
+import { type NextRequest, NextResponse } from "next/server";
+import { createAgent, getPublishedAgents } from "@/lib/db/agents-queries";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",

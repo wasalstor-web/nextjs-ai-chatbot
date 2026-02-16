@@ -4,13 +4,17 @@ import { and, desc, eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/postgres-js";
 import postgres from "postgres";
 
-import { agent, agentUsage, type Agent } from "./agents-schema";
+import { type Agent, agent, agentUsage } from "./agents-schema";
 
 const client = postgres(process.env.POSTGRES_URL!);
 const db = drizzle(client);
 
 // Get all published agents for marketplace
-export async function getPublishedAgents({ limit = 50 }: { limit?: number } = {}) {
+export async function getPublishedAgents({
+  limit = 50,
+}: {
+  limit?: number;
+} = {}) {
   return db
     .select()
     .from(agent)
@@ -21,11 +25,7 @@ export async function getPublishedAgents({ limit = 50 }: { limit?: number } = {}
 
 // Get all agents (admin)
 export async function getAllAgents({ limit = 100 }: { limit?: number } = {}) {
-  return db
-    .select()
-    .from(agent)
-    .orderBy(desc(agent.createdAt))
-    .limit(limit);
+  return db.select().from(agent).orderBy(desc(agent.createdAt)).limit(limit);
 }
 
 // Get agent by ID
@@ -35,8 +35,15 @@ export async function getAgentById({ id }: { id: string }) {
 }
 
 // Get agent by external ID (from Nagra AI)
-export async function getAgentByExternalId({ externalId }: { externalId: string }) {
-  const [result] = await db.select().from(agent).where(eq(agent.externalId, externalId));
+export async function getAgentByExternalId({
+  externalId,
+}: {
+  externalId: string;
+}) {
+  const [result] = await db
+    .select()
+    .from(agent)
+    .where(eq(agent.externalId, externalId));
   return result;
 }
 
@@ -129,7 +136,7 @@ export async function deleteAgent({ id }: { id: string }) {
 export async function incrementAgentUsage({ id }: { id: string }) {
   const existing = await getAgentById({ id });
   if (!existing) return null;
-  
+
   const [result] = await db
     .update(agent)
     .set({
@@ -169,10 +176,10 @@ export async function recordAgentUsage({
       createdAt: new Date(),
     })
     .returning();
-  
+
   // Also increment the agent's usage count
   await incrementAgentUsage({ id: agentId });
-  
+
   return result;
 }
 
@@ -195,12 +202,12 @@ export async function searchAgents({
   category?: string;
   limit?: number;
 }) {
-  let conditions = [eq(agent.status, "published")];
-  
+  const conditions = [eq(agent.status, "published")];
+
   if (category && category !== "all") {
     conditions.push(eq(agent.category, category));
   }
-  
+
   return db
     .select()
     .from(agent)

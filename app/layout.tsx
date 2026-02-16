@@ -8,11 +8,10 @@ import { SessionProvider } from "next-auth/react";
 
 export const metadata: Metadata = {
   metadataBase: new URL(
-    process.env.NEXT_PUBLIC_APP_URL || "https://ai-chatbot.wahed.workers.dev",
+    process.env.NEXT_PUBLIC_APP_URL || "https://ai-chatbot.wahed.workers.dev"
   ),
   title: "AI Chatbot — مساعد الذكاء الاصطناعي",
-  description:
-    "منصة محادثة ذكية متعددة النماذج مبنية على Next.js و AI SDK",
+  description: "منصة محادثة ذكية متعددة النماذج مبنية على Next.js و AI SDK",
 };
 
 export const viewport = {
@@ -70,8 +69,8 @@ export default function RootLayout({
       // visual flicker before hydration. Hence the `suppressHydrationWarning`
       // prop is necessary to avoid the React hydration mismatch warning.
       // https://github.com/pacocoursey/next-themes?tab=readme-ov-file#with-app
-      lang="ar"
       dir="rtl"
+      lang="ar"
       suppressHydrationWarning
     >
       <head>
@@ -82,7 +81,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="antialiased font-sans">
+      <body className="font-sans antialiased">
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

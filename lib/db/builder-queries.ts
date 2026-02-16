@@ -5,12 +5,12 @@ import { drizzle } from "drizzle-orm/postgres-js";
 import postgres from "postgres";
 
 import {
-  builderAsset,
-  builderPage,
-  builderSnapshot,
   type BuilderAsset,
   type BuilderPage,
   type BuilderSnapshot,
+  builderAsset,
+  builderPage,
+  builderSnapshot,
 } from "./builder-schema";
 
 // biome-ignore lint: Forbidden non-null assertion.
@@ -21,7 +21,9 @@ const db = drizzle(client);
 
 export async function getBuilderPages({
   limit = 100,
-}: { limit?: number } = {}) {
+}: {
+  limit?: number;
+} = {}) {
   return db
     .select()
     .from(builderPage)
@@ -49,7 +51,9 @@ export async function getBuilderPageBySlug({ slug }: { slug: string }) {
 
 export async function getBuilderPageBySlugAnyStatus({
   slug,
-}: { slug: string }) {
+}: {
+  slug: string;
+}) {
   const [result] = await db
     .select()
     .from(builderPage)
@@ -125,7 +129,9 @@ export async function deleteBuilderPage({ id }: { id: string }) {
 
 export async function getBuilderAssets({
   limit = 100,
-}: { limit?: number } = {}) {
+}: {
+  limit?: number;
+} = {}) {
   return db
     .select()
     .from(builderAsset)
@@ -142,9 +148,7 @@ export async function createBuilderAsset({
   pageId,
   creatorId,
 }: Pick<BuilderAsset, "name" | "url" | "type"> &
-  Partial<
-    Pick<BuilderAsset, "size" | "mimeType" | "pageId" | "creatorId">
-  >) {
+  Partial<Pick<BuilderAsset, "size" | "mimeType" | "pageId" | "creatorId">>) {
   const [result] = await db
     .insert(builderAsset)
     .values({ name, url, type, size, mimeType, pageId, creatorId })
@@ -189,7 +193,9 @@ export async function createBuilderSnapshot({
 
 export async function restoreBuilderSnapshot({
   snapshotId,
-}: { snapshotId: string }) {
+}: {
+  snapshotId: string;
+}) {
   const [snapshot] = await db
     .select()
     .from(builderSnapshot)

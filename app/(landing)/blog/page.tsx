@@ -50,21 +50,19 @@ export default function BlogPage() {
   return (
     <div className="min-h-screen bg-linear-to-b from-white to-green-50 dark:from-gray-950 dark:to-gray-900">
       {/* Hero Section */}
-      <section className="pt-20 pb-12 relative overflow-hidden">
+      <section className="relative overflow-hidden pt-20 pb-12">
         <div className="absolute inset-0 bg-linear-to-br from-green-600/10 via-green-500/10 to-green-400/10 dark:from-green-600/5 dark:via-green-500/5 dark:to-green-400/5" />
-        
-        <div className="container mx-auto px-4 relative" dir="rtl">
-          <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-5xl lg:text-6xl font-bold mb-6">
-              <span className="text-gray-900 dark:text-white">
-                مدونة
-              </span>
+
+        <div className="container relative mx-auto px-4" dir="rtl">
+          <div className="mx-auto max-w-3xl text-center">
+            <h1 className="mb-6 font-bold text-5xl lg:text-6xl">
+              <span className="text-gray-900 dark:text-white">مدونة</span>
               <br />
               <span className="bg-linear-to-l from-green-600 via-green-500 to-green-400 bg-clip-text text-transparent">
                 الذكاء الاصطناعي
               </span>
             </h1>
-            <p className="text-xl text-gray-600 dark:text-gray-400 leading-relaxed">
+            <p className="text-gray-600 text-xl leading-relaxed dark:text-gray-400">
               آخر الأخبار والنصائح والإرشادات حول عالم الذكاء الاصطناعي
             </p>
           </div>
@@ -74,15 +72,15 @@ export default function BlogPage() {
       {/* Categories */}
       <section className="py-8" dir="rtl">
         <div className="container mx-auto px-4">
-          <div className="flex flex-wrap gap-3 justify-center max-w-4xl mx-auto">
+          <div className="mx-auto flex max-w-4xl flex-wrap justify-center gap-3">
             {categories.map((category, index) => (
               <button
-                key={index}
-                className={`px-6 py-2 rounded-full font-medium transition-all ${
+                className={`rounded-full px-6 py-2 font-medium transition-all ${
                   index === 0
-                    ? 'bg-linear-to-l from-green-600 to-green-500 text-white shadow-lg'
-                    : 'bg-white dark:bg-gray-900 text-gray-600 dark:text-gray-400 border border-gray-200 dark:border-gray-800 hover:border-green-600 dark:hover:border-green-400'
+                    ? "bg-linear-to-l from-green-600 to-green-500 text-white shadow-lg"
+                    : "border border-gray-200 bg-white text-gray-600 hover:border-green-600 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-400 dark:hover:border-green-400"
                 }`}
+                key={index}
               >
                 {category}
               </button>
@@ -94,50 +92,62 @@ export default function BlogPage() {
       {/* Blog Posts */}
       <section className="py-12" dir="rtl">
         <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+          <div className="mx-auto grid max-w-6xl gap-8 md:grid-cols-2">
             {posts.map((post, index) => (
               <article
+                className="group cursor-pointer rounded-3xl border border-gray-200 bg-white p-8 transition-all hover:shadow-xl dark:border-gray-800 dark:bg-gray-900"
                 key={index}
-                className="group bg-white dark:bg-gray-900 rounded-3xl p-8 border border-gray-200 dark:border-gray-800 hover:shadow-xl transition-all cursor-pointer"
               >
-                <div className={`w-16 h-16 rounded-2xl bg-linear-to-br ${post.color} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}>
-                  <post.icon className="w-8 h-8 text-white" />
+                <div
+                  className={`h-16 w-16 rounded-2xl bg-linear-to-br ${post.color} mb-6 flex items-center justify-center transition-transform group-hover:scale-110`}
+                >
+                  <post.icon className="h-8 w-8 text-white" />
                 </div>
-                
-                <div className="flex items-center gap-3 mb-4">
-                  <span className="text-sm font-semibold text-green-600 dark:text-green-400">
+
+                <div className="mb-4 flex items-center gap-3">
+                  <span className="font-semibold text-green-600 text-sm dark:text-green-400">
                     {post.category}
                   </span>
-                  <span className="text-sm text-gray-500 dark:text-gray-500">
+                  <span className="text-gray-500 text-sm dark:text-gray-500">
                     {post.readTime}
                   </span>
                 </div>
-                
-                <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-green-600 dark:group-hover:text-green-400 transition-colors">
+
+                <h2 className="mb-3 font-bold text-2xl text-gray-900 transition-colors group-hover:text-green-600 dark:text-white dark:group-hover:text-green-400">
                   {post.title}
                 </h2>
-                
-                <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
+
+                <p className="mb-6 text-gray-600 leading-relaxed dark:text-gray-400">
                   {post.description}
                 </p>
-                
-                <div className="flex items-center justify-between pt-4 border-t border-gray-200 dark:border-gray-800">
+
+                <div className="flex items-center justify-between border-gray-200 border-t pt-4 dark:border-gray-800">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-linear-to-br from-green-600 to-green-500" />
+                    <div className="h-10 w-10 rounded-full bg-linear-to-br from-green-600 to-green-500" />
                     <div>
-                      <p className="text-sm font-semibold text-gray-900 dark:text-white">
+                      <p className="font-semibold text-gray-900 text-sm dark:text-white">
                         {post.author}
                       </p>
-                      <p className="text-xs text-gray-500 dark:text-gray-500">
+                      <p className="text-gray-500 text-xs dark:text-gray-500">
                         {post.date}
                       </p>
                     </div>
                   </div>
-                  
-                  <button className="text-green-600 dark:text-green-400 font-semibold group-hover:gap-2 flex items-center gap-1 transition-all">
+
+                  <button className="flex items-center gap-1 font-semibold text-green-600 transition-all group-hover:gap-2 dark:text-green-400">
                     اقرأ المزيد
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                    <svg
+                      className="h-5 w-5"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M15 19l-7-7 7-7"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                      />
                     </svg>
                   </button>
                 </div>
@@ -148,22 +158,22 @@ export default function BlogPage() {
       </section>
 
       {/* Newsletter */}
-      <section className="py-20 bg-linear-to-br from-green-700 via-green-600 to-green-500">
+      <section className="bg-linear-to-br from-green-700 via-green-600 to-green-500 py-20">
         <div className="container mx-auto px-4" dir="rtl">
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-4xl font-bold text-white mb-6">
+          <div className="mx-auto max-w-3xl text-center">
+            <h2 className="mb-6 font-bold text-4xl text-white">
               اشترك في نشرتنا البريدية
             </h2>
-            <p className="text-xl text-green-100 mb-8">
+            <p className="mb-8 text-green-100 text-xl">
               احصل على آخر المقالات والنصائح مباشرة في بريدك الإلكتروني
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 max-w-xl mx-auto">
+            <div className="mx-auto flex max-w-xl flex-col gap-4 sm:flex-row">
               <input
-                type="email"
+                className="flex-1 rounded-xl border-2 border-white/30 bg-white/20 px-6 py-4 text-white backdrop-blur-sm transition-all placeholder:text-green-100 focus:border-white focus:outline-none"
                 placeholder="بريدك الإلكتروني"
-                className="flex-1 px-6 py-4 rounded-xl bg-white/20 backdrop-blur-sm border-2 border-white/30 text-white placeholder:text-green-100 focus:outline-none focus:border-white transition-all"
+                type="email"
               />
-              <button className="px-8 py-4 bg-white text-green-600 rounded-xl font-semibold hover:shadow-xl transition-all hover:scale-105">
+              <button className="rounded-xl bg-white px-8 py-4 font-semibold text-green-600 transition-all hover:scale-105 hover:shadow-xl">
                 اشترك الآن
               </button>
             </div>
@@ -174,9 +184,10 @@ export default function BlogPage() {
       {/* Coming Soon Message */}
       <section className="py-12" dir="rtl">
         <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center bg-green-50 dark:bg-green-900/20 border-2 border-green-200 dark:border-green-800 rounded-3xl p-8">
-            <p className="text-green-800 dark:text-green-300 text-lg">
-              💡 المزيد من المقالات قادمة قريباً! تابعنا لتبقى على اطلاع بآخر المستجدات.
+          <div className="mx-auto max-w-3xl rounded-3xl border-2 border-green-200 bg-green-50 p-8 text-center dark:border-green-800 dark:bg-green-900/20">
+            <p className="text-green-800 text-lg dark:text-green-300">
+              💡 المزيد من المقالات قادمة قريباً! تابعنا لتبقى على اطلاع بآخر
+              المستجدات.
             </p>
           </div>
         </div>

@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { auth } from "@/app/(auth)/auth";
-import { getAllAgents } from "@/lib/db/agents-queries";
 import { isAdmin } from "@/lib/auth/admin";
+import { getAllAgents } from "@/lib/db/agents-queries";
 
 export async function GET() {
   const session = await auth();

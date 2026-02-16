@@ -1,10 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { ArrowRight, Eye, EyeOff, Loader2, Lock, Mail } from "lucide-react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
-import { ArrowRight, Loader2, Mail, Lock, Eye, EyeOff } from "lucide-react";
-import Link from "next/link";
+import { useState } from "react";
 
 export default function MobileLoginPage() {
   const router = useRouter();
@@ -40,68 +40,71 @@ export default function MobileLoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-green-600 via-green-600 to-green-500 flex items-center justify-center p-4" dir="rtl">
+    <div
+      className="flex min-h-screen items-center justify-center bg-linear-to-br from-green-600 via-green-600 to-green-500 p-4"
+      dir="rtl"
+    >
       <div className="w-full max-w-md">
         {/* Logo/Header */}
-        <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-20 h-20 bg-white rounded-3xl shadow-2xl mb-4">
+        <div className="mb-8 text-center">
+          <div className="mb-4 inline-flex h-20 w-20 items-center justify-center rounded-3xl bg-white shadow-2xl">
             <span className="text-4xl">🤖</span>
           </div>
-          <h1 className="text-3xl font-bold text-white mb-2">مساعد ذكي</h1>
+          <h1 className="mb-2 font-bold text-3xl text-white">مساعد ذكي</h1>
           <p className="text-green-100">تسجيل الدخول للمتابعة</p>
         </div>
 
         {/* Login Form */}
-        <div className="bg-white rounded-3xl shadow-2xl p-8">
-          <form onSubmit={handleSubmit} className="space-y-6">
+        <div className="rounded-3xl bg-white p-8 shadow-2xl">
+          <form className="space-y-6" onSubmit={handleSubmit}>
             {error && (
-              <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl text-sm">
+              <div className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-red-700 text-sm">
                 {error}
               </div>
             )}
 
             {/* Email Input */}
             <div className="space-y-2">
-              <label className="text-sm font-medium text-gray-700 block">
+              <label className="block font-medium text-gray-700 text-sm">
                 البريد الإلكتروني
               </label>
               <div className="relative">
-                <Mail className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                <Mail className="-translate-y-1/2 absolute top-1/2 right-3 h-5 w-5 text-gray-400" />
                 <input
-                  type="email"
-                  value={email}
+                  className="w-full rounded-xl border border-gray-300 py-3 pr-11 pl-4 outline-none transition-all focus:border-transparent focus:ring-2 focus:ring-green-500"
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="example@email.com"
                   required
-                  className="w-full pr-11 pl-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-all"
+                  type="email"
+                  value={email}
                 />
               </div>
             </div>
 
             {/* Password Input */}
             <div className="space-y-2">
-              <label className="text-sm font-medium text-gray-700 block">
+              <label className="block font-medium text-gray-700 text-sm">
                 كلمة المرور
               </label>
               <div className="relative">
-                <Lock className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                <Lock className="-translate-y-1/2 absolute top-1/2 right-3 h-5 w-5 text-gray-400" />
                 <input
-                  type={showPassword ? "text" : "password"}
-                  value={password}
+                  className="w-full rounded-xl border border-gray-300 py-3 pr-11 pl-11 outline-none transition-all focus:border-transparent focus:ring-2 focus:ring-green-500"
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
                   required
-                  className="w-full pr-11 pl-11 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-all"
+                  type={showPassword ? "text" : "password"}
+                  value={password}
                 />
                 <button
-                  type="button"
+                  className="-translate-y-1/2 absolute top-1/2 left-3 text-gray-400 hover:text-gray-600"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                  type="button"
                 >
                   {showPassword ? (
-                    <EyeOff className="w-5 h-5" />
+                    <EyeOff className="h-5 w-5" />
                   ) : (
-                    <Eye className="w-5 h-5" />
+                    <Eye className="h-5 w-5" />
                   )}
                 </button>
               </div>
@@ -110,8 +113,8 @@ export default function MobileLoginPage() {
             {/* Forgot Password */}
             <div className="text-left">
               <Link
+                className="font-medium text-green-600 text-sm hover:text-green-700"
                 href="/mobile/forgot-password"
-                className="text-sm text-green-600 hover:text-green-700 font-medium"
               >
                 نسيت كلمة المرور؟
               </Link>
@@ -119,19 +122,19 @@ export default function MobileLoginPage() {
 
             {/* Submit Button */}
             <button
-              type="submit"
+              className="flex w-full items-center justify-center gap-2 rounded-xl bg-linear-to-r from-green-700 to-green-500 py-3 font-medium text-white shadow-lg transition-all duration-200 hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-50"
               disabled={isLoading}
-              className="w-full bg-linear-to-r from-green-700 to-green-500 text-white py-3 rounded-xl font-medium shadow-lg hover:shadow-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              type="submit"
             >
               {isLoading ? (
                 <>
-                  <Loader2 className="w-5 h-5 animate-spin" />
+                  <Loader2 className="h-5 w-5 animate-spin" />
                   جاري تسجيل الدخول...
                 </>
               ) : (
                 <>
                   تسجيل الدخول
-                  <ArrowRight className="w-5 h-5" />
+                  <ArrowRight className="h-5 w-5" />
                 </>
               )}
             </button>
@@ -140,10 +143,10 @@ export default function MobileLoginPage() {
           {/* Divider */}
           <div className="relative my-6">
             <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-gray-300"></div>
+              <div className="w-full border-gray-300 border-t" />
             </div>
             <div className="relative flex justify-center text-sm">
-              <span className="px-4 bg-white text-gray-500">أو</span>
+              <span className="bg-white px-4 text-gray-500">أو</span>
             </div>
           </div>
 
@@ -152,8 +155,8 @@ export default function MobileLoginPage() {
             <p className="text-gray-600 text-sm">
               ليس لديك حساب؟{" "}
               <Link
+                className="font-medium text-green-600 hover:text-green-700"
                 href="/mobile/register"
-                className="text-green-600 hover:text-green-700 font-medium"
               >
                 إنشاء حساب جديد
               </Link>
@@ -163,8 +166,8 @@ export default function MobileLoginPage() {
           {/* Guest Mode */}
           <div className="mt-4">
             <Link
+              className="block w-full rounded-xl border border-gray-300 py-3 text-center font-medium text-gray-600 transition-colors hover:bg-gray-50 hover:text-gray-900"
               href="/mobile"
-              className="block w-full text-center py-3 text-gray-600 hover:text-gray-900 font-medium border border-gray-300 rounded-xl hover:bg-gray-50 transition-colors"
             >
               المتابعة كزائر
             </Link>
@@ -172,7 +175,7 @@ export default function MobileLoginPage() {
         </div>
 
         {/* Footer */}
-        <div className="text-center mt-6 text-white text-sm opacity-80">
+        <div className="mt-6 text-center text-sm text-white opacity-80">
           <p>محمي بواسطة تشفير من طرف إلى طرف 🔒</p>
         </div>
       </div>

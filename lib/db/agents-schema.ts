@@ -18,7 +18,9 @@ export const agent = pgTable("Agent", {
   name: varchar("name", { length: 256 }).notNull(),
   description: text("description"),
   category: varchar("category", { length: 64 }).default("assistant"),
-  status: varchar("status", { enum: ["draft", "published", "active", "suspended"] })
+  status: varchar("status", {
+    enum: ["draft", "published", "active", "suspended"],
+  })
     .notNull()
     .default("draft"),
   capabilities: json("capabilities").$type<string[]>().default([]),

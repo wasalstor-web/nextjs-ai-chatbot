@@ -1,24 +1,26 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import {
-  Users,
-  MessageSquare,
-  Bot,
-  FileText,
-  TrendingUp,
   Activity,
-  Upload,
-  BarChart3,
-  ShoppingBag,
-  ArrowUpRight,
   ArrowDownRight,
+  ArrowUpRight,
+  BarChart3,
+  Bot,
   Clock,
-  Zap,
-  Globe,
   Eye,
+  FileText,
+  Globe,
+  MessageSquare,
   Package,
+  ShoppingBag,
+  TrendingUp,
+  Upload,
+  Users,
+  Zap,
 } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -27,8 +29,6 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 interface DashboardStats {
@@ -53,14 +53,60 @@ interface ActivityItem {
 }
 
 const recentActivity: ActivityItem[] = [
-  { id: "1", type: "user", title: "مستخدم جديد", description: "تم تسجيل مستخدم جديد في المنصة", time: "منذ 5 دقائق", icon: Users, color: "text-blue-500" },
-  { id: "2", type: "chat", title: "محادثة جديدة", description: "بدأ مستخدم محادثة مع GPT-4o", time: "منذ 12 دقيقة", icon: MessageSquare, color: "text-emerald-500" },
-  { id: "3", type: "agent", title: "وكيل محدث", description: "تم تحديث وكيل المبيعات", time: "منذ 30 دقيقة", icon: Bot, color: "text-violet-500" },
-  { id: "4", type: "store", title: "متجر جديد", description: "تم إنشاء متجر إلكتروني جديد", time: "منذ ساعة", icon: ShoppingBag, color: "text-orange-500" },
-  { id: "5", type: "chat", title: "محادثة مكتملة", description: "اكتملت محادثة تحليل بيانات", time: "منذ ساعتين", icon: MessageSquare, color: "text-emerald-500" },
+  {
+    id: "1",
+    type: "user",
+    title: "مستخدم جديد",
+    description: "تم تسجيل مستخدم جديد في المنصة",
+    time: "منذ 5 دقائق",
+    icon: Users,
+    color: "text-blue-500",
+  },
+  {
+    id: "2",
+    type: "chat",
+    title: "محادثة جديدة",
+    description: "بدأ مستخدم محادثة مع GPT-4o",
+    time: "منذ 12 دقيقة",
+    icon: MessageSquare,
+    color: "text-emerald-500",
+  },
+  {
+    id: "3",
+    type: "agent",
+    title: "وكيل محدث",
+    description: "تم تحديث وكيل المبيعات",
+    time: "منذ 30 دقيقة",
+    icon: Bot,
+    color: "text-violet-500",
+  },
+  {
+    id: "4",
+    type: "store",
+    title: "متجر جديد",
+    description: "تم إنشاء متجر إلكتروني جديد",
+    time: "منذ ساعة",
+    icon: ShoppingBag,
+    color: "text-orange-500",
+  },
+  {
+    id: "5",
+    type: "chat",
+    title: "محادثة مكتملة",
+    description: "اكتملت محادثة تحليل بيانات",
+    time: "منذ ساعتين",
+    icon: MessageSquare,
+    color: "text-emerald-500",
+  },
 ];
 
-function AnimatedCounter({ value, duration = 800 }: { value: number; duration?: number }) {
+function AnimatedCounter({
+  value,
+  duration = 800,
+}: {
+  value: number;
+  duration?: number;
+}) {
   const [count, setCount] = useState(0);
   useEffect(() => {
     if (value === 0) return;
@@ -85,11 +131,14 @@ function MiniChart({ data, color }: { data: number[]; color: string }) {
   const min = Math.min(...data);
   const range = max - min || 1;
   return (
-    <div className="flex items-end gap-[3px] h-9">
+    <div className="flex h-9 items-end gap-[3px]">
       {data.map((v, i) => (
         <div
+          className={cn(
+            "w-[5px] rounded-full transition-all duration-300",
+            color
+          )}
           key={`bar-${i}`}
-          className={cn("w-[5px] rounded-full transition-all duration-300", color)}
           style={{
             height: `${((v - min) / range) * 100}%`,
             minHeight: "4px",
@@ -206,9 +255,14 @@ export function DashboardOverview() {
         </div>
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {Array.from({ length: 6 }).map((_, i) => (
-            <Card key={`skeleton-${i}`} className="overflow-hidden">
-              <CardHeader className="pb-2"><Skeleton className="h-4 w-28" /></CardHeader>
-              <CardContent><Skeleton className="h-9 w-20 mb-2" /><Skeleton className="h-3 w-36" /></CardContent>
+            <Card className="overflow-hidden" key={`skeleton-${i}`}>
+              <CardHeader className="pb-2">
+                <Skeleton className="h-4 w-28" />
+              </CardHeader>
+              <CardContent>
+                <Skeleton className="mb-2 h-9 w-20" />
+                <Skeleton className="h-3 w-36" />
+              </CardContent>
             </Card>
           ))}
         </div>
@@ -219,20 +273,22 @@ export function DashboardOverview() {
   return (
     <div className="flex-1 space-y-6 p-6 md:p-8">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
         <div>
-          <h2 className="text-3xl font-bold tracking-tight">لوحة التحكم</h2>
-          <p className="text-muted-foreground mt-1">نظرة عامة على نشاط وإحصائيات النظام</p>
+          <h2 className="font-bold text-3xl tracking-tight">لوحة التحكم</h2>
+          <p className="mt-1 text-muted-foreground">
+            نظرة عامة على نشاط وإحصائيات النظام
+          </p>
         </div>
         <div className="flex items-center gap-2">
-          <Badge variant="outline" className="gap-1.5 py-1 px-3">
+          <Badge className="gap-1.5 px-3 py-1" variant="outline">
             <span className="relative flex h-2 w-2">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
               <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
             </span>
             النظام يعمل
           </Badge>
-          <Button variant="outline" size="sm" className="gap-1.5 text-xs">
+          <Button className="gap-1.5 text-xs" size="sm" variant="outline">
             <Clock className="h-3.5 w-3.5" />
             آخر تحديث: الآن
           </Button>
@@ -246,40 +302,48 @@ export function DashboardOverview() {
           const isPositive = card.change >= 0;
           return (
             <Card
-              key={card.title}
               className={cn(
-                "overflow-hidden border transition-all duration-200 hover:shadow-md hover:scale-[1.01]",
-                card.border,
+                "overflow-hidden border transition-all duration-200 hover:scale-[1.01] hover:shadow-md",
+                card.border
               )}
+              key={card.title}
             >
               <CardHeader className="flex flex-row items-center justify-between pb-2">
-                <CardTitle className="text-sm font-medium text-muted-foreground">{card.title}</CardTitle>
-                <div className={cn("p-2.5 rounded-xl", card.bg)}>
+                <CardTitle className="font-medium text-muted-foreground text-sm">
+                  {card.title}
+                </CardTitle>
+                <div className={cn("rounded-xl p-2.5", card.bg)}>
                   <Icon className={cn("h-4 w-4", card.color)} />
                 </div>
               </CardHeader>
               <CardContent>
                 <div className="flex items-end justify-between">
                   <div>
-                    <div className="text-3xl font-bold tracking-tight">
+                    <div className="font-bold text-3xl tracking-tight">
                       <AnimatedCounter value={card.value} />
                     </div>
-                    <div className="flex items-center gap-2 mt-1.5">
+                    <div className="mt-1.5 flex items-center gap-2">
                       <span
                         className={cn(
-                          "inline-flex items-center gap-0.5 text-xs font-semibold px-1.5 py-0.5 rounded-full",
+                          "inline-flex items-center gap-0.5 rounded-full px-1.5 py-0.5 font-semibold text-xs",
                           isPositive
-                            ? "text-emerald-700 bg-emerald-100 dark:text-emerald-400 dark:bg-emerald-500/10"
-                            : "text-red-700 bg-red-100 dark:text-red-400 dark:bg-red-500/10",
+                            ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-400"
+                            : "bg-red-100 text-red-700 dark:bg-red-500/10 dark:text-red-400"
                         )}
                       >
-                        {isPositive ? <ArrowUpRight className="h-3 w-3" /> : <ArrowDownRight className="h-3 w-3" />}
+                        {isPositive ? (
+                          <ArrowUpRight className="h-3 w-3" />
+                        ) : (
+                          <ArrowDownRight className="h-3 w-3" />
+                        )}
                         {Math.abs(card.change)}%
                       </span>
-                      <span className="text-xs text-muted-foreground">{card.sub}</span>
+                      <span className="text-muted-foreground text-xs">
+                        {card.sub}
+                      </span>
                     </div>
                   </div>
-                  <MiniChart data={card.chart} color={card.chartColor} />
+                  <MiniChart color={card.chartColor} data={card.chart} />
                 </div>
               </CardContent>
             </Card>
@@ -300,7 +364,9 @@ export function DashboardOverview() {
                 </CardTitle>
                 <CardDescription>آخر الأحداث في النظام</CardDescription>
               </div>
-              <Button variant="ghost" size="sm" className="text-xs">عرض الكل</Button>
+              <Button className="text-xs" size="sm" variant="ghost">
+                عرض الكل
+              </Button>
             </div>
           </CardHeader>
           <CardContent>
@@ -309,28 +375,36 @@ export function DashboardOverview() {
                 const AIcon = item.icon;
                 return (
                   <div
-                    key={item.id}
                     className={cn(
                       "flex items-center gap-4 rounded-xl p-3 transition-colors hover:bg-muted/50",
-                      index < recentActivity.length - 1 && "border-b border-border/40",
+                      index < recentActivity.length - 1 &&
+                        "border-border/40 border-b"
                     )}
+                    key={item.id}
                   >
                     <div
                       className={cn(
-                        "rounded-xl p-2 shrink-0",
-                        item.type === "user" ? "bg-blue-500/10" :
-                        item.type === "chat" ? "bg-emerald-500/10" :
-                        item.type === "agent" ? "bg-violet-500/10" :
-                        "bg-orange-500/10",
+                        "shrink-0 rounded-xl p-2",
+                        item.type === "user"
+                          ? "bg-blue-500/10"
+                          : item.type === "chat"
+                            ? "bg-emerald-500/10"
+                            : item.type === "agent"
+                              ? "bg-violet-500/10"
+                              : "bg-orange-500/10"
                       )}
                     >
                       <AIcon className={cn("h-4 w-4", item.color)} />
                     </div>
-                    <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium">{item.title}</p>
-                      <p className="text-xs text-muted-foreground truncate">{item.description}</p>
+                    <div className="min-w-0 flex-1">
+                      <p className="font-medium text-sm">{item.title}</p>
+                      <p className="truncate text-muted-foreground text-xs">
+                        {item.description}
+                      </p>
                     </div>
-                    <span className="text-xs text-muted-foreground whitespace-nowrap">{item.time}</span>
+                    <span className="whitespace-nowrap text-muted-foreground text-xs">
+                      {item.time}
+                    </span>
                   </div>
                 );
               })}
@@ -349,20 +423,47 @@ export function DashboardOverview() {
           <CardContent className="space-y-4">
             <div className="grid grid-cols-2 gap-2">
               {[
-                { icon: Bot, label: "وكيل جديد", href: "/admin/agents", color: "text-violet-500", bg: "bg-violet-500/10 hover:bg-violet-500/20" },
-                { icon: ShoppingBag, label: "متجر جديد", href: "/admin/stores", color: "text-orange-500", bg: "bg-orange-500/10 hover:bg-orange-500/20" },
-                { icon: Users, label: "المستخدمون", href: "/admin/users", color: "text-blue-500", bg: "bg-blue-500/10 hover:bg-blue-500/20" },
-                { icon: BarChart3, label: "الإحصائيات", href: "/admin/analytics", color: "text-emerald-500", bg: "bg-emerald-500/10 hover:bg-emerald-500/20" },
+                {
+                  icon: Bot,
+                  label: "وكيل جديد",
+                  href: "/admin/agents",
+                  color: "text-violet-500",
+                  bg: "bg-violet-500/10 hover:bg-violet-500/20",
+                },
+                {
+                  icon: ShoppingBag,
+                  label: "متجر جديد",
+                  href: "/admin/stores",
+                  color: "text-orange-500",
+                  bg: "bg-orange-500/10 hover:bg-orange-500/20",
+                },
+                {
+                  icon: Users,
+                  label: "المستخدمون",
+                  href: "/admin/users",
+                  color: "text-blue-500",
+                  bg: "bg-blue-500/10 hover:bg-blue-500/20",
+                },
+                {
+                  icon: BarChart3,
+                  label: "الإحصائيات",
+                  href: "/admin/analytics",
+                  color: "text-emerald-500",
+                  bg: "bg-emerald-500/10 hover:bg-emerald-500/20",
+                },
               ].map((action) => {
                 const QIcon = action.icon;
                 return (
                   <a
-                    key={action.label}
+                    className={cn(
+                      "flex flex-col items-center gap-2 rounded-xl p-3.5 transition-all",
+                      action.bg
+                    )}
                     href={action.href}
-                    className={cn("flex flex-col items-center gap-2 rounded-xl p-3.5 transition-all", action.bg)}
+                    key={action.label}
                   >
                     <QIcon className={cn("h-5 w-5", action.color)} />
-                    <span className="text-xs font-medium">{action.label}</span>
+                    <span className="font-medium text-xs">{action.label}</span>
                   </a>
                 );
               })}
@@ -371,7 +472,7 @@ export function DashboardOverview() {
             <div className="border-t" />
 
             <div>
-              <h4 className="text-sm font-semibold mb-3 flex items-center gap-2">
+              <h4 className="mb-3 flex items-center gap-2 font-semibold text-sm">
                 <Bot className="h-4 w-4 text-muted-foreground" />
                 الوكلاء الأكثر استخداماً
               </h4>
@@ -382,15 +483,20 @@ export function DashboardOverview() {
                   { name: "المساعد الإبداعي", usage: 756, trend: "+15%" },
                   { name: "مساعد التحليل", usage: 543, trend: "+5%" },
                 ].map((a, i) => (
-                  <div key={a.name} className="flex items-center gap-3">
-                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-violet-500/20 to-purple-500/20 text-xs font-bold text-violet-600 dark:text-violet-400">
+                  <div className="flex items-center gap-3" key={a.name}>
+                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-violet-500/20 to-purple-500/20 font-bold text-violet-600 text-xs dark:text-violet-400">
                       {i + 1}
                     </div>
-                    <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium truncate">{a.name}</p>
-                      <p className="text-xs text-muted-foreground">{a.usage.toLocaleString("ar-SA")} استخدام</p>
+                    <div className="min-w-0 flex-1">
+                      <p className="truncate font-medium text-sm">{a.name}</p>
+                      <p className="text-muted-foreground text-xs">
+                        {a.usage.toLocaleString("ar-SA")} استخدام
+                      </p>
                     </div>
-                    <Badge variant="secondary" className="text-emerald-600 bg-emerald-50 dark:bg-emerald-500/10 dark:text-emerald-400 text-[10px]">
+                    <Badge
+                      className="bg-emerald-50 text-[10px] text-emerald-600 dark:bg-emerald-500/10 dark:text-emerald-400"
+                      variant="secondary"
+                    >
                       {a.trend}
                     </Badge>
                   </div>
@@ -415,11 +521,11 @@ export function DashboardOverview() {
             ].map((m) => {
               const MIcon = m.icon;
               return (
-                <div key={m.label} className="flex items-center gap-2">
+                <div className="flex items-center gap-2" key={m.label}>
                   <MIcon className="h-4 w-4 text-emerald-500" />
                   <div>
-                    <p className="text-xs text-muted-foreground">{m.label}</p>
-                    <p className="text-sm font-semibold">{m.value}</p>
+                    <p className="text-muted-foreground text-xs">{m.label}</p>
+                    <p className="font-semibold text-sm">{m.value}</p>
                   </div>
                 </div>
               );
@@ -430,4 +536,3 @@ export function DashboardOverview() {
     </div>
   );
 }
-

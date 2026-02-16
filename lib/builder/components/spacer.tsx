@@ -33,6 +33,8 @@ export const Spacer: ComponentConfig<SpacerProps> = {
       "32": "h-32",
     };
 
-    return <div className={cn(heightMap[height], "w-full")} aria-hidden="true" />;
+    return (
+      <div aria-hidden="true" className={cn(heightMap[height], "w-full")} />
+    );
   },
 };

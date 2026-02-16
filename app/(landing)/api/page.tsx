@@ -1,4 +1,4 @@
-import { Code, Zap, Shield, BookOpen, Copy, CheckCircle } from "lucide-react";
+import { BookOpen, CheckCircle, Code, Copy, Shield, Zap } from "lucide-react";
 
 export default function APIPage() {
   const features = [
@@ -33,25 +33,29 @@ export default function APIPage() {
       method: "POST",
       path: "/api/chat/completions",
       description: "إرسال رسالة والحصول على رد من AI",
-      color: "text-green-600 dark:text-green-400 bg-green-100 dark:bg-green-900/30",
+      color:
+        "text-green-600 dark:text-green-400 bg-green-100 dark:bg-green-900/30",
     },
     {
       method: "GET",
       path: "/api/models",
       description: "الحصول على قائمة النماذج المتاحة",
-      color: "text-green-600 dark:text-green-400 bg-green-100 dark:bg-green-900/30",
+      color:
+        "text-green-600 dark:text-green-400 bg-green-100 dark:bg-green-900/30",
     },
     {
       method: "POST",
       path: "/api/upload",
       description: "رفع ملف للمعالجة أو التحليل",
-      color: "text-green-600 dark:text-green-400 bg-green-100 dark:bg-green-900/30",
+      color:
+        "text-green-600 dark:text-green-400 bg-green-100 dark:bg-green-900/30",
     },
     {
       method: "GET",
       path: "/api/history",
       description: "الحصول على سجل المحادثات السابقة",
-      color: "text-green-600 dark:text-green-400 bg-green-100 dark:bg-green-900/30",
+      color:
+        "text-green-600 dark:text-green-400 bg-green-100 dark:bg-green-900/30",
     },
   ];
 
@@ -86,7 +90,12 @@ console.log(response.content);`;
       name: "احترافي",
       price: "$49",
       requests: "50,000 طلب/شهر",
-      features: ["جميع النماذج", "دعم فني", "تحليلات متقدمة", "Rate limit أعلى"],
+      features: [
+        "جميع النماذج",
+        "دعم فني",
+        "تحليلات متقدمة",
+        "Rate limit أعلى",
+      ],
     },
     {
       name: "شركات",
@@ -99,16 +108,16 @@ console.log(response.content);`;
   return (
     <div className="min-h-screen bg-linear-to-b from-white to-green-50 dark:from-gray-950 dark:to-gray-900">
       {/* Hero Section */}
-      <section className="pt-20 pb-12 relative overflow-hidden">
+      <section className="relative overflow-hidden pt-20 pb-12">
         <div className="absolute inset-0 bg-linear-to-br from-green-700/10 via-green-600/10 to-green-500/10 dark:from-green-700/5 dark:via-green-600/5 dark:to-green-500/5" />
-        
-        <div className="container mx-auto px-4 relative" dir="rtl">
-          <div className="max-w-3xl mx-auto text-center">
-            <div className="inline-flex items-center gap-2 bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 px-4 py-2 rounded-full text-sm font-semibold mb-6">
-              <Code className="w-4 h-4" />
+
+        <div className="container relative mx-auto px-4" dir="rtl">
+          <div className="mx-auto max-w-3xl text-center">
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-green-100 px-4 py-2 font-semibold text-green-600 text-sm dark:bg-green-900/30 dark:text-green-400">
+              <Code className="h-4 w-4" />
               API Documentation
             </div>
-            <h1 className="text-5xl lg:text-6xl font-bold mb-6">
+            <h1 className="mb-6 font-bold text-5xl lg:text-6xl">
               <span className="text-gray-900 dark:text-white">
                 واجهة برمجية قوية
               </span>
@@ -117,19 +126,19 @@ console.log(response.content);`;
                 للمطورين
               </span>
             </h1>
-            <p className="text-xl text-gray-600 dark:text-gray-400 leading-relaxed mb-8">
+            <p className="mb-8 text-gray-600 text-xl leading-relaxed dark:text-gray-400">
               دمج الذكاء الاصطناعي في تطبيقاتك بسطور قليلة من الكود
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col justify-center gap-4 sm:flex-row">
               <a
+                className="inline-flex items-center justify-center gap-2 rounded-xl bg-linear-to-l from-green-700 via-green-600 to-green-500 px-8 py-4 font-semibold text-lg text-white shadow-lg transition-all hover:scale-105 hover:shadow-xl"
                 href="#get-started"
-                className="inline-flex items-center justify-center gap-2 bg-linear-to-l from-green-700 via-green-600 to-green-500 text-white px-8 py-4 rounded-xl text-lg font-semibold shadow-lg hover:shadow-xl transition-all hover:scale-105"
               >
                 ابدأ الآن
               </a>
               <a
+                className="inline-flex items-center justify-center gap-2 rounded-xl border-2 border-gray-200 bg-white px-8 py-4 font-semibold text-gray-900 text-lg transition-all hover:border-green-600 dark:border-gray-800 dark:bg-gray-900 dark:text-white dark:hover:border-green-400"
                 href="#documentation"
-                className="inline-flex items-center justify-center gap-2 bg-white dark:bg-gray-900 text-gray-900 dark:text-white border-2 border-gray-200 dark:border-gray-800 px-8 py-4 rounded-xl text-lg font-semibold hover:border-green-600 dark:hover:border-green-400 transition-all"
               >
                 التوثيق
               </a>
@@ -141,19 +150,21 @@ console.log(response.content);`;
       {/* Features */}
       <section className="py-12" dir="rtl">
         <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
+          <div className="mx-auto grid max-w-7xl gap-6 md:grid-cols-2 lg:grid-cols-4">
             {features.map((feature, index) => (
               <div
+                className="rounded-2xl border border-gray-200 bg-white p-6 text-center transition-all hover:shadow-xl dark:border-gray-800 dark:bg-gray-900"
                 key={index}
-                className="bg-white dark:bg-gray-900 rounded-2xl p-6 border border-gray-200 dark:border-gray-800 text-center hover:shadow-xl transition-all"
               >
-                <div className={`w-14 h-14 rounded-xl bg-linear-to-br ${feature.color} flex items-center justify-center mx-auto mb-4`}>
-                  <feature.icon className="w-7 h-7 text-white" />
+                <div
+                  className={`h-14 w-14 rounded-xl bg-linear-to-br ${feature.color} mx-auto mb-4 flex items-center justify-center`}
+                >
+                  <feature.icon className="h-7 w-7 text-white" />
                 </div>
-                <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                <h3 className="mb-2 font-bold text-gray-900 text-lg dark:text-white">
                   {feature.title}
                 </h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
+                <p className="text-gray-600 text-sm dark:text-gray-400">
                   {feature.description}
                 </p>
               </div>
@@ -163,49 +174,65 @@ console.log(response.content);`;
       </section>
 
       {/* Code Example */}
-      <section id="get-started" className="py-20 bg-white dark:bg-gray-950" dir="rtl">
+      <section
+        className="bg-white py-20 dark:bg-gray-950"
+        dir="rtl"
+        id="get-started"
+      >
         <div className="container mx-auto px-4">
-          <div className="max-w-5xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+          <div className="mx-auto max-w-5xl">
+            <div className="mb-12 text-center">
+              <h2 className="mb-4 font-bold text-4xl text-gray-900 dark:text-white">
                 ابدأ في دقائق
               </h2>
-              <p className="text-lg text-gray-600 dark:text-gray-400">
+              <p className="text-gray-600 text-lg dark:text-gray-400">
                 مثال بسيط لإرسال أول رسالة عبر API
               </p>
             </div>
 
-            <div className="bg-gray-900 rounded-3xl p-8 relative overflow-hidden">
+            <div className="relative overflow-hidden rounded-3xl bg-gray-900 p-8">
               <div className="absolute top-4 left-4">
-                <button className="p-2 bg-white/10 hover:bg-white/20 rounded-lg transition-colors">
-                  <Copy className="w-5 h-5 text-white" />
+                <button className="rounded-lg bg-white/10 p-2 transition-colors hover:bg-white/20">
+                  <Copy className="h-5 w-5 text-white" />
                 </button>
               </div>
-              
-              <div className="flex items-center gap-2 mb-4">
-                <div className="w-3 h-3 rounded-full bg-red-500" />
-                <div className="w-3 h-3 rounded-full bg-yellow-500" />
-                <div className="w-3 h-3 rounded-full bg-green-500" />
+
+              <div className="mb-4 flex items-center gap-2">
+                <div className="h-3 w-3 rounded-full bg-red-500" />
+                <div className="h-3 w-3 rounded-full bg-yellow-500" />
+                <div className="h-3 w-3 rounded-full bg-green-500" />
                 <span className="mr-4 text-gray-400 text-sm">example.js</span>
               </div>
-              
-              <pre className="text-sm text-gray-300 overflow-x-auto">
+
+              <pre className="overflow-x-auto text-gray-300 text-sm">
                 <code>{codeExample}</code>
               </pre>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-4 mt-8">
-              <div className="bg-green-50 dark:bg-green-900/20 rounded-2xl p-6 text-center">
-                <p className="text-green-600 dark:text-green-400 font-semibold mb-2">الخطوة 1</p>
-                <p className="text-gray-900 dark:text-white text-sm">احصل على API Key</p>
+            <div className="mt-8 grid gap-4 md:grid-cols-3">
+              <div className="rounded-2xl bg-green-50 p-6 text-center dark:bg-green-900/20">
+                <p className="mb-2 font-semibold text-green-600 dark:text-green-400">
+                  الخطوة 1
+                </p>
+                <p className="text-gray-900 text-sm dark:text-white">
+                  احصل على API Key
+                </p>
               </div>
-              <div className="bg-green-50 dark:bg-green-900/20 rounded-2xl p-6 text-center">
-                <p className="text-green-600 dark:text-green-400 font-semibold mb-2">الخطوة 2</p>
-                <p className="text-gray-900 dark:text-white text-sm">ثبّت المكتبة</p>
+              <div className="rounded-2xl bg-green-50 p-6 text-center dark:bg-green-900/20">
+                <p className="mb-2 font-semibold text-green-600 dark:text-green-400">
+                  الخطوة 2
+                </p>
+                <p className="text-gray-900 text-sm dark:text-white">
+                  ثبّت المكتبة
+                </p>
               </div>
-              <div className="bg-green-50 dark:bg-green-900/20 rounded-2xl p-6 text-center">
-                <p className="text-green-600 dark:text-green-400 font-semibold mb-2">الخطوة 3</p>
-                <p className="text-gray-900 dark:text-white text-sm">أرسل أول طلب!</p>
+              <div className="rounded-2xl bg-green-50 p-6 text-center dark:bg-green-900/20">
+                <p className="mb-2 font-semibold text-green-600 dark:text-green-400">
+                  الخطوة 3
+                </p>
+                <p className="text-gray-900 text-sm dark:text-white">
+                  أرسل أول طلب!
+                </p>
               </div>
             </div>
           </div>
@@ -213,14 +240,14 @@ console.log(response.content);`;
       </section>
 
       {/* Endpoints */}
-      <section id="documentation" className="py-20" dir="rtl">
+      <section className="py-20" dir="rtl" id="documentation">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+          <div className="mx-auto max-w-4xl">
+            <div className="mb-12 text-center">
+              <h2 className="mb-4 font-bold text-4xl text-gray-900 dark:text-white">
                 نقاط النهاية (Endpoints)
               </h2>
-              <p className="text-lg text-gray-600 dark:text-gray-400">
+              <p className="text-gray-600 text-lg dark:text-gray-400">
                 الـ API endpoints الأساسية المتاحة
               </p>
             </div>
@@ -228,18 +255,20 @@ console.log(response.content);`;
             <div className="space-y-4">
               {endpoints.map((endpoint, index) => (
                 <div
+                  className="rounded-2xl border border-gray-200 bg-white p-6 transition-all hover:shadow-lg dark:border-gray-800 dark:bg-gray-900"
                   key={index}
-                  className="bg-white dark:bg-gray-900 rounded-2xl p-6 border border-gray-200 dark:border-gray-800 hover:shadow-lg transition-all"
                 >
                   <div className="flex items-start gap-4">
-                    <span className={`px-3 py-1 rounded-lg font-mono text-sm font-semibold ${endpoint.color}`}>
+                    <span
+                      className={`rounded-lg px-3 py-1 font-mono font-semibold text-sm ${endpoint.color}`}
+                    >
                       {endpoint.method}
                     </span>
                     <div className="flex-1">
-                      <code className="text-gray-900 dark:text-white font-mono text-sm mb-2 block">
+                      <code className="mb-2 block font-mono text-gray-900 text-sm dark:text-white">
                         {endpoint.path}
                       </code>
-                      <p className="text-gray-600 dark:text-gray-400 text-sm">
+                      <p className="text-gray-600 text-sm dark:text-gray-400">
                         {endpoint.description}
                       </p>
                     </div>
@@ -250,12 +279,22 @@ console.log(response.content);`;
 
             <div className="mt-8 text-center">
               <a
+                className="inline-flex items-center gap-2 font-semibold text-green-600 transition-all hover:gap-3 dark:text-green-400"
                 href="/docs/api"
-                className="inline-flex items-center gap-2 text-green-600 dark:text-green-400 font-semibold hover:gap-3 transition-all"
               >
                 عرض التوثيق الكامل
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                <svg
+                  className="h-5 w-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M15 19l-7-7 7-7"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                  />
                 </svg>
               </a>
             </div>
@@ -264,57 +303,61 @@ console.log(response.content);`;
       </section>
 
       {/* Pricing */}
-      <section className="py-20 bg-white dark:bg-gray-950" dir="rtl">
+      <section className="bg-white py-20 dark:bg-gray-950" dir="rtl">
         <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center mb-12">
-            <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+          <div className="mx-auto mb-12 max-w-3xl text-center">
+            <h2 className="mb-4 font-bold text-4xl text-gray-900 dark:text-white">
               أسعار الـ API
             </h2>
-            <p className="text-lg text-gray-600 dark:text-gray-400">
+            <p className="text-gray-600 text-lg dark:text-gray-400">
               اختر الباقة المناسبة لحجم استخدامك
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          <div className="mx-auto grid max-w-6xl gap-8 md:grid-cols-3">
             {pricingTiers.map((tier, index) => (
               <div
-                key={index}
-                className={`bg-white dark:bg-gray-900 rounded-3xl p-8 border-2 ${
-                  index === 1 
-                    ? 'border-green-600 dark:border-green-500 shadow-xl' 
-                    : 'border-gray-200 dark:border-gray-800'
+                className={`rounded-3xl border-2 bg-white p-8 dark:bg-gray-900 ${
+                  index === 1
+                    ? "border-green-600 shadow-xl dark:border-green-500"
+                    : "border-gray-200 dark:border-gray-800"
                 }`}
+                key={index}
               >
-                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+                <h3 className="mb-2 font-bold text-2xl text-gray-900 dark:text-white">
                   {tier.name}
                 </h3>
                 <div className="mb-6">
-                  <span className="text-4xl font-bold text-gray-900 dark:text-white">
+                  <span className="font-bold text-4xl text-gray-900 dark:text-white">
                     {tier.price}
                   </span>
                   {tier.price !== "مجاناً" && tier.price !== "مخصص" && (
-                    <span className="text-gray-600 dark:text-gray-400">/شهر</span>
+                    <span className="text-gray-600 dark:text-gray-400">
+                      /شهر
+                    </span>
                   )}
                 </div>
-                <p className="text-gray-600 dark:text-gray-400 mb-6">
+                <p className="mb-6 text-gray-600 dark:text-gray-400">
                   {tier.requests}
                 </p>
-                <ul className="space-y-3 mb-8">
+                <ul className="mb-8 space-y-3">
                   {tier.features.map((feature, fIndex) => (
-                    <li key={fIndex} className="flex gap-3 text-sm">
-                      <CheckCircle className="w-5 h-5 text-green-600 dark:text-green-500 shrink-0" />
-                      <span className="text-gray-700 dark:text-gray-300">{feature}</span>
+                    <li className="flex gap-3 text-sm" key={fIndex}>
+                      <CheckCircle className="h-5 w-5 shrink-0 text-green-600 dark:text-green-500" />
+                      <span className="text-gray-700 dark:text-gray-300">
+                        {feature}
+                      </span>
                     </li>
                   ))}
                 </ul>
                 <button
-                  className={`w-full py-3 rounded-xl font-semibold transition-all ${
+                  className={`w-full rounded-xl py-3 font-semibold transition-all ${
                     index === 1
-                      ? 'bg-linear-to-l from-green-700 to-green-600 text-white shadow-lg hover:shadow-xl'
-                      : 'bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700'
+                      ? "bg-linear-to-l from-green-700 to-green-600 text-white shadow-lg hover:shadow-xl"
+                      : "bg-gray-100 text-gray-900 hover:bg-gray-200 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
                   }`}
                 >
-                  {index === 2 ? 'تواصل معنا' : 'ابدأ الآن'}
+                  {index === 2 ? "تواصل معنا" : "ابدأ الآن"}
                 </button>
               </div>
             ))}
@@ -323,25 +366,23 @@ console.log(response.content);`;
       </section>
 
       {/* CTA */}
-      <section className="py-20 bg-linear-to-br from-green-700 via-green-600 to-green-500">
+      <section className="bg-linear-to-br from-green-700 via-green-600 to-green-500 py-20">
         <div className="container mx-auto px-4" dir="rtl">
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-4xl font-bold text-white mb-6">
-              جاهز للبدء؟
-            </h2>
-            <p className="text-xl text-green-100 mb-8">
+          <div className="mx-auto max-w-3xl text-center">
+            <h2 className="mb-6 font-bold text-4xl text-white">جاهز للبدء؟</h2>
+            <p className="mb-8 text-green-100 text-xl">
               احصل على API key مجاناً وابدأ في بناء تطبيقات ذكية اليوم
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col justify-center gap-4 sm:flex-row">
               <a
+                className="inline-flex items-center justify-center gap-2 rounded-xl bg-white px-8 py-4 font-semibold text-green-600 text-lg shadow-lg transition-all hover:scale-105 hover:shadow-xl"
                 href="/register"
-                className="inline-flex items-center justify-center gap-2 bg-white text-green-600 px-8 py-4 rounded-xl text-lg font-semibold shadow-lg hover:shadow-xl transition-all hover:scale-105"
               >
                 إنشاء حساب مطور
               </a>
               <a
+                className="inline-flex items-center justify-center gap-2 rounded-xl border-2 border-white/30 bg-green-500/20 px-8 py-4 font-semibold text-lg text-white transition-all hover:bg-green-500/30"
                 href="/contact"
-                className="inline-flex items-center justify-center gap-2 bg-green-500/20 text-white border-2 border-white/30 px-8 py-4 rounded-xl text-lg font-semibold hover:bg-green-500/30 transition-all"
               >
                 تحدث مع فريق المبيعات
               </a>

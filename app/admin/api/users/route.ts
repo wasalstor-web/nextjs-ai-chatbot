@@ -1,10 +1,9 @@
+import { count, desc, eq, like } from "drizzle-orm";
+import { drizzle } from "drizzle-orm/postgres-js";
 import { NextResponse } from "next/server";
-
+import postgres from "postgres";
 import { auth } from "@/app/(auth)/auth";
 import { isAdmin } from "@/lib/auth/admin";
-import { drizzle } from "drizzle-orm/postgres-js";
-import { count, desc, eq, like } from "drizzle-orm";
-import postgres from "postgres";
 import { user } from "@/lib/db/schema";
 
 const client = postgres(process.env.POSTGRES_URL!);
@@ -26,15 +25,10 @@ export async function GET(request: Request): Promise<NextResponse> {
     const search = searchParams.get("q") || "";
     const offset = (page - 1) * limit;
 
-    const baseCondition = search
-      ? like(user.email, `%${search}%`)
-      : undefined;
+    const baseCondition = search ? like(user.email, `%${search}%`) : undefined;
 
     const [totalResult, users] = await Promise.all([
-      db
-        .select({ value: count() })
-        .from(user)
-        .where(baseCondition),
+      db.select({ value: count() }).from(user).where(baseCondition),
       db
         .select({
           id: user.id,
@@ -58,7 +52,7 @@ export async function GET(request: Request): Promise<NextResponse> {
   } catch {
     return NextResponse.json(
       { success: false, error: "Failed to fetch users" },
-      { status: 500 },
+      { status: 500 }
     );
   }
 }

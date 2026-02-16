@@ -1,7 +1,7 @@
 "use client";
 
+import { Code, FileText, Image, Sheet } from "lucide-react";
 import { useEffect, useState } from "react";
-import { FileText, Code, Image, Sheet } from "lucide-react";
 import { AdminDataTable } from "@/components/admin/admin-data-table";
 import { AdminTableSkeleton } from "@/components/admin/admin-table-skeleton";
 import { cn } from "@/lib/utils";
@@ -14,7 +14,10 @@ interface DocumentRow extends Record<string, unknown> {
   userId: string;
 }
 
-const kindConfig: Record<string, { label: string; icon: typeof FileText; className: string }> = {
+const kindConfig: Record<
+  string,
+  { label: string; icon: typeof FileText; className: string }
+> = {
   text: { label: "نص", icon: FileText, className: "text-blue-500" },
   code: { label: "كود", icon: Code, className: "text-green-500" },
   image: { label: "صورة", icon: Image, className: "text-purple-500" },
@@ -68,7 +71,7 @@ export function DocumentsManagement() {
       key: "createdAt",
       header: "التاريخ",
       render: (row: DocumentRow) => (
-        <span className="text-xs text-muted-foreground">
+        <span className="text-muted-foreground text-xs">
           {new Date(row.createdAt).toLocaleDateString("ar-SA")}
         </span>
       ),
@@ -77,7 +80,7 @@ export function DocumentsManagement() {
       key: "userId",
       header: "المستخدم",
       render: (row: DocumentRow) => (
-        <span className="font-mono text-xs text-muted-foreground">
+        <span className="font-mono text-muted-foreground text-xs">
           {row.userId.slice(0, 8)}…
         </span>
       ),
@@ -96,23 +99,29 @@ export function DocumentsManagement() {
         />
       )}
 
-      <div className="flex items-center justify-between text-sm text-muted-foreground">
+      <div className="flex items-center justify-between text-muted-foreground text-sm">
         <span>الإجمالي: {total}</span>
         <div className="flex gap-2">
           <button
-            type="button"
-            disabled={page <= 1}
-            onClick={() => { setPage(page - 1); fetchDocuments(page - 1); }}
             className="rounded border px-3 py-1 disabled:opacity-50"
+            disabled={page <= 1}
+            onClick={() => {
+              setPage(page - 1);
+              fetchDocuments(page - 1);
+            }}
+            type="button"
           >
             السابق
           </button>
           <span className="px-2 py-1">صفحة {page}</span>
           <button
-            type="button"
-            disabled={documents.length < 20}
-            onClick={() => { setPage(page + 1); fetchDocuments(page + 1); }}
             className="rounded border px-3 py-1 disabled:opacity-50"
+            disabled={documents.length < 20}
+            onClick={() => {
+              setPage(page + 1);
+              fetchDocuments(page + 1);
+            }}
+            type="button"
           >
             التالي
           </button>

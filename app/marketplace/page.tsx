@@ -40,8 +40,8 @@ export default function MarketplacePage() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="animate-pulse flex flex-col items-center gap-3">
+      <div className="flex min-h-screen items-center justify-center">
+        <div className="flex animate-pulse flex-col items-center gap-3">
           <div className="h-8 w-8 rounded-full bg-muted" />
           <div className="h-4 w-32 rounded bg-muted" />
         </div>

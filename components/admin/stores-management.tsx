@@ -1,20 +1,22 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import {
-  ShoppingBag,
-  Search,
-  Plus,
-  Eye,
   Edit,
-  Trash2,
-  Globe,
-  Package,
-  MoreVertical,
   ExternalLink,
-  TrendingUp,
+  Eye,
+  Globe,
+  MoreVertical,
+  Package,
+  Plus,
+  Search,
+  ShoppingBag,
   ShoppingCart,
+  Trash2,
+  TrendingUp,
 } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -22,17 +24,15 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
-import { Skeleton } from "@/components/ui/skeleton";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuTrigger,
   DropdownMenuSeparator,
+  DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Input } from "@/components/ui/input";
+import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 
 interface StoreItem {
@@ -54,20 +54,17 @@ const STORE_TYPES: Record<
   fashion: {
     label: "أزياء",
     emoji: "👗",
-    color:
-      "bg-pink-500/10 text-pink-600 dark:text-pink-400 border-pink-500/20",
+    color: "bg-pink-500/10 text-pink-600 dark:text-pink-400 border-pink-500/20",
   },
   electronics: {
     label: "إلكترونيات",
     emoji: "📱",
-    color:
-      "bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20",
+    color: "bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20",
   },
   beauty: {
     label: "تجميل",
     emoji: "💄",
-    color:
-      "bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/20",
+    color: "bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/20",
   },
   food: {
     label: "أغذية",
@@ -120,8 +117,7 @@ const STORE_TYPES: Record<
   general: {
     label: "عام",
     emoji: "🛍️",
-    color:
-      "bg-gray-500/10 text-gray-600 dark:text-gray-400 border-gray-500/20",
+    color: "bg-gray-500/10 text-gray-600 dark:text-gray-400 border-gray-500/20",
   },
 };
 
@@ -148,7 +144,7 @@ const DEMO_STORES: StoreItem[] = [
     status: "active",
     products_count: 48,
     orders_count: 156,
-    revenue: 45600,
+    revenue: 45_600,
     created_at: "2026-01-15",
   },
   {
@@ -159,7 +155,7 @@ const DEMO_STORES: StoreItem[] = [
     status: "active",
     products_count: 32,
     orders_count: 89,
-    revenue: 128900,
+    revenue: 128_900,
     created_at: "2026-01-20",
   },
   {
@@ -181,7 +177,7 @@ const DEMO_STORES: StoreItem[] = [
     status: "active",
     products_count: 56,
     orders_count: 234,
-    revenue: 18700,
+    revenue: 18_700,
     created_at: "2026-01-10",
   },
 ];
@@ -203,15 +199,12 @@ export function StoresManagement() {
   const filteredStores = stores.filter(
     (s) =>
       s.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      s.slug.toLowerCase().includes(searchTerm.toLowerCase()),
+      s.slug.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   const totalRevenue = stores.reduce((sum, s) => sum + s.revenue, 0);
   const totalOrders = stores.reduce((sum, s) => sum + s.orders_count, 0);
-  const totalProducts = stores.reduce(
-    (sum, s) => sum + s.products_count,
-    0,
-  );
+  const totalProducts = stores.reduce((sum, s) => sum + s.products_count, 0);
 
   if (loading) {
     return (
@@ -219,15 +212,12 @@ export function StoresManagement() {
         <Skeleton className="h-10 w-56" />
         <div className="grid gap-4 md:grid-cols-4">
           {Array.from({ length: 4 }).map((_, i) => (
-            <Skeleton key={`stat-sk-${i}`} className="h-24 rounded-xl" />
+            <Skeleton className="h-24 rounded-xl" key={`stat-sk-${i}`} />
           ))}
         </div>
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {Array.from({ length: 3 }).map((_, i) => (
-            <Skeleton
-              key={`card-sk-${i}`}
-              className="h-64 rounded-xl"
-            />
+            <Skeleton className="h-64 rounded-xl" key={`card-sk-${i}`} />
           ))}
         </div>
       </div>
@@ -239,9 +229,7 @@ export function StoresManagement() {
       {/* Header */}
       <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
         <div>
-          <h2 className="text-3xl font-bold tracking-tight">
-            إدارة المتاجر
-          </h2>
+          <h2 className="font-bold text-3xl tracking-tight">إدارة المتاجر</h2>
           <p className="mt-1 text-muted-foreground">
             إنشاء وإدارة متاجرك الإلكترونية بالذكاء الاصطناعي
           </p>
@@ -293,10 +281,10 @@ export function StoresManagement() {
                     <SIcon className={cn("h-5 w-5", stat.color)} />
                   </div>
                   <div>
-                    <p className="text-xs text-muted-foreground">
+                    <p className="text-muted-foreground text-xs">
                       {stat.label}
                     </p>
-                    <p className="text-xl font-bold">
+                    <p className="font-bold text-xl">
                       {typeof stat.value === "number"
                         ? stat.value.toLocaleString("ar-SA")
                         : stat.value}
@@ -311,26 +299,24 @@ export function StoresManagement() {
 
       {/* Search */}
       <div className="relative max-w-md">
-        <Search className="absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+        <Search className="-translate-y-1/2 absolute top-1/2 right-3 h-4 w-4 text-muted-foreground" />
         <Input
+          className="pr-10"
+          onChange={(e) => setSearchTerm(e.target.value)}
           placeholder="بحث في المتاجر..."
           value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          className="pr-10"
         />
       </div>
 
       {/* Store Cards Grid */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {filteredStores.map((store) => {
-          const typeInfo =
-            STORE_TYPES[store.store_type] || STORE_TYPES.general;
-          const statusInfo =
-            STATUS_MAP[store.status] || STATUS_MAP.draft;
+          const typeInfo = STORE_TYPES[store.store_type] || STORE_TYPES.general;
+          const statusInfo = STATUS_MAP[store.status] || STATUS_MAP.draft;
           return (
             <Card
-              key={store.id}
               className="group overflow-hidden transition-all duration-200 hover:scale-[1.01] hover:shadow-lg"
+              key={store.id}
             >
               {/* Colored Header Bar */}
               <div
@@ -338,7 +324,7 @@ export function StoresManagement() {
                   "h-2",
                   store.status === "active"
                     ? "bg-gradient-to-r from-emerald-500 to-green-500"
-                    : "bg-gradient-to-r from-gray-300 to-gray-400 dark:from-gray-600 dark:to-gray-700",
+                    : "bg-gradient-to-r from-gray-300 to-gray-400 dark:from-gray-600 dark:to-gray-700"
                 )}
               />
               <CardHeader className="pb-3">
@@ -347,15 +333,13 @@ export function StoresManagement() {
                     <div
                       className={cn(
                         "rounded-xl border p-2 text-2xl",
-                        typeInfo.color,
+                        typeInfo.color
                       )}
                     >
                       {typeInfo.emoji}
                     </div>
                     <div>
-                      <CardTitle className="text-lg">
-                        {store.name}
-                      </CardTitle>
+                      <CardTitle className="text-lg">{store.name}</CardTitle>
                       <CardDescription className="mt-0.5 flex items-center gap-1.5">
                         <Globe className="h-3 w-3" />
                         {store.slug}.store.app
@@ -365,9 +349,9 @@ export function StoresManagement() {
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                       <Button
-                        variant="ghost"
-                        size="icon"
                         className="h-8 w-8 opacity-0 transition-opacity group-hover:opacity-100"
+                        size="icon"
+                        variant="ghost"
                       >
                         <MoreVertical className="h-4 w-4" />
                       </Button>
@@ -380,8 +364,7 @@ export function StoresManagement() {
                         <Edit className="h-4 w-4" /> تحرير
                       </DropdownMenuItem>
                       <DropdownMenuItem className="gap-2">
-                        <ExternalLink className="h-4 w-4" /> فتح
-                        المتجر
+                        <ExternalLink className="h-4 w-4" /> فتح المتجر
                       </DropdownMenuItem>
                       <DropdownMenuSeparator />
                       <DropdownMenuItem className="gap-2 text-destructive">
@@ -399,36 +382,24 @@ export function StoresManagement() {
                   >
                     {typeInfo.emoji} {typeInfo.label}
                   </Badge>
-                  <Badge variant={statusInfo.variant}>
-                    {statusInfo.label}
-                  </Badge>
+                  <Badge variant={statusInfo.variant}>{statusInfo.label}</Badge>
                 </div>
                 <div className="grid grid-cols-3 gap-3 text-center">
                   <div className="rounded-lg bg-muted/50 p-2">
-                    <p className="text-lg font-bold">
-                      {store.products_count}
-                    </p>
-                    <p className="text-[10px] text-muted-foreground">
-                      منتج
-                    </p>
+                    <p className="font-bold text-lg">{store.products_count}</p>
+                    <p className="text-[10px] text-muted-foreground">منتج</p>
                   </div>
                   <div className="rounded-lg bg-muted/50 p-2">
-                    <p className="text-lg font-bold">
-                      {store.orders_count}
-                    </p>
-                    <p className="text-[10px] text-muted-foreground">
-                      طلب
-                    </p>
+                    <p className="font-bold text-lg">{store.orders_count}</p>
+                    <p className="text-[10px] text-muted-foreground">طلب</p>
                   </div>
                   <div className="rounded-lg bg-muted/50 p-2">
-                    <p className="text-lg font-bold">
+                    <p className="font-bold text-lg">
                       {store.revenue > 0
                         ? `${(store.revenue / 1000).toFixed(1)}K`
                         : "0"}
                     </p>
-                    <p className="text-[10px] text-muted-foreground">
-                      إيرادات
-                    </p>
+                    <p className="text-[10px] text-muted-foreground">إيرادات</p>
                   </div>
                 </div>
               </CardContent>
@@ -443,7 +414,7 @@ export function StoresManagement() {
               <Plus className="h-6 w-6 text-primary" />
             </div>
             <p className="font-medium">إنشاء متجر جديد</p>
-            <p className="mt-1 text-xs text-muted-foreground">
+            <p className="mt-1 text-muted-foreground text-xs">
               اختر قالب وابدأ البناء بالذكاء الاصطناعي
             </p>
           </div>

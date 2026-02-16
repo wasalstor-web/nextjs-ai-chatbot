@@ -74,7 +74,7 @@ export const FlexLayout: ComponentConfig<FlexLayoutProps> = {
     return (
       <div
         className={cn(
-          "flex w-full min-h-[60px]",
+          "flex min-h-[60px] w-full",
           direction === "column" && "flex-col",
           gapMap[gap],
           align === "start" && "items-start",

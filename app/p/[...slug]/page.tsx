@@ -4,11 +4,12 @@
  * Pattern from: puckeditor/puck → recipes/next/app/[...puckPath]/page.tsx
  * Adapted: PostgreSQL via getBuilderPageBySlug, ISR via revalidatePath on publish.
  */
-import { notFound } from "next/navigation";
+
+import type { Data } from "@puckeditor/core";
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { getBuilderPageBySlug } from "@/lib/db/builder-queries";
 import { RenderClient } from "./render-client";
-import type { Data } from "@puckeditor/core";
 
 export async function generateMetadata({
   params,

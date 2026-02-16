@@ -1,11 +1,12 @@
-import { Cookie, Settings, Eye, CheckCircle } from "lucide-react";
+import { CheckCircle, Cookie, Eye, Settings } from "lucide-react";
 
 export default function CookiesPage() {
   const cookieTypes = [
     {
       icon: CheckCircle,
       title: "ملفات تعريف الارتباط الضرورية",
-      description: "هذه الملفات ضرورية لتشغيل الموقع بشكل صحيح ولا يمكن تعطيلها.",
+      description:
+        "هذه الملفات ضرورية لتشغيل الموقع بشكل صحيح ولا يمكن تعطيلها.",
       examples: [
         "تذكر معلومات تسجيل الدخول",
         "الحفاظ على جلستك نشطة",
@@ -18,7 +19,8 @@ export default function CookiesPage() {
     {
       icon: Eye,
       title: "ملفات التحليلات",
-      description: "تساعدنا على فهم كيفية استخدام الزوار للموقع وتحسين تجربة المستخدم.",
+      description:
+        "تساعدنا على فهم كيفية استخدام الزوار للموقع وتحسين تجربة المستخدم.",
       examples: [
         "عدد الزوار وصفحات المشاهدة",
         "الوقت المستغرق في الموقع",
@@ -64,23 +66,23 @@ export default function CookiesPage() {
   return (
     <div className="min-h-screen bg-linear-to-b from-white to-green-50 dark:from-gray-950 dark:to-gray-900">
       {/* Hero Section */}
-      <section className="pt-20 pb-12 relative overflow-hidden">
+      <section className="relative overflow-hidden pt-20 pb-12">
         <div className="absolute inset-0 bg-linear-to-br from-green-700/10 via-green-600/10 to-green-500/10 dark:from-green-700/5 dark:via-green-600/5 dark:to-green-500/5" />
-        
-        <div className="container mx-auto px-4 relative" dir="rtl">
-          <div className="max-w-3xl mx-auto text-center">
-            <div className="w-20 h-20 rounded-3xl bg-linear-to-br from-green-600 to-green-500 flex items-center justify-center mx-auto mb-6">
-              <Cookie className="w-10 h-10 text-white" />
+
+        <div className="container relative mx-auto px-4" dir="rtl">
+          <div className="mx-auto max-w-3xl text-center">
+            <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-3xl bg-linear-to-br from-green-600 to-green-500">
+              <Cookie className="h-10 w-10 text-white" />
             </div>
-            <h1 className="text-5xl lg:text-6xl font-bold mb-6">
+            <h1 className="mb-6 font-bold text-5xl lg:text-6xl">
               <span className="bg-linear-to-l from-green-700 via-green-600 to-green-500 bg-clip-text text-transparent">
                 سياسة ملفات تعريف الارتباط
               </span>
             </h1>
-            <p className="text-xl text-gray-600 dark:text-gray-400 leading-relaxed">
+            <p className="text-gray-600 text-xl leading-relaxed dark:text-gray-400">
               كيف ولماذا نستخدم ملفات تعريف الارتباط (Cookies) على موقعنا
             </p>
-            <p className="text-sm text-gray-500 dark:text-gray-500 mt-4">
+            <p className="mt-4 text-gray-500 text-sm dark:text-gray-500">
               آخر تحديث: ديسمبر 2024
             </p>
           </div>
@@ -90,35 +92,46 @@ export default function CookiesPage() {
       {/* What are Cookies */}
       <section className="py-12" dir="rtl">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <div className="bg-white dark:bg-gray-900 rounded-3xl p-8 border border-gray-200 dark:border-gray-800">
-              <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">
+          <div className="mx-auto max-w-4xl">
+            <div className="rounded-3xl border border-gray-200 bg-white p-8 dark:border-gray-800 dark:bg-gray-900">
+              <h2 className="mb-6 font-bold text-3xl text-gray-900 dark:text-white">
                 ما هي ملفات تعريف الارتباط؟
               </h2>
-              <div className="space-y-4 text-gray-600 dark:text-gray-400 leading-relaxed">
+              <div className="space-y-4 text-gray-600 leading-relaxed dark:text-gray-400">
                 <p>
-                  ملفات تعريف الارتباط (Cookies) هي ملفات نصية صغيرة يتم تخزينها على جهازك عند زيارتك لموقعنا. تساعدنا هذه الملفات على:
+                  ملفات تعريف الارتباط (Cookies) هي ملفات نصية صغيرة يتم تخزينها
+                  على جهازك عند زيارتك لموقعنا. تساعدنا هذه الملفات على:
                 </p>
-                <ul className="space-y-2 mr-6">
+                <ul className="mr-6 space-y-2">
                   <li className="flex gap-3">
-                    <span className="text-green-600 dark:text-green-400">•</span>
+                    <span className="text-green-600 dark:text-green-400">
+                      •
+                    </span>
                     <span>تذكر معلوماتك وتفضيلاتك بين الزيارات</span>
                   </li>
                   <li className="flex gap-3">
-                    <span className="text-green-600 dark:text-green-400">•</span>
+                    <span className="text-green-600 dark:text-green-400">
+                      •
+                    </span>
                     <span>تحسين تجربة التصفح وجعلها أكثر سلاسة</span>
                   </li>
                   <li className="flex gap-3">
-                    <span className="text-green-600 dark:text-green-400">•</span>
+                    <span className="text-green-600 dark:text-green-400">
+                      •
+                    </span>
                     <span>فهم كيفية استخدامك للموقع لتحسين خدماتنا</span>
                   </li>
                   <li className="flex gap-3">
-                    <span className="text-green-600 dark:text-green-400">•</span>
+                    <span className="text-green-600 dark:text-green-400">
+                      •
+                    </span>
                     <span>توفير محتوى وإعلانات ذات صلة بك</span>
                   </li>
                 </ul>
                 <p>
-                  لا تحتوي ملفات تعريف الارتباط على أي معلومات شخصية يمكن التعرف عليها بشكل مباشر، ولا يمكن استخدامها لتشغيل برامج أو فيروسات على جهازك.
+                  لا تحتوي ملفات تعريف الارتباط على أي معلومات شخصية يمكن التعرف
+                  عليها بشكل مباشر، ولا يمكن استخدامها لتشغيل برامج أو فيروسات
+                  على جهازك.
                 </p>
               </div>
             </div>
@@ -129,51 +142,58 @@ export default function CookiesPage() {
       {/* Cookie Types */}
       <section className="py-12" dir="rtl">
         <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center mb-12">
-            <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+          <div className="mx-auto mb-12 max-w-3xl text-center">
+            <h2 className="mb-4 font-bold text-4xl text-gray-900 dark:text-white">
               أنواع ملفات تعريف الارتباط التي نستخدمها
             </h2>
           </div>
 
-          <div className="grid gap-8 max-w-6xl mx-auto">
+          <div className="mx-auto grid max-w-6xl gap-8">
             {cookieTypes.map((type, index) => (
               <div
+                className="rounded-3xl border border-gray-200 bg-white p-8 dark:border-gray-800 dark:bg-gray-900"
                 key={index}
-                className="bg-white dark:bg-gray-900 rounded-3xl p-8 border border-gray-200 dark:border-gray-800"
               >
-                <div className="flex items-start gap-6 mb-6">
-                  <div className={`w-16 h-16 rounded-2xl bg-linear-to-br ${type.color} flex items-center justify-center shrink-0`}>
-                    <type.icon className="w-8 h-8 text-white" />
+                <div className="mb-6 flex items-start gap-6">
+                  <div
+                    className={`h-16 w-16 rounded-2xl bg-linear-to-br ${type.color} flex shrink-0 items-center justify-center`}
+                  >
+                    <type.icon className="h-8 w-8 text-white" />
                   </div>
                   <div className="flex-1">
-                    <div className="flex items-center justify-between mb-3">
-                      <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
+                    <div className="mb-3 flex items-center justify-between">
+                      <h3 className="font-bold text-2xl text-gray-900 dark:text-white">
                         {type.title}
                       </h3>
                       {type.canDisable ? (
-                        <span className="bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 px-3 py-1 rounded-full text-xs font-semibold">
+                        <span className="rounded-full bg-green-100 px-3 py-1 font-semibold text-green-700 text-xs dark:bg-green-900/30 dark:text-green-400">
                           يمكن تعطيلها
                         </span>
                       ) : (
-                        <span className="bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-400 px-3 py-1 rounded-full text-xs font-semibold">
+                        <span className="rounded-full bg-gray-100 px-3 py-1 font-semibold text-gray-700 text-xs dark:bg-gray-800 dark:text-gray-400">
                           ضرورية
                         </span>
                       )}
                     </div>
-                    <p className="text-gray-600 dark:text-gray-400 mb-4">
+                    <p className="mb-4 text-gray-600 dark:text-gray-400">
                       {type.description}
                     </p>
                   </div>
                 </div>
-                
-                <div className="bg-gray-50 dark:bg-gray-800/50 rounded-2xl p-6">
-                  <h4 className="font-semibold text-gray-900 dark:text-white mb-3">
+
+                <div className="rounded-2xl bg-gray-50 p-6 dark:bg-gray-800/50">
+                  <h4 className="mb-3 font-semibold text-gray-900 dark:text-white">
                     أمثلة على الاستخدام:
                   </h4>
                   <ul className="space-y-2">
                     {type.examples.map((example, exIndex) => (
-                      <li key={exIndex} className="flex gap-3 text-sm text-gray-600 dark:text-gray-400">
-                        <span className="text-green-600 dark:text-green-400">✓</span>
+                      <li
+                        className="flex gap-3 text-gray-600 text-sm dark:text-gray-400"
+                        key={exIndex}
+                      >
+                        <span className="text-green-600 dark:text-green-400">
+                          ✓
+                        </span>
                         <span>{example}</span>
                       </li>
                     ))}
@@ -186,35 +206,36 @@ export default function CookiesPage() {
       </section>
 
       {/* Third Party Services */}
-      <section className="py-20 bg-white dark:bg-gray-950" dir="rtl">
+      <section className="bg-white py-20 dark:bg-gray-950" dir="rtl">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6 text-center">
+          <div className="mx-auto max-w-4xl">
+            <h2 className="mb-6 text-center font-bold text-3xl text-gray-900 dark:text-white">
               الخدمات الخارجية
             </h2>
-            <p className="text-center text-gray-600 dark:text-gray-400 mb-8">
-              نستخدم بعض الخدمات الخارجية التي قد تضع ملفات تعريف ارتباط على جهازك
+            <p className="mb-8 text-center text-gray-600 dark:text-gray-400">
+              نستخدم بعض الخدمات الخارجية التي قد تضع ملفات تعريف ارتباط على
+              جهازك
             </p>
-            
+
             <div className="space-y-4">
               {thirdPartyServices.map((service, index) => (
                 <div
+                  className="flex items-center justify-between rounded-2xl border border-gray-200 bg-gray-50 p-6 dark:border-gray-800 dark:bg-gray-900"
                   key={index}
-                  className="flex items-center justify-between p-6 bg-gray-50 dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800"
                 >
                   <div>
-                    <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-1">
+                    <h3 className="mb-1 font-bold text-gray-900 text-lg dark:text-white">
                       {service.name}
                     </h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">
+                    <p className="text-gray-600 text-sm dark:text-gray-400">
                       {service.purpose}
                     </p>
                   </div>
                   <a
+                    className="font-semibold text-green-600 text-sm hover:underline dark:text-green-400"
                     href={service.link}
-                    target="_blank"
                     rel="noopener noreferrer"
-                    className="text-green-600 dark:text-green-400 font-semibold hover:underline text-sm"
+                    target="_blank"
                   >
                     سياسة الخصوصية
                   </a>
@@ -228,31 +249,39 @@ export default function CookiesPage() {
       {/* Cookie Control */}
       <section className="py-20" dir="rtl">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <div className="bg-linear-to-br from-green-700 via-green-600 to-green-500 rounded-3xl p-8 lg:p-12 text-white">
-              <h2 className="text-3xl font-bold mb-6">
+          <div className="mx-auto max-w-4xl">
+            <div className="rounded-3xl bg-linear-to-br from-green-700 via-green-600 to-green-500 p-8 text-white lg:p-12">
+              <h2 className="mb-6 font-bold text-3xl">
                 كيف تتحكم في ملفات تعريف الارتباط؟
               </h2>
               <div className="space-y-4 text-green-100 leading-relaxed">
-                <p>
-                  يمكنك التحكم في ملفات تعريف الارتباط وحذفها بعدة طرق:
-                </p>
-                <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 space-y-3">
+                <p>يمكنك التحكم في ملفات تعريف الارتباط وحذفها بعدة طرق:</p>
+                <div className="space-y-3 rounded-2xl bg-white/10 p-6 backdrop-blur-sm">
                   <div className="flex gap-3">
                     <span>1.</span>
-                    <span><strong>إعدادات المتصفح:</strong> يمكنك ضبط إعدادات متصفحك لحظر أو حذف ملفات تعريف الارتباط</span>
+                    <span>
+                      <strong>إعدادات المتصفح:</strong> يمكنك ضبط إعدادات متصفحك
+                      لحظر أو حذف ملفات تعريف الارتباط
+                    </span>
                   </div>
                   <div className="flex gap-3">
                     <span>2.</span>
-                    <span><strong>إعدادات الموقع:</strong> يمكنك إدارة تفضيلات ملفات تعريف الارتباط من صفحة الإعدادات</span>
+                    <span>
+                      <strong>إعدادات الموقع:</strong> يمكنك إدارة تفضيلات ملفات
+                      تعريف الارتباط من صفحة الإعدادات
+                    </span>
                   </div>
                   <div className="flex gap-3">
                     <span>3.</span>
-                    <span><strong>الوضع الخاص:</strong> استخدم وضع التصفح الخاص في متصفحك لتقليل تتبع ملفات تعريف الارتباط</span>
+                    <span>
+                      <strong>الوضع الخاص:</strong> استخدم وضع التصفح الخاص في
+                      متصفحك لتقليل تتبع ملفات تعريف الارتباط
+                    </span>
                   </div>
                 </div>
                 <p className="text-sm text-yellow-200">
-                  ⚠️ ملاحظة: حظر أو حذف بعض ملفات تعريف الارتباط قد يؤثر على وظائف الموقع وتجربتك.
+                  ⚠️ ملاحظة: حظر أو حذف بعض ملفات تعريف الارتباط قد يؤثر على
+                  وظائف الموقع وتجربتك.
                 </p>
               </div>
             </div>
@@ -263,12 +292,15 @@ export default function CookiesPage() {
       {/* Updates */}
       <section className="py-12" dir="rtl">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto bg-white dark:bg-gray-900 rounded-3xl p-8 border border-gray-200 dark:border-gray-800">
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+          <div className="mx-auto max-w-4xl rounded-3xl border border-gray-200 bg-white p-8 dark:border-gray-800 dark:bg-gray-900">
+            <h2 className="mb-4 font-bold text-2xl text-gray-900 dark:text-white">
               تحديثات السياسة
             </h2>
-            <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
-              قد نقوم بتحديث سياسة ملفات تعريف الارتباط هذه من وقت لآخر لتعكس التغييرات في ممارساتنا أو لأسباب تشغيلية أو قانونية أو تنظيمية أخرى. سنقوم بنشر أي تغييرات على هذه الصفحة مع تاريخ "آخر تحديث" المحدث.
+            <p className="text-gray-600 leading-relaxed dark:text-gray-400">
+              قد نقوم بتحديث سياسة ملفات تعريف الارتباط هذه من وقت لآخر لتعكس
+              التغييرات في ممارساتنا أو لأسباب تشغيلية أو قانونية أو تنظيمية
+              أخرى. سنقوم بنشر أي تغييرات على هذه الصفحة مع تاريخ "آخر تحديث"
+              المحدث.
             </p>
           </div>
         </div>
@@ -277,23 +309,23 @@ export default function CookiesPage() {
       {/* Contact */}
       <section className="py-12" dir="rtl">
         <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center bg-white dark:bg-gray-900 rounded-3xl p-8 border border-gray-200 dark:border-gray-800">
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+          <div className="mx-auto max-w-3xl rounded-3xl border border-gray-200 bg-white p-8 text-center dark:border-gray-800 dark:bg-gray-900">
+            <h2 className="mb-4 font-bold text-2xl text-gray-900 dark:text-white">
               هل لديك أسئلة حول ملفات تعريف الارتباط؟
             </h2>
-            <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
+            <p className="mb-6 text-gray-600 leading-relaxed dark:text-gray-400">
               إذا كان لديك أي أسئلة أو استفسارات، لا تتردد في التواصل معنا.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col justify-center gap-4 sm:flex-row">
               <a
+                className="inline-flex items-center justify-center gap-2 rounded-xl bg-linear-to-l from-green-700 via-green-600 to-green-500 px-8 py-4 font-semibold text-lg text-white shadow-lg transition-all hover:scale-105 hover:shadow-xl"
                 href="/contact"
-                className="inline-flex items-center justify-center gap-2 bg-linear-to-l from-green-700 via-green-600 to-green-500 text-white px-8 py-4 rounded-xl text-lg font-semibold shadow-lg hover:shadow-xl transition-all hover:scale-105"
               >
                 تواصل معنا
               </a>
               <a
+                className="inline-flex items-center justify-center gap-2 rounded-xl bg-gray-100 px-8 py-4 font-semibold text-gray-900 text-lg transition-all hover:bg-gray-200 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
                 href="mailto:privacy@chatbot.com"
-                className="inline-flex items-center justify-center gap-2 bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white px-8 py-4 rounded-xl text-lg font-semibold hover:bg-gray-200 dark:hover:bg-gray-700 transition-all"
               >
                 privacy@chatbot.com
               </a>

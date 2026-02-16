@@ -59,7 +59,6 @@ export const ImageBlock: ComponentConfig<ImageBlockProps> = {
 
     return (
       <img
-        src={src}
         alt={alt}
         className={cn(
           "w-full object-cover",
@@ -71,6 +70,7 @@ export const ImageBlock: ComponentConfig<ImageBlockProps> = {
           aspectRatio === "video" && "aspect-video",
           aspectRatio === "wide" && "aspect-[21/9]"
         )}
+        src={src}
       />
     );
   },

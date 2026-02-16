@@ -1,10 +1,10 @@
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 import {
+  deleteAgent,
   getAgentById,
+  incrementAgentUsage,
   updateAgent,
   updateAgentStatus,
-  deleteAgent,
-  incrementAgentUsage,
 } from "@/lib/db/agents-queries";
 
 const corsHeaders = {

@@ -28,7 +28,7 @@ export const Embed: ComponentConfig<EmbedProps> = {
       return (
         <div
           className={cn(
-            "flex items-center justify-center bg-muted rounded-lg text-muted-foreground",
+            "flex items-center justify-center rounded-lg bg-muted text-muted-foreground",
             aspectRatio === "video" && "aspect-video",
             aspectRatio === "square" && "aspect-square",
             aspectRatio === "wide" && "aspect-[21/9]"
@@ -62,11 +62,11 @@ export const Embed: ComponentConfig<EmbedProps> = {
         )}
       >
         <iframe
-          src={embedSrc}
-          title="Embedded content"
-          className="size-full border-0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
+          className="size-full border-0"
+          src={embedSrc}
+          title="Embedded content"
         />
       </div>
     );

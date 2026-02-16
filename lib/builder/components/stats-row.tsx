@@ -45,18 +45,16 @@ export const StatsRow: ComponentConfig<StatsRowProps> = {
     return (
       <div
         className={cn(
-          "w-full py-10 px-6 rounded-lg",
+          "w-full rounded-lg px-6 py-10",
           bg === "muted" && "bg-muted",
-          bg === "card" && "bg-card border"
+          bg === "card" && "border bg-card"
         )}
       >
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center max-w-screen-xl mx-auto">
+        <div className="mx-auto grid max-w-screen-xl grid-cols-2 gap-6 text-center md:grid-cols-4">
           {stats.map((stat, i) => (
-            <div key={`stat-${i}`} className="space-y-1">
-              <p className="text-3xl font-bold text-foreground">
-                {stat.value}
-              </p>
-              <p className="text-sm text-muted-foreground">{stat.label}</p>
+            <div className="space-y-1" key={`stat-${i}`}>
+              <p className="font-bold text-3xl text-foreground">{stat.value}</p>
+              <p className="text-muted-foreground text-sm">{stat.label}</p>
             </div>
           ))}
         </div>

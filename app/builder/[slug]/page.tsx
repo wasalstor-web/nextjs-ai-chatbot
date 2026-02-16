@@ -4,8 +4,9 @@
  * Pattern from: puckeditor/puck → recipes/next/app/puck/[...puckPath]/page.tsx
  * Loads page data from PostgreSQL → passes to <EditorClient>.
  */
-import { notFound } from "next/navigation";
+
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { getBuilderPageBySlugAnyStatus } from "@/lib/db/builder-queries";
 import { EditorClient } from "./editor-client";
 
@@ -32,9 +33,9 @@ export default async function BuilderEditorPage({
 
   return (
     <EditorClient
-      slug={page.slug}
-      pageId={page.id}
       data={page.data as Record<string, unknown>}
+      pageId={page.id}
+      slug={page.slug}
     />
   );
 }

@@ -1,7 +1,7 @@
 "use client";
 
+import { AlertTriangle, Lock, Shield, Users } from "lucide-react";
 import { useEffect, useState } from "react";
-import { Shield, Users, Lock, AlertTriangle } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface SecurityStats {
@@ -21,7 +21,7 @@ export default function AdminSecurityPage() {
         if (data.success) {
           const adminCount = data.users.filter(
             (u: { role: string }) =>
-              u.role === "admin" || u.role === "super_admin",
+              u.role === "admin" || u.role === "super_admin"
           ).length;
           setStats({ totalUsers: data.total, adminCount });
         }
@@ -64,10 +64,8 @@ export default function AdminSecurityPage() {
   return (
     <div className="flex flex-col gap-4 p-6">
       <div>
-        <h1 className="text-3xl font-bold">الأمان</h1>
-        <p className="text-muted-foreground mt-2">
-          إعدادات الأمان والصلاحيات
-        </p>
+        <h1 className="font-bold text-3xl">الأمان</h1>
+        <p className="mt-2 text-muted-foreground">إعدادات الأمان والصلاحيات</p>
       </div>
 
       {/* Security Status */}
@@ -75,21 +73,21 @@ export default function AdminSecurityPage() {
         <div className="rounded-lg border p-4">
           <div className="flex items-center gap-2">
             <Users className="h-5 w-5 text-muted-foreground" />
-            <span className="text-sm text-muted-foreground">
+            <span className="text-muted-foreground text-sm">
               إجمالي المستخدمين
             </span>
           </div>
-          <p className="mt-1 text-2xl font-bold">
-            {loading ? "—" : stats?.totalUsers ?? 0}
+          <p className="mt-1 font-bold text-2xl">
+            {loading ? "—" : (stats?.totalUsers ?? 0)}
           </p>
         </div>
         <div className="rounded-lg border p-4">
           <div className="flex items-center gap-2">
             <Shield className="h-5 w-5 text-muted-foreground" />
-            <span className="text-sm text-muted-foreground">المديرون</span>
+            <span className="text-muted-foreground text-sm">المديرون</span>
           </div>
-          <p className="mt-1 text-2xl font-bold">
-            {loading ? "—" : stats?.adminCount ?? 0}
+          <p className="mt-1 font-bold text-2xl">
+            {loading ? "—" : (stats?.adminCount ?? 0)}
           </p>
         </div>
       </div>
@@ -101,26 +99,26 @@ export default function AdminSecurityPage() {
           const Icon = check.icon;
           return (
             <div
-              key={check.title}
               className="flex items-center gap-3 rounded-lg border p-3"
+              key={check.title}
             >
               <div
                 className={cn(
                   "rounded-full p-1.5",
                   check.status === "active"
                     ? "bg-green-100 text-green-600 dark:bg-green-900 dark:text-green-400"
-                    : "bg-yellow-100 text-yellow-600 dark:bg-yellow-900 dark:text-yellow-400",
+                    : "bg-yellow-100 text-yellow-600 dark:bg-yellow-900 dark:text-yellow-400"
                 )}
               >
                 <Icon className="h-4 w-4" />
               </div>
               <div className="flex-1">
-                <p className="text-sm font-medium">{check.title}</p>
-                <p className="text-xs text-muted-foreground">
+                <p className="font-medium text-sm">{check.title}</p>
+                <p className="text-muted-foreground text-xs">
                   {check.description}
                 </p>
               </div>
-              <span className="text-xs font-medium text-green-600 dark:text-green-400">
+              <span className="font-medium text-green-600 text-xs dark:text-green-400">
                 فعّال
               </span>
             </div>
@@ -130,4 +128,3 @@ export default function AdminSecurityPage() {
     </div>
   );
 }
-

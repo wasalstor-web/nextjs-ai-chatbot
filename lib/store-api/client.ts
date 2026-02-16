@@ -24,7 +24,7 @@ class StoreAPIError extends Error {
 
 async function request<T>(
   endpoint: string,
-  options: RequestOptions = {},
+  options: RequestOptions = {}
 ): Promise<T> {
   const { method = "GET", body, token, params } = options;
 
@@ -51,10 +51,7 @@ async function request<T>(
     const errorData = await res
       .json()
       .catch(() => ({ detail: "Unknown error" }));
-    throw new StoreAPIError(
-      errorData.detail || res.statusText,
-      res.status,
-    );
+    throw new StoreAPIError(errorData.detail || res.statusText, res.status);
   }
 
   return res.json();
@@ -140,11 +137,7 @@ export interface ProductListResponse {
 }
 
 export const productAPI = {
-  list: (
-    token: string,
-    storeId: string,
-    params?: Record<string, string>,
-  ) =>
+  list: (token: string, storeId: string, params?: Record<string, string>) =>
     request<ProductListResponse>(`/stores/${storeId}/products`, {
       token,
       params,
@@ -163,7 +156,7 @@ export const productAPI = {
     token: string,
     storeId: string,
     productId: string,
-    data: Partial<Product>,
+    data: Partial<Product>
   ) =>
     request<Product>(`/stores/${storeId}/products/${productId}`, {
       method: "PUT",
@@ -212,11 +205,7 @@ export interface OrderListResponse {
 }
 
 export const orderAPI = {
-  list: (
-    token: string,
-    storeId: string,
-    params?: Record<string, string>,
-  ) =>
+  list: (token: string, storeId: string, params?: Record<string, string>) =>
     request<OrderListResponse>(`/stores/${storeId}/orders`, {
       token,
       params,
@@ -227,7 +216,7 @@ export const orderAPI = {
     token: string,
     storeId: string,
     orderId: string,
-    data: { status?: string },
+    data: { status?: string }
   ) =>
     request<Order>(`/stores/${storeId}/orders/${orderId}`, {
       method: "PUT",

@@ -55,7 +55,9 @@ async function uploadFile(
     const data = await put(filename, fileBuffer, { access: "public" });
     return data;
   } catch {
-    throw new Error("No file storage configured. Set R2_BUCKET_URL or BLOB_READ_WRITE_TOKEN.");
+    throw new Error(
+      "No file storage configured. Set R2_BUCKET_URL or BLOB_READ_WRITE_TOKEN."
+    );
   }
 }
 
@@ -71,7 +73,8 @@ export async function POST(request: Request) {
   }
 
   try {
-    const formData = (await request.formData()) as unknown as globalThis.FormData;
+    const formData =
+      (await request.formData()) as unknown as globalThis.FormData;
     const fileEntry = formData.get("file");
     const file = fileEntry as Blob;
 

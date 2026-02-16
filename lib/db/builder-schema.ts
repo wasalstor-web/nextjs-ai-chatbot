@@ -26,10 +26,7 @@ export const builderPage = pgTable("BuilderPage", {
   slug: varchar("slug", { length: 256 }).notNull().unique(),
   description: text("description"),
   status: pageStatusEnum("status").notNull().default("draft"),
-  data: json("data")
-    .$type<Record<string, unknown>>()
-    .notNull()
-    .default({}),
+  data: json("data").$type<Record<string, unknown>>().notNull().default({}),
   seo: json("seo")
     .$type<{
       title?: string;

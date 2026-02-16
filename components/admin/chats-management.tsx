@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { Globe, Lock } from "lucide-react";
+import { useEffect, useState } from "react";
 import { AdminDataTable } from "@/components/admin/admin-data-table";
 import { AdminTableSkeleton } from "@/components/admin/admin-table-skeleton";
 import { cn } from "@/lib/utils";
@@ -54,7 +54,7 @@ export function ChatsManagement() {
       key: "title",
       header: "العنوان",
       render: (row: ChatRow) => (
-        <span className="max-w-[300px] truncate block">{row.title}</span>
+        <span className="block max-w-[300px] truncate">{row.title}</span>
       ),
     },
     {
@@ -63,16 +63,20 @@ export function ChatsManagement() {
       render: (row: ChatRow) => (
         <span
           className={cn(
-            "inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-medium",
+            "inline-flex items-center gap-1 rounded-full px-2 py-0.5 font-medium text-xs",
             row.visibility === "public"
               ? "bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-300"
-              : "bg-zinc-100 text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300",
+              : "bg-zinc-100 text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300"
           )}
         >
           {row.visibility === "public" ? (
-            <><Globe className="h-3 w-3" /> عام</>
+            <>
+              <Globe className="h-3 w-3" /> عام
+            </>
           ) : (
-            <><Lock className="h-3 w-3" /> خاص</>
+            <>
+              <Lock className="h-3 w-3" /> خاص
+            </>
           )}
         </span>
       ),
@@ -81,7 +85,7 @@ export function ChatsManagement() {
       key: "createdAt",
       header: "التاريخ",
       render: (row: ChatRow) => (
-        <span className="text-xs text-muted-foreground">
+        <span className="text-muted-foreground text-xs">
           {new Date(row.createdAt).toLocaleDateString("ar-SA")}
         </span>
       ),
@@ -90,7 +94,7 @@ export function ChatsManagement() {
       key: "userId",
       header: "المستخدم",
       render: (row: ChatRow) => (
-        <span className="font-mono text-xs text-muted-foreground">
+        <span className="font-mono text-muted-foreground text-xs">
           {row.userId.slice(0, 8)}…
         </span>
       ),
@@ -99,17 +103,17 @@ export function ChatsManagement() {
 
   return (
     <div className="flex flex-col gap-4">
-      <form onSubmit={handleSearch} className="flex gap-2">
+      <form className="flex gap-2" onSubmit={handleSearch}>
         <input
-          type="text"
-          value={search}
+          className="flex-1 rounded-lg border bg-background px-3 py-2 text-sm"
           onChange={(e) => setSearch(e.target.value)}
           placeholder="بحث بالعنوان..."
-          className="flex-1 rounded-lg border bg-background px-3 py-2 text-sm"
+          type="text"
+          value={search}
         />
         <button
+          className="rounded-lg bg-primary px-4 py-2 font-medium text-primary-foreground text-sm"
           type="submit"
-          className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground"
         >
           بحث
         </button>
@@ -125,23 +129,29 @@ export function ChatsManagement() {
         />
       )}
 
-      <div className="flex items-center justify-between text-sm text-muted-foreground">
+      <div className="flex items-center justify-between text-muted-foreground text-sm">
         <span>الإجمالي: {total}</span>
         <div className="flex gap-2">
           <button
-            type="button"
-            disabled={page <= 1}
-            onClick={() => { setPage(page - 1); fetchChats(page - 1, search); }}
             className="rounded border px-3 py-1 disabled:opacity-50"
+            disabled={page <= 1}
+            onClick={() => {
+              setPage(page - 1);
+              fetchChats(page - 1, search);
+            }}
+            type="button"
           >
             السابق
           </button>
           <span className="px-2 py-1">صفحة {page}</span>
           <button
-            type="button"
-            disabled={chats.length < 20}
-            onClick={() => { setPage(page + 1); fetchChats(page + 1, search); }}
             className="rounded border px-3 py-1 disabled:opacity-50"
+            disabled={chats.length < 20}
+            onClick={() => {
+              setPage(page + 1);
+              fetchChats(page + 1, search);
+            }}
+            type="button"
           >
             التالي
           </button>

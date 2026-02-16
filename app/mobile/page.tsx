@@ -1,10 +1,22 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
-import { ArrowUp, Menu, Loader2, Settings, History, Plus, LogOut, User, Paperclip, Image as ImageIcon, X } from "lucide-react";
-import { useSession, signOut } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import {
+  ArrowUp,
+  History,
+  Image as ImageIcon,
+  Loader2,
+  LogOut,
+  Menu,
+  Paperclip,
+  Plus,
+  Settings,
+  User,
+  X,
+} from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { signOut, useSession } from "next-auth/react";
+import { useEffect, useRef, useState } from "react";
 
 interface Message {
   id: string;
@@ -165,33 +177,36 @@ export default function MobileChatPage() {
   };
 
   return (
-    <div className="flex flex-col h-screen bg-linear-to-b from-green-50 to-white dark:from-gray-900 dark:to-gray-950" dir="rtl">
+    <div
+      className="flex h-screen flex-col bg-linear-to-b from-green-50 to-white dark:from-gray-900 dark:to-gray-950"
+      dir="rtl"
+    >
       {/* Sidebar Overlay */}
       {isSidebarOpen && (
         <div
-          className="fixed inset-0 bg-black/50 z-40"
+          className="fixed inset-0 z-40 bg-black/50"
           onClick={() => setIsSidebarOpen(false)}
         />
       )}
 
       {/* Sidebar */}
       <div
-        className={`fixed top-0 right-0 h-full w-80 bg-white dark:bg-gray-900 shadow-2xl z-50 transform transition-transform duration-300 ${
+        className={`fixed top-0 right-0 z-50 h-full w-80 transform bg-white shadow-2xl transition-transform duration-300 dark:bg-gray-900 ${
           isSidebarOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
-        <div className="flex flex-col h-full">
+        <div className="flex h-full flex-col">
           {/* Sidebar Header */}
-          <div className="p-4 border-b border-gray-200 dark:border-gray-800">
+          <div className="border-gray-200 border-b p-4 dark:border-gray-800">
             <div className="flex items-center gap-3">
               {session?.user?.image ? (
                 <img
-                  src={session.user.image}
                   alt="Profile"
-                  className="w-12 h-12 rounded-full"
+                  className="h-12 w-12 rounded-full"
+                  src={session.user.image}
                 />
               ) : (
-                <div className="w-12 h-12 rounded-full bg-linear-to-br from-green-600 to-green-500 flex items-center justify-center text-white font-bold">
+                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-linear-to-br from-green-600 to-green-500 font-bold text-white">
                   {session?.user?.email?.[0]?.toUpperCase() || "Z"}
                 </div>
               )}
@@ -199,7 +214,7 @@ export default function MobileChatPage() {
                 <p className="font-semibold text-gray-900 dark:text-white">
                   {session?.user?.email || "زائر"}
                 </p>
-                <p className="text-xs text-gray-500">
+                <p className="text-gray-500 text-xs">
                   {session ? "مستخدم مسجل" : "وضع الزائر"}
                 </p>
               </div>
@@ -209,37 +224,37 @@ export default function MobileChatPage() {
           {/* New Chat Button */}
           <div className="p-4">
             <button
+              className="flex w-full items-center justify-center gap-2 rounded-xl bg-linear-to-r from-green-600 to-green-500 py-3 font-medium text-white shadow-lg transition-all hover:shadow-xl"
               onClick={handleNewChat}
-              className="w-full flex items-center justify-center gap-2 bg-linear-to-r from-green-600 to-green-500 text-white py-3 rounded-xl font-medium shadow-lg hover:shadow-xl transition-all"
             >
-              <Plus className="w-5 h-5" />
+              <Plus className="h-5 w-5" />
               محادثة جديدة
             </button>
           </div>
 
           {/* Chat History */}
           <div className="flex-1 overflow-y-auto px-4">
-            <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 mb-3 flex items-center gap-2">
-              <History className="w-4 h-4" />
+            <h3 className="mb-3 flex items-center gap-2 font-semibold text-gray-500 text-sm dark:text-gray-400">
+              <History className="h-4 w-4" />
               المحادثات السابقة
             </h3>
             <div className="space-y-2">
               {chatHistory.length > 0 ? (
                 chatHistory.slice(0, 10).map((chat) => (
                   <button
+                    className="w-full rounded-xl p-3 text-right transition-colors hover:bg-gray-100 dark:hover:bg-gray-800"
                     key={chat.id}
-                    className="w-full text-right p-3 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-xl transition-colors"
                   >
-                    <p className="text-sm font-medium text-gray-900 dark:text-white truncate">
+                    <p className="truncate font-medium text-gray-900 text-sm dark:text-white">
                       {chat.title}
                     </p>
-                    <p className="text-xs text-gray-500 mt-1">
+                    <p className="mt-1 text-gray-500 text-xs">
                       {new Date(chat.createdAt).toLocaleDateString("ar-SA")}
                     </p>
                   </button>
                 ))
               ) : (
-                <p className="text-sm text-gray-500 text-center py-8">
+                <p className="py-8 text-center text-gray-500 text-sm">
                   لا توجد محادثات سابقة
                 </p>
               )}
@@ -247,30 +262,30 @@ export default function MobileChatPage() {
           </div>
 
           {/* Sidebar Footer */}
-          <div className="p-4 border-t border-gray-200 dark:border-gray-800 space-y-2">
+          <div className="space-y-2 border-gray-200 border-t p-4 dark:border-gray-800">
             <Link
+              className="flex w-full items-center gap-3 rounded-xl px-4 py-3 transition-colors hover:bg-gray-100 dark:hover:bg-gray-800"
               href="/mobile/settings"
-              className="w-full flex items-center gap-3 px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-xl transition-colors"
               onClick={() => setIsSidebarOpen(false)}
             >
-              <Settings className="w-5 h-5 text-gray-600 dark:text-gray-400" />
+              <Settings className="h-5 w-5 text-gray-600 dark:text-gray-400" />
               <span className="text-gray-900 dark:text-white">الإعدادات</span>
             </Link>
             {session ? (
               <button
+                className="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-red-600 transition-colors hover:bg-red-50 dark:hover:bg-red-900/20"
                 onClick={handleSignOut}
-                className="w-full flex items-center gap-3 px-4 py-3 text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-xl transition-colors"
               >
-                <LogOut className="w-5 h-5" />
+                <LogOut className="h-5 w-5" />
                 <span>تسجيل الخروج</span>
               </button>
             ) : (
               <Link
+                className="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-green-600 transition-colors hover:bg-green-50 dark:hover:bg-green-900/20"
                 href="/mobile/login"
-                className="w-full flex items-center gap-3 px-4 py-3 text-green-600 hover:bg-green-50 dark:hover:bg-green-900/20 rounded-xl transition-colors"
                 onClick={() => setIsSidebarOpen(false)}
               >
-                <User className="w-5 h-5" />
+                <User className="h-5 w-5" />
                 <span>تسجيل الدخول</span>
               </Link>
             )}
@@ -279,15 +294,15 @@ export default function MobileChatPage() {
       </div>
 
       {/* Header */}
-      <div className="sticky top-0 z-10 bg-white/80 dark:bg-gray-900/80 backdrop-blur-lg border-b border-gray-200 dark:border-gray-800">
+      <div className="sticky top-0 z-10 border-gray-200 border-b bg-white/80 backdrop-blur-lg dark:border-gray-800 dark:bg-gray-900/80">
         <div className="flex items-center justify-between px-4 py-3">
           <button
+            className="rounded-lg p-2 transition-colors hover:bg-gray-100 dark:hover:bg-gray-800"
             onClick={() => setIsSidebarOpen(true)}
-            className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
           >
-            <Menu className="w-6 h-6" />
+            <Menu className="h-6 w-6" />
           </button>
-          <h1 className="text-lg font-bold text-gray-900 dark:text-white">
+          <h1 className="font-bold text-gray-900 text-lg dark:text-white">
             مساعد ذكي
           </h1>
           <div className="w-10" />
@@ -295,23 +310,23 @@ export default function MobileChatPage() {
       </div>
 
       {/* Messages */}
-      <div className="flex-1 overflow-y-auto px-4 py-4 space-y-4">
+      <div className="flex-1 space-y-4 overflow-y-auto px-4 py-4">
         {messages.map((message) => (
           <div
-            key={message.id}
             className={`flex ${message.role === "user" ? "justify-start" : "justify-end"}`}
+            key={message.id}
           >
             <div
               className={`max-w-[80%] rounded-2xl px-4 py-3 ${
                 message.role === "user"
                   ? "bg-green-600 text-white shadow-lg"
-                  : "bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white shadow-md"
+                  : "bg-gray-100 text-gray-900 shadow-md dark:bg-gray-800 dark:text-white"
               }`}
             >
-              <p className="text-sm leading-relaxed whitespace-pre-wrap">
+              <p className="whitespace-pre-wrap text-sm leading-relaxed">
                 {message.content}
               </p>
-              <span className="text-xs opacity-70 mt-1 block">
+              <span className="mt-1 block text-xs opacity-70">
                 {message.timestamp.toLocaleTimeString("ar-SA", {
                   hour: "2-digit",
                   minute: "2-digit",
@@ -322,8 +337,8 @@ export default function MobileChatPage() {
         ))}
         {isLoading && (
           <div className="flex justify-end">
-            <div className="bg-gray-100 dark:bg-gray-800 rounded-2xl px-4 py-3">
-              <Loader2 className="w-5 h-5 animate-spin text-gray-600 dark:text-gray-400" />
+            <div className="rounded-2xl bg-gray-100 px-4 py-3 dark:bg-gray-800">
+              <Loader2 className="h-5 w-5 animate-spin text-gray-600 dark:text-gray-400" />
             </div>
           </div>
         )}
@@ -331,58 +346,58 @@ export default function MobileChatPage() {
       </div>
 
       {/* Input */}
-      <div className="sticky bottom-0 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 p-4">
+      <div className="sticky bottom-0 border-gray-200 border-t bg-white p-4 dark:border-gray-800 dark:bg-gray-900">
         {/* Attachments Preview */}
         {attachments.length > 0 && (
           <div className="mb-3 flex gap-2 overflow-x-auto pb-2">
             {attachments.map((file, index) => (
               <div
+                className="relative h-20 w-20 shrink-0 overflow-hidden rounded-xl border border-gray-200 bg-gray-100 dark:border-gray-700 dark:bg-gray-800"
                 key={index}
-                className="relative shrink-0 w-20 h-20 rounded-xl overflow-hidden bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700"
               >
                 {file.type.startsWith("image/") ? (
                   <img
-                    src={URL.createObjectURL(file)}
                     alt={file.name}
-                    className="w-full h-full object-cover"
+                    className="h-full w-full object-cover"
+                    src={URL.createObjectURL(file)}
                   />
                 ) : (
-                  <div className="w-full h-full flex items-center justify-center">
-                    <Paperclip className="w-6 h-6 text-gray-500" />
+                  <div className="flex h-full w-full items-center justify-center">
+                    <Paperclip className="h-6 w-6 text-gray-500" />
                   </div>
                 )}
                 <button
+                  className="-top-1 -left-1 absolute flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-white shadow-lg"
                   onClick={() => removeAttachment(index)}
-                  className="absolute -top-1 -left-1 w-5 h-5 bg-red-500 text-white rounded-full flex items-center justify-center shadow-lg"
                 >
-                  <X className="w-3 h-3" />
+                  <X className="h-3 w-3" />
                 </button>
               </div>
             ))}
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="flex items-end gap-2">
+        <form className="flex items-end gap-2" onSubmit={handleSubmit}>
           {/* File Input Button */}
           <input
-            ref={fileInputRef}
-            type="file"
-            multiple
             accept="image/*,.pdf,.doc,.docx,.txt"
             className="hidden"
+            multiple
             onChange={handleFileSelect}
+            ref={fileInputRef}
+            type="file"
           />
           <button
-            type="button"
+            className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gray-100 text-gray-600 transition-all hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700"
             onClick={() => fileInputRef.current?.click()}
-            className="flex items-center justify-center w-12 h-12 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-400 rounded-2xl transition-all"
+            type="button"
           >
-            <Paperclip className="w-5 h-5" />
+            <Paperclip className="h-5 w-5" />
           </button>
 
-          <div className="flex-1 relative">
+          <div className="relative flex-1">
             <textarea
-              value={input}
+              className="w-full resize-none rounded-2xl border border-gray-300 bg-white px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 dark:border-gray-700 dark:bg-gray-800 dark:text-white"
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={(e) => {
                 if (e.key === "Enter" && !e.shiftKey) {
@@ -392,16 +407,16 @@ export default function MobileChatPage() {
               }}
               placeholder="اكتب رسالتك..."
               rows={1}
-              className="w-full resize-none rounded-2xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 dark:text-white"
               style={{ maxHeight: "120px" }}
+              value={input}
             />
           </div>
           <button
-            type="submit"
+            className="flex h-12 w-12 items-center justify-center rounded-full bg-green-600 text-white shadow-lg transition-all duration-200 hover:bg-green-700 disabled:bg-gray-300 disabled:shadow-none dark:disabled:bg-gray-700"
             disabled={(!input.trim() && attachments.length === 0) || isLoading}
-            className="flex items-center justify-center w-12 h-12 bg-green-600 hover:bg-green-700 disabled:bg-gray-300 dark:disabled:bg-gray-700 text-white rounded-full transition-all duration-200 shadow-lg disabled:shadow-none"
+            type="submit"
           >
-            <ArrowUp className="w-5 h-5" />
+            <ArrowUp className="h-5 w-5" />
           </button>
         </form>
       </div>

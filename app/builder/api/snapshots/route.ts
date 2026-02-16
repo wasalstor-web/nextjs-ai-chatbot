@@ -22,10 +22,7 @@ export async function GET(request: Request) {
   const pageId = searchParams.get("pageId");
 
   if (!pageId) {
-    return NextResponse.json(
-      { error: "pageId is required" },
-      { status: 400 }
-    );
+    return NextResponse.json({ error: "pageId is required" }, { status: 400 });
   }
 
   const snapshots = await getBuilderSnapshots({ pageId });

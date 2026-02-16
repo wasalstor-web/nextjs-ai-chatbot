@@ -1,11 +1,11 @@
+import { count, gte, sql } from "drizzle-orm";
+import { drizzle } from "drizzle-orm/postgres-js";
 import { NextResponse } from "next/server";
+import postgres from "postgres";
 import { auth } from "@/app/(auth)/auth";
 import { isAdmin } from "@/lib/auth/admin";
-import { drizzle } from "drizzle-orm/postgres-js";
-import { count, gte, sql } from "drizzle-orm";
-import postgres from "postgres";
-import { user, chat, message, document } from "@/lib/db/schema";
 import { agent } from "@/lib/db/agents-schema";
+import { chat, document, message, user } from "@/lib/db/schema";
 
 const client = postgres(process.env.POSTGRES_URL!);
 const db = drizzle(client);
@@ -38,10 +38,22 @@ export async function GET() {
       db.select({ value: count() }).from(user),
       db.select({ value: count() }).from(chat),
       db.select({ value: count() }).from(message),
-      db.select({ value: count() }).from(agent).catch(() => [{ value: 0 }]),
-      db.select({ value: count() }).from(document).catch(() => [{ value: 0 }]),
-      db.select({ value: count() }).from(chat).where(gte(chat.createdAt, sevenDaysAgo)),
-      db.select({ value: count() }).from(chat).where(gte(chat.createdAt, thirtyDaysAgo)),
+      db
+        .select({ value: count() })
+        .from(agent)
+        .catch(() => [{ value: 0 }]),
+      db
+        .select({ value: count() })
+        .from(document)
+        .catch(() => [{ value: 0 }]),
+      db
+        .select({ value: count() })
+        .from(chat)
+        .where(gte(chat.createdAt, sevenDaysAgo)),
+      db
+        .select({ value: count() })
+        .from(chat)
+        .where(gte(chat.createdAt, thirtyDaysAgo)),
     ]);
 
     const totalUsers = totalUsersResult[0]?.value ?? 0;
@@ -53,9 +65,10 @@ export async function GET() {
     const recentChats = recentChatsResult[0]?.value ?? 0;
 
     // Growth rate = (recent / total) * 100
-    const growthRate = totalChats > 0
-      ? Math.round((recentChats / totalChats) * 100 * 10) / 10
-      : 0;
+    const growthRate =
+      totalChats > 0
+        ? Math.round((recentChats / totalChats) * 100 * 10) / 10
+        : 0;
 
     return NextResponse.json({
       success: true,
@@ -73,7 +86,7 @@ export async function GET() {
   } catch {
     return NextResponse.json(
       { success: false, error: "Failed to fetch stats" },
-      { status: 500 },
+      { status: 500 }
     );
   }
 }

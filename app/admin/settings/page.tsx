@@ -1,7 +1,7 @@
 "use client";
 
+import { Bell, Database, Globe, Key, type Settings } from "lucide-react";
 import { useState } from "react";
-import { Settings, Globe, Key, Bell, Database } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface SettingSection {
@@ -44,8 +44,8 @@ export default function AdminSettingsPage() {
   return (
     <div className="flex flex-col gap-4 p-6">
       <div>
-        <h1 className="text-3xl font-bold">الإعدادات</h1>
-        <p className="text-muted-foreground mt-2">إعدادات النظام العامة</p>
+        <h1 className="font-bold text-3xl">الإعدادات</h1>
+        <p className="mt-2 text-muted-foreground">إعدادات النظام العامة</p>
       </div>
 
       <div className="grid gap-4 md:grid-cols-2">
@@ -53,22 +53,22 @@ export default function AdminSettingsPage() {
           const Icon = section.icon;
           return (
             <button
-              key={section.id}
-              type="button"
-              onClick={() => setActiveSection(section.id)}
               className={cn(
                 "flex items-start gap-3 rounded-lg border p-4 text-start transition-colors",
                 activeSection === section.id
                   ? "border-primary bg-primary/5"
-                  : "hover:bg-muted/50",
+                  : "hover:bg-muted/50"
               )}
+              key={section.id}
+              onClick={() => setActiveSection(section.id)}
+              type="button"
             >
               <div className="rounded-lg bg-muted p-2">
                 <Icon className="h-5 w-5 text-muted-foreground" />
               </div>
               <div>
                 <h3 className="font-semibold">{section.title}</h3>
-                <p className="text-sm text-muted-foreground">
+                <p className="text-muted-foreground text-sm">
                   {section.description}
                 </p>
               </div>
@@ -78,11 +78,12 @@ export default function AdminSettingsPage() {
       </div>
 
       <div className="rounded-lg border p-6">
-        <p className="text-sm text-muted-foreground">
-          إعدادات قسم &quot;{sections.find((s) => s.id === activeSection)?.title}&quot; — سيتم تفعيلها في التحديث القادم
+        <p className="text-muted-foreground text-sm">
+          إعدادات قسم &quot;
+          {sections.find((s) => s.id === activeSection)?.title}&quot; — سيتم
+          تفعيلها في التحديث القادم
         </p>
       </div>
     </div>
   );
 }
-

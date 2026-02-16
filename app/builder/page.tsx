@@ -1,15 +1,15 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
-import { cn } from "@/lib/utils";
+import { useCallback, useEffect, useState } from "react";
 import {
   formatDate,
   getStatusColor,
   getStatusLabel,
-  toSlug,
   isValidSlug,
+  toSlug,
 } from "@/lib/builder/utils";
+import { cn } from "@/lib/utils";
 
 interface PageItem {
   id: string;
@@ -62,7 +62,9 @@ export default function BuilderPagesManager() {
     if (!newTitle.trim() || !newSlug.trim()) return;
 
     if (!isValidSlug(newSlug)) {
-      setError("الرابط غير صالح — استخدم حروف إنجليزية صغيرة وأرقام وشرطات فقط");
+      setError(
+        "الرابط غير صالح — استخدم حروف إنجليزية صغيرة وأرقام وشرطات فقط"
+      );
       return;
     }
 
@@ -108,27 +110,25 @@ export default function BuilderPagesManager() {
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="max-w-screen-xl mx-auto px-6 py-8">
+      <div className="mx-auto max-w-screen-xl px-6 py-8">
         {/* Header */}
-        <div className="flex items-center justify-between mb-8">
+        <div className="mb-8 flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold tracking-tight">
-              بناء الصفحات
-            </h1>
-            <p className="text-muted-foreground mt-1">
+            <h1 className="font-bold text-3xl tracking-tight">بناء الصفحات</h1>
+            <p className="mt-1 text-muted-foreground">
               إنشاء وإدارة صفحات الموقع بالسحب والإفلات
             </p>
           </div>
           <div className="flex items-center gap-3">
             <Link
+              className="inline-flex items-center gap-2 rounded-md border px-4 py-2 text-sm transition-colors hover:bg-muted"
               href="/admin"
-              className="inline-flex items-center gap-2 rounded-md border px-4 py-2 text-sm hover:bg-muted transition-colors"
             >
               لوحة التحكم
             </Link>
             <Link
+              className="inline-flex items-center gap-2 rounded-md border px-4 py-2 text-sm transition-colors hover:bg-muted"
               href="/"
-              className="inline-flex items-center gap-2 rounded-md border px-4 py-2 text-sm hover:bg-muted transition-colors"
             >
               ← الرئيسية
             </Link>
@@ -137,12 +137,12 @@ export default function BuilderPagesManager() {
 
         {/* Error banner */}
         {error && (
-          <div className="mb-6 flex items-center justify-between rounded-lg border border-destructive/50 bg-destructive/10 px-4 py-3 text-sm text-destructive">
+          <div className="mb-6 flex items-center justify-between rounded-lg border border-destructive/50 bg-destructive/10 px-4 py-3 text-destructive text-sm">
             <span>{error}</span>
             <button
-              type="button"
-              onClick={() => setError(null)}
               className="text-destructive hover:text-destructive/80"
+              onClick={() => setError(null)}
+              type="button"
             >
               ✕
             </button>
@@ -151,51 +151,51 @@ export default function BuilderPagesManager() {
 
         {/* Create form */}
         <form
-          onSubmit={handleCreate}
           className="mb-8 space-y-3 rounded-lg border bg-card p-4"
+          onSubmit={handleCreate}
         >
           <div className="flex gap-3">
             <div className="flex-1">
-              <label htmlFor="page-title" className="sr-only">
+              <label className="sr-only" htmlFor="page-title">
                 عنوان الصفحة
               </label>
               <input
-                id="page-title"
-                type="text"
-                value={newTitle}
-                onChange={(e) => setNewTitle(e.target.value)}
-                placeholder="عنوان الصفحة الجديدة..."
                 className="w-full rounded-md border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
                 dir="rtl"
+                id="page-title"
+                onChange={(e) => setNewTitle(e.target.value)}
+                placeholder="عنوان الصفحة الجديدة..."
+                type="text"
+                value={newTitle}
               />
             </div>
             <div className="w-48">
-              <label htmlFor="page-slug" className="sr-only">
+              <label className="sr-only" htmlFor="page-slug">
                 الرابط
               </label>
               <input
+                className="w-full rounded-md border bg-background px-3 py-2 font-mono text-sm focus:outline-none focus:ring-2 focus:ring-ring"
+                dir="ltr"
                 id="page-slug"
-                type="text"
-                value={newSlug}
                 onChange={(e) => {
                   setSlugTouched(true);
                   setNewSlug(e.target.value);
                 }}
                 placeholder="my-page"
-                className="w-full rounded-md border bg-background px-3 py-2 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-ring"
-                dir="ltr"
+                type="text"
+                value={newSlug}
               />
             </div>
             <button
-              type="submit"
+              className="inline-flex items-center rounded-md bg-primary px-4 py-2 font-medium text-primary-foreground text-sm transition-colors hover:bg-primary/90 disabled:opacity-50"
               disabled={creating || !newTitle.trim() || !newSlug.trim()}
-              className="inline-flex items-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90 disabled:opacity-50 transition-colors"
+              type="submit"
             >
               {creating ? "جاري الإنشاء..." : "إنشاء صفحة"}
             </button>
           </div>
           {newSlug && (
-            <p className="text-xs text-muted-foreground" dir="ltr">
+            <p className="text-muted-foreground text-xs" dir="ltr">
               URL: /p/{newSlug}
             </p>
           )}
@@ -203,10 +203,9 @@ export default function BuilderPagesManager() {
 
         {/* Stats bar */}
         {!loading && pages.length > 0 && (
-          <div className="mb-6 flex gap-6 text-sm text-muted-foreground">
+          <div className="mb-6 flex gap-6 text-muted-foreground text-sm">
             <span>
-              الكل:{" "}
-              <strong className="text-foreground">{pages.length}</strong>
+              الكل: <strong className="text-foreground">{pages.length}</strong>
             </span>
             <span>
               منشور:{" "}
@@ -228,24 +227,24 @@ export default function BuilderPagesManager() {
           <div className="space-y-3">
             {Array.from({ length: 4 }).map((_, i) => (
               <div
+                className="flex items-center gap-4 rounded-lg border p-4"
                 key={`skel-${i}`}
-                className="flex items-center gap-4 p-4 rounded-lg border"
               >
                 <div className="flex-1 space-y-2">
-                  <div className="h-4 w-48 rounded bg-muted animate-pulse" />
-                  <div className="h-3 w-32 rounded bg-muted animate-pulse" />
+                  <div className="h-4 w-48 animate-pulse rounded bg-muted" />
+                  <div className="h-3 w-32 animate-pulse rounded bg-muted" />
                 </div>
-                <div className="h-8 w-20 rounded bg-muted animate-pulse" />
+                <div className="h-8 w-20 animate-pulse rounded bg-muted" />
               </div>
             ))}
           </div>
         ) : pages.length === 0 ? (
-          <div className="text-center py-20 text-muted-foreground">
-            <div className="mx-auto mb-4 size-16 rounded-full bg-muted flex items-center justify-center text-2xl">
+          <div className="py-20 text-center text-muted-foreground">
+            <div className="mx-auto mb-4 flex size-16 items-center justify-center rounded-full bg-muted text-2xl">
               📄
             </div>
-            <p className="text-lg font-medium">لا توجد صفحات بعد</p>
-            <p className="text-sm mt-1">
+            <p className="font-medium text-lg">لا توجد صفحات بعد</p>
+            <p className="mt-1 text-sm">
               أنشئ صفحتك الأولى باستخدام النموذج أعلاه
             </p>
           </div>
@@ -253,15 +252,15 @@ export default function BuilderPagesManager() {
           <div className="space-y-3">
             {pages.map((page) => (
               <div
+                className="flex items-center justify-between rounded-lg border bg-card p-4 transition-shadow hover:shadow-sm"
                 key={page.id}
-                className="flex items-center justify-between p-4 rounded-lg border bg-card hover:shadow-sm transition-shadow"
               >
-                <div className="flex-1 min-w-0">
+                <div className="min-w-0 flex-1">
                   <div className="flex items-center gap-3">
-                    <h3 className="font-semibold truncate">{page.title}</h3>
+                    <h3 className="truncate font-semibold">{page.title}</h3>
                     <span
                       className={cn(
-                        "inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium",
+                        "inline-flex items-center rounded-full px-2.5 py-0.5 font-medium text-xs",
                         getStatusColor(page.status) === "default" &&
                           "bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-400",
                         getStatusColor(page.status) === "secondary" &&
@@ -273,7 +272,7 @@ export default function BuilderPagesManager() {
                       {getStatusLabel(page.status)}
                     </span>
                   </div>
-                  <div className="flex items-center gap-4 mt-1.5 text-xs text-muted-foreground">
+                  <div className="mt-1.5 flex items-center gap-4 text-muted-foreground text-xs">
                     <span className="font-mono" dir="ltr">
                       /p/{page.slug}
                     </span>
@@ -283,26 +282,26 @@ export default function BuilderPagesManager() {
                     )}
                   </div>
                 </div>
-                <div className="flex items-center gap-2 mr-4">
+                <div className="mr-4 flex items-center gap-2">
                   <Link
+                    className="inline-flex items-center rounded-md bg-primary px-3 py-1.5 font-medium text-primary-foreground text-xs transition-colors hover:bg-primary/90"
                     href={`/builder/${page.slug}`}
-                    className="inline-flex items-center rounded-md bg-primary px-3 py-1.5 text-xs font-medium text-primary-foreground hover:bg-primary/90 transition-colors"
                   >
                     تحرير
                   </Link>
                   {page.status === "published" && (
                     <Link
+                      className="inline-flex items-center rounded-md border px-3 py-1.5 text-xs transition-colors hover:bg-muted"
                       href={`/p/${page.slug}`}
                       target="_blank"
-                      className="inline-flex items-center rounded-md border px-3 py-1.5 text-xs hover:bg-muted transition-colors"
                     >
                       معاينة ↗
                     </Link>
                   )}
                   <button
-                    type="button"
+                    className="inline-flex items-center rounded-md px-3 py-1.5 text-destructive text-xs transition-colors hover:bg-destructive/10"
                     onClick={() => handleDelete(page.id)}
-                    className="inline-flex items-center rounded-md px-3 py-1.5 text-xs text-destructive hover:bg-destructive/10 transition-colors"
+                    type="button"
                   >
                     حذف
                   </button>

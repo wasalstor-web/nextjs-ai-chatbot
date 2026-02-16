@@ -1,9 +1,17 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { ArrowRight, Loader2, Mail, Lock, User, Eye, EyeOff } from "lucide-react";
+import {
+  ArrowRight,
+  Eye,
+  EyeOff,
+  Loader2,
+  Lock,
+  Mail,
+  User,
+} from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function MobileRegisterPage() {
   const router = useRouter();
@@ -58,86 +66,97 @@ export default function MobileRegisterPage() {
   };
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-green-700 via-green-600 to-green-500 flex items-center justify-center p-4" dir="rtl">
+    <div
+      className="flex min-h-screen items-center justify-center bg-linear-to-br from-green-700 via-green-600 to-green-500 p-4"
+      dir="rtl"
+    >
       <div className="w-full max-w-md">
         {/* Logo/Header */}
-        <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-20 h-20 bg-white rounded-3xl shadow-2xl mb-4">
+        <div className="mb-8 text-center">
+          <div className="mb-4 inline-flex h-20 w-20 items-center justify-center rounded-3xl bg-white shadow-2xl">
             <span className="text-4xl">🤖</span>
           </div>
-          <h1 className="text-3xl font-bold text-white mb-2">إنشاء حساب جديد</h1>
+          <h1 className="mb-2 font-bold text-3xl text-white">
+            إنشاء حساب جديد
+          </h1>
           <p className="text-green-100">انضم إلى مساعدك الذكي الآن</p>
         </div>
 
         {/* Register Form */}
-        <div className="bg-white rounded-3xl shadow-2xl p-8">
-          <form onSubmit={handleSubmit} className="space-y-5">
+        <div className="rounded-3xl bg-white p-8 shadow-2xl">
+          <form className="space-y-5" onSubmit={handleSubmit}>
             {error && (
-              <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl text-sm">
+              <div className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-red-700 text-sm">
                 {error}
               </div>
             )}
 
             {/* Name Input */}
             <div className="space-y-2">
-              <label className="text-sm font-medium text-gray-700 block">
+              <label className="block font-medium text-gray-700 text-sm">
                 الاسم الكامل
               </label>
               <div className="relative">
-                <User className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                <User className="-translate-y-1/2 absolute top-1/2 right-3 h-5 w-5 text-gray-400" />
                 <input
-                  type="text"
-                  value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  className="w-full rounded-xl border border-gray-300 py-3 pr-11 pl-4 outline-none transition-all focus:border-transparent focus:ring-2 focus:ring-green-500"
+                  onChange={(e) =>
+                    setFormData({ ...formData, name: e.target.value })
+                  }
                   placeholder="أحمد محمد"
                   required
-                  className="w-full pr-11 pl-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-all"
+                  type="text"
+                  value={formData.name}
                 />
               </div>
             </div>
 
             {/* Email Input */}
             <div className="space-y-2">
-              <label className="text-sm font-medium text-gray-700 block">
+              <label className="block font-medium text-gray-700 text-sm">
                 البريد الإلكتروني
               </label>
               <div className="relative">
-                <Mail className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                <Mail className="-translate-y-1/2 absolute top-1/2 right-3 h-5 w-5 text-gray-400" />
                 <input
-                  type="email"
-                  value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  className="w-full rounded-xl border border-gray-300 py-3 pr-11 pl-4 outline-none transition-all focus:border-transparent focus:ring-2 focus:ring-green-500"
+                  onChange={(e) =>
+                    setFormData({ ...formData, email: e.target.value })
+                  }
                   placeholder="example@email.com"
                   required
-                  className="w-full pr-11 pl-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-all"
+                  type="email"
+                  value={formData.email}
                 />
               </div>
             </div>
 
             {/* Password Input */}
             <div className="space-y-2">
-              <label className="text-sm font-medium text-gray-700 block">
+              <label className="block font-medium text-gray-700 text-sm">
                 كلمة المرور
               </label>
               <div className="relative">
-                <Lock className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                <Lock className="-translate-y-1/2 absolute top-1/2 right-3 h-5 w-5 text-gray-400" />
                 <input
-                  type={showPassword ? "text" : "password"}
-                  value={formData.password}
-                  onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                  className="w-full rounded-xl border border-gray-300 py-3 pr-11 pl-11 outline-none transition-all focus:border-transparent focus:ring-2 focus:ring-green-500"
+                  onChange={(e) =>
+                    setFormData({ ...formData, password: e.target.value })
+                  }
                   placeholder="••••••••"
                   required
-                  className="w-full pr-11 pl-11 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-all"
+                  type={showPassword ? "text" : "password"}
+                  value={formData.password}
                 />
                 <button
-                  type="button"
+                  className="-translate-y-1/2 absolute top-1/2 left-3 text-gray-400 hover:text-gray-600"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                  type="button"
                 >
                   {showPassword ? (
-                    <EyeOff className="w-5 h-5" />
+                    <EyeOff className="h-5 w-5" />
                   ) : (
-                    <Eye className="w-5 h-5" />
+                    <Eye className="h-5 w-5" />
                   )}
                 </button>
               </div>
@@ -145,51 +164,54 @@ export default function MobileRegisterPage() {
 
             {/* Confirm Password */}
             <div className="space-y-2">
-              <label className="text-sm font-medium text-gray-700 block">
+              <label className="block font-medium text-gray-700 text-sm">
                 تأكيد كلمة المرور
               </label>
               <div className="relative">
-                <Lock className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                <Lock className="-translate-y-1/2 absolute top-1/2 right-3 h-5 w-5 text-gray-400" />
                 <input
-                  type={showPassword ? "text" : "password"}
-                  value={formData.confirmPassword}
+                  className="w-full rounded-xl border border-gray-300 py-3 pr-11 pl-4 outline-none transition-all focus:border-transparent focus:ring-2 focus:ring-green-500"
                   onChange={(e) =>
-                    setFormData({ ...formData, confirmPassword: e.target.value })
+                    setFormData({
+                      ...formData,
+                      confirmPassword: e.target.value,
+                    })
                   }
                   placeholder="••••••••"
                   required
-                  className="w-full pr-11 pl-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-all"
+                  type={showPassword ? "text" : "password"}
+                  value={formData.confirmPassword}
                 />
               </div>
             </div>
 
             {/* Submit Button */}
             <button
-              type="submit"
+              className="flex w-full items-center justify-center gap-2 rounded-xl bg-linear-to-r from-green-700 to-green-500 py-3 font-medium text-white shadow-lg transition-all duration-200 hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-50"
               disabled={isLoading}
-              className="w-full bg-linear-to-r from-green-700 to-green-500 text-white py-3 rounded-xl font-medium shadow-lg hover:shadow-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              type="submit"
             >
               {isLoading ? (
                 <>
-                  <Loader2 className="w-5 h-5 animate-spin" />
+                  <Loader2 className="h-5 w-5 animate-spin" />
                   جاري إنشاء الحساب...
                 </>
               ) : (
                 <>
                   إنشاء الحساب
-                  <ArrowRight className="w-5 h-5" />
+                  <ArrowRight className="h-5 w-5" />
                 </>
               )}
             </button>
 
             {/* Terms */}
-            <p className="text-xs text-gray-500 text-center">
+            <p className="text-center text-gray-500 text-xs">
               بإنشاء حساب، أنت توافق على{" "}
-              <Link href="/terms" className="text-green-600 hover:underline">
+              <Link className="text-green-600 hover:underline" href="/terms">
                 الشروط والأحكام
               </Link>{" "}
               و
-              <Link href="/privacy" className="text-green-600 hover:underline">
+              <Link className="text-green-600 hover:underline" href="/privacy">
                 {" "}
                 سياسة الخصوصية
               </Link>
@@ -199,10 +221,10 @@ export default function MobileRegisterPage() {
           {/* Divider */}
           <div className="relative my-6">
             <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-gray-300"></div>
+              <div className="w-full border-gray-300 border-t" />
             </div>
             <div className="relative flex justify-center text-sm">
-              <span className="px-4 bg-white text-gray-500">أو</span>
+              <span className="bg-white px-4 text-gray-500">أو</span>
             </div>
           </div>
 
@@ -211,8 +233,8 @@ export default function MobileRegisterPage() {
             <p className="text-gray-600 text-sm">
               لديك حساب بالفعل؟{" "}
               <Link
+                className="font-medium text-green-600 hover:text-green-700"
                 href="/mobile/login"
-                className="text-green-600 hover:text-green-700 font-medium"
               >
                 تسجيل الدخول
               </Link>

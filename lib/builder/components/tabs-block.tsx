@@ -39,17 +39,17 @@ export const TabsBlock: ComponentConfig<TabsBlockProps> = {
         <div className="flex gap-1 border-b" role="tablist">
           {tabs.map((tab, i) => (
             <button
-              key={`tab-${i}`}
-              type="button"
-              onClick={() => setActiveTab(i)}
+              aria-selected={i === activeTab}
               className={cn(
-                "px-4 py-2 text-sm font-medium transition-colors border-b-2",
+                "border-b-2 px-4 py-2 font-medium text-sm transition-colors",
                 i === activeTab
                   ? "border-primary text-foreground"
                   : "border-transparent text-muted-foreground hover:text-foreground"
               )}
+              key={`tab-${i}`}
+              onClick={() => setActiveTab(i)}
               role="tab"
-              aria-selected={i === activeTab}
+              type="button"
             >
               {tab.label}
             </button>
@@ -57,7 +57,7 @@ export const TabsBlock: ComponentConfig<TabsBlockProps> = {
         </div>
         <div className="p-4" role="tabpanel">
           {tabs[activeTab] && (
-            <p className="text-sm text-muted-foreground leading-relaxed">
+            <p className="text-muted-foreground text-sm leading-relaxed">
               {tabs[activeTab].content}
             </p>
           )}

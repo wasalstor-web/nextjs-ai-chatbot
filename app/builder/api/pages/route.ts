@@ -1,12 +1,12 @@
 import { NextResponse } from "next/server";
 import { auth } from "@/app/(auth)/auth";
 import { isAdmin } from "@/lib/auth/admin";
+import { isValidSlug } from "@/lib/builder/utils";
 import {
   createBuilderPage,
   getBuilderPageBySlugAnyStatus,
   getBuilderPages,
 } from "@/lib/db/builder-queries";
-import { isValidSlug } from "@/lib/builder/utils";
 
 export async function GET() {
   const session = await auth();

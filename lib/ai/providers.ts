@@ -1,11 +1,11 @@
 import { anthropic } from "@ai-sdk/anthropic";
-import { openai } from "@ai-sdk/openai";
 import { gateway } from "@ai-sdk/gateway";
+import { openai } from "@ai-sdk/openai";
 import {
   customProvider,
   extractReasoningMiddleware,
-  wrapLanguageModel,
   type LanguageModel,
+  wrapLanguageModel,
 } from "ai";
 import { isTestEnvironment } from "../constants";
 
@@ -45,7 +45,8 @@ const OPENAI_MODEL_MAP: Record<string, string> = {
 function resolveModelInternal(modelId: string): any {
   // If the model is an Anthropic model and we have a direct key, use it
   if (useDirectAnthropic && modelId.startsWith("anthropic/")) {
-    const bareId = ANTHROPIC_MODEL_MAP[modelId] ?? modelId.replace("anthropic/", "");
+    const bareId =
+      ANTHROPIC_MODEL_MAP[modelId] ?? modelId.replace("anthropic/", "");
     return anthropic(bareId);
   }
 
@@ -111,7 +112,9 @@ export function getTitleModel(): LanguageModel {
 
 export function getArtifactModel(): LanguageModel {
   if (isTestEnvironment && myProvider) {
-    return myProvider.languageModel("artifact-model") as unknown as LanguageModel;
+    return myProvider.languageModel(
+      "artifact-model"
+    ) as unknown as LanguageModel;
   }
   return resolveModel("anthropic/claude-haiku-4.5");
 }

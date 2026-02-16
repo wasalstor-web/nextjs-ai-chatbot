@@ -1,22 +1,22 @@
 "use client";
 
-import { useEffect, useState, useMemo } from "react";
 import {
-  Users,
-  MessageSquare,
-  Bot,
-  FileText,
-  TrendingUp,
   Activity,
-  ArrowUpRight,
   ArrowDownRight,
-  Eye,
+  ArrowUpRight,
+  Bot,
   Clock,
+  Eye,
+  FileText,
   Globe,
+  MessageSquare,
+  TrendingUp,
+  Users,
   Zap,
 } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { useEffect, useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 /* ────────────────────────────── types ────────────────────────────── */
 interface Stats {
@@ -41,14 +41,14 @@ function BarChartVisual({
 }) {
   const max = Math.max(...data, 1);
   return (
-    <div className="flex items-end gap-1 h-32">
+    <div className="flex h-32 items-end gap-1">
       {data.map((v, i) => (
         <div
-          key={`bar-${i}`}
           className={cn(
             "flex-1 rounded-t-sm transition-all duration-500 hover:opacity-80",
             color
           )}
+          key={`bar-${i}`}
           style={{ height: `${(v / max) * 100}%`, minHeight: 4 }}
           title={v.toLocaleString("ar-SA")}
         />
@@ -68,30 +68,32 @@ function DonutChart({
 
   return (
     <div className="relative mx-auto h-40 w-40">
-      <svg viewBox="0 0 36 36" className="h-full w-full -rotate-90">
+      <svg className="-rotate-90 h-full w-full" viewBox="0 0 36 36">
         {segments.map((seg, i) => {
           const pct = (seg.value / total) * 100;
           const offset = cumulative;
           cumulative += pct;
           return (
             <circle
-              key={`donut-${i}`}
+              className="transition-all duration-700"
               cx="18"
               cy="18"
-              r="15.91549"
               fill="transparent"
+              key={`donut-${i}`}
+              r="15.91549"
               stroke={seg.color}
-              strokeWidth="3.5"
               strokeDasharray={`${pct} ${100 - pct}`}
               strokeDashoffset={`${-offset}`}
-              className="transition-all duration-700"
+              strokeWidth="3.5"
             />
           );
         })}
       </svg>
       <div className="absolute inset-0 flex flex-col items-center justify-center">
-        <span className="text-2xl font-bold">{total.toLocaleString("ar-SA")}</span>
-        <span className="text-xs text-muted-foreground">إجمالي</span>
+        <span className="font-bold text-2xl">
+          {total.toLocaleString("ar-SA")}
+        </span>
+        <span className="text-muted-foreground text-xs">إجمالي</span>
       </div>
     </div>
   );
@@ -119,20 +121,20 @@ function MetricCard({
   return (
     <div
       className={cn(
-        "group relative overflow-hidden rounded-xl border-r-4 bg-card p-5 shadow-sm transition-all duration-300 hover:shadow-md hover:-translate-y-0.5",
+        "group hover:-translate-y-0.5 relative overflow-hidden rounded-xl border-r-4 bg-card p-5 shadow-sm transition-all duration-300 hover:shadow-md",
         borderColor
       )}
     >
       <div className="flex items-start justify-between">
         <div className="space-y-1">
-          <p className="text-sm font-medium text-muted-foreground">{title}</p>
-          <p className="text-3xl font-bold tracking-tight">
+          <p className="font-medium text-muted-foreground text-sm">{title}</p>
+          <p className="font-bold text-3xl tracking-tight">
             {value.toLocaleString("ar-SA")}
           </p>
           {trend !== undefined && (
             <div
               className={cn(
-                "flex items-center gap-1 text-xs font-medium",
+                "flex items-center gap-1 font-medium text-xs",
                 isPositive ? "text-emerald-600" : "text-red-500"
               )}
             >
@@ -159,13 +161,13 @@ function MetricCard({
 
       {/* spark line */}
       {sparkData && (
-        <div className="mt-3 flex items-end gap-[2px] h-8 opacity-40 group-hover:opacity-70 transition-opacity">
+        <div className="mt-3 flex h-8 items-end gap-[2px] opacity-40 transition-opacity group-hover:opacity-70">
           {sparkData.map((v, i) => {
             const max = Math.max(...sparkData, 1);
             return (
               <div
-                key={`sp-${i}`}
                 className="flex-1 rounded-t-sm bg-current"
+                key={`sp-${i}`}
                 style={{ height: `${(v / max) * 100}%`, minHeight: 2 }}
               />
             );
@@ -229,8 +231,8 @@ export function AnalyticsDashboard() {
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {Array.from({ length: 6 }).map((_, i) => (
             <div
-              key={`skel-${i}`}
               className="h-32 animate-pulse rounded-xl border bg-muted/40"
+              key={`skel-${i}`}
             />
           ))}
         </div>
@@ -247,7 +249,7 @@ export function AnalyticsDashboard() {
     return (
       <div className="rounded-xl border p-12 text-center text-muted-foreground">
         <Activity className="mx-auto mb-3 h-10 w-10 opacity-40" />
-        <p className="text-lg font-medium">فشل في تحميل الإحصائيات</p>
+        <p className="font-medium text-lg">فشل في تحميل الإحصائيات</p>
         <p className="mt-1 text-sm">تحقق من اتصال الخادم وحدّث الصفحة</p>
       </div>
     );
@@ -257,15 +259,15 @@ export function AnalyticsDashboard() {
     <div className="space-y-6">
       {/* ── period filter */}
       <div className="flex items-center justify-between">
-        <h2 className="text-xl font-bold">التحليلات</h2>
+        <h2 className="font-bold text-xl">التحليلات</h2>
         <div className="flex gap-1 rounded-lg border p-1">
           {(["7d", "30d", "90d"] as Period[]).map((p) => (
             <Button
-              key={p}
-              variant={period === p ? "default" : "ghost"}
-              size="sm"
               className="h-7 px-3 text-xs"
+              key={p}
               onClick={() => setPeriod(p)}
+              size="sm"
+              variant={period === p ? "default" : "ghost"}
             >
               {p === "7d" ? "٧ أيام" : p === "30d" ? "٣٠ يوم" : "٩٠ يوم"}
             </Button>
@@ -276,71 +278,71 @@ export function AnalyticsDashboard() {
       {/* ── metric cards */}
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         <MetricCard
-          title="المستخدمون"
-          value={stats.totalUsers}
+          borderColor="border-r-blue-500"
           icon={Users}
+          sparkData={chartData.users.slice(-7)}
+          title="المستخدمون"
           trend={12}
           trendLabel="هذا الأسبوع"
-          borderColor="border-r-blue-500"
-          sparkData={chartData.users.slice(-7)}
+          value={stats.totalUsers}
         />
         <MetricCard
-          title="المحادثات"
-          value={stats.totalChats}
+          borderColor="border-r-violet-500"
           icon={MessageSquare}
+          sparkData={chartData.chats.slice(-7)}
+          title="المحادثات"
           trend={8}
           trendLabel="هذا الأسبوع"
-          borderColor="border-r-violet-500"
-          sparkData={chartData.chats.slice(-7)}
+          value={stats.totalChats}
         />
         <MetricCard
-          title="الرسائل"
-          value={stats.totalMessages}
+          borderColor="border-r-emerald-500"
           icon={Activity}
+          sparkData={chartData.messages.slice(-7)}
+          title="الرسائل"
           trend={23}
           trendLabel="هذا الشهر"
-          borderColor="border-r-emerald-500"
-          sparkData={chartData.messages.slice(-7)}
+          value={stats.totalMessages}
         />
         <MetricCard
-          title="الوكلاء الذكية"
-          value={stats.totalAgents}
-          icon={Bot}
-          trend={5}
           borderColor="border-r-amber-500"
+          icon={Bot}
+          title="الوكلاء الذكية"
+          trend={5}
+          value={stats.totalAgents}
         />
         <MetricCard
-          title="المستندات"
-          value={stats.totalDocuments}
-          icon={FileText}
-          trend={-2}
           borderColor="border-r-rose-500"
+          icon={FileText}
+          title="المستندات"
+          trend={-2}
+          value={stats.totalDocuments}
         />
         <MetricCard
-          title="معدل النمو"
-          value={stats.growthRate}
+          borderColor="border-r-cyan-500"
           icon={TrendingUp}
+          title="معدل النمو"
           trend={stats.growthRate}
           trendLabel="شهري"
-          borderColor="border-r-cyan-500"
+          value={stats.growthRate}
         />
       </div>
 
       {/* ── charts row */}
       <div className="grid gap-4 lg:grid-cols-3">
         {/* bar chart — messages */}
-        <div className="lg:col-span-2 rounded-xl border bg-card p-5 shadow-sm">
+        <div className="rounded-xl border bg-card p-5 shadow-sm lg:col-span-2">
           <div className="mb-4 flex items-center justify-between">
             <div>
               <h3 className="font-semibold">الرسائل اليومية</h3>
-              <p className="text-xs text-muted-foreground">
+              <p className="text-muted-foreground text-xs">
                 حجم الرسائل خلال الفترة المحددة
               </p>
             </div>
             <Zap className="h-5 w-5 text-muted-foreground" />
           </div>
-          <BarChartVisual data={chartData.messages} color="bg-blue-500/80" />
-          <div className="mt-2 flex justify-between text-xs text-muted-foreground">
+          <BarChartVisual color="bg-blue-500/80" data={chartData.messages} />
+          <div className="mt-2 flex justify-between text-muted-foreground text-xs">
             <span>بداية الفترة</span>
             <span>اليوم</span>
           </div>
@@ -350,14 +352,17 @@ export function AnalyticsDashboard() {
         <div className="rounded-xl border bg-card p-5 shadow-sm">
           <div className="mb-4">
             <h3 className="font-semibold">توزيع المحتوى</h3>
-            <p className="text-xs text-muted-foreground">
+            <p className="text-muted-foreground text-xs">
               نسب المحادثات والوكلاء والمستندات
             </p>
           </div>
           <DonutChart segments={donutSegments} />
           <div className="mt-4 space-y-2">
             {donutSegments.map((seg) => (
-              <div key={seg.label} className="flex items-center justify-between text-sm">
+              <div
+                className="flex items-center justify-between text-sm"
+                key={seg.label}
+              >
                 <div className="flex items-center gap-2">
                   <div
                     className="h-2.5 w-2.5 rounded-full"
@@ -365,7 +370,9 @@ export function AnalyticsDashboard() {
                   />
                   <span>{seg.label}</span>
                 </div>
-                <span className="font-medium">{seg.value.toLocaleString("ar-SA")}</span>
+                <span className="font-medium">
+                  {seg.value.toLocaleString("ar-SA")}
+                </span>
               </div>
             ))}
           </div>
@@ -380,27 +387,29 @@ export function AnalyticsDashboard() {
               <Eye className="h-5 w-5 text-blue-500" />
               <h3 className="font-semibold">المستخدمون النشطون</h3>
             </div>
-            <p className="text-4xl font-bold tracking-tight text-primary">
+            <p className="font-bold text-4xl text-primary tracking-tight">
               {stats.activeUsers.toLocaleString("ar-SA")}
             </p>
-            <p className="text-sm text-muted-foreground">
+            <p className="text-muted-foreground text-sm">
               نشطون خلال آخر ٧ أيام
             </p>
           </div>
-          <div className="hidden sm:flex gap-6 text-center">
+          <div className="hidden gap-6 text-center sm:flex">
             <div>
               <Globe className="mx-auto mb-1 h-5 w-5 text-muted-foreground" />
-              <p className="text-lg font-bold">
+              <p className="font-bold text-lg">
                 {Math.round(stats.activeUsers * 0.6).toLocaleString("ar-SA")}
               </p>
-              <p className="text-xs text-muted-foreground">عبر الويب</p>
+              <p className="text-muted-foreground text-xs">عبر الويب</p>
             </div>
             <div>
               <Clock className="mx-auto mb-1 h-5 w-5 text-muted-foreground" />
-              <p className="text-lg font-bold">
-                {Math.round(stats.totalMessages / Math.max(stats.activeUsers, 1)).toLocaleString("ar-SA")}
+              <p className="font-bold text-lg">
+                {Math.round(
+                  stats.totalMessages / Math.max(stats.activeUsers, 1)
+                ).toLocaleString("ar-SA")}
               </p>
-              <p className="text-xs text-muted-foreground">رسالة / مستخدم</p>
+              <p className="text-muted-foreground text-xs">رسالة / مستخدم</p>
             </div>
           </div>
         </div>

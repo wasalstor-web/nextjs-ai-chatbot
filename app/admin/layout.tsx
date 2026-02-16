@@ -1,14 +1,18 @@
 import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 import Script from "next/script";
 import { Suspense } from "react";
-import { redirect } from "next/navigation";
 import { AdminSidebar } from "@/components/admin/admin-sidebar";
 import { DataStreamProvider } from "@/components/data-stream-provider";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
-import { auth } from "../(auth)/auth";
 import { isAdmin } from "@/lib/auth/admin";
+import { auth } from "../(auth)/auth";
 
-export default function AdminLayout({ children }: { children: React.ReactNode }) {
+export default function AdminLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <>
       <Script
@@ -46,4 +50,3 @@ async function SidebarWrapper({ children }: { children: React.ReactNode }) {
     </SidebarProvider>
   );
 }
-

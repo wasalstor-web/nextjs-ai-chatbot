@@ -61,9 +61,9 @@ export const Hero: ComponentConfig<HeroProps> = {
     return (
       <section
         className={cn(
-          "relative flex flex-col items-center justify-center w-full",
+          "relative flex w-full flex-col items-center justify-center",
           heightMap[minHeight],
-          bgImage ? "bg-cover bg-center" : "bg-muted"
+          bgImage ? "bg-center bg-cover" : "bg-muted"
         )}
         style={bgImage ? { backgroundImage: `url(${bgImage})` } : undefined}
       >
@@ -72,7 +72,7 @@ export const Hero: ComponentConfig<HeroProps> = {
         )}
         <div
           className={cn(
-            "relative z-10 w-full max-w-screen-xl px-6 py-12 space-y-4",
+            "relative z-10 w-full max-w-screen-xl space-y-4 px-6 py-12",
             align === "center" && "text-center",
             align === "left" && "text-left",
             align === "right" && "text-right"
@@ -80,7 +80,7 @@ export const Hero: ComponentConfig<HeroProps> = {
         >
           <h1
             className={cn(
-              "text-4xl md:text-5xl font-bold tracking-tight",
+              "font-bold text-4xl tracking-tight md:text-5xl",
               bgImage ? "text-white" : "text-foreground"
             )}
           >
@@ -89,7 +89,7 @@ export const Hero: ComponentConfig<HeroProps> = {
           {subtitle && (
             <p
               className={cn(
-                "text-lg md:text-xl max-w-2xl",
+                "max-w-2xl text-lg md:text-xl",
                 align === "center" && "mx-auto",
                 bgImage ? "text-white/90" : "text-muted-foreground"
               )}

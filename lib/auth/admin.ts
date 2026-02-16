@@ -1,7 +1,7 @@
-import { auth } from "@/app/(auth)/auth";
 import { eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/postgres-js";
 import postgres from "postgres";
+import { auth } from "@/app/(auth)/auth";
 import { user } from "@/lib/db/schema";
 
 const client = postgres(process.env.POSTGRES_URL!);
@@ -18,7 +18,8 @@ export async function isAdmin(): Promise<boolean> {
   }
 
   // Check admin emails from env (fast path)
-  const adminEmails = process.env.ADMIN_EMAILS?.split(",").map((e) => e.trim()) || [];
+  const adminEmails =
+    process.env.ADMIN_EMAILS?.split(",").map((e) => e.trim()) || [];
   if (session.user.email && adminEmails.includes(session.user.email)) {
     return true;
   }
@@ -46,4 +47,3 @@ export async function requireAdmin() {
     throw new Error("Unauthorized: Admin access required");
   }
 }
-

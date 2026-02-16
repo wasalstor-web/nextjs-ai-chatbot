@@ -6,7 +6,13 @@ import { useCopyToClipboard } from "usehooks-ts";
 import type { Vote } from "@/lib/db/schema";
 import type { ChatMessage } from "@/lib/types";
 import { Action, Actions } from "./elements/actions";
-import { CopyIcon, PencilEditIcon, ThumbDownIcon, ThumbUpIcon, SpeakerIcon } from "./icons";
+import {
+  CopyIcon,
+  PencilEditIcon,
+  SpeakerIcon,
+  ThumbDownIcon,
+  ThumbUpIcon,
+} from "./icons";
 
 export function PureMessageActions({
   chatId,
@@ -74,7 +80,7 @@ export function PureMessageActions({
       const audioBlob = await response.blob();
       const audioUrl = URL.createObjectURL(audioBlob);
       const newAudio = new Audio(audioUrl);
-      
+
       newAudio.onended = () => {
         setIsPlaying(false);
         setAudio(null);

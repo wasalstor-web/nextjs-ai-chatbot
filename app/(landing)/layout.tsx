@@ -1,4 +1,4 @@
-import { Header, Footer } from "@/components/landing/navigation";
+import { Footer, Header } from "@/components/landing/navigation";
 
 export default function LandingLayout({
   children,

@@ -1,11 +1,11 @@
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 
 import {
-  getPublishedAgents,
-  getAgentByExternalId,
   createAgent,
-  updateAgent,
+  getAgentByExternalId,
+  getPublishedAgents,
   searchAgents,
+  updateAgent,
 } from "@/lib/db/agents-queries";
 
 const corsHeaders = {
@@ -32,14 +32,14 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
 
     return NextResponse.json(
       { success: true, agents, count: agents.length },
-      { headers: corsHeaders },
+      { headers: corsHeaders }
     );
   } catch (error) {
     const message =
       error instanceof Error ? error.message : "Failed to fetch agents";
     return NextResponse.json(
       { success: false, error: message, agents: [] },
-      { status: 500, headers: corsHeaders },
+      { status: 500, headers: corsHeaders }
     );
   }
 }
@@ -51,7 +51,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     if (!body.name) {
       return NextResponse.json(
         { success: false, error: "Agent name is required" },
-        { status: 400, headers: corsHeaders },
+        { status: 400, headers: corsHeaders }
       );
     }
 
@@ -78,7 +78,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
             action: "updated",
             message: "تم تحديث الوكيل بنجاح",
           },
-          { headers: corsHeaders },
+          { headers: corsHeaders }
         );
       }
     }
@@ -103,14 +103,14 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
         action: "created",
         message: "تم إنشاء الوكيل بنجاح",
       },
-      { status: 201, headers: corsHeaders },
+      { status: 201, headers: corsHeaders }
     );
   } catch (error) {
     const message =
       error instanceof Error ? error.message : "Failed to create agent";
     return NextResponse.json(
       { success: false, error: message },
-      { status: 500, headers: corsHeaders },
+      { status: 500, headers: corsHeaders }
     );
   }
 }

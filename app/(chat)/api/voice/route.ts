@@ -33,9 +33,9 @@ export async function POST(request: Request) {
       response_format: "text",
     });
 
-    return NextResponse.json({ 
-      success: true, 
-      text: transcription 
+    return NextResponse.json({
+      success: true,
+      text: transcription,
     });
   } catch (error) {
     console.error("Voice transcription error:", error);

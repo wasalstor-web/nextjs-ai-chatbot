@@ -1,10 +1,9 @@
+import { count, desc, eq } from "drizzle-orm";
+import { drizzle } from "drizzle-orm/postgres-js";
 import { NextResponse } from "next/server";
-
+import postgres from "postgres";
 import { auth } from "@/app/(auth)/auth";
 import { isAdmin } from "@/lib/auth/admin";
-import { drizzle } from "drizzle-orm/postgres-js";
-import { count, desc, eq } from "drizzle-orm";
-import postgres from "postgres";
 import { document, user } from "@/lib/db/schema";
 
 const client = postgres(process.env.POSTGRES_URL!);
@@ -51,7 +50,7 @@ export async function GET(request: Request): Promise<NextResponse> {
   } catch {
     return NextResponse.json(
       { success: false, error: "Failed to fetch documents" },
-      { status: 500 },
+      { status: 500 }
     );
   }
 }

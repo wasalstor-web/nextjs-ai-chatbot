@@ -1,10 +1,9 @@
+import { eq } from "drizzle-orm";
+import { drizzle } from "drizzle-orm/postgres-js";
 import { NextResponse } from "next/server";
-
+import postgres from "postgres";
 import { auth } from "@/app/(auth)/auth";
 import { isAdmin } from "@/lib/auth/admin";
-import { drizzle } from "drizzle-orm/postgres-js";
-import { eq } from "drizzle-orm";
-import postgres from "postgres";
 import { user } from "@/lib/db/schema";
 
 const client = postgres(process.env.POSTGRES_URL!);
@@ -12,7 +11,7 @@ const db = drizzle(client);
 
 export async function PATCH(
   request: Request,
-  { params }: { params: Promise<{ id: string }> },
+  { params }: { params: Promise<{ id: string }> }
 ): Promise<NextResponse> {
   const session = await auth();
   if (!session?.user) {
@@ -28,10 +27,7 @@ export async function PATCH(
     const { role } = body;
 
     if (!role || !["user", "admin", "super_admin"].includes(role)) {
-      return NextResponse.json(
-        { error: "Invalid role" },
-        { status: 400 },
-      );
+      return NextResponse.json({ error: "Invalid role" }, { status: 400 });
     }
 
     const [updated] = await db
@@ -41,17 +37,14 @@ export async function PATCH(
       .returning({ id: user.id, email: user.email, role: user.role });
 
     if (!updated) {
-      return NextResponse.json(
-        { error: "User not found" },
-        { status: 404 },
-      );
+      return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
     return NextResponse.json({ success: true, user: updated });
   } catch {
     return NextResponse.json(
       { success: false, error: "Failed to update user" },
-      { status: 500 },
+      { status: 500 }
     );
   }
 }

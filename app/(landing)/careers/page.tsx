@@ -1,4 +1,12 @@
-import { Briefcase, MapPin, Clock, Users, Heart, Zap, TrendingUp } from "lucide-react";
+import {
+  Briefcase,
+  Clock,
+  Heart,
+  MapPin,
+  TrendingUp,
+  Users,
+  Zap,
+} from "lucide-react";
 
 export default function CareersPage() {
   const benefits = [
@@ -46,7 +54,8 @@ export default function CareersPage() {
       department: "الهندسة",
       location: "الرياض / عن بعد",
       type: "دوام كامل",
-      description: "نبحث عن مطور متمكن من React و Node.js للعمل على منصتنا الأساسية",
+      description:
+        "نبحث عن مطور متمكن من React و Node.js للعمل على منصتنا الأساسية",
       requirements: [
         "5+ سنوات خبرة في تطوير Full-Stack",
         "إتقان React, Next.js, TypeScript",
@@ -117,22 +126,21 @@ export default function CareersPage() {
   return (
     <div className="min-h-screen bg-linear-to-b from-white to-green-50 dark:from-gray-950 dark:to-gray-900">
       {/* Hero Section */}
-      <section className="pt-20 pb-12 relative overflow-hidden">
+      <section className="relative overflow-hidden pt-20 pb-12">
         <div className="absolute inset-0 bg-linear-to-br from-green-700/10 via-green-600/10 to-green-500/10 dark:from-green-700/5 dark:via-green-600/5 dark:to-green-500/5" />
-        
-        <div className="container mx-auto px-4 relative" dir="rtl">
-          <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-5xl lg:text-6xl font-bold mb-6">
-              <span className="text-gray-900 dark:text-white">
-                انضم إلى
-              </span>
+
+        <div className="container relative mx-auto px-4" dir="rtl">
+          <div className="mx-auto max-w-3xl text-center">
+            <h1 className="mb-6 font-bold text-5xl lg:text-6xl">
+              <span className="text-gray-900 dark:text-white">انضم إلى</span>
               <br />
               <span className="bg-linear-to-l from-green-700 via-green-600 to-green-500 bg-clip-text text-transparent">
                 فريقنا المتميز
               </span>
             </h1>
-            <p className="text-xl text-gray-600 dark:text-gray-400 leading-relaxed">
-              ساعدنا في بناء مستقبل الذكاء الاصطناعي. نحن نبحث عن أشخاص شغوفين ومبدعين للانضمام إلى رحلتنا.
+            <p className="text-gray-600 text-xl leading-relaxed dark:text-gray-400">
+              ساعدنا في بناء مستقبل الذكاء الاصطناعي. نحن نبحث عن أشخاص شغوفين
+              ومبدعين للانضمام إلى رحلتنا.
             </p>
           </div>
         </div>
@@ -141,7 +149,7 @@ export default function CareersPage() {
       {/* Stats */}
       <section className="py-12" dir="rtl">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
+          <div className="mx-auto grid max-w-5xl grid-cols-2 gap-6 lg:grid-cols-4">
             {[
               { value: "50+", label: "موظف" },
               { value: "15+", label: "جنسية" },
@@ -149,13 +157,13 @@ export default function CareersPage() {
               { value: "95%", label: "معدل الاحتفاظ" },
             ].map((stat, index) => (
               <div
+                className="rounded-2xl border border-gray-200 bg-white p-6 text-center dark:border-gray-800 dark:bg-gray-900"
                 key={index}
-                className="bg-white dark:bg-gray-900 rounded-2xl p-6 border border-gray-200 dark:border-gray-800 text-center"
               >
-                <div className="text-3xl font-bold bg-linear-to-l from-green-700 via-green-600 to-green-500 bg-clip-text text-transparent mb-2">
+                <div className="mb-2 bg-linear-to-l from-green-700 via-green-600 to-green-500 bg-clip-text font-bold text-3xl text-transparent">
                   {stat.value}
                 </div>
-                <div className="text-gray-600 dark:text-gray-400 text-sm">
+                <div className="text-gray-600 text-sm dark:text-gray-400">
                   {stat.label}
                 </div>
               </div>
@@ -165,27 +173,29 @@ export default function CareersPage() {
       </section>
 
       {/* Benefits */}
-      <section className="py-20 bg-white dark:bg-gray-950" dir="rtl">
+      <section className="bg-white py-20 dark:bg-gray-950" dir="rtl">
         <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center mb-12">
-            <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+          <div className="mx-auto mb-12 max-w-3xl text-center">
+            <h2 className="mb-4 font-bold text-4xl text-gray-900 dark:text-white">
               لماذا تنضم إلينا؟
             </h2>
-            <p className="text-lg text-gray-600 dark:text-gray-400">
+            <p className="text-gray-600 text-lg dark:text-gray-400">
               نوفر بيئة عمل مثالية تساعدك على النمو والتطور
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+          <div className="mx-auto grid max-w-7xl gap-8 md:grid-cols-2 lg:grid-cols-3">
             {benefits.map((benefit, index) => (
               <div
+                className="rounded-3xl border border-gray-200 bg-white p-8 transition-all hover:shadow-xl dark:border-gray-800 dark:bg-gray-900"
                 key={index}
-                className="bg-white dark:bg-gray-900 rounded-3xl p-8 border border-gray-200 dark:border-gray-800 hover:shadow-xl transition-all"
               >
-                <div className={`w-16 h-16 rounded-2xl bg-linear-to-br ${benefit.color} flex items-center justify-center mb-6`}>
-                  <benefit.icon className="w-8 h-8 text-white" />
+                <div
+                  className={`h-16 w-16 rounded-2xl bg-linear-to-br ${benefit.color} mb-6 flex items-center justify-center`}
+                >
+                  <benefit.icon className="h-8 w-8 text-white" />
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">
+                <h3 className="mb-3 font-bold text-gray-900 text-xl dark:text-white">
                   {benefit.title}
                 </h3>
                 <p className="text-gray-600 dark:text-gray-400">
@@ -200,22 +210,22 @@ export default function CareersPage() {
       {/* Values */}
       <section className="py-20" dir="rtl">
         <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center mb-12">
-            <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+          <div className="mx-auto mb-12 max-w-3xl text-center">
+            <h2 className="mb-4 font-bold text-4xl text-gray-900 dark:text-white">
               قيمنا المشتركة
             </h2>
-            <p className="text-lg text-gray-600 dark:text-gray-400">
+            <p className="text-gray-600 text-lg dark:text-gray-400">
               المبادئ التي توجه عملنا اليومي
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+          <div className="mx-auto grid max-w-6xl gap-6 md:grid-cols-2 lg:grid-cols-4">
             {values.map((value, index) => (
               <div
+                className="rounded-2xl bg-linear-to-br from-green-700 via-green-600 to-green-500 p-6 text-center text-white"
                 key={index}
-                className="bg-linear-to-br from-green-700 via-green-600 to-green-500 rounded-2xl p-6 text-white text-center"
               >
-                <h3 className="text-xl font-bold mb-3">{value.title}</h3>
+                <h3 className="mb-3 font-bold text-xl">{value.title}</h3>
                 <p className="text-green-100 text-sm">{value.description}</p>
               </div>
             ))}
@@ -224,63 +234,65 @@ export default function CareersPage() {
       </section>
 
       {/* Open Positions */}
-      <section className="py-20 bg-white dark:bg-gray-950" dir="rtl">
+      <section className="bg-white py-20 dark:bg-gray-950" dir="rtl">
         <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center mb-12">
-            <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+          <div className="mx-auto mb-12 max-w-3xl text-center">
+            <h2 className="mb-4 font-bold text-4xl text-gray-900 dark:text-white">
               الوظائف المتاحة
             </h2>
-            <p className="text-lg text-gray-600 dark:text-gray-400">
+            <p className="text-gray-600 text-lg dark:text-gray-400">
               اكتشف الفرصة المثالية لك
             </p>
           </div>
 
-          <div className="max-w-5xl mx-auto space-y-6">
+          <div className="mx-auto max-w-5xl space-y-6">
             {openPositions.map((position, index) => (
               <div
+                className="rounded-3xl border border-gray-200 bg-white p-8 transition-all hover:shadow-xl dark:border-gray-800 dark:bg-gray-900"
                 key={index}
-                className="bg-white dark:bg-gray-900 rounded-3xl p-8 border border-gray-200 dark:border-gray-800 hover:shadow-xl transition-all"
               >
-                <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4 mb-6">
+                <div className="mb-6 flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
                   <div>
-                    <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">
+                    <h3 className="mb-3 font-bold text-2xl text-gray-900 dark:text-white">
                       {position.title}
                     </h3>
                     <div className="flex flex-wrap gap-3 text-sm">
                       <span className="flex items-center gap-2 text-gray-600 dark:text-gray-400">
-                        <Briefcase className="w-4 h-4" />
+                        <Briefcase className="h-4 w-4" />
                         {position.department}
                       </span>
                       <span className="flex items-center gap-2 text-gray-600 dark:text-gray-400">
-                        <MapPin className="w-4 h-4" />
+                        <MapPin className="h-4 w-4" />
                         {position.location}
                       </span>
                       <span className="flex items-center gap-2 text-gray-600 dark:text-gray-400">
-                        <Clock className="w-4 h-4" />
+                        <Clock className="h-4 w-4" />
                         {position.type}
                       </span>
                     </div>
                   </div>
-                  <button className="bg-linear-to-l from-green-700 via-green-600 to-green-500 text-white px-8 py-3 rounded-xl font-semibold hover:shadow-lg transition-all lg:shrink-0">
+                  <button className="rounded-xl bg-linear-to-l from-green-700 via-green-600 to-green-500 px-8 py-3 font-semibold text-white transition-all hover:shadow-lg lg:shrink-0">
                     تقدّم الآن
                   </button>
                 </div>
 
-                <p className="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
+                <p className="mb-6 text-gray-600 leading-relaxed dark:text-gray-400">
                   {position.description}
                 </p>
 
-                <div className="bg-gray-50 dark:bg-gray-800/50 rounded-2xl p-6">
-                  <h4 className="font-semibold text-gray-900 dark:text-white mb-3">
+                <div className="rounded-2xl bg-gray-50 p-6 dark:bg-gray-800/50">
+                  <h4 className="mb-3 font-semibold text-gray-900 dark:text-white">
                     المتطلبات:
                   </h4>
                   <ul className="space-y-2">
                     {position.requirements.map((req, reqIndex) => (
                       <li
+                        className="flex gap-3 text-gray-600 text-sm dark:text-gray-400"
                         key={reqIndex}
-                        className="flex gap-3 text-sm text-gray-600 dark:text-gray-400"
                       >
-                        <span className="text-green-600 dark:text-green-400">✓</span>
+                        <span className="text-green-600 dark:text-green-400">
+                          ✓
+                        </span>
                         <span>{req}</span>
                       </li>
                     ))}
@@ -291,17 +303,18 @@ export default function CareersPage() {
           </div>
 
           {/* No position match */}
-          <div className="max-w-5xl mx-auto mt-12">
-            <div className="bg-green-50 dark:bg-green-900/20 border-2 border-green-200 dark:border-green-800 rounded-3xl p-8 text-center">
-              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+          <div className="mx-auto mt-12 max-w-5xl">
+            <div className="rounded-3xl border-2 border-green-200 bg-green-50 p-8 text-center dark:border-green-800 dark:bg-green-900/20">
+              <h3 className="mb-4 font-bold text-2xl text-gray-900 dark:text-white">
                 لم تجد الوظيفة المناسبة؟
               </h3>
-              <p className="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
-                نحن دائماً نبحث عن المواهب المتميزة. أرسل لنا سيرتك الذاتية وسنتواصل معك إذا كانت هناك فرصة مناسبة.
+              <p className="mb-6 text-gray-600 leading-relaxed dark:text-gray-400">
+                نحن دائماً نبحث عن المواهب المتميزة. أرسل لنا سيرتك الذاتية
+                وسنتواصل معك إذا كانت هناك فرصة مناسبة.
               </p>
               <a
+                className="inline-flex items-center gap-2 rounded-xl bg-linear-to-l from-green-700 via-green-600 to-green-500 px-8 py-4 font-semibold text-lg text-white shadow-lg transition-all hover:scale-105 hover:shadow-xl"
                 href="mailto:careers@chatbot.com"
-                className="inline-flex items-center gap-2 bg-linear-to-l from-green-700 via-green-600 to-green-500 text-white px-8 py-4 rounded-xl text-lg font-semibold shadow-lg hover:shadow-xl transition-all hover:scale-105"
               >
                 أرسل سيرتك الذاتية
               </a>
@@ -313,31 +326,39 @@ export default function CareersPage() {
       {/* Application Process */}
       <section className="py-20" dir="rtl">
         <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center mb-12">
-            <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+          <div className="mx-auto mb-12 max-w-3xl text-center">
+            <h2 className="mb-4 font-bold text-4xl text-gray-900 dark:text-white">
               عملية التوظيف
             </h2>
-            <p className="text-lg text-gray-600 dark:text-gray-400">
+            <p className="text-gray-600 text-lg dark:text-gray-400">
               رحلة بسيطة وواضحة من التقديم إلى الانضمام
             </p>
           </div>
 
-          <div className="max-w-4xl mx-auto">
-            <div className="grid md:grid-cols-4 gap-6">
+          <div className="mx-auto max-w-4xl">
+            <div className="grid gap-6 md:grid-cols-4">
               {[
-                { step: "1", title: "التقديم", description: "أرسل سيرتك الذاتية" },
+                {
+                  step: "1",
+                  title: "التقديم",
+                  description: "أرسل سيرتك الذاتية",
+                },
                 { step: "2", title: "المقابلة", description: "لقاء مع الفريق" },
-                { step: "3", title: "الاختبار", description: "تقييم تقني أو عملي" },
+                {
+                  step: "3",
+                  title: "الاختبار",
+                  description: "تقييم تقني أو عملي",
+                },
                 { step: "4", title: "العرض", description: "انضم إلى الفريق!" },
               ].map((item, index) => (
-                <div key={index} className="text-center">
-                  <div className="w-16 h-16 rounded-full bg-linear-to-br from-green-700 via-green-600 to-green-500 flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4">
+                <div className="text-center" key={index}>
+                  <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-linear-to-br from-green-700 via-green-600 to-green-500 font-bold text-2xl text-white">
                     {item.step}
                   </div>
-                  <h3 className="font-bold text-gray-900 dark:text-white mb-2">
+                  <h3 className="mb-2 font-bold text-gray-900 dark:text-white">
                     {item.title}
                   </h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                  <p className="text-gray-600 text-sm dark:text-gray-400">
                     {item.description}
                   </p>
                 </div>
@@ -348,25 +369,25 @@ export default function CareersPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-20 bg-linear-to-br from-green-700 via-green-600 to-green-500">
+      <section className="bg-linear-to-br from-green-700 via-green-600 to-green-500 py-20">
         <div className="container mx-auto px-4" dir="rtl">
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-4xl font-bold text-white mb-6">
+          <div className="mx-auto max-w-3xl text-center">
+            <h2 className="mb-6 font-bold text-4xl text-white">
               جاهز لبدء رحلتك معنا؟
             </h2>
-            <p className="text-xl text-green-100 mb-8">
+            <p className="mb-8 text-green-100 text-xl">
               نتطلع للتعرف عليك والعمل معاً لبناء شيء عظيم
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col justify-center gap-4 sm:flex-row">
               <a
+                className="inline-flex items-center justify-center gap-2 rounded-xl bg-white px-8 py-4 font-semibold text-green-600 text-lg shadow-lg transition-all hover:scale-105 hover:shadow-xl"
                 href="mailto:careers@chatbot.com"
-                className="inline-flex items-center justify-center gap-2 bg-white text-green-600 px-8 py-4 rounded-xl text-lg font-semibold shadow-lg hover:shadow-xl transition-all hover:scale-105"
               >
                 careers@chatbot.com
               </a>
               <a
+                className="inline-flex items-center justify-center gap-2 rounded-xl border-2 border-white/30 bg-green-500/20 px-8 py-4 font-semibold text-lg text-white transition-all hover:bg-green-500/30"
                 href="/contact"
-                className="inline-flex items-center justify-center gap-2 bg-green-500/20 text-white border-2 border-white/30 px-8 py-4 rounded-xl text-lg font-semibold hover:bg-green-500/30 transition-all"
               >
                 تواصل معنا
               </a>

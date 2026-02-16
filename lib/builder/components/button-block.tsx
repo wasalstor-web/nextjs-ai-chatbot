@@ -53,8 +53,7 @@ export const ButtonBlock: ComponentConfig<ButtonBlockProps> = {
 
     const variantClasses: Record<string, string> = {
       default: "bg-primary text-primary-foreground shadow hover:bg-primary/90",
-      secondary:
-        "bg-secondary text-secondary-foreground hover:bg-secondary/80",
+      secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
       outline:
         "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
       ghost: "hover:bg-accent hover:text-accent-foreground",
@@ -70,13 +69,13 @@ export const ButtonBlock: ComponentConfig<ButtonBlockProps> = {
 
     return (
       <a
-        href={href}
         className={cn(
           baseClasses,
           variantClasses[variant],
           sizeClasses[size],
           fullWidth === "yes" && "w-full"
         )}
+        href={href}
       >
         {label}
       </a>

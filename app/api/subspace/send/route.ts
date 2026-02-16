@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 
 // CORS headers
 const corsHeaders = {
@@ -16,12 +16,7 @@ export async function OPTIONS() {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { 
-      message, 
-      channel_id, 
-      user_id,
-      agent_id 
-    } = body;
+    const { message, channel_id, user_id, agent_id } = body;
 
     if (!message || !channel_id) {
       return NextResponse.json(
@@ -31,7 +26,8 @@ export async function POST(request: NextRequest) {
     }
 
     const subspaceApiKey = process.env.SUBSPACE_API_KEY;
-    const subspaceApiUrl = process.env.SUBSPACE_API_URL || "https://api.subspace.com/v1";
+    const subspaceApiUrl =
+      process.env.SUBSPACE_API_URL || "https://api.subspace.com/v1";
 
     if (!subspaceApiKey) {
       return NextResponse.json(
@@ -46,7 +42,7 @@ export async function POST(request: NextRequest) {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${subspaceApiKey}`,
+          Authorization: `Bearer ${subspaceApiKey}`,
         },
         body: JSON.stringify({
           channel_id,
@@ -103,4 +99,3 @@ export async function POST(request: NextRequest) {
     );
   }
 }
-

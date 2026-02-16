@@ -35,25 +35,25 @@ export const CardBlock: ComponentConfig<CardBlockProps> = {
   render: ({ title, description, image, href, variant }) => {
     return (
       <a
-        href={href}
         className={cn(
-          "block rounded-lg overflow-hidden transition-shadow hover:shadow-lg",
+          "block overflow-hidden rounded-lg transition-shadow hover:shadow-lg",
           variant === "default" &&
-            "bg-card text-card-foreground border shadow-sm",
+            "border bg-card text-card-foreground shadow-sm",
           variant === "outline" && "border-2 bg-transparent",
           variant === "ghost" && "hover:bg-muted"
         )}
+        href={href}
       >
         {image && (
           <img
-            src={image}
             alt={title}
-            className="w-full aspect-video object-cover"
+            className="aspect-video w-full object-cover"
+            src={image}
           />
         )}
-        <div className="p-4 space-y-2">
-          <h3 className="text-lg font-semibold">{title}</h3>
-          <p className="text-sm text-muted-foreground">{description}</p>
+        <div className="space-y-2 p-4">
+          <h3 className="font-semibold text-lg">{title}</h3>
+          <p className="text-muted-foreground text-sm">{description}</p>
         </div>
       </a>
     );

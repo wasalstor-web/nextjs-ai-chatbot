@@ -47,7 +47,7 @@ export const FeatureGrid: ComponentConfig<FeatureGridProps> = {
     return (
       <div
         className={cn(
-          "grid gap-6 w-full",
+          "grid w-full gap-6",
           columns === "2" && "grid-cols-1 md:grid-cols-2",
           columns === "3" && "grid-cols-1 md:grid-cols-2 lg:grid-cols-3",
           columns === "4" && "grid-cols-1 md:grid-cols-2 lg:grid-cols-4"
@@ -55,14 +55,12 @@ export const FeatureGrid: ComponentConfig<FeatureGridProps> = {
       >
         {items.map((item, i) => (
           <div
+            className="flex flex-col items-center rounded-lg border bg-card p-6 text-center"
             key={`feature-${i}`}
-            className="flex flex-col items-center text-center p-6 rounded-lg border bg-card"
           >
-            <span className="text-3xl mb-3">{item.icon}</span>
-            <h3 className="text-lg font-semibold mb-2">{item.title}</h3>
-            <p className="text-sm text-muted-foreground">
-              {item.description}
-            </p>
+            <span className="mb-3 text-3xl">{item.icon}</span>
+            <h3 className="mb-2 font-semibold text-lg">{item.title}</h3>
+            <p className="text-muted-foreground text-sm">{item.description}</p>
           </div>
         ))}
       </div>

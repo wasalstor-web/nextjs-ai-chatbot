@@ -566,15 +566,15 @@ export const MicIcon = ({
 }: { size?: number } & React.SVGProps<SVGSVGElement>) => {
   return (
     <svg
+      fill="none"
       height={size}
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="2"
       style={{ color: "currentcolor", ...props.style }}
       viewBox="0 0 24 24"
       width={size}
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
       {...props}
     >
       <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z" />
@@ -590,15 +590,15 @@ export const SpeakerIcon = ({
 }: { size?: number } & React.SVGProps<SVGSVGElement>) => {
   return (
     <svg
+      fill="none"
       height={size}
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="2"
       style={{ color: "currentcolor", ...props.style }}
       viewBox="0 0 24 24"
       width={size}
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
       {...props}
     >
       <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />

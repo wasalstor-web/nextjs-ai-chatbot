@@ -41,7 +41,7 @@ import {
   PromptInputToolbar,
   PromptInputTools,
 } from "./elements/prompt-input";
-import { ArrowUpIcon, PaperclipIcon, StopIcon, MicIcon } from "./icons";
+import { ArrowUpIcon, MicIcon, PaperclipIcon, StopIcon } from "./icons";
 import { PreviewAttachment } from "./preview-attachment";
 import { SuggestedActions } from "./suggested-actions";
 import { Button } from "./ui/button";
@@ -382,8 +382,8 @@ function PureMultimodalInput({
               status={status}
             />
             <VoiceButton
-              status={status}
               onTranscription={(text) => setInput((prev) => prev + text)}
+              status={status}
             />
             <ModelSelectorCompact
               onModelChange={onModelChange}
@@ -470,7 +470,9 @@ function PureVoiceButton({
   onTranscription: (text: string) => void;
 }) {
   const [isRecording, setIsRecording] = useState(false);
-  const [mediaRecorder, setMediaRecorder] = useState<MediaRecorder | null>(null);
+  const [mediaRecorder, setMediaRecorder] = useState<MediaRecorder | null>(
+    null
+  );
   const chunksRef = useRef<Blob[]>([]);
 
   const startRecording = async () => {

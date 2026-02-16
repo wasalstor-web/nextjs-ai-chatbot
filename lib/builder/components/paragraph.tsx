@@ -38,7 +38,7 @@ export const Paragraph: ComponentConfig<ParagraphProps> = {
     return (
       <p
         className={cn(
-          "leading-relaxed text-muted-foreground",
+          "text-muted-foreground leading-relaxed",
           fontSize === "sm" && "text-sm",
           fontSize === "base" && "text-base",
           fontSize === "lg" && "text-lg",

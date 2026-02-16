@@ -34,8 +34,8 @@ export function AdminDataTable<T extends Record<string, unknown>>({
           <tr className="border-b bg-muted/50">
             {columns.map((col) => (
               <th
-                key={col.key}
                 className="px-4 py-3 text-start font-medium text-muted-foreground"
+                key={col.key}
               >
                 {col.header}
               </th>
@@ -45,17 +45,15 @@ export function AdminDataTable<T extends Record<string, unknown>>({
         <tbody>
           {data.map((row, i) => (
             <tr
-              key={String(row.id ?? i)}
               className={cn(
                 "border-b transition-colors hover:bg-muted/30",
-                i % 2 === 0 && "bg-background",
+                i % 2 === 0 && "bg-background"
               )}
+              key={String(row.id ?? i)}
             >
               {columns.map((col) => (
-                <td key={col.key} className="px-4 py-3">
-                  {col.render
-                    ? col.render(row)
-                    : String(row[col.key] ?? "—")}
+                <td className="px-4 py-3" key={col.key}>
+                  {col.render ? col.render(row) : String(row[col.key] ?? "—")}
                 </td>
               ))}
             </tr>
