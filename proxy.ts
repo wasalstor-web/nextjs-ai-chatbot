@@ -22,6 +22,30 @@ export async function proxy(request: NextRequest) {
     return NextResponse.next();
   }
 
+  // Public marketing/landing pages — no auth required
+  const publicPaths = [
+    "/",
+    "/home",
+    "/features",
+    "/pricing",
+    "/blog",
+    "/about",
+    "/contact",
+    "/careers",
+    "/terms",
+    "/privacy",
+    "/cookies",
+    "/security",
+    "/mobile",
+    "/marketplace",
+  ];
+  if (
+    publicPaths.includes(pathname) ||
+    pathname.startsWith("/mobile/")
+  ) {
+    return NextResponse.next();
+  }
+
   // Builder routes require admin authentication
   if (pathname.startsWith("/builder")) {
     const builderToken = await getToken({
