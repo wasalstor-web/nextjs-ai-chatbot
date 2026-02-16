@@ -14,8 +14,12 @@ const THINKING_SUFFIX_REGEX = /-thinking$/;
 /**
  * Detect whether to use direct provider SDKs or Vercel AI Gateway.
  */
-const useDirectAnthropic = !!process.env.ANTHROPIC_API_KEY;
-const useDirectOpenAI = !!process.env.OPENAI_API_KEY;
+const useDirectAnthropic =
+  !!process.env.ANTHROPIC_API_KEY &&
+  !process.env.ANTHROPIC_API_KEY.includes("YOUR_KEY_HERE");
+const useDirectOpenAI =
+  !!process.env.OPENAI_API_KEY &&
+  !process.env.OPENAI_API_KEY.includes("YOUR_KEY_HERE");
 
 /**
  * Map gateway-style model IDs (e.g. "anthropic/claude-sonnet-4.5")
@@ -107,7 +111,7 @@ export function getTitleModel(): LanguageModel {
   if (isTestEnvironment && myProvider) {
     return myProvider.languageModel("title-model") as unknown as LanguageModel;
   }
-  return resolveModel("anthropic/claude-haiku-4.5");
+  return resolveModel("openai/gpt-4o-mini");
 }
 
 export function getArtifactModel(): LanguageModel {
@@ -116,5 +120,5 @@ export function getArtifactModel(): LanguageModel {
       "artifact-model"
     ) as unknown as LanguageModel;
   }
-  return resolveModel("anthropic/claude-haiku-4.5");
+  return resolveModel("openai/gpt-4o-mini");
 }
