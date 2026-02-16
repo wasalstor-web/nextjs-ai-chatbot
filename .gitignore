@@ -40,6 +40,7 @@ yarn-error.log*
 # Cloudflare
 .open-next
 .dev.vars
+.wrangler
 cloudflare-env.d.ts
 
 # Playwright
@@ -50,3 +51,17 @@ cloudflare-env.d.ts
 
 # Local Netlify folder
 .netlify
+
+# Build artifacts
+tsconfig.tsbuildinfo
+
+# Temp/test files
+cookies.txt
+test-chat.json
+
+# Redundant lockfiles
+package-lock.json
+deno.lock
+
+# Editor configs
+.cursor/
