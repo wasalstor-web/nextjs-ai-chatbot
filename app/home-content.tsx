@@ -40,7 +40,7 @@ function FloatingParticles() {
             scale: [1, 1.5, 1],
             opacity: [0.3, 0.6, 0.3],
           }}
-          className="absolute h-2 w-2 rounded-full bg-green-400/20"
+          className="absolute h-2 w-2 rounded-full bg-green-400/10"
           initial={{
             x: Math.random() * 1000,
             y: Math.random() * 600,
@@ -175,17 +175,17 @@ export default function HomePageContent() {
   };
 
   return (
-    <div className="min-h-screen overflow-hidden bg-gradient-to-b from-white via-green-50/30 to-white dark:from-gray-950 dark:via-gray-900 dark:to-gray-950">
+    <div className="min-h-screen overflow-hidden bg-white dark:from-gray-950 dark:via-gray-900 dark:to-gray-950">
       {/* Hero Section */}
       <section className="relative flex min-h-[90vh] items-center">
         <FloatingParticles />
 
-        <div className="absolute top-20 left-20 h-72 w-72 animate-pulse rounded-full bg-green-400/20 blur-[100px]" />
+        <div className="absolute top-20 left-20 h-72 w-72 animate-pulse rounded-full bg-green-400/8 blur-[100px]" />
         <div
-          className="absolute right-20 bottom-20 h-96 w-96 animate-pulse rounded-full bg-emerald-400/20 blur-[100px]"
+          className="absolute right-20 bottom-20 h-96 w-96 animate-pulse rounded-full bg-emerald-400/8 blur-[100px]"
           style={{ animationDelay: "1s" }}
         />
-        <div className="-translate-x-1/2 -translate-y-1/2 absolute top-1/2 left-1/2 h-[600px] w-[600px] rounded-full bg-gradient-to-br from-green-300/10 to-emerald-300/10 blur-[120px]" />
+        <div className="-translate-x-1/2 -translate-y-1/2 absolute top-1/2 left-1/2 h-[600px] w-[600px] rounded-full bg-gradient-to-br from-green-300/5 to-emerald-300/5 blur-[120px]" />
 
         <div className="container relative z-10 mx-auto px-4 py-24">
           <div className="mx-auto max-w-7xl">
@@ -512,7 +512,7 @@ export default function HomePageContent() {
 
       {/* Saudi Vision Video */}
       <section
-        className="bg-gradient-to-b from-white to-green-50/50 py-24 dark:from-gray-900 dark:to-gray-950"
+        className="bg-white py-24 dark:bg-gray-950"
         dir="rtl"
       >
         <div className="container mx-auto px-4">
@@ -670,7 +670,7 @@ export default function HomePageContent() {
 
       {/* How It Works */}
       <section
-        className="bg-gradient-to-b from-green-50/50 to-white py-24 dark:from-gray-900 dark:to-gray-950"
+        className="bg-gray-50/50 py-24 dark:bg-gray-900"
         dir="rtl"
       >
         <div className="container mx-auto px-4">
@@ -810,11 +810,9 @@ export default function HomePageContent() {
 
       {/* Stats */}
       <section
-        className="relative overflow-hidden bg-gradient-to-r from-green-600 via-emerald-600 to-teal-600 py-20"
+        className="relative overflow-hidden border-y border-gray-100 bg-white py-20 dark:border-gray-800 dark:bg-gray-950"
         dir="rtl"
       >
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCI+CiAgPHBhdGggZD0iTTAgMGg2MHY2MEgweiIgZmlsbD0ibm9uZSIvPgogIDxwYXRoIGQ9Ik0zMCAzMG0tMjggMGEyOCwyOCAwIDEsMSA1NiwwYTI4LDI4IDAgMSwxIC01NiwwIiBzdHJva2U9InJnYmEoMjU1LDI1NSwyNTUsMC4xKSIgZmlsbD0ibm9uZSIvPgo8L3N2Zz4=')] opacity-30" />
-
         <div className="container relative z-10 mx-auto px-4">
           <div className="mx-auto grid max-w-5xl grid-cols-2 gap-8 lg:grid-cols-4">
             {stats.map((stat, index) => (
@@ -827,15 +825,15 @@ export default function HomePageContent() {
                 whileInView={{ opacity: 1, y: 0 }}
               >
                 <motion.div
-                  className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-white/20 backdrop-blur-xl"
+                  className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-green-50 dark:bg-green-900/30"
                   whileHover={{ scale: 1.1, rotate: 5 }}
                 >
-                  <stat.icon className="h-7 w-7 text-white" />
+                  <stat.icon className="h-7 w-7 text-green-600 dark:text-green-400" />
                 </motion.div>
-                <div className="mb-1 font-bold text-3xl text-white lg:text-4xl">
+                <div className="mb-1 font-bold text-3xl text-gray-900 lg:text-4xl dark:text-white">
                   <AnimatedCounter suffix={stat.suffix} value={stat.value} />
                 </div>
-                <div className="text-green-100">{stat.label}</div>
+                <div className="text-gray-500 dark:text-gray-400">{stat.label}</div>
               </motion.div>
             ))}
           </div>
@@ -936,10 +934,10 @@ export default function HomePageContent() {
       </section>
 
       {/* CTA */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-green-600 via-emerald-600 to-teal-600 py-24">
+      <section className="relative overflow-hidden bg-gray-50 py-24 dark:bg-gray-900">
         <div className="absolute inset-0">
-          <div className="absolute top-0 left-0 h-96 w-96 rounded-full bg-white/10 blur-3xl" />
-          <div className="absolute right-0 bottom-0 h-96 w-96 rounded-full bg-white/10 blur-3xl" />
+          <div className="absolute top-0 left-0 h-96 w-96 rounded-full bg-green-100/40 blur-3xl dark:bg-green-900/20" />
+          <div className="absolute right-0 bottom-0 h-96 w-96 rounded-full bg-emerald-100/40 blur-3xl dark:bg-emerald-900/20" />
         </div>
 
         <div className="container relative z-10 mx-auto px-4" dir="rtl">
@@ -949,20 +947,20 @@ export default function HomePageContent() {
             viewport={{ once: true }}
             whileInView={{ opacity: 1, y: 0 }}
           >
-            <h2 className="mb-6 font-bold text-4xl text-white lg:text-5xl">
+            <h2 className="mb-6 font-bold text-4xl text-gray-900 lg:text-5xl dark:text-white">
               جاهز للبدء؟
             </h2>
-            <p className="mb-10 text-green-100 text-xl">
+            <p className="mb-10 text-gray-600 text-xl dark:text-gray-400">
               انضم إلى آلاف المستخدمين واستمتع بتجربة محادثة ذكية لا مثيل لها
             </p>
 
             <div className="flex flex-col justify-center gap-4 sm:flex-row">
               <Link href="/register">
                 <motion.button
-                  className="inline-flex items-center justify-center gap-3 rounded-2xl bg-white px-8 py-4 font-semibold text-green-700 text-lg shadow-xl transition-all"
+                  className="inline-flex items-center justify-center gap-3 rounded-2xl bg-green-600 px-8 py-4 font-semibold text-lg text-white shadow-green-500/20 shadow-xl transition-all hover:bg-green-700"
                   whileHover={{
                     scale: 1.05,
-                    boxShadow: "0 20px 40px -10px rgba(0, 0, 0, 0.3)",
+                    boxShadow: "0 20px 40px -10px rgba(34, 197, 94, 0.3)",
                   }}
                   whileTap={{ scale: 0.98 }}
                 >
@@ -973,7 +971,7 @@ export default function HomePageContent() {
 
               <Link href="/chat">
                 <motion.button
-                  className="inline-flex items-center justify-center gap-3 rounded-2xl border-2 border-white/20 bg-white/10 px-8 py-4 font-semibold text-lg text-white backdrop-blur-xl transition-all hover:bg-white/20"
+                  className="inline-flex items-center justify-center gap-3 rounded-2xl border-2 border-gray-200 bg-white px-8 py-4 font-semibold text-gray-700 text-lg transition-all hover:border-green-300 hover:bg-green-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 dark:hover:border-green-600"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.98 }}
                 >
@@ -982,7 +980,7 @@ export default function HomePageContent() {
               </Link>
             </div>
 
-            <p className="mt-8 text-green-200 text-sm">
+            <p className="mt-8 text-gray-400 text-sm dark:text-gray-500">
               * لا حاجة لبطاقة ائتمان • مجاني للأبد
             </p>
           </motion.div>

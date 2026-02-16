@@ -20,7 +20,7 @@ export function Header() {
   ];
 
   return (
-    <header className="sticky top-0 z-50 border-green-100 border-b bg-white/95 backdrop-blur-md dark:border-green-900/50 dark:bg-[#0d3525]/95">
+    <header className="sticky top-0 z-50 border-gray-100 border-b bg-white/98 backdrop-blur-md dark:border-gray-800 dark:bg-gray-950/95">
       <nav className="container mx-auto px-4 py-3" dir="rtl">
         <div className="flex items-center justify-between">
           {/* Logo */}
@@ -31,7 +31,7 @@ export function Header() {
             <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-linear-to-br from-green-600 to-green-700 shadow-green-500/20 shadow-lg">
               <Bot className="h-6 w-6 text-white" />
             </div>
-            <span className="font-bold text-green-900 text-xl dark:text-white">
+            <span className="font-bold text-gray-900 text-xl dark:text-white">
               مساعد ذكي
             </span>
           </Link>
@@ -40,7 +40,7 @@ export function Header() {
           <div className="hidden items-center gap-1 lg:flex">
             {navLinks.map((link) => (
               <Link
-                className="rounded-xl px-4 py-2 font-medium text-green-700 transition-all hover:bg-green-50 hover:text-green-900 dark:text-green-200 dark:hover:bg-green-800/50 dark:hover:text-white"
+                className="rounded-xl px-4 py-2 font-medium text-gray-600 transition-all hover:bg-gray-50 hover:text-green-700 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-white"
                 href={link.href}
                 key={link.href}
               >
@@ -54,20 +54,20 @@ export function Header() {
             {/* Theme Toggle */}
             <button
               aria-label="Toggle theme"
-              className="rounded-xl p-2.5 transition-colors hover:bg-green-50 dark:hover:bg-green-800/50"
+              className="rounded-xl p-2.5 transition-colors hover:bg-gray-100 dark:hover:bg-gray-800"
               onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
             >
               {theme === "dark" ? (
-                <Sun className="h-5 w-5 text-green-200" />
+                <Sun className="h-5 w-5 text-gray-300" />
               ) : (
-                <Moon className="h-5 w-5 text-green-700" />
+                <Moon className="h-5 w-5 text-gray-500" />
               )}
             </button>
 
             {/* Auth Buttons */}
             <div className="hidden items-center gap-3 lg:flex">
               <Link
-                className="px-5 py-2.5 font-medium text-green-700 transition-colors hover:text-green-900 dark:text-green-200 dark:hover:text-white"
+                className="px-5 py-2.5 font-medium text-gray-600 transition-colors hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
                 href="/login"
               >
                 تسجيل الدخول
@@ -83,13 +83,13 @@ export function Header() {
             {/* Mobile Menu Button */}
             <button
               aria-label="Toggle menu"
-              className="rounded-xl p-2.5 transition-colors hover:bg-green-50 lg:hidden dark:hover:bg-green-800/50"
+              className="rounded-xl p-2.5 transition-colors hover:bg-gray-100 lg:hidden dark:hover:bg-gray-800"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
               {isMenuOpen ? (
-                <X className="h-6 w-6 text-green-700 dark:text-green-200" />
+                <X className="h-6 w-6 text-gray-700 dark:text-gray-300" />
               ) : (
-                <Menu className="h-6 w-6 text-green-700 dark:text-green-200" />
+                <Menu className="h-6 w-6 text-gray-700 dark:text-gray-300" />
               )}
             </button>
           </div>
@@ -97,10 +97,10 @@ export function Header() {
 
         {/* Mobile Menu */}
         {isMenuOpen && (
-          <div className="mt-4 space-y-2 border-green-100 border-t py-4 lg:hidden dark:border-green-800">
+          <div className="mt-4 space-y-2 border-gray-100 border-t py-4 lg:hidden dark:border-gray-800">
             {navLinks.map((link) => (
               <Link
-                className="block rounded-xl px-4 py-3 font-medium text-green-700 transition-all hover:bg-green-50 hover:text-green-900 dark:text-green-200 dark:hover:bg-green-800/50 dark:hover:text-white"
+                className="block rounded-xl px-4 py-3 font-medium text-gray-600 transition-all hover:bg-gray-50 hover:text-green-700 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-white"
                 href={link.href}
                 key={link.href}
                 onClick={() => setIsMenuOpen(false)}
@@ -108,9 +108,9 @@ export function Header() {
                 {link.label}
               </Link>
             ))}
-            <div className="space-y-3 border-green-100 border-t pt-4 dark:border-green-800">
+            <div className="space-y-3 border-gray-100 border-t pt-4 dark:border-gray-800">
               <Link
-                className="block rounded-xl border-2 border-green-200 px-6 py-3 text-center font-medium text-green-700 transition-colors hover:border-green-500 dark:border-green-700 dark:text-green-200 dark:hover:border-green-500"
+                className="block rounded-xl border-2 border-gray-200 px-6 py-3 text-center font-medium text-gray-700 transition-colors hover:border-green-500 dark:border-gray-700 dark:text-gray-200 dark:hover:border-green-500"
                 href="/login"
                 onClick={() => setIsMenuOpen(false)}
               >
@@ -156,7 +156,7 @@ export function Footer() {
   };
 
   return (
-    <footer className="bg-green-950 dark:bg-[#0a2520]">
+    <footer className="bg-gray-900 dark:bg-gray-950">
       <div className="container mx-auto px-4 py-16" dir="rtl">
         <div className="mb-12 grid gap-10 md:grid-cols-2 lg:grid-cols-4">
           {/* Brand */}
@@ -170,7 +170,7 @@ export function Footer() {
               </div>
               <span className="font-bold text-white text-xl">مساعد ذكي</span>
             </Link>
-            <p className="text-green-300/80 text-sm leading-relaxed">
+            <p className="text-gray-400 text-sm leading-relaxed">
               محادثات ذكية بقوة الذكاء الاصطناعي. مساعدك الشخصي متاح دائماً.
             </p>
           </div>
@@ -182,7 +182,7 @@ export function Footer() {
               {footerLinks.product.map((link) => (
                 <li key={link.href}>
                   <Link
-                    className="text-green-300/70 text-sm transition-colors hover:text-green-200"
+                    className="text-gray-400 text-sm transition-colors hover:text-white"
                     href={link.href}
                   >
                     {link.label}
@@ -199,24 +199,7 @@ export function Footer() {
               {footerLinks.company.map((link) => (
                 <li key={link.href}>
                   <Link
-                    className="text-green-300/70 text-sm transition-colors hover:text-green-200"
-                    href={link.href}
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Legal Links */}
-          <div>
-            <h3 className="mb-5 font-bold text-white">قانوني</h3>
-            <ul className="space-y-3">
-              {footerLinks.legal.map((link) => (
-                <li key={link.href}>
-                  <Link
-                    className="text-green-300/70 text-sm transition-colors hover:text-green-200"
+                    className="text-gray-400 text-sm transition-colors hover:text-white"
                     href={link.href}
                   >
                     {link.label}
@@ -228,14 +211,14 @@ export function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-green-800/50 border-t pt-8">
+        <div className="border-gray-700/50 border-t pt-8">
           <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
-            <p className="text-green-400/60 text-sm">
+            <p className="text-gray-400 text-sm">
               © {currentYear} مساعد ذكي. جميع الحقوق محفوظة.
             </p>
             <div className="flex items-center gap-6">
               <Link
-                className="text-green-400/60 transition-colors hover:text-green-300"
+                className="text-gray-400 transition-colors hover:text-white"
                 href="https://twitter.com"
                 rel="noopener noreferrer"
                 target="_blank"
@@ -249,7 +232,7 @@ export function Footer() {
                 </svg>
               </Link>
               <Link
-                className="text-green-400/60 transition-colors hover:text-green-300"
+                className="text-gray-400 transition-colors hover:text-white"
                 href="https://github.com"
                 rel="noopener noreferrer"
                 target="_blank"
@@ -267,7 +250,7 @@ export function Footer() {
                 </svg>
               </Link>
               <Link
-                className="text-green-400/60 transition-colors hover:text-green-300"
+                className="text-gray-400 transition-colors hover:text-white"
                 href="https://linkedin.com"
                 rel="noopener noreferrer"
                 target="_blank"
