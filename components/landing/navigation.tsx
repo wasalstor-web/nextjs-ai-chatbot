@@ -10,7 +10,8 @@ export function Header() {
   const { theme, setTheme } = useTheme();
 
   const navLinks = [
-    { href: "/home", label: "الرئيسية" },
+    { href: "/", label: "الرئيسية" },
+    { href: "/chat", label: "المحادثة" },
     { href: "/features", label: "المميزات" },
     { href: "/pricing", label: "الأسعار" },
     { href: "/blog", label: "المدونة" },
@@ -25,7 +26,7 @@ export function Header() {
           {/* Logo */}
           <Link
             className="flex items-center gap-3 transition-opacity hover:opacity-90"
-            href="/home"
+            href="/"
           >
             <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-linear-to-br from-green-600 to-green-700 shadow-green-500/20 shadow-lg">
               <Bot className="h-6 w-6 text-white" />
@@ -162,7 +163,7 @@ export function Footer() {
           <div>
             <Link
               className="mb-5 flex items-center gap-3 transition-opacity hover:opacity-90"
-              href="/home"
+              href="/"
             >
               <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-linear-to-br from-green-400 to-green-500 shadow-green-500/30 shadow-lg">
                 <Bot className="h-6 w-6 text-white" />
