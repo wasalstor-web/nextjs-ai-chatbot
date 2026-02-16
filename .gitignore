@@ -47,3 +47,6 @@ cloudflare-env.d.ts
 /playwright-report/
 /blob-report/
 /playwright/*
+
+# Local Netlify folder
+.netlify
