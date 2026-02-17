@@ -49,17 +49,17 @@ export default function ContactPage() {
     {
       icon: Mail,
       title: "البريد الإلكتروني",
-      value: "support@chatbot.com",
+      value: "support@mubassatlaw.com",
       description: "نرد خلال 24 ساعة",
-      gradient: "from-green-500 to-emerald-600",
-      href: "mailto:support@chatbot.com",
+      gradient: "from-amber-400 to-amber-500",
+      href: "mailto:support@mubassatlaw.com",
     },
     {
       icon: MessageSquare,
       title: "الدردشة المباشرة",
       value: "متاح الآن",
       description: "رد فوري من فريق الدعم",
-      gradient: "from-emerald-500 to-teal-600",
+      gradient: "from-amber-400 to-teal-600",
       href: "/chat",
     },
     {
@@ -86,10 +86,10 @@ export default function ContactPage() {
   ];
 
   return (
-    <div className="min-h-screen overflow-hidden bg-linear-to-b from-white via-green-50/30 to-white dark:from-gray-950 dark:via-gray-900 dark:to-gray-950">
+    <div className="min-h-screen overflow-hidden bg-linear-to-b from-white via-amber-50/80/30 to-white dark:from-slate-950 dark:via-slate-900 dark:to-slate-950">
       {/* Gradient orbs */}
-      <div className="pointer-events-none fixed top-20 left-20 h-72 w-72 rounded-full bg-green-400/10 blur-[100px]" />
-      <div className="pointer-events-none fixed right-20 bottom-20 h-96 w-96 rounded-full bg-emerald-400/10 blur-[100px]" />
+      <div className="pointer-events-none fixed top-20 left-20 h-72 w-72 rounded-full bg-amber-300/10 blur-[100px]" />
+      <div className="pointer-events-none fixed right-20 bottom-20 h-96 w-96 rounded-full bg-amber-300/10 blur-[100px]" />
 
       {/* Hero Section */}
       <section className="relative overflow-hidden pt-24 pb-12">
@@ -102,7 +102,7 @@ export default function ContactPage() {
           >
             <motion.div
               animate={{ opacity: 1, scale: 1 }}
-              className="mb-8 inline-flex items-center gap-2 rounded-full border border-green-200/50 bg-white/80 px-6 py-3 font-medium text-green-700 text-sm shadow-lg backdrop-blur-xl dark:border-green-700/50 dark:bg-white/10 dark:text-green-300"
+              className="mb-8 inline-flex items-center gap-2 rounded-full border border-amber-100/50 bg-white/80 px-6 py-3 font-medium text-amber-600 text-sm shadow-lg backdrop-blur-xl dark:border-amber-600/50 dark:bg-white/10 dark:text-amber-200"
               initial={{ opacity: 0, scale: 0.9 }}
               transition={{ delay: 0.2 }}
             >
@@ -111,13 +111,13 @@ export default function ContactPage() {
             </motion.div>
 
             <h1 className="mb-6 font-bold text-5xl lg:text-7xl">
-              <span className="text-gray-900 dark:text-white">نحن هنا</span>
+              <span className="text-slate-900 dark:text-white">نحن هنا</span>
               <br />
-              <span className="bg-linear-to-l from-green-600 via-emerald-600 to-teal-600 bg-clip-text text-transparent">
+              <span className="bg-linear-to-l from-amber-500 via-amber-500 to-teal-600 bg-clip-text text-transparent">
                 لمساعدتك
               </span>
             </h1>
-            <p className="text-gray-600 text-xl leading-relaxed dark:text-gray-300">
+            <p className="text-slate-600 text-xl leading-relaxed dark:text-slate-300">
               لديك سؤال أو اقتراح؟ تواصل معنا وسنرد عليك في أقرب وقت ممكن.
             </p>
           </motion.div>
@@ -129,7 +129,7 @@ export default function ContactPage() {
         <div className="container mx-auto px-4">
           <div className="mx-auto grid max-w-5xl gap-6 md:grid-cols-3">
             {contactMethods.map((method, index) => (
-              <Link href={method.href} key={index}>
+              <Link href={method.href} key={method.title}>
                 <GlassCard
                   className="h-full cursor-pointer p-6"
                   delay={index * 0.1}
@@ -140,13 +140,13 @@ export default function ContactPage() {
                   >
                     <method.icon className="h-7 w-7 text-white" />
                   </motion.div>
-                  <h3 className="mb-1 font-bold text-gray-900 text-lg dark:text-white">
+                  <h3 className="mb-1 font-bold text-slate-900 text-lg dark:text-white">
                     {method.title}
                   </h3>
-                  <p className="mb-1 font-medium text-green-600 dark:text-green-400">
+                  <p className="mb-1 font-medium text-amber-500 dark:text-amber-300">
                     {method.value}
                   </p>
-                  <p className="text-gray-500 text-sm dark:text-gray-400">
+                  <p className="text-slate-500 text-sm dark:text-slate-400">
                     {method.description}
                   </p>
                 </GlassCard>
@@ -162,7 +162,7 @@ export default function ContactPage() {
           <div className="mx-auto grid max-w-6xl gap-12 lg:grid-cols-2">
             {/* Form */}
             <GlassCard className="p-8" delay={0.2}>
-              <h2 className="mb-6 font-bold text-2xl text-gray-900 dark:text-white">
+              <h2 className="mb-6 font-bold text-2xl text-slate-900 dark:text-white">
                 أرسل لنا رسالة
               </h2>
 
@@ -170,13 +170,13 @@ export default function ContactPage() {
                 <div className="grid gap-6 md:grid-cols-2">
                   <div>
                     <label
-                      className="mb-2 block font-medium text-gray-700 text-sm dark:text-gray-300"
+                      className="mb-2 block font-medium text-slate-700 text-sm dark:text-slate-300"
                       htmlFor="name"
                     >
                       الاسم الكامل
                     </label>
                     <input
-                      className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-gray-900 placeholder-gray-400 transition-all focus:border-transparent focus:ring-2 focus:ring-green-500 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
+                      className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-slate-900 placeholder-slate-400 transition-all focus:border-transparent focus:ring-2 focus:ring-amber-400 dark:border-slate-700 dark:bg-slate-900 dark:text-white"
                       id="name"
                       name="name"
                       onChange={handleChange}
@@ -188,13 +188,13 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <label
-                      className="mb-2 block font-medium text-gray-700 text-sm dark:text-gray-300"
+                      className="mb-2 block font-medium text-slate-700 text-sm dark:text-slate-300"
                       htmlFor="email"
                     >
                       البريد الإلكتروني
                     </label>
                     <input
-                      className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-gray-900 placeholder-gray-400 transition-all focus:border-transparent focus:ring-2 focus:ring-green-500 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
+                      className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-slate-900 placeholder-slate-400 transition-all focus:border-transparent focus:ring-2 focus:ring-amber-400 dark:border-slate-700 dark:bg-slate-900 dark:text-white"
                       id="email"
                       name="email"
                       onChange={handleChange}
@@ -208,13 +208,13 @@ export default function ContactPage() {
 
                 <div>
                   <label
-                    className="mb-2 block font-medium text-gray-700 text-sm dark:text-gray-300"
+                    className="mb-2 block font-medium text-slate-700 text-sm dark:text-slate-300"
                     htmlFor="subject"
                   >
                     الموضوع
                   </label>
                   <input
-                    className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-gray-900 placeholder-gray-400 transition-all focus:border-transparent focus:ring-2 focus:ring-green-500 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
+                    className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-slate-900 placeholder-slate-400 transition-all focus:border-transparent focus:ring-2 focus:ring-amber-400 dark:border-slate-700 dark:bg-slate-900 dark:text-white"
                     id="subject"
                     name="subject"
                     onChange={handleChange}
@@ -227,13 +227,13 @@ export default function ContactPage() {
 
                 <div>
                   <label
-                    className="mb-2 block font-medium text-gray-700 text-sm dark:text-gray-300"
+                    className="mb-2 block font-medium text-slate-700 text-sm dark:text-slate-300"
                     htmlFor="message"
                   >
                     الرسالة
                   </label>
                   <textarea
-                    className="w-full resize-none rounded-xl border border-gray-200 bg-white px-4 py-3 text-gray-900 placeholder-gray-400 transition-all focus:border-transparent focus:ring-2 focus:ring-green-500 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
+                    className="w-full resize-none rounded-xl border border-slate-200 bg-white px-4 py-3 text-slate-900 placeholder-slate-400 transition-all focus:border-transparent focus:ring-2 focus:ring-amber-400 dark:border-slate-700 dark:bg-slate-900 dark:text-white"
                     id="message"
                     name="message"
                     onChange={handleChange}
@@ -247,8 +247,8 @@ export default function ContactPage() {
                 <motion.button
                   className={`flex w-full items-center justify-center gap-3 rounded-xl py-4 font-bold text-lg transition-all ${
                     status === "success"
-                      ? "bg-green-500 text-white"
-                      : "bg-linear-to-r from-green-600 to-emerald-600 text-white shadow-green-500/30 shadow-xl"
+                      ? "bg-amber-400 text-white"
+                      : "bg-linear-to-r from-amber-500 to-amber-500 text-white shadow-amber-400/30 shadow-xl"
                   }`}
                   disabled={status === "loading" || status === "success"}
                   type="submit"
@@ -283,21 +283,21 @@ export default function ContactPage() {
             {/* Info */}
             <div className="space-y-6">
               <GlassCard className="p-8" delay={0.3}>
-                <h2 className="mb-6 font-bold text-2xl text-gray-900 dark:text-white">
+                <h2 className="mb-6 font-bold text-2xl text-slate-900 dark:text-white">
                   معلومات الاتصال
                 </h2>
 
                 <div className="space-y-6">
-                  {officeInfo.map((info, index) => (
-                    <div className="flex items-start gap-4" key={index}>
-                      <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-green-100 dark:bg-green-900/30">
-                        <info.icon className="h-6 w-6 text-green-600 dark:text-green-400" />
+                  {officeInfo.map((info) => (
+                    <div className="flex items-start gap-4" key={info.title}>
+                      <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-amber-50 dark:bg-amber-900/30">
+                        <info.icon className="h-6 w-6 text-amber-500 dark:text-amber-300" />
                       </div>
                       <div>
-                        <h3 className="font-semibold text-gray-900 dark:text-white">
+                        <h3 className="font-semibold text-slate-900 dark:text-white">
                           {info.title}
                         </h3>
-                        <p className="text-gray-600 dark:text-gray-400">
+                        <p className="text-slate-600 dark:text-slate-400">
                           {info.value}
                         </p>
                       </div>
@@ -308,10 +308,10 @@ export default function ContactPage() {
 
               {/* Map Placeholder */}
               <GlassCard className="h-[300px] overflow-hidden p-0" delay={0.4}>
-                <div className="flex h-full w-full items-center justify-center bg-linear-to-br from-green-100 to-emerald-100 dark:from-green-900/30 dark:to-emerald-900/30">
+                <div className="flex h-full w-full items-center justify-center bg-linear-to-br from-amber-50 to-emerald-100 dark:from-amber-900/30 dark:to-emerald-900/30">
                   <div className="text-center">
-                    <MapPin className="mx-auto mb-4 h-12 w-12 text-green-600 dark:text-green-400" />
-                    <p className="text-gray-600 dark:text-gray-400">
+                    <MapPin className="mx-auto mb-4 h-12 w-12 text-amber-500 dark:text-amber-300" />
+                    <p className="text-slate-600 dark:text-slate-400">
                       الرياض، المملكة العربية السعودية
                     </p>
                   </div>
@@ -326,16 +326,17 @@ export default function ContactPage() {
       <section className="py-16" dir="rtl">
         <div className="container mx-auto px-4">
           <GlassCard className="mx-auto max-w-4xl p-12 text-center" delay={0.5}>
-            <h2 className="mb-4 font-bold text-3xl text-gray-900 dark:text-white">
+            <h2 className="mb-4 font-bold text-3xl text-slate-900 dark:text-white">
               هل تبحث عن إجابة سريعة؟
             </h2>
-            <p className="mb-8 text-gray-600 dark:text-gray-400">
+            <p className="mb-8 text-slate-600 dark:text-slate-400">
               تصفح قسم الأسئلة الشائعة للعثور على إجابات لأكثر الاستفسارات
               شيوعاً.
             </p>
             <Link href="/pricing#faq">
               <motion.button
-                className="inline-flex items-center gap-2 rounded-xl bg-gray-100 px-8 py-4 font-semibold text-gray-900 transition-all hover:bg-gray-200 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
+                className="inline-flex items-center gap-2 rounded-xl bg-slate-100 px-8 py-4 font-semibold text-slate-900 transition-all hover:bg-slate-200 dark:bg-slate-800 dark:text-white dark:hover:bg-slate-700"
+                type="button"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.98 }}
               >

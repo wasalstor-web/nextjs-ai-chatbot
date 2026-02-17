@@ -33,7 +33,11 @@
     "**/.open-next": true,
     "**/nextjs-ai-chatbot-mobile": true,
     "**/mobile-app": true,
-    "**/.expo": true
+    "**/mubassat_law": true,
+    "**/.expo": true,
+    "**/cookies.txt": true,
+    "**/test-chat.json": true,
+    "**/*.log": true
   },
   "explorer.confirmDelete": false,
   "explorer.compactFolders": false,
@@ -113,7 +117,8 @@
     "**/.next": true,
     "**/pnpm-lock.yaml": true,
     "**/.git": true,
-    "**/.wrangler": true
+    "**/.wrangler": true,
+    "**/mubassat_law": true
   },
 
   // ═══════════════════════════════════════════════════════════
@@ -122,5 +127,7 @@
   "terminal.integrated.defaultProfile.windows": "PowerShell",
   "terminal.integrated.fontFamily": "Cascadia Code, Consolas, monospace",
   "terminal.integrated.fontSize": 14,
-  "snyk.advanced.autoSelectOrganization": true
+  "snyk.advanced.autoSelectOrganization": true,
+  "snyk.securityAtInception.autoConfigureSnykMcpServer": true,
+  "editor.codeActions.triggerOnFocusChange": true
 }

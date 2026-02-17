@@ -71,13 +71,6 @@
       "when": 1770549086276,
       "tag": "0009_nasty_zaran",
       "breakpoints": true
-    },
-    {
-      "idx": 10,
-      "version": "7",
-      "when": 1771297713347,
-      "tag": "0010_natural_wong",
-      "breakpoints": true
     }
   ]
 }

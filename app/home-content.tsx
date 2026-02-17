@@ -1,984 +1,383 @@
 "use client";
 
-import { motion } from "framer-motion";
 import {
   ArrowLeft,
-  Award,
-  Bot,
-  Brain,
-  Check,
-  ChevronRight,
-  Clock,
-  FileText,
-  MessageSquare,
-  Mic,
-  Play,
   Scale,
+  FileSearch,
   Shield,
-  Smartphone,
+  Brain,
   Sparkles,
-  Star,
-  TrendingUp,
-  Users,
+  MessageSquare,
+  FileText,
+  Lock,
   Zap,
+  Check,
+  ChevronDown,
 } from "lucide-react";
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import { GlassCard } from "@/components/landing/glass-card";
+import { motion } from "framer-motion";
+
 import { AnimatedCounter } from "@/components/ui/animated-counter";
 
-// Floating particles background
-function FloatingParticles() {
+const ease = [0.22, 1, 0.36, 1] as const;
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 40 },
+  visible: (delay: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.8, delay, ease },
+  }),
+};
+
+const staggerContainer = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.12 } },
+};
+
+const staggerItem = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease } },
+};
+
+const STATS = [
+  { value: 50000, suffix: "+", label: "مستخدم نشط" },
+  { value: 1000000, suffix: "+", label: "استشارة قانونية" },
+  { value: 2000, suffix: "+", label: "نظام ولائحة" },
+  { value: 99, suffix: ".9%", label: "دقة النتائج" },
+];
+
+const FEATURES = [
+  {
+    Icon: MessageSquare,
+    title: "استشارات قانونية فورية",
+    description: "اطرح أي سؤال قانوني واحصل على إجابة دقيقة مستندة إلى الأنظمة السعودية خلال ثوانٍ",
+    span: "lg:col-span-2",
+  },
+  {
+    Icon: FileText,
+    title: "تحليل العقود",
+    description: "ارفع عقدك واحصل على تحليل شامل للبنود والمخاطر والتوصيات القانونية",
+    span: "",
+  },
+  {
+    Icon: FileSearch,
+    title: "بحث في الأنظمة",
+    description: "بحث ذكي في أكثر من 2,000 نظام ولائحة سعودية مع ربط تلقائي بالمواد ذات الصلة",
+    span: "",
+  },
+  {
+    Icon: Brain,
+    title: "صياغة قانونية ذكية",
+    description: "إنشاء مسودات عقود وخطابات قانونية باستخدام قوالب متوافقة مع الأنظمة المحلية",
+    span: "lg:col-span-2",
+  },
+  {
+    Icon: Lock,
+    title: "سرية وحماية",
+    description: "تشفير شامل لبياناتك مع التزام كامل بأنظمة حماية البيانات الشخصية السعودية",
+    span: "",
+  },
+  {
+    Icon: Zap,
+    title: "سرعة فائقة",
+    description: "استجابات في أقل من 3 ثوانٍ مع دقة تتجاوز 99% في الاستدلال القانوني",
+    span: "",
+  },
+];
+
+const STEPS = [
+  {
+    step: "01",
+    title: "اطرح سؤالك",
+    description: "اكتب استفسارك القانوني بلغتك العادية — لا تحتاج لمصطلحات قانونية معقدة",
+  },
+  {
+    step: "02",
+    title: "تحليل ذكي",
+    description: "يبحث الذكاء الاصطناعي في آلاف الأنظمة واللوائح ويحللها للعثور على الإجابة الدقيقة",
+  },
+  {
+    step: "03",
+    title: "نتيجة موثقة",
+    description: "تحصل على إجابة مفصلة مع المراجع القانونية والمواد ذات الصلة من الأنظمة السعودية",
+  },
+];
+
+export function HomeContent() {
   return (
-    <div className="pointer-events-none absolute inset-0 overflow-hidden">
-      {[...Array(20)].map((_, i) => (
-        <motion.div
-          animate={{
-            y: [0, Math.random() * -200, Math.random() * 200],
-            x: [0, Math.random() * 100 - 50],
-            scale: [1, 1.5, 1],
-            opacity: [0.3, 0.6, 0.3],
-          }}
-          className="absolute h-2 w-2 rounded-full bg-green-400/10"
-          initial={{
-            x: Math.random() * 1000,
-            y: Math.random() * 600,
-          }}
-          key={i}
-          transition={{
-            duration: 5 + Math.random() * 5,
-            repeat: Number.POSITIVE_INFINITY,
-            repeatType: "reverse",
-            ease: "easeInOut",
-            delay: Math.random() * 2,
-          }}
-        />
-      ))}
-    </div>
-  );
-}
+    <div className="min-h-screen bg-white text-zinc-950 font-sans antialiased dark:bg-zinc-950 dark:text-zinc-50">
 
-export default function HomePageContent() {
-  const [mounted, setMounted] = useState(false);
-  const [activeTestimonial, setActiveTestimonial] = useState(0);
-
-  const testimonials = [
-    {
-      name: "المحامي فهد الشمري",
-      role: "محامي ومستشار قانوني",
-      image: "ف",
-      content:
-        "مستشار قانوني ذكي ودقيق! ساعدني في صياغة العقود ومراجعة القضايا بسرعة فائقة مع مراعاة الأنظمة السعودية.",
-      rating: 5,
-    },
-    {
-      name: "سارة القحطاني",
-      role: "مديرة قسم قانوني",
-      image: "س",
-      content:
-        "أداة رائعة للبحث القانوني والاستشارات الفورية. أصبح جزءاً أساسياً من عمل فريقنا القانوني.",
-      rating: 5,
-    },
-    {
-      name: "عبدالله العتيبي",
-      role: "صاحب شركة تجارية",
-      image: "ع",
-      content:
-        "استشارات قانونية دقيقة في دقائق! ساعدني في فهم الأنظمة التجارية وحقوقي القانونية بوضوح.",
-      rating: 5,
-    },
-  ];
-
-  useEffect(() => {
-    setMounted(true);
-    const interval = setInterval(() => {
-      setActiveTestimonial((prev) => (prev + 1) % testimonials.length);
-    }, 5000);
-    return () => clearInterval(interval);
-  }, [testimonials.length]);
-
-  const stats = [
-    { value: 10_000, suffix: "+", label: "استشارة قانونية", icon: Users },
-    {
-      value: 500_000,
-      suffix: "+",
-      label: "وثيقة قانونية",
-      icon: MessageSquare,
-    },
-    { value: 99, suffix: ".9%", label: "دقة الاستشارات", icon: TrendingUp },
-    { value: 4, suffix: ".9", label: "تقييم المحامين", icon: Star },
-  ];
-
-  const pricingFeatures = [
-    "استشارات قانونية غير محدودة",
-    "مراجعة العقود والوثائق",
-    "استشارة صوتية وكتابية",
-    "متخصص في القانون السعودي",
-    "دعم قانوني 24/7",
-  ];
-
-  const features = [
-    {
-      icon: Scale,
-      title: "متخصص في القانون السعودي",
-      description: "خبرة شاملة بالأنظمة واللوائح والقوانين السعودية",
-      gradient: "from-emerald-400 to-green-500",
-    },
-    {
-      icon: Mic,
-      title: "استشارة صوتية وكتابية",
-      description: "تحدث أو اكتب استشارتك واحصل على إجابة فورية دقيقة",
-      gradient: "from-green-400 to-teal-500",
-    },
-    {
-      icon: FileText,
-      title: "مراجعة العقود والوثائق",
-      description: "تحليل ومراجعة احترافية للعقود والمستندات القانونية",
-      gradient: "from-teal-400 to-cyan-500",
-    },
-    {
-      icon: Shield,
-      title: "سرية وخصوصية تامة",
-      description: "تشفير متقدم وحماية كاملة لاستشاراتك القانونية",
-      gradient: "from-green-500 to-emerald-600",
-    },
-    {
-      icon: Zap,
-      title: "استشارات فورية 24/7",
-      description: "متاح دائماً لتقديم الاستشارات القانونية في أي وقت",
-      gradient: "from-emerald-500 to-green-600",
-    },
-    {
-      icon: Brain,
-      title: "ذكاء قانوني متقدم",
-      description: "مدعوم بأحدث تقنيات الذكاء الاصطناعي القانوني",
-      gradient: "from-green-600 to-teal-600",
-    },
-  ];
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.1 },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.5, ease: "easeOut" },
-    },
-  };
-
-  return (
-    <div className="min-h-screen overflow-hidden bg-white dark:from-gray-950 dark:via-gray-900 dark:to-gray-950">
-      {/* Hero Section */}
-      <section className="relative flex min-h-[90vh] items-center">
-        <FloatingParticles />
-
-        <div className="absolute top-20 left-20 h-72 w-72 animate-pulse rounded-full bg-green-400/8 blur-[100px]" />
-        <div
-          className="absolute right-20 bottom-20 h-96 w-96 animate-pulse rounded-full bg-emerald-400/8 blur-[100px]"
-          style={{ animationDelay: "1s" }}
-        />
-        <div className="-translate-x-1/2 -translate-y-1/2 absolute top-1/2 left-1/2 h-[600px] w-[600px] rounded-full bg-linear-to-br from-green-300/5 to-emerald-300/5 blur-[120px]" />
-
-        <div className="container relative z-10 mx-auto px-4 py-24">
-          <div className="mx-auto max-w-7xl">
-            <div className="grid items-center gap-16 lg:grid-cols-2">
-              <motion.div
-                animate={mounted ? "visible" : "hidden"}
-                className="order-2 text-center lg:order-1 lg:text-right"
-                dir="rtl"
-                initial="hidden"
-                variants={containerVariants}
-              >
-                <motion.div
-                  className="mb-8 inline-flex items-center gap-2 rounded-full border border-green-200/50 bg-white/80 px-6 py-3 font-medium text-green-700 text-sm shadow-green-500/10 shadow-lg backdrop-blur-xl dark:border-green-700/50 dark:bg-white/10 dark:text-green-300"
-                  variants={itemVariants}
-                >
-                  <Scale className="h-4 w-4" />
-                  متخصص في القانون السعودي
-                  <span className="h-2 w-2 animate-pulse rounded-full bg-green-500" />
-                </motion.div>
-
-                <motion.h1
-                  className="mb-8 font-bold text-5xl leading-tight lg:text-7xl"
-                  variants={itemVariants}
-                >
-                  <span className="bg-linear-to-l from-green-600 via-emerald-600 to-teal-600 bg-clip-text text-transparent">
-                    مستشارك القانوني
-                  </span>
-                  <br />
-                  <span className="text-gray-900 dark:text-white">
-                    الذكي والاحترافي
-                  </span>
-                </motion.h1>
-
-                <motion.p
-                  className="mb-10 text-gray-600 text-xl leading-relaxed dark:text-gray-300"
-                  variants={itemVariants}
-                >
-                  استشارات قانونية فورية، مراجعة العقود، وإجابات دقيقة على مدار
-                  الساعة.
-                  <br className="hidden lg:block" />
-                  استشارة صوتية أو كتابية بخبرة شاملة في القانون السعودي.
-                </motion.p>
-
-                <motion.div
-                  className="flex flex-col justify-center gap-4 sm:flex-row lg:justify-end"
-                  variants={itemVariants}
-                >
-                  <Link href="/chat">
-                    <motion.button
-                      className="inline-flex w-full items-center justify-center gap-3 rounded-2xl bg-gradient-to-r from-green-600 to-emerald-600 px-8 py-4 font-semibold text-lg text-white shadow-green-500/30 shadow-xl transition-all hover:from-green-500 hover:to-emerald-500 sm:w-auto"
-                      whileHover={{
-                        scale: 1.05,
-                        boxShadow: "0 20px 40px -10px rgba(34, 197, 94, 0.4)",
-                      }}
-                      whileTap={{ scale: 0.98 }}
-                    >
-                      احصل على استشارة قانونية
-                      <ArrowLeft className="h-5 w-5" />
-                    </motion.button>
-                  </Link>
-
-                  <Link href="/mobile">
-                    <motion.button
-                      className="inline-flex w-full items-center justify-center gap-3 rounded-2xl border-2 border-green-200 bg-white px-8 py-4 font-semibold text-green-700 text-lg backdrop-blur-xl transition-all hover:border-green-400 sm:w-auto dark:border-green-700 dark:bg-white/10 dark:text-green-200 dark:hover:border-green-500"
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.98 }}
-                    >
-                      <Smartphone className="h-5 w-5" />
-                      تطبيق الموبايل
-                    </motion.button>
-                  </Link>
-                </motion.div>
-
-                <motion.div
-                  className="mt-12 flex items-center justify-center gap-8 text-gray-500 text-sm lg:justify-end dark:text-gray-400"
-                  variants={itemVariants}
-                >
-                  <div className="flex items-center gap-2">
-                    <div className="h-2.5 w-2.5 animate-pulse rounded-full bg-green-500" />
-                    <span>متصل الآن</span>
-                  </div>
-                  <div className="-space-x-2 flex rtl:space-x-reverse">
-                    {["أ", "س", "م"].map((letter, i) => (
-                      <div
-                        className="flex h-8 w-8 items-center justify-center rounded-full bg-linear-to-br from-green-400 to-emerald-600 font-bold text-white text-xs ring-2 ring-white dark:ring-gray-900"
-                        key={i}
-                      >
-                        {letter}
-                      </div>
-                    ))}
-                    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-200 font-bold text-xs ring-2 ring-white dark:bg-gray-700 dark:ring-gray-900">
-                      +5K
-                    </div>
-                  </div>
-                </motion.div>
-              </motion.div>
-
-              <motion.div
-                animate={{ opacity: 1, x: 0 }}
-                className="relative order-1 flex justify-center lg:order-2"
-                initial={{ opacity: 0, x: 100 }}
-                transition={{ duration: 0.8, ease: "easeOut" }}
-              >
-                <motion.div
-                  animate={{ y: [0, -10, 0] }}
-                  className="relative"
-                  transition={{
-                    duration: 4,
-                    repeat: Number.POSITIVE_INFINITY,
-                    ease: "easeInOut",
-                  }}
-                >
-                  <div className="h-[580px] w-72 rounded-[3rem] border border-gray-700 bg-linear-to-b from-gray-900 to-gray-800 p-3 shadow-2xl shadow-green-900/20">
-                    <div className="relative h-full w-full overflow-hidden rounded-[2.25rem] bg-white dark:bg-gray-900">
-                      <div className="flex h-8 items-center justify-center bg-linear-to-r from-green-600 to-emerald-600">
-                        <div className="h-5 w-20 rounded-full bg-black/20" />
-                      </div>
-
-                      <div className="bg-linear-to-r from-green-600 to-emerald-600 px-4 pt-2 pb-4">
-                        <div className="flex items-center gap-3" dir="rtl">
-                          <motion.div
-                            animate={{ rotate: [0, 5, -5, 0] }}
-                            className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/20 backdrop-blur-xl"
-                            transition={{
-                              duration: 2,
-                              repeat: Number.POSITIVE_INFINITY,
-                            }}
-                          >
-                            <Bot className="h-6 w-6 text-white" />
-                          </motion.div>
-                          <div>
-                            <h4 className="font-bold text-sm text-white">
-                              مساعد ذكي
-                            </h4>
-                            <p className="flex items-center gap-1 text-green-100 text-xs">
-                              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-green-300" />
-                              متصل الآن
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div
-                        className="h-[360px] space-y-3 bg-gray-50 p-4 dark:bg-gray-900"
-                        dir="rtl"
-                      >
-                        <motion.div
-                          animate={{ opacity: 1, x: 0 }}
-                          className="flex gap-2"
-                          initial={{ opacity: 0, x: -20 }}
-                          transition={{ delay: 0.5 }}
-                        >
-                          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-green-500 to-emerald-600 font-bold text-white text-xs">
-                            AI
-                          </div>
-                          <div className="max-w-[85%] rounded-2xl rounded-tr-sm bg-white p-3 shadow-sm dark:bg-gray-800">
-                            <p className="text-gray-800 text-xs dark:text-gray-200">
-                              مرحباً! كيف يمكنني مساعدتك اليوم؟ 👋
-                            </p>
-                          </div>
-                        </motion.div>
-
-                        <motion.div
-                          animate={{ opacity: 1, x: 0 }}
-                          className="flex justify-end gap-2"
-                          initial={{ opacity: 0, x: 20 }}
-                          transition={{ delay: 1 }}
-                        >
-                          <div className="max-w-[85%] rounded-2xl rounded-tl-sm bg-linear-to-r from-green-600 to-emerald-600 p-3">
-                            <p className="text-white text-xs">
-                              أحتاج مساعدة في كتابة مقال احترافي
-                            </p>
-                          </div>
-                        </motion.div>
-
-                        <motion.div
-                          animate={{ opacity: 1, x: 0 }}
-                          className="flex gap-2"
-                          initial={{ opacity: 0, x: -20 }}
-                          transition={{ delay: 1.5 }}
-                        >
-                          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-green-500 to-emerald-600 font-bold text-white text-xs">
-                            AI
-                          </div>
-                          <div className="max-w-[85%] rounded-2xl rounded-tr-sm bg-white p-3 shadow-sm dark:bg-gray-800">
-                            <p className="text-gray-800 text-xs dark:text-gray-200">
-                              بالطبع! ما هو موضوع المقال؟ سأساعدك في صياغته ✨
-                            </p>
-                          </div>
-                        </motion.div>
-
-                        <motion.div
-                          animate={{ opacity: 1 }}
-                          className="flex gap-2"
-                          initial={{ opacity: 0 }}
-                          transition={{ delay: 2 }}
-                        >
-                          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-green-500 to-emerald-600 font-bold text-white text-xs">
-                            AI
-                          </div>
-                          <div className="rounded-2xl rounded-tr-sm bg-white p-3 shadow-sm dark:bg-gray-800">
-                            <div className="flex gap-1">
-                              <motion.span
-                                animate={{ scale: [1, 1.2, 1] }}
-                                className="h-2 w-2 rounded-full bg-gray-400"
-                                transition={{
-                                  duration: 0.6,
-                                  repeat: Number.POSITIVE_INFINITY,
-                                  delay: 0,
-                                }}
-                              />
-                              <motion.span
-                                animate={{ scale: [1, 1.2, 1] }}
-                                className="h-2 w-2 rounded-full bg-gray-400"
-                                transition={{
-                                  duration: 0.6,
-                                  repeat: Number.POSITIVE_INFINITY,
-                                  delay: 0.2,
-                                }}
-                              />
-                              <motion.span
-                                animate={{ scale: [1, 1.2, 1] }}
-                                className="h-2 w-2 rounded-full bg-gray-400"
-                                transition={{
-                                  duration: 0.6,
-                                  repeat: Number.POSITIVE_INFINITY,
-                                  delay: 0.4,
-                                }}
-                              />
-                            </div>
-                          </div>
-                        </motion.div>
-                      </div>
-
-                      <div className="absolute right-0 bottom-0 left-0 border-gray-200 border-t bg-white p-3 dark:border-gray-700 dark:bg-gray-800">
-                        <div className="flex items-center gap-2 rounded-full bg-gray-100 px-4 py-2 dark:bg-gray-700">
-                          <input
-                            className="flex-1 bg-transparent text-gray-600 text-xs placeholder-gray-400 outline-none dark:text-gray-300"
-                            dir="rtl"
-                            placeholder="اكتب رسالتك..."
-                            readOnly
-                            type="text"
-                          />
-                          <div className="flex h-7 w-7 items-center justify-center rounded-full bg-linear-to-r from-green-600 to-emerald-600 shadow-green-500/30 shadow-lg">
-                            <ArrowLeft className="h-4 w-4 text-white" />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <motion.div
-                    animate={{ scale: [1, 1.2, 1], rotate: [0, 10, 0] }}
-                    className="-top-6 -right-6 absolute h-24 w-24 rounded-3xl bg-linear-to-br from-green-400/30 to-emerald-400/30 blur-xl"
-                    transition={{
-                      duration: 4,
-                      repeat: Number.POSITIVE_INFINITY,
-                    }}
-                  />
-                  <motion.div
-                    animate={{ scale: [1, 1.2, 1], rotate: [0, -10, 0] }}
-                    className="-bottom-6 -left-6 absolute h-32 w-32 rounded-3xl bg-linear-to-br from-emerald-400/30 to-teal-400/30 blur-xl"
-                    transition={{
-                      duration: 4,
-                      repeat: Number.POSITIVE_INFINITY,
-                      delay: 0.5,
-                    }}
-                  />
-
-                  <motion.div
-                    animate={{ opacity: 1, y: 0 }}
-                    className="-top-4 absolute right-0 rounded-2xl border border-gray-100 bg-white px-4 py-2 shadow-xl dark:border-gray-700 dark:bg-gray-800"
-                    initial={{ opacity: 0, y: 10 }}
-                    transition={{ delay: 2.5 }}
-                  >
-                    <div className="flex items-center gap-2">
-                      <div className="flex h-8 w-8 items-center justify-center rounded-full bg-linear-to-br from-green-500 to-emerald-600">
-                        <Sparkles className="h-4 w-4 text-white" />
-                      </div>
-                      <span className="font-medium text-gray-800 text-xs dark:text-white">
-                        استشارة قانونية دقيقة! ⚖️
-                      </span>
-                    </div>
-                  </motion.div>
-                </motion.div>
-              </motion.div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Trust Section */}
-      <section className="relative py-16">
-        <div className="container mx-auto px-4">
-          <motion.div
-            className="mb-8 text-center"
-            initial={{ opacity: 0 }}
-            viewport={{ once: true }}
-            whileInView={{ opacity: 1 }}
-          >
-            <p className="text-gray-500 text-sm dark:text-gray-400">
-              موثوق من قبل أكثر من 50,000 مستخدم
-            </p>
-          </motion.div>
-
-          <motion.div
-            className="flex flex-wrap items-center justify-center gap-8 opacity-60 lg:gap-16"
-            initial={{ opacity: 0, y: 20 }}
-            viewport={{ once: true }}
-            whileInView={{ opacity: 0.6, y: 0 }}
-          >
-            {["شركة أ", "مؤسسة ب", "منصة ج", "تطبيق د", "موقع هـ"].map(
-              (name, i) => (
-                <div
-                  className="font-bold text-gray-400 text-xl dark:text-gray-600"
-                  key={i}
-                >
-                  {name}
-                </div>
-              )
-            )}
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Saudi Vision Video */}
-      <section className="bg-white py-24 dark:bg-gray-950" dir="rtl">
-        <div className="container mx-auto px-4">
-          <motion.div
-            className="mb-12 text-center"
-            initial={{ opacity: 0, y: 20 }}
-            viewport={{ once: true }}
-            whileInView={{ opacity: 1, y: 0 }}
-          >
-            <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-green-200/50 bg-white/80 px-5 py-2.5 font-medium text-green-700 text-sm backdrop-blur-xl dark:border-green-700/50 dark:bg-white/10 dark:text-green-300">
-              <Play className="h-4 w-4" />
-              رؤية المملكة 2030
-            </div>
-            <h2 className="mb-4 font-bold text-4xl text-gray-900 lg:text-5xl dark:text-white">
-              التحول الرقمي في المملكة
-            </h2>
-            <p className="mx-auto max-w-2xl text-gray-600 text-xl dark:text-gray-400">
-              نفخر بأن نكون جزءاً من رؤية السعودية 2030 للتحول الرقمي
-            </p>
-          </motion.div>
-
-          <motion.div
-            className="mx-auto max-w-4xl"
-            initial={{ opacity: 0, scale: 0.95 }}
-            viewport={{ once: true }}
-            whileInView={{ opacity: 1, scale: 1 }}
-          >
-            <a
-              className="group relative block aspect-video cursor-pointer overflow-hidden rounded-3xl border border-white/20 shadow-2xl shadow-green-900/20"
-              href="https://www.youtube.com/watch?v=ByNJSU8D01U"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              <div className="absolute inset-0 bg-linear-to-br from-green-900 via-green-800 to-emerald-900">
-                <div className="absolute inset-0 opacity-20">
-                  <svg
-                    className="h-full w-full"
-                    preserveAspectRatio="none"
-                    viewBox="0 0 100 100"
-                  >
-                    <defs>
-                      <pattern
-                        height="10"
-                        id="grid"
-                        patternUnits="userSpaceOnUse"
-                        width="10"
-                      >
-                        <path
-                          d="M 10 0 L 0 0 0 10"
-                          fill="none"
-                          opacity="0.3"
-                          stroke="white"
-                          strokeWidth="0.5"
-                        />
-                      </pattern>
-                    </defs>
-                    <rect fill="url(#grid)" height="100" width="100" />
-                  </svg>
-                </div>
-              </div>
-
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="text-center">
-                  <motion.div
-                    className="mx-auto mb-6 flex h-32 w-32 items-center justify-center rounded-full border border-white/20 bg-white/10 backdrop-blur-xl transition-transform duration-300 group-hover:scale-110"
-                    whileHover={{ scale: 1.1 }}
-                  >
-                    <svg
-                      className="h-16 w-16"
-                      fill="white"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        clipRule="evenodd"
-                        d="M4.5 5.653c0-1.426 1.529-2.33 2.779-1.643l11.54 6.348c1.295.712 1.295 2.573 0 3.285L7.28 19.991c-1.25.687-2.779-.217-2.779-1.643V5.653z"
-                        fillRule="evenodd"
-                      />
-                    </svg>
-                  </motion.div>
-                  <h3 className="mb-2 font-bold text-2xl text-white">
-                    شاهد رؤية 2030
-                  </h3>
-                  <p className="text-white/70">اضغط لمشاهدة الفيديو الرسمي</p>
-                </div>
-              </div>
-
-              <div className="absolute top-4 right-4 rounded-full border border-white/20 bg-white/10 px-3 py-1 text-sm text-white backdrop-blur-sm">
-                🇸🇦 رؤية المملكة
-              </div>
-
-              <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-green-900/60 via-transparent to-transparent" />
-              <div className="absolute right-0 bottom-0 left-0 h-1 bg-linear-to-r from-green-600 via-white to-green-600" />
-            </a>
-
-            <div className="mt-8 grid grid-cols-3 gap-6">
-              {[
-                { label: "2030", desc: "رؤية المملكة" },
-                { label: "100%", desc: "تحول رقمي" },
-                { label: "🇸🇦", desc: "فخر سعودي" },
-              ].map((item, index) => (
-                <GlassCard delay={index * 0.1} key={index}>
-                  <div className="p-4 text-center">
-                    <div className="bg-linear-to-r from-green-600 to-emerald-600 bg-clip-text font-bold text-2xl text-transparent">
-                      {item.label}
-                    </div>
-                    <div className="text-gray-500 text-sm dark:text-gray-400">
-                      {item.desc}
-                    </div>
-                  </div>
-                </GlassCard>
-              ))}
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Features */}
-      <section className="bg-white py-24 dark:bg-gray-950" dir="rtl">
-        <div className="container mx-auto px-4">
-          <motion.div
-            className="mb-16 text-center"
-            initial={{ opacity: 0, y: 20 }}
-            viewport={{ once: true }}
-            whileInView={{ opacity: 1, y: 0 }}
-          >
-            <h2 className="mb-4 font-bold text-4xl text-gray-900 lg:text-5xl dark:text-white">
-              لماذا تختار مستشارك القانوني الذكي؟
-            </h2>
-            <p className="mx-auto max-w-2xl text-gray-600 text-xl dark:text-gray-400">
-              نوفر لك استشارات قانونية احترافية مع خبرة شاملة بالقانون السعودي
-            </p>
-          </motion.div>
-
-          <div className="mx-auto grid max-w-6xl gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {features.map((feature, index) => (
-              <GlassCard className="p-8" delay={index * 0.1} key={index}>
-                <motion.div
-                  className={`h-14 w-14 rounded-2xl bg-linear-to-br ${feature.gradient} mb-5 flex items-center justify-center shadow-lg`}
-                  whileHover={{ scale: 1.1, rotate: 5 }}
-                >
-                  <feature.icon className="h-7 w-7 text-white" />
-                </motion.div>
-                <h3 className="mb-3 font-bold text-gray-900 text-xl dark:text-white">
-                  {feature.title}
-                </h3>
-                <p className="text-gray-600 leading-relaxed dark:text-gray-400">
-                  {feature.description}
-                </p>
-              </GlassCard>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* How It Works */}
-      <section className="bg-gray-50/50 py-24 dark:bg-gray-900" dir="rtl">
-        <div className="container mx-auto px-4">
-          <motion.div
-            className="mb-16 text-center"
-            initial={{ opacity: 0, y: 20 }}
-            viewport={{ once: true }}
-            whileInView={{ opacity: 1, y: 0 }}
-          >
-            <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-green-200/50 bg-white/80 px-5 py-2.5 font-medium text-green-700 text-sm backdrop-blur-xl dark:border-green-700/50 dark:bg-white/10 dark:text-green-300">
-              <Clock className="h-4 w-4" />
-              كيف يعمل؟
-            </div>
-            <h2 className="mb-4 font-bold text-4xl text-gray-900 lg:text-5xl dark:text-white">
-              ابدأ في 3 خطوات بسيطة
-            </h2>
-          </motion.div>
-
-          <div className="relative mx-auto grid max-w-5xl gap-8 md:grid-cols-3">
-            <div className="absolute top-16 right-1/4 left-1/4 hidden h-0.5 bg-linear-to-l from-green-400/50 via-green-500/50 to-green-400/50 md:block" />
-
-            {[
-              {
-                step: "1",
-                title: "أنشئ حساب مجاني",
-                description: "سجل بسهولة باستخدام بريدك الإلكتروني",
-              },
-              {
-                step: "2",
-                title: "ابدأ المحادثة",
-                description: "اكتب سؤالك وشاهد السحر يحدث",
-              },
-              {
-                step: "3",
-                title: "استمتع بالنتائج",
-                description: "احصل على إجابات دقيقة في ثوانٍ",
-              },
-            ].map((item, index) => (
-              <motion.div
-                className="relative text-center"
-                initial={{ opacity: 0, y: 30 }}
-                key={index}
-                transition={{ delay: index * 0.2 }}
-                viewport={{ once: true }}
-                whileInView={{ opacity: 1, y: 0 }}
-              >
-                <motion.div
-                  className="relative z-10 mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-linear-to-br from-green-600 to-emerald-600 font-bold text-2xl text-white shadow-green-500/30 shadow-lg"
-                  whileHover={{ scale: 1.1, rotate: 5 }}
-                >
-                  {item.step}
-                </motion.div>
-                <h3 className="mb-3 font-bold text-gray-900 text-xl dark:text-white">
-                  {item.title}
-                </h3>
-                <p className="text-gray-600 dark:text-gray-400">
-                  {item.description}
-                </p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Testimonials */}
-      <section className="bg-white py-24 dark:bg-gray-950" dir="rtl">
-        <div className="container mx-auto px-4">
-          <motion.div
-            className="mb-16 text-center"
-            initial={{ opacity: 0, y: 20 }}
-            viewport={{ once: true }}
-            whileInView={{ opacity: 1, y: 0 }}
-          >
-            <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-green-200/50 bg-white/80 px-5 py-2.5 font-medium text-green-700 text-sm backdrop-blur-xl dark:border-green-700/50 dark:bg-white/10 dark:text-green-300">
-              <Award className="h-4 w-4" />
-              آراء عملائنا
-            </div>
-            <h2 className="mb-4 font-bold text-4xl text-gray-900 lg:text-5xl dark:text-white">
-              ماذا يقول مستخدمونا؟
-            </h2>
-          </motion.div>
-
-          <div className="mx-auto max-w-4xl">
-            <GlassCard className="p-8 lg:p-12">
-              <motion.div
-                animate={{ opacity: 1, x: 0 }}
-                className="flex flex-col items-center gap-8 lg:flex-row"
-                exit={{ opacity: 0, x: -20 }}
-                initial={{ opacity: 0, x: 20 }}
-                key={activeTestimonial}
-              >
-                <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-2xl bg-linear-to-br from-green-500 to-emerald-600 font-bold text-3xl text-white shadow-green-500/30 shadow-lg">
-                  {testimonials[activeTestimonial].image}
-                </div>
-                <div className="flex-1 text-center lg:text-right">
-                  <div className="mb-4 flex items-center justify-center gap-1 lg:justify-start">
-                    {[...Array(testimonials[activeTestimonial].rating)].map(
-                      (_, i) => (
-                        <Star
-                          className="h-5 w-5 fill-yellow-500 text-yellow-500"
-                          key={i}
-                        />
-                      )
-                    )}
-                  </div>
-                  <p className="mb-6 text-gray-700 text-xl leading-relaxed lg:text-2xl dark:text-gray-200">
-                    &ldquo;{testimonials[activeTestimonial].content}&rdquo;
-                  </p>
-                  <div>
-                    <div className="font-bold text-gray-900 text-lg dark:text-white">
-                      {testimonials[activeTestimonial].name}
-                    </div>
-                    <div className="text-gray-500 dark:text-gray-400">
-                      {testimonials[activeTestimonial].role}
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-
-              <div className="mt-8 flex justify-center gap-2">
-                {testimonials.map((_, index) => (
-                  <button
-                    className={`h-2 rounded-full transition-all duration-300 ${
-                      index === activeTestimonial
-                        ? "w-8 bg-linear-to-r from-green-600 to-emerald-600"
-                        : "w-2 bg-gray-300 hover:bg-gray-400 dark:bg-gray-700"
-                    }`}
-                    key={index}
-                    onClick={() => setActiveTestimonial(index)}
-                  />
-                ))}
-              </div>
-            </GlassCard>
-          </div>
-        </div>
-      </section>
-
-      {/* Stats */}
-      <section
-        className="relative overflow-hidden border-gray-100 border-y bg-white py-20 dark:border-gray-800 dark:bg-gray-950"
-        dir="rtl"
-      >
-        <div className="container relative z-10 mx-auto px-4">
-          <div className="mx-auto grid max-w-5xl grid-cols-2 gap-8 lg:grid-cols-4">
-            {stats.map((stat, index) => (
-              <motion.div
-                className="text-center"
-                initial={{ opacity: 0, y: 20 }}
-                key={index}
-                transition={{ delay: index * 0.1 }}
-                viewport={{ once: true }}
-                whileInView={{ opacity: 1, y: 0 }}
-              >
-                <motion.div
-                  className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-green-50 dark:bg-green-900/30"
-                  whileHover={{ scale: 1.1, rotate: 5 }}
-                >
-                  <stat.icon className="h-7 w-7 text-green-600 dark:text-green-400" />
-                </motion.div>
-                <div className="mb-1 font-bold text-3xl text-gray-900 lg:text-4xl dark:text-white">
-                  <AnimatedCounter suffix={stat.suffix} value={stat.value} />
-                </div>
-                <div className="text-gray-500 dark:text-gray-400">
-                  {stat.label}
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Pricing */}
-      <section className="bg-white py-24 dark:bg-gray-950" dir="rtl">
-        <div className="container mx-auto px-4">
-          <motion.div
-            className="mb-12 text-center"
-            initial={{ opacity: 0, y: 20 }}
-            viewport={{ once: true }}
-            whileInView={{ opacity: 1, y: 0 }}
-          >
-            <h2 className="mb-4 font-bold text-4xl text-gray-900 lg:text-5xl dark:text-white">
-              ابدأ مجاناً اليوم
-            </h2>
-            <p className="text-gray-600 text-xl dark:text-gray-400">
-              جميع الميزات الأساسية مجانية
-            </p>
-          </motion.div>
-
-          <motion.div
-            className="mx-auto max-w-md"
-            initial={{ opacity: 0, scale: 0.95 }}
-            viewport={{ once: true }}
-            whileInView={{ opacity: 1, scale: 1 }}
-          >
-            <GlassCard className="relative overflow-hidden border-2 border-green-500/50 p-8">
-              <div className="absolute top-0 right-0 left-0 h-1 bg-linear-to-r from-green-600 via-emerald-600 to-teal-600" />
-
-              <motion.div
-                className="-top-4 -translate-x-1/2 absolute left-1/2"
-                initial={{ y: -20, opacity: 0 }}
-                viewport={{ once: true }}
-                whileInView={{ y: 0, opacity: 1 }}
-              >
-                <span className="rounded-full bg-linear-to-r from-green-600 to-emerald-600 px-6 py-2 font-bold text-sm text-white shadow-green-500/30 shadow-lg">
-                  الأكثر شعبية
-                </span>
-              </motion.div>
-
-              <div className="mt-4 mb-8 text-center">
-                <div className="mb-2 bg-linear-to-r from-green-600 to-emerald-600 bg-clip-text font-bold text-5xl text-transparent">
-                  مجاني
-                </div>
-                <div className="text-gray-500 dark:text-gray-400">
-                  للأبد • بدون بطاقة ائتمان
-                </div>
-              </div>
-
-              <ul className="mb-8 space-y-4">
-                {pricingFeatures.map((feature, index) => (
-                  <motion.li
-                    className="flex items-center gap-3"
-                    initial={{ opacity: 0, x: -20 }}
-                    key={index}
-                    transition={{ delay: index * 0.1 }}
-                    viewport={{ once: true }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                  >
-                    <div className="flex h-6 w-6 items-center justify-center rounded-full bg-green-100 dark:bg-green-900/50">
-                      <Check className="h-4 w-4 text-green-600" />
-                    </div>
-                    <span className="text-gray-700 dark:text-gray-300">
-                      {feature}
+      {/* HERO */}
+      <section className="relative min-h-dvh flex flex-col justify-center overflow-hidden">
+        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(0,0,0,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,0.02)_1px,transparent_1px)] bg-[size:64px_64px] dark:bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)]" />
+        <div className="relative z-10 max-w-7xl mx-auto w-full px-6 md:px-8 py-24 md:py-32">
+          <div className="grid lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+            <div className="lg:col-span-7 text-right">
+              <motion.div initial="hidden" animate="visible" className="space-y-8">
+                <motion.div custom={0} variants={fadeUp}>
+                  <span className="inline-flex items-center gap-2 px-4 py-2 border border-zinc-200 dark:border-zinc-800 rounded-full text-xs font-semibold uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400">
+                    <span className="relative flex h-2 w-2">
+                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-zinc-900 opacity-75 dark:bg-zinc-100" />
+                      <span className="relative inline-flex h-2 w-2 rounded-full bg-zinc-900 dark:bg-zinc-100" />
                     </span>
-                  </motion.li>
-                ))}
-              </ul>
-
-              <Link href="/register">
-                <motion.button
-                  className="block w-full rounded-xl bg-linear-to-r from-green-600 to-emerald-600 py-4 text-center font-bold text-lg text-white shadow-green-500/30 shadow-xl transition-all hover:from-green-700 hover:to-emerald-700"
-                  whileHover={{
-                    scale: 1.02,
-                    boxShadow: "0 20px 40px -10px rgba(34, 197, 94, 0.4)",
-                  }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  ابدأ الآن مجاناً
-                </motion.button>
-              </Link>
-
-              <div className="mt-4 text-center">
-                <Link
-                  className="inline-flex items-center gap-1 text-green-600 text-sm hover:underline dark:text-green-400"
-                  href="/pricing"
-                >
-                  عرض جميع الخطط
-                  <ChevronRight className="h-4 w-4 rotate-180" />
-                </Link>
+                    {"منصة قانونية ذكية"}
+                  </span>
+                </motion.div>
+                <motion.h1 custom={0.15} variants={fadeUp} className="text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-black leading-[0.88] tracking-tighter">
+                  <span className="block">{"مبسّط"}</span>
+                  <span className="block mt-2 text-zinc-300 dark:text-zinc-700">LAW</span>
+                </motion.h1>
+                <motion.p custom={0.3} variants={fadeUp} className="text-xl md:text-2xl font-light leading-relaxed text-zinc-500 dark:text-zinc-400 max-w-xl">
+                  {"المساعد القانوني الذكي الأول في المملكة — مدعوم بالذكاء الاصطناعي ومبني على الأنظمة السعودية"}
+                </motion.p>
+                <motion.div custom={0.45} variants={fadeUp} className="flex flex-col sm:flex-row gap-4 pt-4">
+                  <Link href="/register" className="group inline-flex items-center justify-center gap-3 bg-zinc-950 text-white dark:bg-zinc-50 dark:text-zinc-950 h-14 px-10 rounded-full text-base font-semibold transition-all duration-300 hover:opacity-90 hover:shadow-2xl hover:shadow-zinc-950/20 dark:hover:shadow-zinc-50/10">
+                    {"ابدأ مجاناً"}
+                    <ArrowLeft className="h-4 w-4 transition-transform duration-300 group-hover:-translate-x-1" />
+                  </Link>
+                  <Link href="/features" className="inline-flex items-center justify-center gap-2 border border-zinc-200 dark:border-zinc-800 text-zinc-700 dark:text-zinc-300 h-14 px-10 rounded-full text-base font-semibold transition-all duration-300 hover:bg-zinc-50 dark:hover:bg-zinc-900 hover:border-zinc-300 dark:hover:border-zinc-700">
+                    {"اكتشف المميزات"}
+                  </Link>
+                </motion.div>
+                <motion.div custom={0.6} variants={fadeUp} className="flex flex-wrap items-center gap-8 pt-4 text-sm text-zinc-400">
+                  {["متوافق مع الأنظمة السعودية", "تشفير شامل", "دعم على مدار الساعة"].map((text) => (
+                    <span key={text} className="flex items-center gap-2">
+                      <Check className="h-3.5 w-3.5" />
+                      {text}
+                    </span>
+                  ))}
+                </motion.div>
+              </motion.div>
+            </div>
+            <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1.2, ease }} className="lg:col-span-5 hidden lg:flex items-center justify-center">
+              <div className="relative w-full max-w-md aspect-square">
+                <div className="absolute inset-0 rounded-full border-2 border-zinc-900 dark:border-zinc-100" />
+                <div className="absolute inset-6 rounded-full border border-zinc-200 dark:border-zinc-800" />
+                <div className="absolute inset-12 rounded-full border border-zinc-100 dark:border-zinc-900" />
+                <div className="absolute inset-[4.5rem] rounded-full border border-zinc-100 dark:border-zinc-900" />
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="w-20 h-20 bg-zinc-950 dark:bg-zinc-100 rounded-full flex items-center justify-center shadow-2xl">
+                    <Scale className="w-10 h-10 text-white dark:text-zinc-950" />
+                  </div>
+                </div>
+                {[
+                  { Icon: Brain, angle: 0 },
+                  { Icon: Shield, angle: 90 },
+                  { Icon: FileSearch, angle: 180 },
+                  { Icon: MessageSquare, angle: 270 },
+                ].map(({ Icon, angle }, i) => {
+                  const rad = (angle * Math.PI) / 180;
+                  const r = 46;
+                  const xPos = 50 + r * Math.cos(rad);
+                  const yPos = 50 + r * Math.sin(rad);
+                  return (
+                    <motion.div key={angle} initial={{ opacity: 0, scale: 0 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.6 + i * 0.15, duration: 0.5, ease }} className="absolute w-12 h-12 -translate-x-1/2 -translate-y-1/2 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-full flex items-center justify-center shadow-lg" style={{ left: xPos + "%", top: yPos + "%" }}>
+                      <Icon className="w-5 h-5 text-zinc-700 dark:text-zinc-300" />
+                    </motion.div>
+                  );
+                })}
               </div>
-            </GlassCard>
+            </motion.div>
+          </div>
+        </div>
+        <motion.div animate={{ y: [0, 8, 0] }} transition={{ repeat: Infinity, duration: 2.5, ease: "easeInOut" }} className="absolute bottom-8 left-1/2 -translate-x-1/2">
+          <ChevronDown className="w-5 h-5 text-zinc-300 dark:text-zinc-700" />
+        </motion.div>
+        <div className="absolute bottom-0 inset-x-0 h-px bg-linear-to-r from-transparent via-zinc-200 dark:via-zinc-800 to-transparent" />
+      </section>
+
+      {/* STATS */}
+      <section className="relative py-20 md:py-24 border-b border-zinc-100 dark:border-zinc-900">
+        <div className="max-w-7xl mx-auto px-6 md:px-8">
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={staggerContainer} className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 text-center">
+            {STATS.map((stat, i) => (
+              <motion.div key={i} variants={staggerItem} className="space-y-2">
+                <div className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight tabular-nums">
+                  <AnimatedCounter value={stat.value} suffix={stat.suffix} />
+                </div>
+                <div className="text-sm md:text-base text-zinc-500 dark:text-zinc-400 font-medium">{stat.label}</div>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* WHAT IS */}
+      <section className="py-24 md:py-32 lg:py-40">
+        <div className="max-w-7xl mx-auto px-6 md:px-8">
+          <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="text-right space-y-8">
+              <motion.span custom={0} variants={fadeUp} className="inline-block text-xs font-semibold uppercase tracking-[0.25em] text-zinc-400 dark:text-zinc-500">
+                {"ما هي المنصة"}
+              </motion.span>
+              <motion.h2 custom={0.1} variants={fadeUp} className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight leading-[1.1]">
+                {"الذكاء الاصطناعي "}<span className="text-zinc-300 dark:text-zinc-700">{"في خدمة"}</span>{" "}{"القانون السعودي"}
+              </motion.h2>
+              <motion.p custom={0.2} variants={fadeUp} className="text-lg md:text-xl text-zinc-500 dark:text-zinc-400 leading-relaxed max-w-xl">
+                {"مبسّط LAW هي منصة ذكاء اصطناعي متخصصة في الأنظمة واللوائح السعودية. تقدم استشارات قانونية فورية، تحليل عقود ذكي، وبحث شامل في أكثر من 2,000 نظام ولائحة — كل ذلك بلغة عربية واضحة ودقيقة."}
+              </motion.p>
+              <motion.div custom={0.3} variants={fadeUp} className="space-y-4 pt-2">
+                {["استشارات فورية على مدار الساعة بلا انتظار", "مبني على أنظمة وزارة العدل ونظام المحاكم التجارية", "تحليل عقود وصياغة مسودات قانونية ذكية", "سرية تامة وتشفير متوافق مع المعايير السعودية"].map((item) => (
+                  <div key={item} className="flex items-start gap-3">
+                    <div className="mt-1 shrink-0 w-5 h-5 rounded-full bg-zinc-950 dark:bg-zinc-100 flex items-center justify-center">
+                      <Check className="w-3 h-3 text-white dark:text-zinc-950" />
+                    </div>
+                    <span className="text-base text-zinc-600 dark:text-zinc-300">{item}</span>
+                  </div>
+                ))}
+              </motion.div>
+            </motion.div>
+            <motion.div initial={{ opacity: 0, x: -40 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.8, ease }} viewport={{ once: true, margin: "-100px" }} className="relative">
+              <div className="bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-6 md:p-8 shadow-xl shadow-zinc-950/5 dark:shadow-zinc-950/50">
+                <div className="flex items-center gap-3 mb-6 pb-4 border-b border-zinc-200 dark:border-zinc-800">
+                  <div className="w-10 h-10 bg-zinc-950 dark:bg-zinc-100 rounded-full flex items-center justify-center">
+                    <Sparkles className="w-5 h-5 text-white dark:text-zinc-950" />
+                  </div>
+                  <div className="text-right">
+                    <div className="font-bold text-sm">{"مبسّط LAW"}</div>
+                    <div className="text-xs text-zinc-400">{"المساعد القانوني الذكي"}</div>
+                  </div>
+                </div>
+                <div className="space-y-4">
+                  <div className="flex justify-end">
+                    <div className="bg-zinc-950 dark:bg-zinc-100 text-white dark:text-zinc-950 rounded-2xl rounded-br-md px-5 py-3 max-w-[80%] text-sm leading-relaxed">
+                      {"ما هي شروط فسخ عقد العمل في النظام السعودي؟"}
+                    </div>
+                  </div>
+                  <div className="flex justify-start">
+                    <div className="bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-2xl rounded-bl-md px-5 py-4 max-w-[85%]">
+                      <p className="text-sm leading-relaxed text-zinc-700 dark:text-zinc-300">
+                        {"وفقاً لنظام العمل السعودي (المادة 80)، يحق لصاحب العمل فسخ العقد في الحالات التالية:"}
+                      </p>
+                      <ul className="mt-3 space-y-2 text-sm text-zinc-500 dark:text-zinc-400">
+                        <li className="flex items-start gap-2">
+                          <span className="mt-1.5 w-1 h-1 bg-zinc-400 rounded-full shrink-0" />
+                          {"الاعتداء على صاحب العمل أو المدير المسؤول"}
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="mt-1.5 w-1 h-1 bg-zinc-400 rounded-full shrink-0" />
+                          {"عدم أداء الالتزامات الجوهرية المترتبة على العقد"}
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="mt-1.5 w-1 h-1 bg-zinc-400 rounded-full shrink-0" />
+                          {"إفشاء الأسرار الصناعية أو التجارية"}
+                        </li>
+                      </ul>
+                      <div className="mt-3 pt-3 border-t border-zinc-100 dark:border-zinc-700 text-xs text-zinc-400">
+                        {"المصدر: نظام العمل — المادة 80"}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="absolute -z-10 -top-4 -right-4 w-full h-full border border-zinc-200 dark:border-zinc-800 rounded-2xl" />
+              <div className="absolute -z-20 -top-8 -right-8 w-full h-full border border-zinc-100 dark:border-zinc-900 rounded-2xl" />
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* FEATURES */}
+      <section className="py-24 md:py-32 lg:py-40 bg-zinc-50 dark:bg-zinc-900/50">
+        <div className="max-w-7xl mx-auto px-6 md:px-8">
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="text-center mb-16 md:mb-20">
+            <motion.span custom={0} variants={fadeUp} className="inline-block text-xs font-semibold uppercase tracking-[0.25em] text-zinc-400 dark:text-zinc-500 mb-6">
+              {"المميزات"}
+            </motion.span>
+            <motion.h2 custom={0.1} variants={fadeUp} className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight leading-[1.1] mb-6">
+              {"كل ما تحتاجه "}<span className="text-zinc-300 dark:text-zinc-700">{"في منصة واحدة"}</span>
+            </motion.h2>
+            <motion.p custom={0.2} variants={fadeUp} className="text-lg md:text-xl text-zinc-500 dark:text-zinc-400 max-w-2xl mx-auto leading-relaxed">
+              {"أدوات قانونية ذكية صُممت لتبسيط رحلتك القانونية من البداية إلى النهاية"}
+            </motion.p>
+          </motion.div>
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={staggerContainer} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            {FEATURES.map((feature, i) => (
+              <motion.div key={i} variants={staggerItem} whileHover={{ y: -4 }} transition={{ type: "spring", stiffness: 300, damping: 20 }} className={`group relative bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-8 md:p-10 transition-colors duration-300 hover:border-zinc-400 dark:hover:border-zinc-600 ${feature.span}`}>
+                <div className="w-12 h-12 bg-zinc-100 dark:bg-zinc-800 rounded-xl flex items-center justify-center mb-6 group-hover:bg-zinc-950 group-hover:text-white dark:group-hover:bg-zinc-100 dark:group-hover:text-zinc-950 transition-all duration-300">
+                  <feature.Icon className="w-6 h-6" />
+                </div>
+                <h3 className="text-xl font-bold mb-3 tracking-tight">{feature.title}</h3>
+                <p className="text-base text-zinc-500 dark:text-zinc-400 leading-relaxed">{feature.description}</p>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* HOW IT WORKS */}
+      <section className="py-24 md:py-32 lg:py-40">
+        <div className="max-w-7xl mx-auto px-6 md:px-8">
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="text-center mb-16 md:mb-24">
+            <motion.span custom={0} variants={fadeUp} className="inline-block text-xs font-semibold uppercase tracking-[0.25em] text-zinc-400 dark:text-zinc-500 mb-6">
+              {"كيف تعمل"}
+            </motion.span>
+            <motion.h2 custom={0.1} variants={fadeUp} className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight leading-[1.1]">
+              {"ثلاث خطوات "}<span className="text-zinc-300 dark:text-zinc-700">{"فقط"}</span>
+            </motion.h2>
+          </motion.div>
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={staggerContainer} className="grid md:grid-cols-3 gap-8 md:gap-12 lg:gap-16">
+            {STEPS.map((item, i) => (
+              <motion.div key={i} variants={staggerItem} className="text-center md:text-right">
+                <div className="inline-flex items-center justify-center w-16 h-16 border-2 border-zinc-200 dark:border-zinc-800 rounded-full mb-8 text-2xl font-black text-zinc-300 dark:text-zinc-700">
+                  {item.step}
+                </div>
+                <h3 className="text-2xl font-bold mb-4 tracking-tight">{item.title}</h3>
+                <p className="text-base text-zinc-500 dark:text-zinc-400 leading-relaxed max-w-sm mx-auto md:mx-0">{item.description}</p>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* TESTIMONIAL */}
+      <section className="py-24 md:py-32 bg-zinc-950 dark:bg-zinc-900 text-white">
+        <div className="max-w-5xl mx-auto px-6 md:px-8">
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="text-center">
+            <motion.div custom={0} variants={fadeUp} className="mb-12">
+              <span className="inline-block text-xs font-semibold uppercase tracking-[0.25em] text-zinc-500 mb-8">
+                {"آراء العملاء"}
+              </span>
+              <blockquote className="text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight leading-snug max-w-4xl mx-auto">
+                &ldquo;{"مبسّط LAW غيّر طريقة تعاملنا مع الاستشارات القانونية بالكامل. وفّر علينا مئات الساعات من البحث والمراجعة."}&rdquo;
+              </blockquote>
+            </motion.div>
+            <motion.div custom={0.2} variants={fadeUp} className="flex items-center justify-center gap-4">
+              <div className="w-12 h-12 bg-zinc-800 rounded-full flex items-center justify-center text-base font-bold text-white">
+                {"م.أ"}
+              </div>
+              <div className="text-right">
+                <div className="font-semibold text-white text-sm">{"محمد الأحمد"}</div>
+                <div className="text-xs text-zinc-500">{"مدير الشؤون القانونية — شركة تقنية"}</div>
+              </div>
+            </motion.div>
           </motion.div>
         </div>
       </section>
 
       {/* CTA */}
-      <section className="relative overflow-hidden bg-gray-50 py-24 dark:bg-gray-900">
-        <div className="absolute inset-0">
-          <div className="absolute top-0 left-0 h-96 w-96 rounded-full bg-green-100/40 blur-3xl dark:bg-green-900/20" />
-          <div className="absolute right-0 bottom-0 h-96 w-96 rounded-full bg-emerald-100/40 blur-3xl dark:bg-emerald-900/20" />
-        </div>
-
-        <div className="container relative z-10 mx-auto px-4" dir="rtl">
-          <motion.div
-            className="mx-auto max-w-3xl text-center"
-            initial={{ opacity: 0, y: 30 }}
-            viewport={{ once: true }}
-            whileInView={{ opacity: 1, y: 0 }}
-          >
-            <h2 className="mb-6 font-bold text-4xl text-gray-900 lg:text-5xl dark:text-white">
-              جاهز للبدء؟
-            </h2>
-            <p className="mb-10 text-gray-600 text-xl dark:text-gray-400">
-              انضم إلى آلاف المستخدمين واستمتع بتجربة محادثة ذكية لا مثيل لها
-            </p>
-
-            <div className="flex flex-col justify-center gap-4 sm:flex-row">
-              <Link href="/register">
-                <motion.button
-                  className="inline-flex items-center justify-center gap-3 rounded-2xl bg-green-600 px-8 py-4 font-semibold text-lg text-white shadow-green-500/20 shadow-xl transition-all hover:bg-green-700"
-                  whileHover={{
-                    scale: 1.05,
-                    boxShadow: "0 20px 40px -10px rgba(34, 197, 94, 0.3)",
-                  }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  إنشاء حساب مجاني
-                  <ArrowLeft className="h-5 w-5" />
-                </motion.button>
+      <section className="py-24 md:py-32 lg:py-40">
+        <div className="max-w-4xl mx-auto px-6 md:px-8 text-center">
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }}>
+            <motion.h2 custom={0} variants={fadeUp} className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tighter leading-[0.9] mb-8">
+              {"ابدأ رحلتك"}<br /><span className="text-zinc-300 dark:text-zinc-700">{"القانونية الآن"}</span>
+            </motion.h2>
+            <motion.p custom={0.1} variants={fadeUp} className="text-lg md:text-xl text-zinc-500 dark:text-zinc-400 mb-12 max-w-2xl mx-auto leading-relaxed">
+              {"انضم إلى آلاف المحامين والشركات الذين يستخدمون مبسّط LAW يومياً لتبسيط أعمالهم القانونية"}
+            </motion.p>
+            <motion.div custom={0.2} variants={fadeUp} className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link href="/register" className="group inline-flex items-center justify-center gap-3 bg-zinc-950 text-white dark:bg-zinc-50 dark:text-zinc-950 h-14 px-12 rounded-full text-base font-semibold transition-all duration-300 hover:opacity-90 hover:shadow-2xl hover:shadow-zinc-950/20 dark:hover:shadow-zinc-50/10">
+                {"ابدأ مجاناً"}
+                <ArrowLeft className="h-4 w-4 transition-transform duration-300 group-hover:-translate-x-1" />
               </Link>
-
-              <Link href="/chat">
-                <motion.button
-                  className="inline-flex items-center justify-center gap-3 rounded-2xl border-2 border-gray-200 bg-white px-8 py-4 font-semibold text-gray-700 text-lg transition-all hover:border-green-300 hover:bg-green-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 dark:hover:border-green-600"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  تجربة بدون تسجيل
-                </motion.button>
+              <Link href="/contact" className="inline-flex items-center justify-center gap-2 border border-zinc-200 dark:border-zinc-800 text-zinc-700 dark:text-zinc-300 h-14 px-12 rounded-full text-base font-semibold transition-all duration-300 hover:bg-zinc-50 dark:hover:bg-zinc-900">
+                {"تواصل معنا"}
               </Link>
-            </div>
-
-            <p className="mt-8 text-gray-400 text-sm dark:text-gray-500">
-              * لا حاجة لبطاقة ائتمان • مجاني للأبد
-            </p>
+            </motion.div>
+            <motion.p custom={0.3} variants={fadeUp} className="mt-6 text-sm text-zinc-400">
+              {"مجاني بالكامل · لا يحتاج بطاقة ائتمانية · ابدأ خلال دقيقة"}
+            </motion.p>
           </motion.div>
         </div>
       </section>

@@ -2,157 +2,155 @@
 
 import { motion } from "framer-motion";
 import {
-  BookOpen,
-  Briefcase,
-  Code,
-  FileText,
-  GraduationCap,
+  Building2,
+  FileSearch,
+  Gavel,
+  Globe,
+  Landmark,
   Lightbulb,
-  Mail,
-  MessageSquare,
-  Palette,
-  PenTool,
+  Scale,
   Search,
-  TrendingUp,
+  Shield,
+  Users,
 } from "lucide-react";
 import Link from "next/link";
 import { GlassCard } from "@/components/landing/glass-card";
 
 const useCases = [
   {
-    icon: Code,
-    title: "البرمجة والتطوير",
-    description: "مساعدة المطورين في كتابة، مراجعة، وشرح الكود",
+    icon: Building2,
+    title: "القانون العقاري",
+    description: "استشارات متخصصة في الأنظمة العقارية والإيجار التجاري",
     examples: [
-      "كتابة functions جاهزة بأي لغة برمجة",
-      "مراجعة الكود واكتشاف الأخطاء",
-      "شرح مفاهيم برمجية معقدة",
-      "تحويل الكود بين اللغات",
+      "مراجعة عقود الإيجار التجاري والسكني",
+      "حقوق المستأجر والمؤجر",
+      "نظام التسجيل العيني للعقار",
+      "نزاعات الملكية وفض المنازعات",
     ],
-    gradient: "from-blue-500 to-cyan-500",
+    gradient: "from-amber-500 to-orange-600",
     testimony: {
-      name: "محمد أحمد",
-      role: "مطور Full Stack",
-      text: "وفر علي ساعات من البحث والتجربة. أصبح شريكي اليومي في البرمجة.",
+      name: "عبدالرحمن المالكي",
+      role: "مستثمر عقاري",
+      text: "مبسط LAW ساعدني في فهم حقوقي كمؤجر واكتشاف ثغرات في عقود الإيجار قبل التوقيع.",
     },
   },
   {
-    icon: FileText,
-    title: "كتابة المحتوى",
-    description: "إنشاء محتوى احترافي لجميع الأغراض",
+    icon: Users,
+    title: "القانون العمالي",
+    description: "كل ما يخص نظام العمل والعلاقات العمالية في المملكة",
     examples: [
-      "كتابة مقالات ومدونات جذابة",
-      "صياغة رسائل بريد إلكتروني",
-      "إنشاء محتوى تسويقي مقنع",
-      "كتابة سيناريوهات فيديو",
+      "حقوق الموظف ونهاية الخدمة",
+      "عقود العمل وشروطها النظامية",
+      "الفصل التعسفي والتعويضات",
+      "نظام التأمينات الاجتماعية",
     ],
-    gradient: "from-purple-500 to-pink-500",
+    gradient: "from-blue-500 to-indigo-600",
     testimony: {
-      name: "سارة علي",
-      role: "صانعة محتوى",
-      text: "ساعدني في مضاعفة إنتاجيتي. اصبحت انشر محتوى عالي الجودة يومياً.",
+      name: "سارة القحطاني",
+      role: "مديرة موارد بشرية",
+      text: "أصبحت أراجع جميع عقود التوظيف عبر مبسط LAW. وفّر عليّ الاستعانة بمحامٍ في الحالات البسيطة.",
     },
   },
   {
-    icon: GraduationCap,
-    title: "التعليم والدراسة",
-    description: "مساعد مثالي للطلاب والمعلمين",
+    icon: Landmark,
+    title: "القانون التجاري",
+    description: "تأسيس الشركات والعقود التجارية والملكية الفكرية",
     examples: [
-      "شرح المفاهيم الصعبة بطريقة بسيطة",
-      "حل المسائل الرياضية والفيزيائية",
-      "تلخيص المقالات والأوراق البحثية",
-      "إعداد الاختبارات والواجبات",
+      "تأسيس الشركات واختيار الكيان المناسب",
+      "العقود التجارية والوكالات",
+      "نظام الشركات الجديد",
+      "حماية العلامة التجارية والملكية الفكرية",
     ],
-    gradient: "from-green-500 to-emerald-500",
+    gradient: "from-amber-400 to-amber-500",
     testimony: {
-      name: "خالد محمود",
-      role: "طالب هندسة",
-      text: "أفضل مدرس خصوصي! يشرح بسهولة ومتاح 24/7.",
+      name: "فهد العتيبي",
+      role: "رائد أعمال",
+      text: "أسست شركتي بثقة بعد استشارة مبسط LAW حول نظام الشركات والكيان الأنسب لمشروعي.",
     },
   },
   {
-    icon: Briefcase,
-    title: "إدارة الأعمال",
-    description: "تبسيط المهام اليومية للشركات",
+    icon: Gavel,
+    title: "القانون الجزائي",
+    description: "فهم الأنظمة الجزائية وحقوق المتهم في المملكة",
     examples: [
-      "كتابة التقارير والعروض التقديمية",
-      "تحليل البيانات والإحصائيات",
-      "إعداد خطط العمل والاستراتيجيات",
-      "صياغة العقود والوثائق",
+      "حقوق المتهم في التحقيق والمحاكمة",
+      "نظام الإجراءات الجزائية",
+      "العقوبات التعزيرية والحدود",
+      "الكفالة والإفراج المؤقت",
     ],
-    gradient: "from-orange-500 to-red-500",
+    gradient: "from-red-500 to-rose-600",
+    testimony: {
+      name: "خالد الشمري",
+      role: "محامٍ جزائي",
+      text: "أداة ممتازة للبحث السريع في نظام الإجراءات الجزائية واستخراج المواد المطلوبة.",
+    },
+  },
+  {
+    icon: Users,
+    title: "قانون الأحوال الشخصية",
+    description: "الزواج، الطلاق، الحضانة، والنفقة حسب النظام السعودي",
+    examples: [
+      "حقوق الزوجين والطلاق",
+      "أحكام الحضانة والنفقة",
+      "الولاية والوصاية",
+      "قسمة التركات والميراث",
+    ],
+    gradient: "from-pink-500 to-fuchsia-600",
+    testimony: {
+      name: "نورة الدوسري",
+      role: "مستشارة اجتماعية",
+      text: "ساعدني في فهم حقوق الحضانة وتقديم نصائح دقيقة للعائلات التي أساعدها.",
+    },
+  },
+  {
+    icon: Shield,
+    title: "القانون الإداري",
+    description: "المنازعات الإدارية والتعامل مع الجهات الحكومية",
+    examples: [
+      "الطعن في القرارات الإدارية",
+      "نظام المنافسات والمشتريات الحكومية",
+      "حقوق الموظف الحكومي",
+      "التظلمات والشكاوى الإدارية",
+    ],
+    gradient: "from-cyan-500 to-teal-600",
+    testimony: {
+      name: "محمد الغامدي",
+      role: "مستشار إداري",
+      text: "مرجع سريع وموثوق للأنظمة الإدارية. أستخدمه يومياً في عملي.",
+    },
+  },
+  {
+    icon: Globe,
+    title: "التجارة الإلكترونية",
+    description: "الأنظمة المنظمة للتجارة الإلكترونية وحماية المستهلك",
+    examples: [
+      "نظام التجارة الإلكترونية",
+      "حقوق المستهلك والاسترجاع",
+      "سياسات الخصوصية المطلوبة",
+      "العقود الإلكترونية والتوقيع الرقمي",
+    ],
+    gradient: "from-violet-500 to-purple-600",
+    testimony: {
+      name: "ريم السبيعي",
+      role: "صاحبة متجر إلكتروني",
+      text: "ساعدني في صياغة سياسة الخصوصية والشروط والأحكام لمتجري بشكل قانوني سليم.",
+    },
+  },
+  {
+    icon: FileSearch,
+    title: "تحليل العقود",
+    description: "فحص العقود واكتشاف الثغرات والبنود المجحفة",
+    examples: [
+      "مراجعة بنود العقد مادة بمادة",
+      "اكتشاف الثغرات والمخاطر القانونية",
+      "مقارنة العقد مع الأنظمة المعتمدة",
+      "اقتراح تعديلات لحماية حقوقك",
+    ],
+    gradient: "from-teal-500 to-amber-500",
     testimony: {
       name: "أحمد العمري",
       role: "مدير تنفيذي",
-      text: "أداة لا غنى عنها لأي رائد أعمال. توفر الوقت والمال.",
-    },
-  },
-  {
-    icon: TrendingUp,
-    title: "التسويق والإعلان",
-    description: "إنشاء حملات تسويقية ناجحة",
-    examples: [
-      "كتابة نصوص إعلانية جذابة",
-      "توليد أفكار لحملات إبداعية",
-      "تحليل المنافسين والسوق",
-      "إنشاء محتوى سوشيال ميديا",
-    ],
-    gradient: "from-pink-500 to-rose-500",
-    testimony: {
-      name: "ليلى الحسن",
-      role: "مديرة تسويق",
-      text: "زاد معدل التحويل لحملاتنا بنسبة 40% بفضل المحتوى المميز.",
-    },
-  },
-  {
-    icon: BookOpen,
-    title: "البحث والكتابة الأكاديمية",
-    description: "دعم الباحثين والكتاب",
-    examples: [
-      "البحث عن مصادر موثوقة",
-      "صياغة الأوراق البحثية",
-      "مراجعة وتحرير النصوص",
-      "إنشاء فهارس ومراجع",
-    ],
-    gradient: "from-indigo-500 to-purple-500",
-    testimony: {
-      name: "د. فاطمة الزهراء",
-      role: "باحثة أكاديمية",
-      text: "اختصر وقت البحث من أسابيع إلى أيام. أداة ثورية للباحثين.",
-    },
-  },
-  {
-    icon: Palette,
-    title: "الإبداع والفنون",
-    description: "إلهام الفنانين والمبدعين",
-    examples: [
-      "توليد أفكار إبداعية جديدة",
-      "كتابة قصص وروايات",
-      "إنشاء نصوص أغاني وقصائد",
-      "تطوير مفاهيم فنية",
-    ],
-    gradient: "from-yellow-500 to-orange-500",
-    testimony: {
-      name: "عمر الفنان",
-      role: "كاتب وروائي",
-      text: "ساعدني في تجاوز العقبات الإبداعية وإنهاء روايتي.",
-    },
-  },
-  {
-    icon: MessageSquare,
-    title: "خدمة العملاء",
-    description: "تحسين تجربة العملاء",
-    examples: [
-      "الرد على استفسارات العملاء فوراً",
-      "حل المشكلات الشائعة",
-      "توفير الدعم بلغات متعددة",
-      "تحسين رضا العملاء",
-    ],
-    gradient: "from-teal-500 to-green-500",
-    testimony: {
-      name: "نور الشركات",
-      role: "مسؤولة دعم عملاء",
-      text: "خفض وقت الاستجابة من ساعات إلى ثوان. العملاء أسعد من أي وقت.",
+      text: "اكتشفت ثغرة في عقد شراكة كانت ستكلفني الملايين. لا غنى عنه لأي رجل أعمال.",
     },
   },
 ];
@@ -167,15 +165,15 @@ export default function UseCasesPage() {
         initial={{ opacity: 0, y: 20 }}
         transition={{ duration: 0.5 }}
       >
-        <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-green-500/10 px-4 py-2 font-medium text-green-600 text-sm dark:text-green-400">
+        <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-amber-400/10 px-4 py-2 font-medium text-amber-500 text-sm dark:text-amber-300">
           <Lightbulb className="h-4 w-4" />
-          حالات الاستخدام
+          مجالات التخصص
         </div>
         <h1 className="mb-4 font-bold text-4xl md:text-5xl lg:text-6xl">
-          لكل مجال، حل مثالي
+          لكل قضية، حل قانوني
         </h1>
         <p className="mx-auto max-w-2xl text-lg text-muted-foreground">
-          اكتشف كيف يساعد AI Chatbot محترفين من جميع المجالات في تحقيق أهدافهم
+          اكتشف كيف يساعد مبسط LAW المحامين ورجال الأعمال والأفراد في جميع المجالات القانونية
         </p>
       </motion.div>
 
@@ -188,7 +186,7 @@ export default function UseCasesPage() {
             key={useCase.title}
             transition={{ delay: index * 0.1 }}
           >
-            <GlassCard className="h-full p-8 transition-all hover:border-green-500/30 hover:shadow-xl">
+            <GlassCard className="h-full p-8 transition-all hover:border-amber-400/30 hover:shadow-xl">
               {/* Icon & Title */}
               <div className="mb-6 flex items-start gap-4">
                 <div
@@ -209,7 +207,7 @@ export default function UseCasesPage() {
                     className="flex items-start gap-2 text-right"
                     key={example}
                   >
-                    <div className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-green-500" />
+                    <div className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-amber-400" />
                     <span className="text-muted-foreground text-sm">
                       {example}
                     </span>
@@ -220,7 +218,7 @@ export default function UseCasesPage() {
               {/* Testimony */}
               <div className="rounded-lg bg-muted/30 p-4">
                 <p className="mb-3 text-right text-sm italic">
-                  "{useCase.testimony.text}"
+                  &ldquo;{useCase.testimony.text}&rdquo;
                 </p>
                 <div className="flex items-center justify-end gap-3">
                   <div className="text-right">
@@ -231,7 +229,7 @@ export default function UseCasesPage() {
                       {useCase.testimony.role}
                     </div>
                   </div>
-                  <div className="h-10 w-10 shrink-0 rounded-full bg-linear-to-br from-green-400 to-emerald-500" />
+                  <div className="h-10 w-10 shrink-0 rounded-full bg-linear-to-br from-amber-300 to-amber-400" />
                 </div>
               </div>
             </GlassCard>
@@ -248,34 +246,30 @@ export default function UseCasesPage() {
       >
         <GlassCard className="mx-auto max-w-3xl p-12">
           <div className="mb-6 flex justify-center">
-            <div className="rounded-full bg-linear-to-br from-green-400 to-emerald-500 p-4">
-              <Search className="h-8 w-8 text-white" />
+            <div className="rounded-full bg-linear-to-br from-amber-300 to-amber-400 p-4">
+              <Scale className="h-8 w-8 text-white" />
             </div>
           </div>
           <h2 className="mb-4 font-bold text-3xl">
-            جاهز لتجربة القوة الحقيقية للذكاء الاصطناعي؟
+            جاهز للحصول على استشارة قانونية سعودية دقيقة؟
           </h2>
           <p className="mb-8 text-lg text-muted-foreground">
-            انضم إلى آلاف المحترفين الذين يستخدمون AI Chatbot يومياً لتحقيق
-            المزيد
+            انضم إلى آلاف المستخدمين الذين يثقون بمبسط LAW لاستشاراتهم القانونية
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link
-              className="inline-flex items-center gap-2 rounded-xl bg-green-500 px-8 py-4 font-semibold text-lg text-white transition-all hover:bg-green-600 hover:shadow-green-500/50 hover:shadow-lg"
+              className="inline-flex items-center gap-2 rounded-xl bg-amber-400 px-8 py-4 font-semibold text-lg text-white transition-all hover:bg-amber-500 hover:shadow-amber-400/50 hover:shadow-lg"
               href="/register"
             >
-              ابدأ مجاناً الآن
+              ابدأ استشارتك مجاناً
             </Link>
             <Link
-              className="inline-flex items-center gap-2 rounded-xl border border-green-500/30 bg-green-500/10 px-8 py-4 font-semibold text-green-600 text-lg transition-all hover:bg-green-500/20 dark:text-green-400"
+              className="inline-flex items-center gap-2 rounded-xl border border-amber-400/30 bg-amber-400/10 px-8 py-4 font-semibold text-amber-500 text-lg transition-all hover:bg-amber-400/20 dark:text-amber-300"
               href="/pricing"
             >
-              شاهد الأسعار
+              شاهد الباقات
             </Link>
           </div>
-          <p className="mt-6 text-muted-foreground text-sm">
-            ✨ لا حاجة لبطاقة ائتمان للبدء
-          </p>
         </GlassCard>
       </motion.div>
     </div>

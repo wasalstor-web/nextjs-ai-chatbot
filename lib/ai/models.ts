@@ -1,5 +1,5 @@
-// النماذج المتاحة - فقط النماذج التي لديها مفاتيح API مُفعّلة
-export const DEFAULT_CHAT_MODEL = "openai/gpt-5.2";
+// النماذج المتاحة - جي بي تي فقط
+export const DEFAULT_CHAT_MODEL = "openai/gpt-4o";
 
 // For API usage
 export const model = DEFAULT_CHAT_MODEL;
@@ -12,62 +12,35 @@ export type ChatModel = {
 };
 
 export const chatModels: ChatModel[] = [
-  // كلود (Anthropic)
-  {
-    id: "anthropic/claude-sonnet-4.5",
-    name: "المتقدم",
-    provider: "anthropic",
-    description: "الأكثر قدرة وذكاءً (افتراضي)",
-  },
-  {
-    id: "anthropic/claude-opus-4.5",
-    name: "الاحترافي",
-    provider: "anthropic",
-    description: "للمهام المعقدة والتحليل العميق",
-  },
-  {
-    id: "anthropic/claude-haiku-4.5",
-    name: "السريع",
-    provider: "anthropic",
-    description: "سريع وفعّال للمهام البسيطة",
-  },
-  {
-    id: "anthropic/claude-3.7-sonnet",
-    name: "الكلاسيكي",
-    provider: "anthropic",
-    description: "الجيل السابق الموثوق",
-  },
-  // جي بي تي (OpenAI)
   {
     id: "openai/gpt-4o",
-    name: "المتقدم",
+    name: "مبسط 1",
     provider: "openai",
-    description: "الأكثر قدرة من أوبن إيه آي",
+    description: "النموذج الأول - الأكثر قدرة",
   },
   {
     id: "openai/gpt-4o-mini",
-    name: "الخفيف",
+    name: "مبسط 2",
     provider: "openai",
-    description: "سريع واقتصادي",
+    description: "النموذج الثاني - سريع واقتصادي",
   },
   {
     id: "openai/gpt-4.1-mini",
-    name: "الرشيق",
+    name: "مبسط 3",
     provider: "openai",
-    description: "الجيل الجديد السريع",
+    description: "النموذج الثالث - الجيل الجديد",
   },
   {
     id: "openai/gpt-5.2",
-    name: "الأحدث",
+    name: "مبسط 4",
     provider: "openai",
-    description: "أحدث إصدار متاح",
+    description: "النموذج الرابع - أحدث إصدار",
   },
 ];
 
 // أسماء المزودين بالعربي
 export const providerDisplayNames: Record<string, string> = {
-  anthropic: "كلود",
-  openai: "جي بي تي",
+  openai: "مبسط",
 };
 
 // Group models by provider for UI

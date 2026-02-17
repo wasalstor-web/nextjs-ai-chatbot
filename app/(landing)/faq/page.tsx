@@ -1,256 +1,369 @@
-"use client";
+'use client';
 
-import { motion } from "framer-motion";
-import { ChevronDown, MessageCircle, Search } from "lucide-react";
-import Link from "next/link";
-import { useState } from "react";
-import { GlassCard } from "@/components/landing/glass-card";
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import {
+  ChevronDown,
+  Scale,
+  FileText,
+  Search,
+  Shield,
+  CreditCard,
+  MessageCircle,
+  HelpCircle,
+  BookOpen,
+} from 'lucide-react';
+import Link from 'next/link';
 
-const faqs = [
+interface FAQItem {
+  question: string;
+  answer: string;
+}
+
+interface FAQCategory {
+  id: string;
+  name: string;
+  icon: React.ReactNode;
+  questions: FAQItem[];
+}
+
+const faqCategories: FAQCategory[] = [
   {
-    category: "عام",
+    id: 'general',
+    name: 'عام',
+    icon: <HelpCircle className="h-5 w-5" />,
     questions: [
       {
-        q: "ما هو AI Chatbot؟",
-        a: "AI Chatbot هو مساعد ذكاء اصطناعي متقدم يساعدك في الإجابة على الأسئلة، كتابة المحتوى، البرمجة، التحليل، والمزيد. يعمل بتقنيات AI حديثة ويدعم اللغة العربية بشكل كامل.",
+        question: 'ما هو مبسط LAW؟',
+        answer:
+          'مبسط LAW هو مستشار قانوني ذكي مبني على الذكاء الاصطناعي، متخصص في الأنظمة والتشريعات السعودية. يساعدك في فهم حقوقك والتزاماتك القانونية، تحليل العقود والمستندات، والبحث في أكثر من 200 نظام سعودي بدقة واحترافية.',
       },
       {
-        q: "هل الخدمة مجانية؟",
-        a: "نعم، نوفر خطة مجانية تتضمن عدد محادثات محدود شهرياً. للاستخدام المكثف، لدينا خطط مدفوعة بأسعار تنافسية.",
+        question: 'هل مبسط LAW يغني عن المحامي؟',
+        answer:
+          'مبسط LAW أداة مساعدة تقدم معلومات واستشارات قانونية أولية مبنية على الأنظمة السعودية الرسمية. لا يُغني عن المحامي المرخّص في القضايا المعقدة أو الإجراءات القضائية، لكنه يساعدك في فهم وضعك القانوني واتخاذ قرارات مبدئية مدروسة.',
       },
       {
-        q: "هل يدعم اللغة العربية؟",
-        a: "نعم بالتأكيد! الموقع والمساعد يدعمان اللغة العربية بشكل كامل، مع واجهة RTL وفهم عميق للسياق العربي.",
+        question: 'ما الأنظمة السعودية التي يغطيها مبسط LAW؟',
+        answer:
+          'يغطي مبسط LAW أكثر من 200 نظام سعودي تشمل: نظام العمل، نظام المعاملات المدنية، نظام الشركات، نظام التجارة الإلكترونية، نظام المرافعات الشرعية، نظام الإجراءات الجزائية، نظام الأحوال الشخصية، نظام المنافسات والمشتريات الحكومية، وغيرها الكثير.',
+      },
+      {
+        question: 'هل المعلومات القانونية محدّثة؟',
+        answer:
+          'نعم، نحرص على تحديث قاعدة البيانات القانونية بشكل دوري لتشمل آخر التعديلات والأنظمة الصادرة من الجهات الرسمية في المملكة العربية السعودية، بما في ذلك هيئة الخبراء ووزارة العدل.',
       },
     ],
   },
   {
-    category: "الحساب والتسجيل",
+    id: 'legal',
+    name: 'الاستشارات القانونية',
+    icon: <Scale className="h-5 w-5" />,
     questions: [
       {
-        q: "كيف أنشئ حساب؟",
-        a: "انقر على زر 'تسجيل' في الأعلى، املأ بياناتك، وستحصل فوراً على حساب مع رصيد مجاني للبدء.",
+        question: 'كيف أحصل على استشارة قانونية؟',
+        answer:
+          'ببساطة، افتح محادثة جديدة واكتب سؤالك القانوني بالعربية أو الإنجليزية. سيقوم مبسط LAW بتحليل سؤالك والبحث في الأنظمة السعودية المتعلقة وتقديم إجابة مفصلة مع الإشارة للمواد القانونية ذات الصلة.',
       },
       {
-        q: "هل يمكنني تغيير خطتي؟",
-        a: "نعم، يمكنك الترقية أو التخفيض في أي وقت من صفحة الإعدادات. التغييرات تطبق فوراً.",
+        question: 'ما أنواع الاستشارات المتاحة؟',
+        answer:
+          'يقدم مبسط LAW استشارات في: القانون العقاري، قانون العمل والعمال، القانون التجاري والشركات، القانون الجزائي، الأحوال الشخصية، القانون الإداري، التجارة الإلكترونية، العقود والمعاملات المدنية، المنافسات الحكومية، والملكية الفكرية.',
       },
       {
-        q: "كيف أحذف حسابي؟",
-        a: "يمكنك حذف حسابك من الإعدادات > الأمان > حذف الحساب. جميع بياناتك سيتم حذفها نهائياً.",
+        question: 'هل يمكنني طرح أسئلة متابعة؟',
+        answer:
+          'بالتأكيد. مبسط LAW يحتفظ بسياق المحادثة الكامل، فيمكنك طرح أسئلة متابعة وتوضيحية وسيرد بناءً على السياق السابق. هذا يتيح لك التعمق في أي موضوع قانوني بالتدريج.',
       },
     ],
   },
   {
-    category: "الاستخدام",
+    id: 'contracts',
+    name: 'تحليل العقود',
+    icon: <FileText className="h-5 w-5" />,
     questions: [
       {
-        q: "كيف أبدأ محادثة؟",
-        a: "بعد تسجيل الدخول، انقر على 'محادثة جديدة' واكتب سؤالك أو طلبك. المساعد سيرد بشكل فوري.",
+        question: 'كيف أحلل عقدًا باستخدام مبسط LAW؟',
+        answer:
+          'يمكنك نسخ نص العقد ولصقه في المحادثة، أو رفع ملف العقد مباشرة. سيقوم مبسط LAW بتحليل بنود العقد، تحديد النقاط المهمة، كشف البنود غير العادلة أو المخالفة للأنظمة السعودية، وتقديم توصيات لتحسين العقد.',
       },
       {
-        q: "هل يمكنني رفع ملفات؟",
-        a: "نعم، يدعم النظام رفع الصور، PDF، Word، Excel والمزيد. يمكنك تحليل وقراءة المستندات مباشرة.",
+        question: 'ما أنواع العقود التي يمكن تحليلها؟',
+        answer:
+          'يدعم مبسط LAW تحليل جميع أنواع العقود: عقود الإيجار السكنية والتجارية، عقود العمل، عقود البيع والشراء، عقود الشراكة، عقود المقاولات، عقود التوريد، اتفاقيات السرية، عقود الامتياز التجاري، وغيرها.',
       },
       {
-        q: "كم عدد المحادثات المسموح؟",
-        a: "في الخطة المجانية: 50 محادثة/شهر. الخطة الأساسية: 500 محادثة. الخطة الاحترافية: غير محدود.",
+        question: 'هل يكشف البنود المخالفة للأنظمة؟',
+        answer:
+          'نعم، من أهم ميزات مبسط LAW قدرته على مقارنة بنود العقد مع الأنظمة السعودية المعمول بها وتنبيهك لأي بند قد يكون مخالفًا أو غير قابل للتنفيذ قانونيًا، مع ذكر المادة النظامية ذات العلاقة.',
       },
     ],
   },
   {
-    category: "الأمان والخصوصية",
+    id: 'search',
+    name: 'البحث في الأنظمة',
+    icon: <Search className="h-5 w-5" />,
     questions: [
       {
-        q: "هل محادثاتي آمنة؟",
-        a: "نعم، جميع المحادثات مشفرة end-to-end. لا يمكن لأحد غيرك الوصول إليها، ولا نشارك بياناتك مع أطراف ثالثة.",
+        question: 'كيف أبحث في الأنظمة السعودية؟',
+        answer:
+          'اكتب سؤالك أو الموضوع القانوني الذي تبحث عنه، وسيقوم مبسط LAW تلقائيًا بالبحث في قاعدة بيانات الأنظمة السعودية واسترجاع المواد والنصوص ذات الصلة مع شرح مبسّط لكل مادة.',
       },
       {
-        q: "هل تحتفظون بمحادثاتي؟",
-        a: "نخزن المحادثات لتوفير سجل لك فقط. يمكنك حذفها في أي وقت. لا نستخدمها لتدريب النماذج بدون إذنك.",
+        question: 'هل يمكنني البحث برقم المادة مباشرة؟',
+        answer:
+          'نعم، يمكنك كتابة اسم النظام ورقم المادة مثل: "المادة 77 من نظام العمل" وسيعرض لك نص المادة كاملًا مع شرحها وتطبيقاتها العملية والأحكام المرتبطة بها.',
       },
       {
-        q: "هل يمكنني جعل المحادثات خاصة؟",
-        a: "نعم، جميع المحادثات خاصة افتراضياً. يمكنك اختيار مشاركة محادثة معينة عبر رابط إذا أردت.",
+        question: 'هل تشمل النتائج اللوائح التنفيذية؟',
+        answer:
+          'نعم، قاعدة بيانات مبسط LAW تشمل الأنظمة الأساسية واللوائح التنفيذية والقرارات الوزارية والتعاميم الرسمية، مما يوفر لك صورة قانونية شاملة ومتكاملة.',
       },
     ],
   },
   {
-    category: "الدفع",
+    id: 'privacy',
+    name: 'الخصوصية والأمان',
+    icon: <Shield className="h-5 w-5" />,
     questions: [
       {
-        q: "ما طرق الدفع المتاحة؟",
-        a: "نقبل بطاقات الائتمان/الخصم (Visa, Mastercard)، Apple Pay، Google Pay، والتحويل البنكي للشركات.",
+        question: 'هل محادثاتي القانونية سرية؟',
+        answer:
+          'نعم، نلتزم بأعلى معايير السرية المهنية. جميع المحادثات مشفرة بتقنية AES-256 ولا يطّلع عليها أي شخص. نتعامل مع بياناتك بنفس مستوى السرية المطبق في مكاتب المحاماة.',
       },
       {
-        q: "هل يمكنني الإلغاء في أي وقت؟",
-        a: "نعم، يمكنك إلغاء الاشتراك في أي وقت بدون رسوم. ستبقى الخدمة متاحة حتى نهاية فترة الاشتراك الحالية.",
+        question: 'هل يتم تخزين بيانات العقود التي أرفعها؟',
+        answer:
+          'يتم تخزين بيانات المحادثة بشكل مشفّر لتتمكن من الرجوع إليها لاحقًا. يمكنك حذف أي محادثة أو بيانات في أي وقت من إعدادات حسابك، وسيتم حذفها نهائيًا من خوادمنا.',
       },
       {
-        q: "هل تقدمون استرداد الأموال؟",
-        a: "نعم، نوفر ضمان استرداد كامل خلال 14 يوم من الاشتراك إذا لم تكن راضياً عن الخدمة.",
+        question: 'هل تتوافقون مع نظام حماية البيانات الشخصية السعودي؟',
+        answer:
+          'نعم، مبسط LAW متوافق تمامًا مع نظام حماية البيانات الشخصية (PDPL) الصادر في المملكة العربية السعودية. نجمع فقط البيانات الضرورية ونحميها وفق أعلى المعايير العالمية.',
       },
     ],
   },
   {
-    category: "الدعم الفني",
+    id: 'billing',
+    name: 'الباقات والأسعار',
+    icon: <CreditCard className="h-5 w-5" />,
     questions: [
       {
-        q: "كيف أتواصل مع الدعم؟",
-        a: "يمكنك التواصل عبر البريد الإلكتروني support@chatbot.com أو الدردشة المباشرة في الموقع. نرد خلال 24 ساعة.",
+        question: 'هل يمكنني تجربة مبسط LAW مجانًا؟',
+        answer:
+          'نعم، نوفر باقة مجانية تتيح لك 10 استشارات قانونية شهريًا مع إمكانية البحث في الأنظمة الأساسية. يمكنك الترقية في أي وقت للحصول على مميزات أكثر.',
       },
       {
-        q: "هل هناك دعم فني بالعربية؟",
-        a: "نعم، فريق الدعم يتحدث العربية ويمكنه مساعدتك بلغتك المفضلة.",
+        question: 'ما الفرق بين الباقة الاحترافية وباقة المكاتب؟',
+        answer:
+          'الباقة الاحترافية مصممة للأفراد والمحامين المستقلين وتشمل استشارات غير محدودة وتحليل عقود وتقارير قانونية. باقة المكاتب مصممة لمكاتب المحاماة والشركات وتشمل حسابات متعددة ودعمًا مخصصًا وتكاملاً مع أنظمة المكتب.',
       },
       {
-        q: "ماذا لو واجهت مشكلة تقنية؟",
-        a: "راسلنا فوراً مع وصف المشكلة ولقطة شاشة إن أمكن. سنعمل على حلها في أسرع وقت.",
+        question: 'ما طرق الدفع المتاحة؟',
+        answer:
+          'نقبل الدفع عبر: بطاقات مدى، فيزا، ماستركارد، Apple Pay، وSTC Pay. جميع الأسعار بالريال السعودي وتشمل ضريبة القيمة المضافة.',
+      },
+    ],
+  },
+  {
+    id: 'support',
+    name: 'الدعم الفني',
+    icon: <MessageCircle className="h-5 w-5" />,
+    questions: [
+      {
+        question: 'كيف أتواصل مع فريق الدعم؟',
+        answer:
+          'يمكنك التواصل معنا عبر: البريد الإلكتروني support@mubassatlaw.com، أو من خلال نموذج التواصل في صفحة "تواصل معنا"، أو عبر الدردشة المباشرة داخل التطبيق خلال ساعات العمل (الأحد - الخميس، 9 صباحًا - 6 مساءً بتوقيت السعودية).',
+      },
+      {
+        question: 'هل يتوفر دعم باللغتين العربية والإنجليزية؟',
+        answer:
+          'نعم، فريق الدعم الفني يتحدث العربية والإنجليزية، ومبسط LAW نفسه يفهم ويرد بكلتا اللغتين بطلاقة.',
+      },
+      {
+        question: 'كيف أبلغ عن خطأ في معلومة قانونية؟',
+        answer:
+          'نقدّر ملاحظاتك. يمكنك الإبلاغ عن أي خطأ عبر البريد legal@mubassatlaw.com أو من خلال زر "الإبلاغ عن خطأ" الموجود في كل إجابة قانونية. فريقنا القانوني يراجع جميع البلاغات خلال 24 ساعة.',
       },
     ],
   },
 ];
 
-export default function FAQPage() {
-  const [openIndex, setOpenIndex] = useState<string | null>(null);
-  const [searchQuery, setSearchQuery] = useState("");
+function FAQAccordion({
+  item,
+  isOpen,
+  onToggle,
+}: {
+  item: FAQItem;
+  isOpen: boolean;
+  onToggle: () => void;
+}) {
+  return (
+    <div className="border-b border-slate-200 dark:border-slate-700/50 last:border-0">
+      <button
+        onClick={onToggle}
+        className="flex w-full items-center justify-between gap-4 py-5 text-right transition-colors hover:text-amber-500 dark:hover:text-amber-300"
+        aria-expanded={isOpen}
+      >
+        <span className="text-base font-medium text-slate-900 dark:text-white">
+          {item.question}
+        </span>
+        <motion.span
+          animate={{ rotate: isOpen ? 180 : 0 }}
+          transition={{ duration: 0.2 }}
+          className="shrink-0"
+        >
+          <ChevronDown className="h-5 w-5 text-slate-400" />
+        </motion.span>
+      </button>
+      <AnimatePresence initial={false}>
+        {isOpen && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.2, ease: 'easeInOut' }}
+            className="overflow-hidden"
+          >
+            <p className="pb-5 leading-relaxed text-slate-600 dark:text-slate-400">
+              {item.answer}
+            </p>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
 
-  const filteredFaqs = faqs.map((category) => ({
-    ...category,
-    questions: category.questions.filter(
-      (q) =>
-        q.q.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        q.a.toLowerCase().includes(searchQuery.toLowerCase())
-    ),
-  }));
+export default function FAQPage() {
+  const [activeCategory, setActiveCategory] = useState('general');
+  const [openItems, setOpenItems] = useState<Record<string, boolean>>({});
+
+  const toggleItem = (key: string) => {
+    setOpenItems((prev) => ({ ...prev, [key]: !prev[key] }));
+  };
+
+  const activeData = faqCategories.find((c) => c.id === activeCategory);
 
   return (
-    <div className="mx-auto min-h-screen w-full max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-      {/* Header */}
-      <motion.div
-        animate={{ opacity: 1, y: 0 }}
-        className="mb-16 text-center"
-        initial={{ opacity: 0, y: 20 }}
-        transition={{ duration: 0.5 }}
-      >
-        <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-green-500/10 px-4 py-2 font-medium text-green-600 text-sm dark:text-green-400">
-          <MessageCircle className="h-4 w-4" />
-          الأسئلة الشائعة
+    <div className="min-h-screen bg-white dark:bg-slate-950" dir="rtl">
+      {/* Hero */}
+      <section className="relative overflow-hidden py-20 lg:py-28">
+        <div className="absolute inset-0 bg-linear-to-b from-emerald-50/50 to-transparent dark:from-emerald-950/20" />
+        <div className="container relative mx-auto max-w-4xl px-4 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <span className="mb-4 inline-flex items-center gap-2 rounded-full bg-emerald-100 px-4 py-1.5 text-sm font-medium text-emerald-700 dark:bg-emerald-900/30 dark:text-amber-300">
+              <BookOpen className="h-4 w-4" />
+              مركز المساعدة
+            </span>
+            <h1 className="mt-6 text-4xl font-bold tracking-tight text-slate-900 md:text-5xl lg:text-6xl dark:text-white">
+              الأسئلة{' '}
+              <span className="bg-linear-to-l from-amber-500 to-teal-600 bg-clip-text text-transparent">
+                الشائعة
+              </span>
+            </h1>
+            <p className="mx-auto mt-6 max-w-2xl text-lg text-slate-600 dark:text-slate-400">
+              كل ما تحتاج معرفته عن مبسط LAW — مستشارك القانوني الذكي المتخصص
+              في الأنظمة السعودية
+            </p>
+          </motion.div>
         </div>
-        <h1 className="mb-4 font-bold text-4xl md:text-5xl lg:text-6xl">
-          كل ما تحتاج معرفته
-        </h1>
-        <p className="mx-auto max-w-2xl text-lg text-muted-foreground">
-          إجابات سريعة على أكثر الأسئلة شيوعاً حول AI Chatbot
-        </p>
+      </section>
 
-        {/* Search */}
-        <motion.div
-          animate={{ opacity: 1, y: 0 }}
-          className="mx-auto mt-8 max-w-2xl"
-          initial={{ opacity: 0, y: 20 }}
-          transition={{ delay: 0.2 }}
-        >
-          <div className="relative">
-            <Search className="-translate-y-1/2 absolute top-1/2 right-4 h-5 w-5 text-muted-foreground" />
-            <input
-              className="w-full rounded-xl border bg-background/50 py-4 pr-12 pl-4 text-right backdrop-blur-sm transition-all focus:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-500/20"
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="ابحث عن سؤالك..."
-              type="text"
-              value={searchQuery}
-            />
-          </div>
-        </motion.div>
-      </motion.div>
-
-      {/* FAQ Categories */}
-      <div className="space-y-8">
-        {filteredFaqs.map((category, catIndex) =>
-          category.questions.length > 0 ? (
-            <motion.div
-              animate={{ opacity: 1, y: 0 }}
-              initial={{ opacity: 0, y: 20 }}
-              key={category.category}
-              transition={{ delay: catIndex * 0.1 }}
+      {/* FAQ Content */}
+      <section className="pb-20 lg:pb-28">
+        <div className="container mx-auto max-w-5xl px-4">
+          <div className="flex flex-col gap-8 lg:flex-row lg:gap-12">
+            {/* Categories Sidebar */}
+            <motion.nav
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.4, delay: 0.2 }}
+              className="flex gap-2 overflow-x-auto pb-2 lg:w-56 lg:shrink-0 lg:flex-col lg:overflow-visible lg:pb-0"
+              aria-label="أقسام الأسئلة الشائعة"
             >
-              <h2 className="mb-4 font-bold text-2xl">{category.category}</h2>
-              <div className="space-y-3">
-                {category.questions.map((faq, faqIndex) => {
-                  const key = `${catIndex}-${faqIndex}`;
-                  const isOpen = openIndex === key;
+              {faqCategories.map((cat) => (
+                <button
+                  key={cat.id}
+                  onClick={() => setActiveCategory(cat.id)}
+                  className={`flex shrink-0 items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition-all ${
+                    activeCategory === cat.id
+                      ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-amber-300'
+                      : 'text-slate-600 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800/50'
+                  }`}
+                >
+                  {cat.icon}
+                  {cat.name}
+                </button>
+              ))}
+            </motion.nav>
 
-                  return (
-                    <GlassCard
-                      className="overflow-hidden transition-all hover:border-green-500/30"
-                      key={key}
-                    >
-                      <button
-                        className="flex w-full items-start justify-between gap-4 p-6 text-right transition-colors"
-                        onClick={() => setOpenIndex(isOpen ? null : key)}
-                        type="button"
-                      >
-                        <ChevronDown
-                          className={`mt-1 h-5 w-5 shrink-0 text-green-500 transition-transform ${
-                            isOpen ? "rotate-180" : ""
-                          }`}
-                        />
-                        <span className="flex-1 font-semibold text-lg">
-                          {faq.q}
-                        </span>
-                      </button>
-
-                      <motion.div
-                        animate={{
-                          height: isOpen ? "auto" : 0,
-                          opacity: isOpen ? 1 : 0,
-                        }}
-                        className="overflow-hidden"
-                        initial={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.3 }}
-                      >
-                        <div className="border-t px-6 pt-4 pb-6 text-right text-muted-foreground">
-                          {faq.a}
-                        </div>
-                      </motion.div>
-                    </GlassCard>
-                  );
-                })}
+            {/* Questions */}
+            <motion.div
+              key={activeCategory}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3 }}
+              className="min-w-0 flex-1"
+            >
+              <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm lg:p-8 dark:border-slate-800 dark:bg-slate-900/50">
+                <h2 className="mb-6 flex items-center gap-3 text-xl font-bold text-slate-900 dark:text-white">
+                  {activeData?.icon}
+                  {activeData?.name}
+                </h2>
+                <div>
+                  {activeData?.questions.map((item, idx) => (
+                    <FAQAccordion
+                      key={`${activeCategory}-${idx}`}
+                      item={item}
+                      isOpen={!!openItems[`${activeCategory}-${idx}`]}
+                      onToggle={() => toggleItem(`${activeCategory}-${idx}`)}
+                    />
+                  ))}
+                </div>
               </div>
             </motion.div>
-          ) : null
-        )}
-      </div>
+          </div>
+        </div>
+      </section>
 
       {/* CTA */}
-      <motion.div
-        animate={{ opacity: 1, y: 0 }}
-        className="mt-16 text-center"
-        initial={{ opacity: 0, y: 20 }}
-        transition={{ delay: 0.5 }}
-      >
-        <GlassCard className="mx-auto max-w-2xl p-8">
-          <h3 className="mb-4 font-bold text-2xl">لم تجد إجابة لسؤالك؟</h3>
-          <p className="mb-6 text-muted-foreground">
-            تواصل معنا مباشرة وسنساعدك في أسرع وقت
-          </p>
-          <div className="flex flex-wrap justify-center gap-4">
-            <Link
-              className="inline-flex items-center gap-2 rounded-xl bg-green-500 px-6 py-3 font-semibold text-white transition-all hover:bg-green-600 hover:shadow-green-500/50 hover:shadow-lg"
-              href="/contact"
-            >
-              <MessageCircle className="h-5 w-5" />
-              تواصل معنا
-            </Link>
-            <Link
-              className="inline-flex items-center gap-2 rounded-xl border border-green-500/30 bg-green-500/10 px-6 py-3 font-semibold text-green-600 transition-all hover:bg-green-500/20 dark:text-green-400"
-              href="/chat"
-            >
-              جرب المساعد الآن
-            </Link>
-          </div>
-        </GlassCard>
-      </motion.div>
+      <section className="border-t border-slate-200 bg-slate-50 py-16 dark:border-slate-800 dark:bg-slate-900/30">
+        <div className="container mx-auto max-w-3xl px-4 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="text-2xl font-bold text-slate-900 md:text-3xl dark:text-white">
+              لم تجد إجابة لسؤالك؟
+            </h2>
+            <p className="mt-4 text-slate-600 dark:text-slate-400">
+              تواصل مع فريق الدعم أو جرّب مبسط LAW مباشرة واطرح سؤالك القانوني
+            </p>
+            <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
+              <Link
+                href="/contact"
+                className="inline-flex items-center gap-2 rounded-xl bg-linear-to-l from-amber-500 to-teal-600 px-8 py-3 font-medium text-white shadow-lg shadow-amber-400/25 transition-all hover:shadow-xl hover:shadow-amber-400/30"
+              >
+                <MessageCircle className="h-5 w-5" />
+                تواصل معنا
+              </Link>
+              <Link
+                href="/login"
+                className="inline-flex items-center gap-2 rounded-xl border border-slate-300 bg-white px-8 py-3 font-medium text-slate-700 transition-all hover:border-emerald-300 hover:text-amber-500 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300 dark:hover:border-amber-500 dark:hover:text-amber-300"
+              >
+                <Scale className="h-5 w-5" />
+                جرّب مبسط LAW
+              </Link>
+            </div>
+          </motion.div>
+        </div>
+      </section>
     </div>
   );
 }

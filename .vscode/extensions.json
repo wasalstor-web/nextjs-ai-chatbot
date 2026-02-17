@@ -36,7 +36,9 @@
 
     // ⚡ Developer Experience
     "formulahendry.auto-rename-tag",
-    "naumovs.color-highlight"
+    "naumovs.color-highlight",
+    "anthropic.claude-code",
+    "wallabyjs.console-ninja"
   ],
   "unwantedRecommendations": ["esbenp.prettier-vscode"]
 }

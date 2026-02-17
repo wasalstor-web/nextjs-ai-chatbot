@@ -30,12 +30,12 @@ function getGeolocation(request: Request) {
   }
 
   // Fallback: try Vercel headers
+  const vercelCity = request.headers.get("x-vercel-ip-city");
+
   return {
     latitude: request.headers.get("x-vercel-ip-latitude") || undefined,
     longitude: request.headers.get("x-vercel-ip-longitude") || undefined,
-    city: request.headers.get("x-vercel-ip-city")
-      ? decodeURIComponent(request.headers.get("x-vercel-ip-city")!)
-      : undefined,
+    city: vercelCity ? decodeURIComponent(vercelCity) : undefined,
     country: request.headers.get("x-vercel-ip-country") || undefined,
   };
 }
@@ -44,10 +44,9 @@ import { auth, type UserType } from "@/app/(auth)/auth";
 import { entitlementsByUserType } from "@/lib/ai/entitlements";
 import { type RequestHints, systemPrompt } from "@/lib/ai/prompts";
 import { getLanguageModel } from "@/lib/ai/providers";
-import { createDocument } from "@/lib/ai/tools/create-document";
-import { getWeather } from "@/lib/ai/tools/get-weather";
-import { requestSuggestions } from "@/lib/ai/tools/request-suggestions";
-import { updateDocument } from "@/lib/ai/tools/update-document";
+import { legalConsultation } from "@/lib/ai/tools/legal-consultation";
+import { analyzeContract } from "@/lib/ai/tools/analyze-contract";
+import { searchSaudiLaw } from "@/lib/ai/tools/search-saudi-law";
 import { isProductionEnvironment } from "@/lib/constants";
 import {
   createStreamId,
@@ -206,12 +205,7 @@ export async function POST(request: Request) {
           stopWhen: stepCountIs(5),
           experimental_activeTools: isReasoningModel
             ? []
-            : [
-                "getWeather",
-                "createDocument",
-                "updateDocument",
-                "requestSuggestions",
-              ],
+            : ["legalConsultation", "analyzeContract", "searchSaudiLaw"],
           experimental_transform: isReasoningModel
             ? undefined
             : smoothStream({ chunking: "word" }),
@@ -223,13 +217,9 @@ export async function POST(request: Request) {
               }
             : undefined,
           tools: {
-            getWeather,
-            createDocument: createDocument({ session, dataStream }),
-            updateDocument: updateDocument({ session, dataStream }),
-            requestSuggestions: requestSuggestions({
-              session,
-              dataStream,
-            }),
+            legalConsultation,
+            analyzeContract,
+            searchSaudiLaw,
           },
           experimental_telemetry: {
             isEnabled: isProductionEnvironment,

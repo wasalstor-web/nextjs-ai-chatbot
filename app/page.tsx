@@ -1,12 +1,12 @@
 import { Footer, Header } from "@/components/landing/navigation";
-import HomePageContent from "./home-content";
+import { HomeContent } from "./home-content";
 
 export default function Page() {
   return (
     <>
       <Header />
       <main>
-        <HomePageContent />
+        <HomeContent />
       </main>
       <Footer />
     </>

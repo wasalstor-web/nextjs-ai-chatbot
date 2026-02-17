@@ -2,14 +2,11 @@
 
 import {
   BarChart3,
-  Bot,
   FileText,
   LayoutDashboard,
   MessageSquare,
-  Package,
   Settings,
   Shield,
-  ShoppingBag,
   Upload,
   Users,
 } from "lucide-react";
@@ -36,16 +33,6 @@ const menuItems = [
     title: "لوحة التحكم",
     icon: LayoutDashboard,
     href: "/admin",
-  },
-  {
-    title: "المتاجر",
-    icon: ShoppingBag,
-    href: "/admin/stores",
-  },
-  {
-    title: "الوكلاء",
-    icon: Bot,
-    href: "/admin/agents",
   },
   {
     title: "المستخدمون",
@@ -81,11 +68,6 @@ const menuItems = [
     title: "الأمان",
     icon: Shield,
     href: "/admin/security",
-  },
-  {
-    title: "السوق",
-    icon: Package,
-    href: "/marketplace",
   },
 ];
 

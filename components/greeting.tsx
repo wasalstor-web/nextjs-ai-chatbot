@@ -70,7 +70,7 @@ export const Greeting = () => {
       >
         {/* Logo */}
         <div className="relative mb-8">
-          <div className="flex size-[76px] items-center justify-center rounded-[22px] bg-gradient-to-br from-primary to-primary/80 text-primary-foreground shadow-lg shadow-primary/20 md:size-[84px] md:rounded-[24px]">
+          <div className="flex size-[76px] items-center justify-center rounded-[22px] bg-linear-to-br from-primary to-primary/80 text-primary-foreground shadow-lg shadow-primary/20 md:size-[84px] md:rounded-3xl">
             <ScaleIcon className="size-9 md:size-10" strokeWidth={1.6} />
           </div>
           <div className="-bottom-1 -right-1 absolute flex size-7 items-center justify-center rounded-full bg-emerald-500 text-white shadow-md ring-[3px] ring-background">
@@ -116,7 +116,7 @@ export const Greeting = () => {
         {QUICK_ACTIONS.map((action, index) => (
           <motion.button
             animate={{ opacity: 1, scale: 1 }}
-            className={`group flex w-full items-start gap-3 rounded-2xl border border-transparent bg-gradient-to-br ${action.gradient} p-4 text-right transition-all duration-200 ${action.hoverBorder} hover:shadow-sm active:scale-[0.98] dark:bg-gradient-to-br`}
+            className={`group flex w-full items-start gap-3 rounded-2xl border border-transparent bg-linear-to-br ${action.gradient} p-4 text-right transition-all duration-200 ${action.hoverBorder} hover:shadow-sm active:scale-[0.98] dark:bg-linear-to-br`}
             initial={{ opacity: 0, scale: 0.95 }}
             key={action.label}
             transition={{

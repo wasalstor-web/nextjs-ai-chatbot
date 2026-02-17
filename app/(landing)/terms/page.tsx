@@ -77,25 +77,25 @@ export default function TermsPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-linear-to-b from-white to-green-50 dark:from-gray-950 dark:to-gray-900">
+    <div className="min-h-screen bg-linear-to-b from-white to-amber-50/80 dark:from-slate-950 dark:to-slate-900">
       {/* Hero Section */}
       <section className="relative overflow-hidden pt-20 pb-12">
-        <div className="absolute inset-0 bg-linear-to-br from-green-700/10 via-green-600/10 to-green-500/10 dark:from-green-700/5 dark:via-green-600/5 dark:to-green-500/5" />
+        <div className="absolute inset-0 bg-linear-to-br from-amber-600/10 via-amber-500/10 to-amber-400/10 dark:from-amber-600/5 dark:via-amber-500/5 dark:to-amber-400/5" />
 
         <div className="container relative mx-auto px-4" dir="rtl">
           <div className="mx-auto max-w-3xl text-center">
-            <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-3xl bg-linear-to-br from-green-600 to-green-500">
+            <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-3xl bg-linear-to-br from-amber-500 to-amber-400">
               <FileText className="h-10 w-10 text-white" />
             </div>
             <h1 className="mb-6 font-bold text-5xl lg:text-6xl">
-              <span className="bg-linear-to-l from-green-700 via-green-600 to-green-500 bg-clip-text text-transparent">
+              <span className="bg-linear-to-l from-amber-600 via-amber-500 to-amber-400 bg-clip-text text-transparent">
                 الشروط والأحكام
               </span>
             </h1>
-            <p className="text-gray-600 text-xl leading-relaxed dark:text-gray-400">
+            <p className="text-slate-600 text-xl leading-relaxed dark:text-slate-400">
               يرجى قراءة هذه الشروط بعناية قبل استخدام خدماتنا
             </p>
-            <p className="mt-4 text-gray-500 text-sm dark:text-gray-500">
+            <p className="mt-4 text-slate-500 text-sm dark:text-slate-500">
               آخر تحديث: ديسمبر 2024
             </p>
           </div>
@@ -107,15 +107,15 @@ export default function TermsPage() {
         <div className="container mx-auto px-4">
           <div className="mx-auto max-w-4xl">
             {/* Introduction */}
-            <div className="mb-8 rounded-3xl border border-gray-200 bg-white p-8 dark:border-gray-800 dark:bg-gray-900">
-              <h2 className="mb-4 font-bold text-2xl text-gray-900 dark:text-white">
+            <div className="mb-8 rounded-3xl border border-slate-200 bg-white p-8 dark:border-slate-800 dark:bg-slate-900">
+              <h2 className="mb-4 font-bold text-2xl text-slate-900 dark:text-white">
                 مقدمة
               </h2>
-              <p className="mb-4 text-gray-600 leading-relaxed dark:text-gray-400">
+              <p className="mb-4 text-slate-600 leading-relaxed dark:text-slate-400">
                 مرحباً بك في شروط وأحكام الخدمة. هذه الوثيقة تحدد القواعد
                 والمسؤوليات عند استخدامك لخدماتنا.
               </p>
-              <p className="text-gray-600 leading-relaxed dark:text-gray-400">
+              <p className="text-slate-600 leading-relaxed dark:text-slate-400">
                 من خلال الوصول إلى خدماتنا أو استخدامها، فإنك توافق على الالتزام
                 بهذه الشروط والأحكام. إذا كنت لا توافق على أي جزء من هذه الشروط،
                 فلا يمكنك استخدام خدماتنا.
@@ -126,15 +126,15 @@ export default function TermsPage() {
             <div className="space-y-8">
               {sections.map((section, index) => (
                 <div
-                  className="rounded-3xl border border-gray-200 bg-white p-8 dark:border-gray-800 dark:bg-gray-900"
+                  className="rounded-3xl border border-slate-200 bg-white p-8 dark:border-slate-800 dark:bg-slate-900"
                   key={index}
                 >
                   <div className="mb-6 flex items-start gap-4">
-                    <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-linear-to-br from-green-600 to-green-500">
+                    <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-linear-to-br from-amber-500 to-amber-400">
                       <section.icon className="h-7 w-7 text-white" />
                     </div>
                     <div>
-                      <h2 className="font-bold text-2xl text-gray-900 dark:text-white">
+                      <h2 className="font-bold text-2xl text-slate-900 dark:text-white">
                         {section.title}
                       </h2>
                     </div>
@@ -143,10 +143,10 @@ export default function TermsPage() {
                   <ul className="space-y-3">
                     {section.content.map((item, itemIndex) => (
                       <li className="flex gap-3" key={itemIndex}>
-                        <span className="mt-1 shrink-0 text-green-600 dark:text-green-400">
+                        <span className="mt-1 shrink-0 text-amber-500 dark:text-amber-300">
                           •
                         </span>
-                        <span className="text-gray-600 leading-relaxed dark:text-gray-400">
+                        <span className="text-slate-600 leading-relaxed dark:text-slate-400">
                           {item}
                         </span>
                       </li>
@@ -157,9 +157,9 @@ export default function TermsPage() {
             </div>
 
             {/* Payment Terms */}
-            <div className="mt-8 rounded-3xl border border-gray-200 bg-white p-8 dark:border-gray-800 dark:bg-gray-900">
+            <div className="mt-8 rounded-3xl border border-slate-200 bg-white p-8 dark:border-slate-800 dark:bg-slate-900">
               <div className="mb-6 flex items-start gap-4">
-                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-linear-to-br from-green-600 to-green-500">
+                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-linear-to-br from-amber-500 to-amber-400">
                   <svg
                     className="h-7 w-7 text-white"
                     fill="none"
@@ -175,7 +175,7 @@ export default function TermsPage() {
                   </svg>
                 </div>
                 <div>
-                  <h2 className="font-bold text-2xl text-gray-900 dark:text-white">
+                  <h2 className="font-bold text-2xl text-slate-900 dark:text-white">
                     الدفع والاشتراكات
                   </h2>
                 </div>
@@ -183,43 +183,43 @@ export default function TermsPage() {
 
               <ul className="space-y-3">
                 <li className="flex gap-3">
-                  <span className="mt-1 shrink-0 text-green-600 dark:text-green-400">
+                  <span className="mt-1 shrink-0 text-amber-500 dark:text-amber-300">
                     •
                   </span>
-                  <span className="text-gray-600 leading-relaxed dark:text-gray-400">
+                  <span className="text-slate-600 leading-relaxed dark:text-slate-400">
                     يتم فوترة الاشتراكات المدفوعة مقدماً على أساس شهري أو سنوي.
                   </span>
                 </li>
                 <li className="flex gap-3">
-                  <span className="mt-1 shrink-0 text-green-600 dark:text-green-400">
+                  <span className="mt-1 shrink-0 text-amber-500 dark:text-amber-300">
                     •
                   </span>
-                  <span className="text-gray-600 leading-relaxed dark:text-gray-400">
+                  <span className="text-slate-600 leading-relaxed dark:text-slate-400">
                     يتم تجديد الاشتراكات تلقائياً ما لم يتم إلغاؤها قبل تاريخ
                     التجديد.
                   </span>
                 </li>
                 <li className="flex gap-3">
-                  <span className="mt-1 shrink-0 text-green-600 dark:text-green-400">
+                  <span className="mt-1 shrink-0 text-amber-500 dark:text-amber-300">
                     •
                   </span>
-                  <span className="text-gray-600 leading-relaxed dark:text-gray-400">
+                  <span className="text-slate-600 leading-relaxed dark:text-slate-400">
                     يمكنك إلغاء اشتراكك في أي وقت من صفحة الإعدادات.
                   </span>
                 </li>
                 <li className="flex gap-3">
-                  <span className="mt-1 shrink-0 text-green-600 dark:text-green-400">
+                  <span className="mt-1 shrink-0 text-amber-500 dark:text-amber-300">
                     •
                   </span>
-                  <span className="text-gray-600 leading-relaxed dark:text-gray-400">
+                  <span className="text-slate-600 leading-relaxed dark:text-slate-400">
                     نقدم ضمان استرداد المال لمدة 30 يوماً للاشتراكات الجديدة.
                   </span>
                 </li>
                 <li className="flex gap-3">
-                  <span className="mt-1 shrink-0 text-green-600 dark:text-green-400">
+                  <span className="mt-1 shrink-0 text-amber-500 dark:text-amber-300">
                     •
                   </span>
-                  <span className="text-gray-600 leading-relaxed dark:text-gray-400">
+                  <span className="text-slate-600 leading-relaxed dark:text-slate-400">
                     نحتفظ بالحق في تعديل الأسعار مع إشعار مسبق بـ 30 يوماً.
                   </span>
                 </li>
@@ -227,13 +227,13 @@ export default function TermsPage() {
             </div>
 
             {/* Termination */}
-            <div className="mt-8 rounded-3xl border border-gray-200 bg-white p-8 dark:border-gray-800 dark:bg-gray-900">
+            <div className="mt-8 rounded-3xl border border-slate-200 bg-white p-8 dark:border-slate-800 dark:bg-slate-900">
               <div className="mb-6 flex items-start gap-4">
-                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-linear-to-br from-green-700 to-green-600">
+                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-linear-to-br from-amber-600 to-amber-500">
                   <XCircle className="h-7 w-7 text-white" />
                 </div>
                 <div>
-                  <h2 className="font-bold text-2xl text-gray-900 dark:text-white">
+                  <h2 className="font-bold text-2xl text-slate-900 dark:text-white">
                     الإنهاء والإيقاف
                   </h2>
                 </div>
@@ -241,35 +241,35 @@ export default function TermsPage() {
 
               <ul className="space-y-3">
                 <li className="flex gap-3">
-                  <span className="mt-1 shrink-0 text-green-600 dark:text-green-400">
+                  <span className="mt-1 shrink-0 text-amber-500 dark:text-amber-300">
                     •
                   </span>
-                  <span className="text-gray-600 leading-relaxed dark:text-gray-400">
+                  <span className="text-slate-600 leading-relaxed dark:text-slate-400">
                     يمكنك إنهاء حسابك في أي وقت من خلال صفحة الإعدادات.
                   </span>
                 </li>
                 <li className="flex gap-3">
-                  <span className="mt-1 shrink-0 text-green-600 dark:text-green-400">
+                  <span className="mt-1 shrink-0 text-amber-500 dark:text-amber-300">
                     •
                   </span>
-                  <span className="text-gray-600 leading-relaxed dark:text-gray-400">
+                  <span className="text-slate-600 leading-relaxed dark:text-slate-400">
                     نحتفظ بالحق في إيقاف أو إنهاء حسابك إذا انتهكت هذه الشروط.
                   </span>
                 </li>
                 <li className="flex gap-3">
-                  <span className="mt-1 shrink-0 text-green-600 dark:text-green-400">
+                  <span className="mt-1 shrink-0 text-amber-500 dark:text-amber-300">
                     •
                   </span>
-                  <span className="text-gray-600 leading-relaxed dark:text-gray-400">
+                  <span className="text-slate-600 leading-relaxed dark:text-slate-400">
                     عند إنهاء حسابك، سيتم حذف بياناتك وفقاً لسياسة الخصوصية
                     الخاصة بنا.
                   </span>
                 </li>
                 <li className="flex gap-3">
-                  <span className="mt-1 shrink-0 text-green-600 dark:text-green-400">
+                  <span className="mt-1 shrink-0 text-amber-500 dark:text-amber-300">
                     •
                   </span>
-                  <span className="text-gray-600 leading-relaxed dark:text-gray-400">
+                  <span className="text-slate-600 leading-relaxed dark:text-slate-400">
                     الأحكام التي يجب أن تستمر بعد الإنهاء ستظل سارية المفعول.
                   </span>
                 </li>
@@ -277,26 +277,26 @@ export default function TermsPage() {
             </div>
 
             {/* Changes to Terms */}
-            <div className="mt-8 rounded-3xl border border-gray-200 bg-white p-8 dark:border-gray-800 dark:bg-gray-900">
-              <h2 className="mb-4 font-bold text-2xl text-gray-900 dark:text-white">
+            <div className="mt-8 rounded-3xl border border-slate-200 bg-white p-8 dark:border-slate-800 dark:bg-slate-900">
+              <h2 className="mb-4 font-bold text-2xl text-slate-900 dark:text-white">
                 التغييرات على الشروط
               </h2>
-              <p className="mb-4 text-gray-600 leading-relaxed dark:text-gray-400">
+              <p className="mb-4 text-slate-600 leading-relaxed dark:text-slate-400">
                 نحتفظ بالحق في تعديل هذه الشروط في أي وقت. سنقوم بإخطارك بأي
                 تغييرات جوهرية عبر البريد الإلكتروني أو من خلال الخدمة.
               </p>
-              <p className="text-gray-600 leading-relaxed dark:text-gray-400">
+              <p className="text-slate-600 leading-relaxed dark:text-slate-400">
                 استمرارك في استخدام الخدمة بعد نشر التغييرات يعني موافقتك على
                 الشروط المعدلة.
               </p>
             </div>
 
             {/* Governing Law */}
-            <div className="mt-8 rounded-3xl border-2 border-green-200 bg-green-50 p-8 dark:border-green-800 dark:bg-green-900/20">
-              <h2 className="mb-4 font-bold text-2xl text-green-900 dark:text-green-300">
+            <div className="mt-8 rounded-3xl border-2 border-amber-100 bg-amber-50/80 p-8 dark:border-amber-700 dark:bg-amber-900/20">
+              <h2 className="mb-4 font-bold text-2xl text-amber-900 dark:text-amber-200">
                 القانون الحاكم
               </h2>
-              <p className="text-green-800 leading-relaxed dark:text-green-400">
+              <p className="text-amber-700 leading-relaxed dark:text-amber-300">
                 تخضع هذه الشروط وتفسر وفقاً لقوانين المملكة العربية السعودية. أي
                 نزاعات تنشأ عن هذه الشروط ستخضع للاختصاص القضائي الحصري للمحاكم
                 في المملكة العربية السعودية.
@@ -304,26 +304,26 @@ export default function TermsPage() {
             </div>
 
             {/* Contact */}
-            <div className="mt-8 rounded-3xl border border-gray-200 bg-white p-8 text-center dark:border-gray-800 dark:bg-gray-900">
-              <h2 className="mb-4 font-bold text-2xl text-gray-900 dark:text-white">
+            <div className="mt-8 rounded-3xl border border-slate-200 bg-white p-8 text-center dark:border-slate-800 dark:bg-slate-900">
+              <h2 className="mb-4 font-bold text-2xl text-slate-900 dark:text-white">
                 هل لديك أسئلة حول الشروط؟
               </h2>
-              <p className="mb-6 text-gray-600 leading-relaxed dark:text-gray-400">
+              <p className="mb-6 text-slate-600 leading-relaxed dark:text-slate-400">
                 إذا كان لديك أي أسئلة أو استفسارات حول هذه الشروط، يرجى التواصل
                 معنا.
               </p>
               <div className="flex flex-col justify-center gap-4 sm:flex-row">
                 <a
-                  className="inline-flex items-center justify-center gap-2 rounded-xl bg-linear-to-l from-green-700 via-green-600 to-green-500 px-8 py-4 font-semibold text-lg text-white shadow-lg transition-all hover:scale-105 hover:shadow-xl"
+                  className="inline-flex items-center justify-center gap-2 rounded-xl bg-linear-to-l from-amber-600 via-amber-500 to-amber-400 px-8 py-4 font-semibold text-lg text-white shadow-lg transition-all hover:scale-105 hover:shadow-xl"
                   href="/contact"
                 >
                   تواصل معنا
                 </a>
                 <a
-                  className="inline-flex items-center justify-center gap-2 rounded-xl bg-gray-100 px-8 py-4 font-semibold text-gray-900 text-lg transition-all hover:bg-gray-200 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
-                  href="mailto:legal@chatbot.com"
+                  className="inline-flex items-center justify-center gap-2 rounded-xl bg-slate-100 px-8 py-4 font-semibold text-slate-900 text-lg transition-all hover:bg-slate-200 dark:bg-slate-800 dark:text-white dark:hover:bg-slate-700"
+                  href="mailto:legal@mubassatlaw.com"
                 >
-                  legal@chatbot.com
+                  legal@mubassatlaw.com
                 </a>
               </div>
             </div>

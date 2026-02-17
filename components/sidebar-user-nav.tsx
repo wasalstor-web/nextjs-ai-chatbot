@@ -55,7 +55,8 @@ export function SidebarUserNav({ user }: { user: User }) {
                   alt={user.email ?? "User Avatar"}
                   className="rounded-full"
                   height={24}
-                  src={`https://avatar.vercel.sh/${user.email}`}
+                  src={`https://avatar.vercel.sh/${encodeURIComponent(user.email ?? "guest")}`}
+                  unoptimized
                   width={24}
                 />
                 <span className="truncate" data-testid="user-email">

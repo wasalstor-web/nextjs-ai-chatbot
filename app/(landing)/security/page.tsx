@@ -15,7 +15,7 @@ export default function SecurityPage() {
       description:
         "جميع البيانات المنقولة بين جهازك وخوادمنا يتم تشفيرها باستخدام TLS 1.3.",
       status: "نشط",
-      color: "from-green-600 to-green-500",
+      color: "from-amber-500 to-amber-400",
     },
     {
       icon: Server,
@@ -23,7 +23,7 @@ export default function SecurityPage() {
       description:
         "خوادمنا محمية بجدران نارية متقدمة ونظام كشف التهديدات في الوقت الفعلي.",
       status: "نشط",
-      color: "from-green-600 to-green-500",
+      color: "from-amber-500 to-amber-400",
     },
     {
       icon: Eye,
@@ -31,7 +31,7 @@ export default function SecurityPage() {
       description:
         "فريق الأمان لدينا يراقب الأنظمة على مدار الساعة للكشف عن أي تهديدات محتملة.",
       status: "نشط",
-      color: "from-green-600 to-green-500",
+      color: "from-amber-500 to-amber-400",
     },
     {
       icon: Shield,
@@ -39,7 +39,7 @@ export default function SecurityPage() {
       description:
         "نقوم بنسخ احتياطي لبياناتك بشكل دوري ونخزنها في مواقع متعددة.",
       status: "نشط",
-      color: "from-green-600 to-green-500",
+      color: "from-amber-500 to-amber-400",
     },
   ];
 
@@ -89,22 +89,22 @@ export default function SecurityPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-linear-to-b from-white to-green-50 dark:from-gray-950 dark:to-gray-900">
+    <div className="min-h-screen bg-linear-to-b from-white to-amber-50/80 dark:from-slate-950 dark:to-slate-900">
       {/* Hero Section */}
       <section className="relative overflow-hidden pt-20 pb-12">
-        <div className="absolute inset-0 bg-linear-to-br from-green-700/10 via-green-600/10 to-green-500/10 dark:from-green-700/5 dark:via-green-600/5 dark:to-green-500/5" />
+        <div className="absolute inset-0 bg-linear-to-br from-amber-600/10 via-amber-500/10 to-amber-400/10 dark:from-amber-600/5 dark:via-amber-500/5 dark:to-amber-400/5" />
 
         <div className="container relative mx-auto px-4" dir="rtl">
           <div className="mx-auto max-w-3xl text-center">
-            <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-3xl bg-linear-to-br from-green-600 to-green-500">
+            <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-3xl bg-linear-to-br from-amber-500 to-amber-400">
               <Shield className="h-10 w-10 text-white" />
             </div>
             <h1 className="mb-6 font-bold text-5xl lg:text-6xl">
-              <span className="bg-linear-to-l from-green-700 via-green-600 to-green-500 bg-clip-text text-transparent">
+              <span className="bg-linear-to-l from-amber-600 via-amber-500 to-amber-400 bg-clip-text text-transparent">
                 الأمان أولويتنا
               </span>
             </h1>
-            <p className="text-gray-600 text-xl leading-relaxed dark:text-gray-400">
+            <p className="text-slate-600 text-xl leading-relaxed dark:text-slate-400">
               نلتزم بحماية بياناتك بأعلى معايير الأمان في الصناعة
             </p>
           </div>
@@ -114,8 +114,8 @@ export default function SecurityPage() {
       {/* Trust Badge */}
       <section className="py-8" dir="rtl">
         <div className="container mx-auto px-4">
-          <div className="mx-auto max-w-4xl rounded-2xl border-2 border-green-200 bg-green-50 p-6 text-center dark:border-green-800 dark:bg-green-900/20">
-            <p className="font-semibold text-green-800 text-lg dark:text-green-300">
+          <div className="mx-auto max-w-4xl rounded-2xl border-2 border-amber-100 bg-amber-50/80 p-6 text-center dark:border-amber-700 dark:bg-amber-900/20">
+            <p className="font-semibold text-amber-700 text-lg dark:text-amber-200">
               🔒 جميع بياناتك محمية بتشفير عسكري من الدرجة الأولى
             </p>
           </div>
@@ -126,19 +126,19 @@ export default function SecurityPage() {
       <section className="py-12" dir="rtl">
         <div className="container mx-auto px-4">
           <div className="mx-auto mb-12 max-w-3xl text-center">
-            <h2 className="mb-4 font-bold text-4xl text-gray-900 dark:text-white">
+            <h2 className="mb-4 font-bold text-4xl text-slate-900 dark:text-white">
               كيف نحمي بياناتك
             </h2>
-            <p className="text-gray-600 text-lg dark:text-gray-400">
+            <p className="text-slate-600 text-lg dark:text-slate-400">
               نستخدم أحدث التقنيات والممارسات لضمان أمان معلوماتك
             </p>
           </div>
 
           <div className="mx-auto grid max-w-6xl gap-8 md:grid-cols-2">
-            {securityFeatures.map((feature, index) => (
+            {securityFeatures.map((feature) => (
               <div
-                className="rounded-3xl border border-gray-200 bg-white p-8 transition-all hover:shadow-xl dark:border-gray-800 dark:bg-gray-900"
-                key={index}
+                className="rounded-3xl border border-slate-200 bg-white p-8 transition-all hover:shadow-xl dark:border-slate-800 dark:bg-slate-900"
+                key={feature.title}
               >
                 <div
                   className={`h-16 w-16 rounded-2xl bg-linear-to-br ${feature.color} mb-6 flex items-center justify-center`}
@@ -146,14 +146,14 @@ export default function SecurityPage() {
                   <feature.icon className="h-8 w-8 text-white" />
                 </div>
                 <div className="mb-3 flex items-center justify-between">
-                  <h3 className="font-bold text-2xl text-gray-900 dark:text-white">
+                  <h3 className="font-bold text-2xl text-slate-900 dark:text-white">
                     {feature.title}
                   </h3>
-                  <span className="rounded-full bg-green-100 px-3 py-1 font-semibold text-green-700 text-xs dark:bg-green-900/30 dark:text-green-400">
+                  <span className="rounded-full bg-amber-50 px-3 py-1 font-semibold text-amber-600 text-xs dark:bg-amber-900/30 dark:text-amber-300">
                     {feature.status}
                   </span>
                 </div>
-                <p className="text-gray-600 leading-relaxed dark:text-gray-400">
+                <p className="text-slate-600 leading-relaxed dark:text-slate-400">
                   {feature.description}
                 </p>
               </div>
@@ -163,30 +163,30 @@ export default function SecurityPage() {
       </section>
 
       {/* Certifications */}
-      <section className="bg-white py-20 dark:bg-gray-950" dir="rtl">
+      <section className="bg-white py-20 dark:bg-slate-950" dir="rtl">
         <div className="container mx-auto px-4">
           <div className="mx-auto mb-12 max-w-3xl text-center">
-            <h2 className="mb-4 font-bold text-4xl text-gray-900 dark:text-white">
+            <h2 className="mb-4 font-bold text-4xl text-slate-900 dark:text-white">
               الشهادات والمعايير
             </h2>
-            <p className="text-gray-600 text-lg dark:text-gray-400">
+            <p className="text-slate-600 text-lg dark:text-slate-400">
               معتمدون من أكبر المؤسسات العالمية للأمان
             </p>
           </div>
 
           <div className="mx-auto grid max-w-7xl gap-6 md:grid-cols-2 lg:grid-cols-4">
-            {certifications.map((cert, index) => (
+            {certifications.map((cert) => (
               <div
-                className="rounded-2xl border border-gray-200 bg-gray-50 p-6 text-center dark:border-gray-800 dark:bg-gray-900"
-                key={index}
+                className="rounded-2xl border border-slate-200 bg-slate-50 p-6 text-center dark:border-slate-800 dark:bg-slate-900"
+                key={cert.name}
               >
-                <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-xl bg-linear-to-br from-green-600 to-green-500">
+                <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-xl bg-linear-to-br from-amber-500 to-amber-400">
                   <Shield className="h-8 w-8 text-white" />
                 </div>
-                <h3 className="mb-2 font-bold text-gray-900 text-xl dark:text-white">
+                <h3 className="mb-2 font-bold text-slate-900 text-xl dark:text-white">
                   {cert.name}
                 </h3>
-                <p className="text-gray-600 text-sm dark:text-gray-400">
+                <p className="text-slate-600 text-sm dark:text-slate-400">
                   {cert.description}
                 </p>
               </div>
@@ -199,28 +199,28 @@ export default function SecurityPage() {
       <section className="py-20" dir="rtl">
         <div className="container mx-auto px-4">
           <div className="mx-auto mb-12 max-w-3xl text-center">
-            <h2 className="mb-4 font-bold text-4xl text-gray-900 dark:text-white">
+            <h2 className="mb-4 font-bold text-4xl text-slate-900 dark:text-white">
               أفضل الممارسات الأمنية
             </h2>
-            <p className="text-gray-600 text-lg dark:text-gray-400">
+            <p className="text-slate-600 text-lg dark:text-slate-400">
               نصائح لحماية حسابك ومعلوماتك
             </p>
           </div>
 
           <div className="mx-auto grid max-w-5xl gap-6 md:grid-cols-2">
-            {bestPractices.map((practice, index) => (
+            {bestPractices.map((practice) => (
               <div
-                className="flex gap-4 rounded-2xl border border-gray-200 bg-white p-6 dark:border-gray-800 dark:bg-gray-900"
-                key={index}
+                className="flex gap-4 rounded-2xl border border-slate-200 bg-white p-6 dark:border-slate-800 dark:bg-slate-900"
+                key={practice.title}
               >
-                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-green-100 dark:bg-green-900/30">
-                  <practice.icon className="h-6 w-6 text-green-600 dark:text-green-400" />
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-amber-50 dark:bg-amber-900/30">
+                  <practice.icon className="h-6 w-6 text-amber-500 dark:text-amber-300" />
                 </div>
                 <div>
-                  <h3 className="mb-2 font-bold text-gray-900 text-lg dark:text-white">
+                  <h3 className="mb-2 font-bold text-slate-900 text-lg dark:text-white">
                     {practice.title}
                   </h3>
-                  <p className="text-gray-600 text-sm dark:text-gray-400">
+                  <p className="text-slate-600 text-sm dark:text-slate-400">
                     {practice.description}
                   </p>
                 </div>
@@ -231,10 +231,10 @@ export default function SecurityPage() {
       </section>
 
       {/* Incident Response */}
-      <section className="bg-white py-20 dark:bg-gray-950" dir="rtl">
+      <section className="bg-white py-20 dark:bg-slate-950" dir="rtl">
         <div className="container mx-auto px-4">
           <div className="mx-auto max-w-4xl">
-            <div className="rounded-3xl bg-linear-to-br from-green-700 via-green-600 to-green-500 p-8 text-white lg:p-12">
+            <div className="rounded-3xl bg-linear-to-br from-amber-600 via-amber-500 to-amber-400 p-8 text-white lg:p-12">
               <div className="mb-6 flex items-start gap-6">
                 <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-white/20 backdrop-blur-sm">
                   <AlertTriangle className="h-8 w-8 text-white" />
@@ -243,10 +243,10 @@ export default function SecurityPage() {
                   <h2 className="mb-4 font-bold text-3xl">
                     خطة الاستجابة للحوادث
                   </h2>
-                  <p className="mb-6 text-green-100 leading-relaxed">
+                  <p className="mb-6 text-amber-50 leading-relaxed">
                     في حالة اكتشاف أي خرق أمني محتمل:
                   </p>
-                  <ul className="space-y-3 text-green-100">
+                  <ul className="space-y-3 text-amber-50">
                     <li className="flex gap-3">
                       <span>•</span>
                       <span>
@@ -282,23 +282,23 @@ export default function SecurityPage() {
       {/* Report Security Issue */}
       <section className="py-20" dir="rtl">
         <div className="container mx-auto px-4">
-          <div className="mx-auto max-w-3xl rounded-3xl border border-gray-200 bg-white p-8 text-center lg:p-12 dark:border-gray-800 dark:bg-gray-900">
-            <h2 className="mb-4 font-bold text-3xl text-gray-900 dark:text-white">
+          <div className="mx-auto max-w-3xl rounded-3xl border border-slate-200 bg-white p-8 text-center lg:p-12 dark:border-slate-800 dark:bg-slate-900">
+            <h2 className="mb-4 font-bold text-3xl text-slate-900 dark:text-white">
               اكتشفت ثغرة أمنية؟
             </h2>
-            <p className="mb-8 text-gray-600 text-lg leading-relaxed dark:text-gray-400">
+            <p className="mb-8 text-slate-600 text-lg leading-relaxed dark:text-slate-400">
               نحن نقدر جهود الباحثين الأمنيين ونشجع الإبلاغ المسؤول عن أي ثغرات.
               تواصل معنا فوراً وسنعمل معك لحل المشكلة.
             </p>
             <div className="flex flex-col justify-center gap-4 sm:flex-row">
               <a
-                className="inline-flex items-center justify-center gap-2 rounded-xl bg-linear-to-l from-green-700 via-green-600 to-green-500 px-8 py-4 font-semibold text-lg text-white shadow-lg transition-all hover:scale-105 hover:shadow-xl"
-                href="mailto:security@chatbot.com"
+                className="inline-flex items-center justify-center gap-2 rounded-xl bg-linear-to-l from-amber-600 via-amber-500 to-amber-400 px-8 py-4 font-semibold text-lg text-white shadow-lg transition-all hover:scale-105 hover:shadow-xl"
+                href="mailto:security@mubassatlaw.com"
               >
-                security@chatbot.com
+                security@mubassatlaw.com
               </a>
               <a
-                className="inline-flex items-center justify-center gap-2 rounded-xl bg-gray-100 px-8 py-4 font-semibold text-gray-900 text-lg transition-all hover:bg-gray-200 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
+                className="inline-flex items-center justify-center gap-2 rounded-xl bg-slate-100 px-8 py-4 font-semibold text-slate-900 text-lg transition-all hover:bg-slate-200 dark:bg-slate-800 dark:text-white dark:hover:bg-slate-700"
                 href="/contact"
               >
                 تواصل معنا

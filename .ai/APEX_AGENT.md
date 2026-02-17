@@ -15,39 +15,37 @@ Respond in the user's language. Average = rejected.
 
 ## §2 — THIS PROJECT
 
-- **Name**: AI Chatbot (Chat SDK)
+- **Name**: مبسط LAW — منصة الاستشارات القانونية
 - **Stack**: Next.js 16 (App Router) + React 19 + TypeScript
 - **Styling**: Tailwind CSS 4 + shadcn/ui + Radix UI
 - **Database**: PostgreSQL + Drizzle ORM
 - **Auth**: NextAuth (Auth.js) v5 beta
-- **AI**: Vercel AI SDK (`ai`, `@ai-sdk/react`) + `@ai-sdk/anthropic` (direct)
-- **Page Builder**: Puck Editor (`@puckeditor/core` ^0.21) — visual drag-and-drop
+- **AI**: Vercel AI SDK (`ai`, `@ai-sdk/react`) + OpenAI GPT
 - **State**: React hooks + SWR + Context API + `useChat`
 - **Icons**: lucide-react
 - **Linter**: Biome via Ultracite
 - **Testing**: Playwright (e2e)
 - **Package Manager**: pnpm 9
 - **Deployment**: Vercel + Cloudflare (OpenNext)
-- **Font**: Geist
+- **Font**: Tajawal + Geist
 - **Animations**: Framer Motion / Motion
 
 ### File Structure
 ```
 /app                 → Next.js App Router (pages, layouts, API routes, server actions)
-  /(auth)            → auth pages + config
-  /(chat)            → chat UI + actions
+  /(auth)            → صفحات المصادقة
+  /(chat)            → واجهة المحادثة
+  /(landing)         → صفحات الهبوط
+  /admin             → لوحة الإدارة
   /api               → route handlers
-  /builder           → Puck visual page builder (admin only)
-    /api             → builder REST API (pages, publish, assets, snapshots)
-    /[slug]          → editor page + editor-client.tsx
-  /p/[...slug]       → public rendered pages (SSR)
 /components          → UI components
   /ui                → shadcn/ui primitives
+  /legal             → Legal consultation components
 /hooks               → custom React hooks
 /lib                 → utilities, helpers, DB, AI config
+  /ai                → AI providers, tools, prompts
   /db                → Drizzle schema, migrations, queries
-  /builder           → Puck config, components, types, utils
-    /components      → 20 Puck components (layout, content, sections, interactive)
+  /legal             → Legal data, intake, validators
 /tests               → Playwright e2e tests
 /public              → static assets
 /artifacts           → generated artifacts
@@ -121,7 +119,7 @@ Import order (blank line between groups):
 
 ## §5 — DATABASE (Drizzle + PostgreSQL)
 
-- Schema in `lib/db/` — main (`schema.ts`), chat (`schema-chat.ts`), builder (`builder-schema.ts`)
+- Schema in `lib/db/` — main (`schema.ts`), chat (`schema-chat.ts`), legal (`lib/db/schema/`)
 - Migrations via `drizzle-kit generate` + `tsx lib/db/migrate`
 - Every change → create migration
 - Parameterized queries only
@@ -271,36 +269,23 @@ Never:
 
 ---
 
-## §16 — BUILDER MODULE (Puck Editor)
+## §16 — LEGAL AI MODULE (أدوات القانون)
 
-Visual page builder for admin users. Uses `@puckeditor/core` Puck Editor.
+The core AI tools for Saudi legal consultation:
 
-### Architecture
-- **Config**: `lib/builder/puck.config.tsx` — central config with 20 components, 4 categories, root wrapper
-- **Components**: `lib/builder/components/` — 20 components using shadcn/ui + Tailwind lookup maps (NO dynamic classes)
-- **DB**: `lib/db/builder-schema.ts` (3 tables) + `lib/db/builder-queries.ts` (14 functions)
-- **Types**: `lib/builder/types.ts` — BuilderPageData, SeoData, PuckData interfaces
-- **Utils**: `lib/builder/utils.ts` — slug validation, date formatting, status helpers
+### Tools (lib/ai/tools/)
+- **legalConsultation** — Interactive Q&A for legal advice with guided intake
+- **analyzeContract** — Contract review with risk assessment
+- **searchSaudiLaw** — Search 50+ Saudi legal sources
 
-### Routes
-- `/builder` — pages manager (admin auth via layout.tsx)
-- `/builder/[slug]` — Puck editor with auto-save, publish, snapshots
-- `/p/[...slug]` — public SSR render with SEO metadata
-- `/builder/api/pages` — CRUD with slug validation + duplicate check
-- `/builder/api/pages/[id]` — GET/PUT/DELETE single page
-- `/builder/api/publish` — publish + ISR revalidation
-- `/builder/api/assets` — Vercel Blob upload
-- `/builder/api/snapshots` — GET/POST/PUT snapshots
+### Legal Data (lib/legal/)
+- **prompts.ts** — LEGAL_SYSTEM_PROMPT with Saudi law expertise
+- **sources.ts** — 50+ Saudi legal sources database
+- **intake.ts** — Guided question flows by consultation type
+- **validator.ts** — Legal document validation
+- **types.ts** — ConsultationType, ContractType enums
 
-### Component Categories
-- **Layout**: Container, Columns, FlexLayout, Spacer, Divider
-- **Content**: Heading, Paragraph, RichText, ImageBlock, ButtonBlock, Embed
-- **Sections**: Hero, CardBlock, FeatureGrid, CTASection, Testimonial, StatsRow
-- **Interactive**: Accordion, TabsBlock
-
-### Rules
-- Tailwind classes MUST use lookup maps, never `px-${var}` template literals
-- Puck radio options use `"yes"|"no"` strings, not booleans
-- DropZone components: Container, Columns, FlexLayout, Hero, CTASection
-- Auth: proxy.ts guards `/builder` (admin), `/p/` is public
-- Publish flow: save draft (PUT) → publish (POST) → create snapshot → revalidatePath
+### Supported Consultation Types
+- عمالية (Labor) • تجارية (Commercial) • عقارية (Real Estate)
+- أحوال شخصية (Family) • جنائية (Criminal) • مرورية (Traffic)
+- إدارية (Administrative) • تنفيذ أحكام (Enforcement) • عامة (General)

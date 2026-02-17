@@ -27,16 +27,16 @@ export default function Page() {
   // biome-ignore lint/correctness/useExhaustiveDependencies: router and updateSession are stable refs
   useEffect(() => {
     if (state.status === "user_exists") {
-      toast({ type: "error", description: "Account already exists!" });
+      toast({ type: "error", description: "الحساب موجود مسبقاً!" });
     } else if (state.status === "failed") {
-      toast({ type: "error", description: "Failed to create account!" });
+      toast({ type: "error", description: "تعذّر إنشاء الحساب!" });
     } else if (state.status === "invalid_data") {
       toast({
         type: "error",
-        description: "Failed validating your submission!",
+        description: "تعذّر التحقق من البيانات!",
       });
     } else if (state.status === "success") {
-      toast({ type: "success", description: "Account created successfully!" });
+      toast({ type: "success", description: "تم إنشاء الحساب بنجاح!" });
 
       setIsSuccessful(true);
       updateSession();
@@ -53,22 +53,24 @@ export default function Page() {
     <div className="flex h-dvh w-screen items-start justify-center bg-background pt-12 md:items-center md:pt-0">
       <div className="flex w-full max-w-md flex-col gap-12 overflow-hidden rounded-2xl">
         <div className="flex flex-col items-center justify-center gap-2 px-4 text-center sm:px-16">
-          <h3 className="font-semibold text-xl dark:text-zinc-50">Sign Up</h3>
-          <p className="text-gray-500 text-sm dark:text-zinc-400">
-            Create an account with your email and password
+          <div className="mb-2 flex h-12 w-12 items-center justify-center rounded-2xl bg-linear-to-br from-amber-500 to-amber-600 shadow-amber-500/20 shadow-lg">
+            <svg className="h-6 w-6 text-slate-900" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" /></svg>
+          </div>
+          <h3 className="font-bold text-xl dark:text-zinc-50">إنشاء حساب جديد</h3>
+          <p className="text-slate-500 text-sm dark:text-zinc-400">
+            سجّل للحصول على استشارات قانونية ذكية مجاناً
           </p>
         </div>
         <AuthForm action={handleSubmit} defaultEmail={email}>
-          <SubmitButton isSuccessful={isSuccessful}>Sign Up</SubmitButton>
-          <p className="mt-4 text-center text-gray-600 text-sm dark:text-zinc-400">
-            {"Already have an account? "}
+          <SubmitButton isSuccessful={isSuccessful}>إنشاء حساب</SubmitButton>
+          <p className="mt-4 text-center text-slate-600 text-sm dark:text-zinc-400" dir="rtl">
+            لديك حساب بالفعل؟{" "}
             <Link
-              className="font-semibold text-gray-800 hover:underline dark:text-zinc-200"
+              className="font-semibold text-amber-600 hover:underline dark:text-amber-400"
               href="/login"
             >
-              Sign in
+              سجّل دخولك
             </Link>
-            {" instead."}
           </p>
         </AuthForm>
       </div>

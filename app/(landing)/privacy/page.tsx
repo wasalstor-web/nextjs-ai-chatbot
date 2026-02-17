@@ -63,25 +63,25 @@ export default function PrivacyPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-linear-to-b from-white to-green-50 dark:from-gray-950 dark:to-gray-900">
+    <div className="min-h-screen bg-linear-to-b from-white to-amber-50/80 dark:from-slate-950 dark:to-slate-900">
       {/* Hero Section */}
       <section className="relative overflow-hidden pt-20 pb-12">
-        <div className="absolute inset-0 bg-linear-to-br from-green-700/10 via-green-600/10 to-green-500/10 dark:from-green-700/5 dark:via-green-600/5 dark:to-green-500/5" />
+        <div className="absolute inset-0 bg-linear-to-br from-amber-600/10 via-amber-500/10 to-amber-400/10 dark:from-amber-600/5 dark:via-amber-500/5 dark:to-amber-400/5" />
 
         <div className="container relative mx-auto px-4" dir="rtl">
           <div className="mx-auto max-w-3xl text-center">
-            <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-3xl bg-linear-to-br from-green-600 to-green-500">
+            <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-3xl bg-linear-to-br from-amber-500 to-amber-400">
               <Shield className="h-10 w-10 text-white" />
             </div>
             <h1 className="mb-6 font-bold text-5xl lg:text-6xl">
-              <span className="bg-linear-to-l from-green-700 via-green-600 to-green-500 bg-clip-text text-transparent">
+              <span className="bg-linear-to-l from-amber-600 via-amber-500 to-amber-400 bg-clip-text text-transparent">
                 سياسة الخصوصية
               </span>
             </h1>
-            <p className="text-gray-600 text-xl leading-relaxed dark:text-gray-400">
+            <p className="text-slate-600 text-xl leading-relaxed dark:text-slate-400">
               نحن نحترم خصوصيتك ونلتزم بحماية بياناتك الشخصية
             </p>
-            <p className="mt-4 text-gray-500 text-sm dark:text-gray-500">
+            <p className="mt-4 text-slate-500 text-sm dark:text-slate-500">
               آخر تحديث: ديسمبر 2024
             </p>
           </div>
@@ -93,15 +93,15 @@ export default function PrivacyPage() {
         <div className="container mx-auto px-4">
           <div className="mx-auto max-w-4xl">
             {/* Introduction */}
-            <div className="mb-8 rounded-3xl border border-gray-200 bg-white p-8 dark:border-gray-800 dark:bg-gray-900">
-              <h2 className="mb-4 font-bold text-2xl text-gray-900 dark:text-white">
+            <div className="mb-8 rounded-3xl border border-slate-200 bg-white p-8 dark:border-slate-800 dark:bg-slate-900">
+              <h2 className="mb-4 font-bold text-2xl text-slate-900 dark:text-white">
                 مقدمة
               </h2>
-              <p className="mb-4 text-gray-600 leading-relaxed dark:text-gray-400">
+              <p className="mb-4 text-slate-600 leading-relaxed dark:text-slate-400">
                 مرحباً بك في سياسة الخصوصية الخاصة بنا. هذه الوثيقة توضح كيف نجمع
                 ونستخدم ونحمي معلوماتك الشخصية عند استخدامك لخدماتنا.
               </p>
-              <p className="text-gray-600 leading-relaxed dark:text-gray-400">
+              <p className="text-slate-600 leading-relaxed dark:text-slate-400">
                 باستخدامك لخدماتنا، فإنك توافق على هذه السياسة. إذا كان لديك أي
                 أسئلة أو مخاوف، يرجى التواصل معنا.
               </p>
@@ -109,29 +109,29 @@ export default function PrivacyPage() {
 
             {/* Sections */}
             <div className="space-y-8">
-              {sections.map((section, index) => (
+              {sections.map((section) => (
                 <div
-                  className="rounded-3xl border border-gray-200 bg-white p-8 dark:border-gray-800 dark:bg-gray-900"
-                  key={index}
+                  className="rounded-3xl border border-slate-200 bg-white p-8 dark:border-slate-800 dark:bg-slate-900"
+                  key={section.title}
                 >
                   <div className="mb-6 flex items-start gap-4">
-                    <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-linear-to-br from-green-600 to-green-500">
+                    <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-linear-to-br from-amber-500 to-amber-400">
                       <section.icon className="h-7 w-7 text-white" />
                     </div>
                     <div>
-                      <h2 className="font-bold text-2xl text-gray-900 dark:text-white">
+                      <h2 className="font-bold text-2xl text-slate-900 dark:text-white">
                         {section.title}
                       </h2>
                     </div>
                   </div>
 
                   <ul className="space-y-3">
-                    {section.content.map((item, itemIndex) => (
-                      <li className="flex gap-3" key={itemIndex}>
-                        <span className="mt-1 shrink-0 text-green-600 dark:text-green-400">
+                    {section.content.map((item) => (
+                      <li className="flex gap-3" key={item}>
+                        <span className="mt-1 shrink-0 text-amber-500 dark:text-amber-300">
                           •
                         </span>
-                        <span className="text-gray-600 leading-relaxed dark:text-gray-400">
+                        <span className="text-slate-600 leading-relaxed dark:text-slate-400">
                           {item}
                         </span>
                       </li>
@@ -142,15 +142,15 @@ export default function PrivacyPage() {
             </div>
 
             {/* GDPR Compliance */}
-            <div className="mt-8 rounded-3xl bg-linear-to-br from-green-700 via-green-600 to-green-500 p-8 text-white">
+            <div className="mt-8 rounded-3xl bg-linear-to-br from-amber-600 via-amber-500 to-amber-400 p-8 text-white">
               <h2 className="mb-4 font-bold text-2xl">
                 الامتثال للوائح العامة لحماية البيانات (GDPR)
               </h2>
-              <p className="mb-4 text-green-100 leading-relaxed">
+              <p className="mb-4 text-amber-50 leading-relaxed">
                 نحن ملتزمون بالامتثال للوائح العامة لحماية البيانات (GDPR) وجميع
                 القوانين المحلية والدولية ذات الصلة بحماية البيانات.
               </p>
-              <p className="text-green-100 leading-relaxed">
+              <p className="text-amber-50 leading-relaxed">
                 إذا كنت مقيماً في الاتحاد الأوروبي، لديك حقوق إضافية بموجب GDPR،
                 بما في ذلك الحق في الاعتراض على معالجة بياناتك والحق في نقل
                 البيانات.
@@ -170,41 +170,41 @@ export default function PrivacyPage() {
             </div>
 
             {/* Updates */}
-            <div className="mt-8 rounded-3xl border border-gray-200 bg-white p-8 dark:border-gray-800 dark:bg-gray-900">
-              <h2 className="mb-4 font-bold text-2xl text-gray-900 dark:text-white">
+            <div className="mt-8 rounded-3xl border border-slate-200 bg-white p-8 dark:border-slate-800 dark:bg-slate-900">
+              <h2 className="mb-4 font-bold text-2xl text-slate-900 dark:text-white">
                 تحديثات السياسة
               </h2>
-              <p className="mb-4 text-gray-600 leading-relaxed dark:text-gray-400">
+              <p className="mb-4 text-slate-600 leading-relaxed dark:text-slate-400">
                 قد نقوم بتحديث سياسة الخصوصية هذه من وقت لآخر. سنقوم بإخطارك بأي
                 تغييرات جوهرية عبر البريد الإلكتروني أو إشعار بارز على الخدمة.
               </p>
-              <p className="text-gray-600 leading-relaxed dark:text-gray-400">
+              <p className="text-slate-600 leading-relaxed dark:text-slate-400">
                 نوصي بمراجعة هذه السياسة بشكل دوري للبقاء على اطلاع بكيفية حماية
                 معلوماتك.
               </p>
             </div>
 
             {/* Contact */}
-            <div className="mt-8 rounded-3xl border border-gray-200 bg-white p-8 text-center dark:border-gray-800 dark:bg-gray-900">
-              <h2 className="mb-4 font-bold text-2xl text-gray-900 dark:text-white">
+            <div className="mt-8 rounded-3xl border border-slate-200 bg-white p-8 text-center dark:border-slate-800 dark:bg-slate-900">
+              <h2 className="mb-4 font-bold text-2xl text-slate-900 dark:text-white">
                 هل لديك أسئلة؟
               </h2>
-              <p className="mb-6 text-gray-600 leading-relaxed dark:text-gray-400">
+              <p className="mb-6 text-slate-600 leading-relaxed dark:text-slate-400">
                 إذا كان لديك أي أسئلة حول سياسة الخصوصية أو ممارسات البيانات
                 لدينا، لا تتردد في التواصل معنا.
               </p>
               <div className="flex flex-col justify-center gap-4 sm:flex-row">
                 <a
-                  className="inline-flex items-center justify-center gap-2 rounded-xl bg-linear-to-l from-green-700 via-green-600 to-green-500 px-8 py-4 font-semibold text-lg text-white shadow-lg transition-all hover:scale-105 hover:shadow-xl"
+                  className="inline-flex items-center justify-center gap-2 rounded-xl bg-linear-to-l from-amber-600 via-amber-500 to-amber-400 px-8 py-4 font-semibold text-lg text-white shadow-lg transition-all hover:scale-105 hover:shadow-xl"
                   href="/contact"
                 >
                   تواصل معنا
                 </a>
                 <a
-                  className="inline-flex items-center justify-center gap-2 rounded-xl bg-gray-100 px-8 py-4 font-semibold text-gray-900 text-lg transition-all hover:bg-gray-200 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
-                  href="mailto:privacy@chatbot.com"
+                  className="inline-flex items-center justify-center gap-2 rounded-xl bg-slate-100 px-8 py-4 font-semibold text-slate-900 text-lg transition-all hover:bg-slate-200 dark:bg-slate-800 dark:text-white dark:hover:bg-slate-700"
+                  href="mailto:privacy@mubassatlaw.com"
                 >
-                  privacy@chatbot.com
+                  privacy@mubassatlaw.com
                 </a>
               </div>
             </div>

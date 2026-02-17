@@ -1,38 +1,43 @@
 "use client";
 
-import { Bot, Menu, Moon, Sun, X } from "lucide-react";
+import { Menu, Moon, Scale, Sun, X } from "lucide-react";
 import Link from "next/link";
 import { useTheme } from "next-themes";
 import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
+/* ────────────────────────────────────────────────
+ *  Header — NOB-Style Minimal Navigation
+ * ──────────────────────────────────────────────── */
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { theme, setTheme } = useTheme();
 
   const navLinks = [
     { href: "/", label: "الرئيسية" },
-    { href: "/chat", label: "المحادثة" },
-    { href: "/features", label: "المميزات" },
+    { href: "/features", label: "خدماتنا" },
     { href: "/pricing", label: "الأسعار" },
     { href: "/blog", label: "المدونة" },
-    { href: "/about", label: "من نحن" },
     { href: "/contact", label: "تواصل معنا" },
   ];
 
   return (
-    <header className="sticky top-0 z-50 border-gray-100 border-b bg-white/98 backdrop-blur-md dark:border-gray-800 dark:bg-gray-950/95">
-      <nav className="container mx-auto px-4 py-3" dir="rtl">
-        <div className="flex items-center justify-between">
+    <header className="sticky top-0 z-50 border-b border-zinc-100 bg-white/90 backdrop-blur-xl dark:border-zinc-900 dark:bg-zinc-950/90">
+      <nav className="mx-auto max-w-7xl px-6 md:px-8" dir="rtl">
+        <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <Link
-            className="flex items-center gap-3 transition-opacity hover:opacity-90"
+            className="flex items-center gap-2.5 transition-opacity hover:opacity-80"
             href="/"
           >
-            <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-linear-to-br from-green-600 to-green-700 shadow-green-500/20 shadow-lg">
-              <Bot className="h-6 w-6 text-white" />
+            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-zinc-950 dark:bg-zinc-100">
+              <Scale className="h-4.5 w-4.5 text-white dark:text-zinc-950" />
             </div>
-            <span className="font-bold text-gray-900 text-xl dark:text-white">
-              مساعد ذكي
+            <span className="text-lg font-bold tracking-tight text-zinc-950 dark:text-zinc-50">
+              مبسّط{" "}
+              <span className="font-light text-zinc-400 dark:text-zinc-600">
+                LAW
+              </span>
             </span>
           </Link>
 
@@ -40,7 +45,7 @@ export function Header() {
           <div className="hidden items-center gap-1 lg:flex">
             {navLinks.map((link) => (
               <Link
-                className="rounded-xl px-4 py-2 font-medium text-gray-600 transition-all hover:bg-gray-50 hover:text-green-700 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-white"
+                className="rounded-lg px-3.5 py-2 text-sm font-medium text-zinc-500 transition-colors hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-zinc-50"
                 href={link.href}
                 key={link.href}
               >
@@ -50,223 +55,300 @@ export function Header() {
           </div>
 
           {/* Right Section */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2">
             {/* Theme Toggle */}
             <button
-              aria-label="Toggle theme"
-              className="rounded-xl p-2.5 transition-colors hover:bg-gray-100 dark:hover:bg-gray-800"
+              aria-label="تبديل المظهر"
+              className="rounded-lg p-2 text-zinc-400 transition-colors hover:bg-zinc-100 hover:text-zinc-600 dark:hover:bg-zinc-900 dark:hover:text-zinc-300"
               onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+              type="button"
             >
               {theme === "dark" ? (
-                <Sun className="h-5 w-5 text-gray-300" />
+                <Sun className="h-4.5 w-4.5" />
               ) : (
-                <Moon className="h-5 w-5 text-gray-500" />
+                <Moon className="h-4.5 w-4.5" />
               )}
             </button>
 
             {/* Auth Buttons */}
-            <div className="hidden items-center gap-3 lg:flex">
+            <div className="hidden items-center gap-2 lg:flex">
               <Link
-                className="px-5 py-2.5 font-medium text-gray-600 transition-colors hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
+                className="rounded-lg px-4 py-2 text-sm font-medium text-zinc-600 transition-colors hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-zinc-50"
                 href="/login"
               >
                 تسجيل الدخول
               </Link>
               <Link
-                className="rounded-xl bg-green-600 px-6 py-2.5 font-medium text-white shadow-green-500/25 shadow-lg transition-all hover:bg-green-700 hover:shadow-green-500/30 hover:shadow-xl"
+                className="rounded-full bg-zinc-950 px-5 py-2 text-sm font-semibold text-white transition-all hover:opacity-90 dark:bg-zinc-100 dark:text-zinc-950"
                 href="/register"
               >
-                ابدأ مجاناً
+                ابدأ الآن
               </Link>
             </div>
 
             {/* Mobile Menu Button */}
             <button
-              aria-label="Toggle menu"
-              className="rounded-xl p-2.5 transition-colors hover:bg-gray-100 lg:hidden dark:hover:bg-gray-800"
+              aria-label="القائمة"
+              className="rounded-lg p-2 text-zinc-500 transition-colors hover:bg-zinc-100 lg:hidden dark:text-zinc-400 dark:hover:bg-zinc-900"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
+              type="button"
             >
               {isMenuOpen ? (
-                <X className="h-6 w-6 text-gray-700 dark:text-gray-300" />
+                <X className="h-5 w-5" />
               ) : (
-                <Menu className="h-6 w-6 text-gray-700 dark:text-gray-300" />
+                <Menu className="h-5 w-5" />
               )}
             </button>
           </div>
         </div>
 
         {/* Mobile Menu */}
-        {isMenuOpen && (
-          <div className="mt-4 space-y-2 border-gray-100 border-t py-4 lg:hidden dark:border-gray-800">
-            {navLinks.map((link) => (
-              <Link
-                className="block rounded-xl px-4 py-3 font-medium text-gray-600 transition-all hover:bg-gray-50 hover:text-green-700 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-white"
-                href={link.href}
-                key={link.href}
-                onClick={() => setIsMenuOpen(false)}
-              >
-                {link.label}
-              </Link>
-            ))}
-            <div className="space-y-3 border-gray-100 border-t pt-4 dark:border-gray-800">
-              <Link
-                className="block rounded-xl border-2 border-gray-200 px-6 py-3 text-center font-medium text-gray-700 transition-colors hover:border-green-500 dark:border-gray-700 dark:text-gray-200 dark:hover:border-green-500"
-                href="/login"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                تسجيل الدخول
-              </Link>
-              <Link
-                className="block rounded-xl bg-green-600 px-6 py-3 text-center font-medium text-white shadow-green-500/25 shadow-lg transition-all hover:bg-green-700"
-                href="/register"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                ابدأ مجاناً
-              </Link>
-            </div>
-          </div>
-        )}
+        <AnimatePresence>
+          {isMenuOpen && (
+            <motion.div
+              animate={{ height: "auto", opacity: 1 }}
+              className="overflow-hidden lg:hidden"
+              exit={{ height: 0, opacity: 0 }}
+              initial={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.2 }}
+            >
+              <div className="space-y-1 border-t border-zinc-100 py-4 dark:border-zinc-900">
+                {navLinks.map((link) => (
+                  <Link
+                    className="block rounded-lg px-4 py-2.5 text-sm font-medium text-zinc-600 transition-colors hover:bg-zinc-50 hover:text-zinc-950 dark:text-zinc-400 dark:hover:bg-zinc-900 dark:hover:text-zinc-50"
+                    href={link.href}
+                    key={link.href}
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    {link.label}
+                  </Link>
+                ))}
+                <div className="space-y-2 border-t border-zinc-100 pt-4 dark:border-zinc-900">
+                  <Link
+                    className="block rounded-lg border border-zinc-200 px-4 py-2.5 text-center text-sm font-medium text-zinc-700 transition-colors hover:border-zinc-300 dark:border-zinc-800 dark:text-zinc-300 dark:hover:border-zinc-700"
+                    href="/login"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    تسجيل الدخول
+                  </Link>
+                  <Link
+                    className="block rounded-full bg-zinc-950 px-4 py-2.5 text-center text-sm font-semibold text-white transition-all hover:opacity-90 dark:bg-zinc-100 dark:text-zinc-950"
+                    href="/register"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    ابدأ الآن
+                  </Link>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </nav>
     </header>
   );
 }
 
+/* ────────────────────────────────────────────────
+ *  Footer — NOB-Style Clean Footer
+ * ──────────────────────────────────────────────── */
 export function Footer() {
   const currentYear = new Date().getFullYear();
 
-  const footerLinks = {
-    product: [
-      { href: "/features", label: "المميزات" },
-      { href: "/pricing", label: "الأسعار" },
-      { href: "/mobile", label: "تطبيق الموبايل" },
-      { href: "/api", label: "واجهة برمجية" },
-    ],
-    company: [
-      { href: "/about", label: "من نحن" },
-      { href: "/blog", label: "المدونة" },
-      { href: "/careers", label: "الوظائف" },
-      { href: "/contact", label: "اتصل بنا" },
-    ],
-    legal: [
-      { href: "/privacy", label: "الخصوصية" },
-      { href: "/terms", label: "الشروط" },
-      { href: "/security", label: "الأمان" },
-      { href: "/cookies", label: "ملفات تعريف الارتباط" },
-    ],
-  };
-
   return (
-    <footer className="bg-gray-900 dark:bg-gray-950">
-      <div className="container mx-auto px-4 py-16" dir="rtl">
-        <div className="mb-12 grid gap-10 md:grid-cols-2 lg:grid-cols-4">
-          {/* Brand */}
-          <div>
+    <footer
+      className="border-t border-zinc-100 bg-white dark:border-zinc-900 dark:bg-zinc-950"
+      dir="rtl"
+    >
+      {/* Main Footer */}
+      <div className="mx-auto max-w-7xl px-6 py-16 md:px-8 md:py-20">
+        <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-12">
+          {/* Contact Info — NOB Style */}
+          <div className="space-y-6 lg:col-span-5">
+            {/* Logo */}
             <Link
-              className="mb-5 flex items-center gap-3 transition-opacity hover:opacity-90"
+              className="flex items-center gap-2.5 transition-opacity hover:opacity-80"
               href="/"
             >
-              <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-linear-to-br from-green-400 to-green-500 shadow-green-500/30 shadow-lg">
-                <Bot className="h-6 w-6 text-white" />
+              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-zinc-950 dark:bg-zinc-100">
+                <Scale className="h-4.5 w-4.5 text-white dark:text-zinc-950" />
               </div>
-              <span className="font-bold text-white text-xl">مساعد ذكي</span>
+              <span className="text-lg font-bold tracking-tight">
+                مبسّط{" "}
+                <span className="font-light text-zinc-400 dark:text-zinc-600">
+                  LAW
+                </span>
+              </span>
             </Link>
-            <p className="text-gray-400 text-sm leading-relaxed">
-              محادثات ذكية بقوة الذكاء الاصطناعي. مساعدك الشخصي متاح دائماً.
+
+            <p className="max-w-sm text-sm leading-relaxed text-zinc-500 dark:text-zinc-400">
+              مستشارك القانوني الذكي — أخبرنا عن احتياجك القانوني وسنساعدك
+              بأفضل الحلول المدعومة بالذكاء الاصطناعي.
             </p>
-          </div>
 
-          {/* Product Links */}
-          <div>
-            <h3 className="mb-5 font-bold text-white">المنتج</h3>
-            <ul className="space-y-3">
-              {footerLinks.product.map((link) => (
-                <li key={link.href}>
-                  <Link
-                    className="text-gray-400 text-sm transition-colors hover:text-white"
-                    href={link.href}
+            {/* Quick Contact */}
+            <div className="space-y-3 pt-2">
+              <div className="flex items-center gap-3">
+                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-zinc-100 dark:bg-zinc-900">
+                  <svg
+                    className="h-4 w-4 text-zinc-500"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                    viewBox="0 0 24 24"
                   >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Company Links */}
-          <div>
-            <h3 className="mb-5 font-bold text-white">الشركة</h3>
-            <ul className="space-y-3">
-              {footerLinks.company.map((link) => (
-                <li key={link.href}>
-                  <Link
-                    className="text-gray-400 text-sm transition-colors hover:text-white"
-                    href={link.href}
+                    <path
+                      d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </div>
+                <span
+                  className="text-sm font-medium text-zinc-600 dark:text-zinc-400"
+                  dir="ltr"
+                >
+                  +966 50 000 0000
+                </span>
+              </div>
+              <div className="flex items-center gap-3">
+                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-zinc-100 dark:bg-zinc-900">
+                  <svg
+                    className="h-4 w-4 text-zinc-500"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                    viewBox="0 0 24 24"
                   >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-
-        {/* Bottom Bar */}
-        <div className="border-gray-700/50 border-t pt-8">
-          <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
-            <p className="text-gray-400 text-sm">
-              © {currentYear} مساعد ذكي. جميع الحقوق محفوظة.
-            </p>
-            <div className="flex items-center gap-6">
-              <Link
-                className="text-gray-400 transition-colors hover:text-white"
-                href="https://twitter.com"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                <svg
-                  className="h-5 w-5"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z" />
-                </svg>
-              </Link>
-              <Link
-                className="text-gray-400 transition-colors hover:text-white"
-                href="https://github.com"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                <svg
-                  className="h-5 w-5"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    clipRule="evenodd"
-                    d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
-                    fillRule="evenodd"
-                  />
-                </svg>
-              </Link>
-              <Link
-                className="text-gray-400 transition-colors hover:text-white"
-                href="https://linkedin.com"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                <svg
-                  className="h-5 w-5"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-                </svg>
-              </Link>
+                    <path
+                      d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </div>
+                <span className="text-sm font-medium text-zinc-600 dark:text-zinc-400">
+                  info@mubassat-law.com
+                </span>
+              </div>
             </div>
+          </div>
+
+          {/* Navigation */}
+          <div className="lg:col-span-2">
+            <h3 className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-zinc-950 dark:text-zinc-50">
+              التنقل
+            </h3>
+            <ul className="space-y-3">
+              {[
+                { href: "/", label: "الرئيسية" },
+                { href: "/features", label: "خدماتنا" },
+                { href: "/pricing", label: "الأسعار" },
+                { href: "/blog", label: "المدونة" },
+              ].map((link) => (
+                <li key={link.href}>
+                  <Link
+                    className="text-sm text-zinc-500 transition-colors hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-zinc-50"
+                    href={link.href}
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Social */}
+          <div className="lg:col-span-2">
+            <h3 className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-zinc-950 dark:text-zinc-50">
+              تابعنا
+            </h3>
+            <ul className="space-y-3">
+              {[
+                { href: "https://x.com", label: "X (Twitter)" },
+                { href: "https://tiktok.com", label: "TikTok" },
+                { href: "https://instagram.com", label: "Instagram" },
+                { href: "https://linkedin.com", label: "LinkedIn" },
+              ].map((link) => (
+                <li key={link.href}>
+                  <Link
+                    className="text-sm text-zinc-500 transition-colors hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-zinc-50"
+                    href={link.href}
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Legal */}
+          <div className="lg:col-span-3">
+            <h3 className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-zinc-950 dark:text-zinc-50">
+              قانوني
+            </h3>
+            <ul className="space-y-3">
+              {[
+                { href: "/privacy", label: "سياسة الخصوصية" },
+                { href: "/terms", label: "الشروط والأحكام" },
+                { href: "/security", label: "الأمان" },
+                { href: "/cookies", label: "ملفات تعريف الارتباط" },
+              ].map((link) => (
+                <li key={link.href}>
+                  <Link
+                    className="text-sm text-zinc-500 transition-colors hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-zinc-50"
+                    href={link.href}
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </div>
+
+      {/* Bottom Bar */}
+      <div className="border-t border-zinc-100 dark:border-zinc-900">
+        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-6 py-6 md:flex-row md:px-8">
+          <p className="text-xs text-zinc-400">
+            © {currentYear} مبسّط LAW. جميع الحقوق محفوظة.
+          </p>
+          <div className="flex items-center gap-4">
+            <Link
+              className="text-xs text-zinc-400 transition-colors hover:text-zinc-600 dark:hover:text-zinc-300"
+              href="/privacy"
+            >
+              سياسة الخصوصية
+            </Link>
+            <span className="text-zinc-200 dark:text-zinc-800">|</span>
+            <Link
+              className="text-xs text-zinc-400 transition-colors hover:text-zinc-600 dark:hover:text-zinc-300"
+              href="/terms"
+            >
+              الشروط والأحكام
+            </Link>
+          </div>
+        </div>
+      </div>
+
+      {/* WhatsApp Floating Button */}
+      <Link
+        aria-label="تواصل عبر واتساب"
+        className="fixed bottom-6 left-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] shadow-lg shadow-[#25D366]/30 transition-all hover:scale-105 hover:shadow-xl hover:shadow-[#25D366]/40"
+        href="https://wa.me/966500000000"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        <svg
+          className="h-7 w-7 text-white"
+          fill="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+        </svg>
+      </Link>
     </footer>
   );
 }

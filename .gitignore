@@ -68,3 +68,8 @@ deno.lock
 
 # Claude temporary files
 tmpclaude-*.cwd
+
+# External projects (not part of this workspace)
+mubassat_law/
+nextjs-ai-chatbot-mobile/
+mobile-app/

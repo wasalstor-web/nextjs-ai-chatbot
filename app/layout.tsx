@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Tajawal } from "next/font/google";
+import { Alexandria, Geist, Geist_Mono } from "next/font/google";
 import { Toaster } from "sonner";
 import { ThemeProvider } from "@/components/theme-provider";
 
@@ -30,11 +30,11 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
 });
 
-const tajawal = Tajawal({
+const alexandria = Alexandria({
   subsets: ["arabic"],
-  weight: ["200", "300", "400", "500", "700", "800", "900"],
+  weight: ["400", "500", "600", "700", "800"],
   display: "swap",
-  variable: "--font-tajawal",
+  variable: "--font-alexandria",
 });
 
 const LIGHT_THEME_COLOR = "hsl(0 0% 100%)";
@@ -64,7 +64,7 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      className={`${geist.variable} ${geistMono.variable} ${tajawal.variable}`}
+      className={`${geist.variable} ${geistMono.variable} ${alexandria.variable}`}
       // `next-themes` injects an extra classname to the body element to avoid
       // visual flicker before hydration. Hence the `suppressHydrationWarning`
       // prop is necessary to avoid the React hydration mismatch warning.

@@ -38,6 +38,7 @@ export type IntakeQuestion = {
   required: boolean;
   category: ConsultationType;
   order: number;
+  hint?: string;
 };
 
 // إجابة سؤال
@@ -64,6 +65,10 @@ export type LegalSource = {
   url: string;
   type: "law" | "regulation" | "gazette" | "judicial" | "ministry";
   trustLevel: "primary" | "secondary";
+  description?: string;
+  issueDate?: string;
+  lastUpdate?: string;
+  authority?: string;
 };
 
 // استشهاد قانوني
