@@ -1,6 +1,5 @@
 "use client";
 
-import { GlassCard } from "@/components/landing/glass-card";
 import { motion } from "framer-motion";
 import {
   ArrowLeft,
@@ -19,6 +18,7 @@ import {
   Zap,
 } from "lucide-react";
 import Link from "next/link";
+import { GlassCard } from "@/components/landing/glass-card";
 
 export default function FeaturesPage() {
   const features = [
@@ -113,7 +113,7 @@ export default function FeaturesPage() {
   ];
 
   return (
-    <div className="min-h-screen overflow-hidden bg-gradient-to-b from-white via-green-50/30 to-white dark:from-gray-950 dark:via-gray-900 dark:to-gray-950">
+    <div className="min-h-screen overflow-hidden bg-linear-to-b from-white via-green-50/30 to-white dark:from-gray-950 dark:via-gray-900 dark:to-gray-950">
       {/* Gradient orbs */}
       <div className="pointer-events-none fixed top-20 left-20 h-72 w-72 rounded-full bg-green-400/10 blur-[100px]" />
       <div className="pointer-events-none fixed right-20 bottom-20 h-96 w-96 rounded-full bg-emerald-400/10 blur-[100px]" />
@@ -138,7 +138,7 @@ export default function FeaturesPage() {
             </motion.div>
 
             <h1 className="mb-6 font-bold text-5xl lg:text-7xl">
-              <span className="bg-gradient-to-l from-green-600 via-emerald-600 to-teal-600 bg-clip-text text-transparent">
+              <span className="bg-linear-to-l from-green-600 via-emerald-600 to-teal-600 bg-clip-text text-transparent">
                 مميزات قوية
               </span>
               <br />
@@ -153,7 +153,7 @@ export default function FeaturesPage() {
 
             <Link href="/register">
               <motion.button
-                className="inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-green-600 to-emerald-600 px-8 py-4 font-semibold text-lg text-white shadow-green-500/30 shadow-xl"
+                className="inline-flex items-center gap-2 rounded-2xl bg-linear-to-r from-green-600 to-emerald-600 px-8 py-4 font-semibold text-lg text-white shadow-green-500/30 shadow-xl"
                 whileHover={{
                   scale: 1.05,
                   boxShadow: "0 20px 40px -10px rgba(34, 197, 94, 0.4)",
@@ -175,7 +175,7 @@ export default function FeaturesPage() {
             {features.map((feature, index) => (
               <GlassCard className="p-8" delay={index * 0.05} key={index}>
                 <motion.div
-                  className={`h-16 w-16 rounded-2xl bg-gradient-to-br ${feature.gradient} mb-6 flex items-center justify-center shadow-lg`}
+                  className={`h-16 w-16 rounded-2xl bg-linear-to-br ${feature.gradient} mb-6 flex items-center justify-center shadow-lg`}
                   whileHover={{ scale: 1.1, rotate: 5 }}
                 >
                   <feature.icon className="h-8 w-8 text-white" />
@@ -206,7 +206,7 @@ export default function FeaturesPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-green-600 via-emerald-600 to-teal-600 py-24">
+      <section className="relative overflow-hidden bg-linear-to-br from-green-600 via-emerald-600 to-teal-600 py-24">
         <div className="absolute inset-0">
           <div className="absolute top-0 left-0 h-96 w-96 rounded-full bg-white/10 blur-3xl" />
           <div className="absolute right-0 bottom-0 h-96 w-96 rounded-full bg-white/10 blur-3xl" />

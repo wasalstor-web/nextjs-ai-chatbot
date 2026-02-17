@@ -10,8 +10,8 @@ export const metadata: Metadata = {
   metadataBase: new URL(
     process.env.NEXT_PUBLIC_APP_URL || "https://ai-chatbot.wahed.workers.dev"
   ),
-  title: "AI Chatbot — مساعد الذكاء الاصطناعي",
-  description: "منصة محادثة ذكية متعددة النماذج مبنية على Next.js و AI SDK",
+  title: "مبسط LAW — المساعد القانوني الذكي",
+  description: "مساعدك القانوني الذكي المتخصص في الأنظمة السعودية",
 };
 
 export const viewport = {

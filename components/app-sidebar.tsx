@@ -1,5 +1,6 @@
 "use client";
 
+import { ScaleIcon } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import type { User } from "next-auth";
@@ -46,41 +47,49 @@ export function AppSidebar({ user }: { user: User | undefined }) {
     });
 
     toast.promise(deletePromise, {
-      loading: "Deleting all chats...",
+      loading: "جاري حذف المحادثات...",
       success: () => {
         mutate(unstable_serialize(getChatHistoryPaginationKey));
         setShowdeleteDialog(false);
         router.replace("/");
         router.refresh();
-        return "All chats deleted successfully";
+        return "تم حذف جميع المحادثات بنجاح";
       },
-      error: "Failed to delete all chats",
+      error: "فشل في حذف المحادثات",
     });
   };
 
   return (
     <>
       <Sidebar className="group-data-[side=left]:border-r-0">
-        <SidebarHeader>
+        <SidebarHeader className="pb-1">
           <SidebarMenu>
             <div className="flex flex-row items-center justify-between">
               <Link
-                className="flex flex-row items-center gap-3"
+                className="group flex flex-row items-center gap-3"
                 href="/"
                 onClick={() => {
                   setOpenMobile(false);
                 }}
               >
-                <span className="cursor-pointer rounded-md px-2 font-semibold text-lg hover:bg-muted">
-                  Chatbot
-                </span>
+                <div className="relative flex size-9 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-primary/80 text-primary-foreground shadow-sm transition-transform duration-200 group-hover:scale-105">
+                  <ScaleIcon className="size-4.5" strokeWidth={1.8} />
+                </div>
+                <div className="flex flex-col">
+                  <span className="cursor-pointer font-bold text-[15px] text-foreground tracking-tight">
+                    مبسط <span className="font-black text-primary">LAW</span>
+                  </span>
+                  <span className="text-[10px] text-muted-foreground">
+                    المساعد القانوني
+                  </span>
+                </div>
               </Link>
-              <div className="flex flex-row gap-1">
+              <div className="flex flex-row gap-0.5">
                 {user && (
                   <Tooltip>
                     <TooltipTrigger asChild>
                       <Button
-                        className="h-8 p-1 md:h-fit md:p-2"
+                        className="size-9 rounded-xl text-muted-foreground transition-all duration-200 hover:bg-destructive/10 hover:text-destructive active:scale-95"
                         onClick={() => setShowdeleteDialog(true)}
                         type="button"
                         variant="ghost"
@@ -89,14 +98,14 @@ export function AppSidebar({ user }: { user: User | undefined }) {
                       </Button>
                     </TooltipTrigger>
                     <TooltipContent align="end" className="hidden md:block">
-                      Delete All Chats
+                      حذف جميع المحادثات
                     </TooltipContent>
                   </Tooltip>
                 )}
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <Button
-                      className="h-8 p-1 md:h-fit md:p-2"
+                      className="size-9 rounded-xl text-muted-foreground transition-all duration-200 hover:bg-primary/10 hover:text-primary active:scale-95"
                       onClick={() => {
                         setOpenMobile(false);
                         router.push("/");
@@ -109,7 +118,7 @@ export function AppSidebar({ user }: { user: User | undefined }) {
                     </Button>
                   </TooltipTrigger>
                   <TooltipContent align="end" className="hidden md:block">
-                    New Chat
+                    محادثة جديدة
                   </TooltipContent>
                 </Tooltip>
               </div>
@@ -123,18 +132,19 @@ export function AppSidebar({ user }: { user: User | undefined }) {
       </Sidebar>
 
       <AlertDialog onOpenChange={setShowdeleteDialog} open={showdeleteDialog}>
-        <AlertDialogContent>
+        <AlertDialogContent className="rounded-2xl">
           <AlertDialogHeader>
-            <AlertDialogTitle>Delete all chats?</AlertDialogTitle>
-            <AlertDialogDescription>
-              This action cannot be undone. This will permanently delete all
-              your chats and remove them from our servers.
+            <AlertDialogTitle className="text-[16px]">
+              حذف جميع المحادثات؟
+            </AlertDialogTitle>
+            <AlertDialogDescription className="text-[13px] leading-relaxed">
+              لا يمكن التراجع عن هذا الإجراء. سيتم حذف جميع محادثاتك نهائياً.
             </AlertDialogDescription>
           </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction onClick={handledelete}>
-              Delete All
+          <AlertDialogFooter className="gap-2">
+            <AlertDialogCancel className="rounded-lg">إلغاء</AlertDialogCancel>
+            <AlertDialogAction className="rounded-lg" onClick={handledelete}>
+              حذف الكل
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>

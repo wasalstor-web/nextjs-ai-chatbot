@@ -1,10 +1,6 @@
 "use client";
 
-import { GlassCard } from "@/components/landing/glass-card";
-import { AnimatedCounter } from "@/components/ui/animated-counter";
-import {
-  motion,
-} from "framer-motion";
+import { motion } from "framer-motion";
 import {
   ArrowLeft,
   Award,
@@ -27,6 +23,8 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { GlassCard } from "@/components/landing/glass-card";
+import { AnimatedCounter } from "@/components/ui/animated-counter";
 
 // Floating particles background
 function FloatingParticles() {
@@ -175,7 +173,7 @@ export default function HomePage() {
   };
 
   return (
-    <div className="min-h-screen overflow-hidden bg-gradient-to-b from-white via-green-50/30 to-white dark:from-gray-950 dark:via-gray-900 dark:to-gray-950">
+    <div className="min-h-screen overflow-hidden bg-linear-to-b from-white via-green-50/30 to-white dark:from-gray-950 dark:via-gray-900 dark:to-gray-950">
       {/* Hero Section */}
       <section className="relative flex min-h-[90vh] items-center">
         <FloatingParticles />
@@ -186,7 +184,7 @@ export default function HomePage() {
           className="absolute right-20 bottom-20 h-96 w-96 animate-pulse rounded-full bg-emerald-400/20 blur-[100px]"
           style={{ animationDelay: "1s" }}
         />
-        <div className="-translate-x-1/2 -translate-y-1/2 absolute top-1/2 left-1/2 h-[600px] w-[600px] rounded-full bg-gradient-to-br from-green-300/10 to-emerald-300/10 blur-[120px]" />
+        <div className="-translate-x-1/2 -translate-y-1/2 absolute top-1/2 left-1/2 h-[600px] w-[600px] rounded-full bg-linear-to-br from-green-300/10 to-emerald-300/10 blur-[120px]" />
 
         <div className="container relative z-10 mx-auto px-4 py-24">
           <div className="mx-auto max-w-7xl">

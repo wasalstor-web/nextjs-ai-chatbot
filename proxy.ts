@@ -39,10 +39,7 @@ export async function proxy(request: NextRequest) {
     "/mobile",
     "/marketplace",
   ];
-  if (
-    publicPaths.includes(pathname) ||
-    pathname.startsWith("/mobile/")
-  ) {
+  if (publicPaths.includes(pathname) || pathname.startsWith("/mobile/")) {
     return NextResponse.next();
   }
 

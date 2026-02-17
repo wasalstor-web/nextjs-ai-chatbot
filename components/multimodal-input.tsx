@@ -31,6 +31,7 @@ import {
   chatModels,
   DEFAULT_CHAT_MODEL,
   modelsByProvider,
+  providerDisplayNames,
 } from "@/lib/ai/models";
 import type { Attachment, ChatMessage } from "@/lib/types";
 import { cn } from "@/lib/utils";
@@ -317,11 +318,11 @@ function PureMultimodalInput({
       />
 
       <PromptInput
-        className="rounded-xl border border-border bg-background p-3 shadow-xs transition-all duration-200 focus-within:border-border hover:border-muted-foreground/50"
+        className="rounded-2xl border border-border/50 bg-background p-3 shadow-sm transition-all duration-200 focus-within:border-primary/30 focus-within:shadow-md dark:bg-card"
         onSubmit={(event) => {
           event.preventDefault();
-          if (status !== "ready") {
-            toast.error("Please wait for the model to finish its response!");
+          if (status === "submitted" || status === "streaming") {
+            toast.error("يرجى الانتظار حتى ينتهي النموذج من الرد");
           } else {
             submitForm();
           }
@@ -362,13 +363,13 @@ function PureMultimodalInput({
         )}
         <div className="flex flex-row items-start gap-1 sm:gap-2">
           <PromptInputTextarea
-            className="grow resize-none border-0! border-none! bg-transparent p-2 text-base outline-none ring-0 [-ms-overflow-style:none] [scrollbar-width:none] placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0 [&::-webkit-scrollbar]:hidden"
+            className="grow resize-none border-0! border-none! bg-transparent p-2 text-[15px] outline-none ring-0 [-ms-overflow-style:none] [scrollbar-width:none] placeholder:text-muted-foreground/70 focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0 [&::-webkit-scrollbar]:hidden"
             data-testid="multimodal-input"
             disableAutoResize={true}
             maxHeight={200}
             minHeight={44}
             onChange={handleInput}
-            placeholder="Send a message..."
+            placeholder="اكتب استفسارك القانوني..."
             ref={textareaRef}
             rows={1}
             value={input}
@@ -391,16 +392,16 @@ function PureMultimodalInput({
             />
           </PromptInputTools>
 
-          {status === "submitted" ? (
+          {status === "submitted" || status === "streaming" ? (
             <StopButton setMessages={setMessages} stop={stop} />
           ) : (
             <PromptInputSubmit
-              className="size-8 rounded-full bg-primary text-primary-foreground transition-colors duration-200 hover:bg-primary/90 disabled:bg-muted disabled:text-muted-foreground"
+              className="size-9 rounded-xl bg-primary text-primary-foreground shadow-sm transition-all duration-200 hover:bg-primary/90 hover:shadow-md active:scale-95 disabled:bg-muted disabled:text-muted-foreground disabled:shadow-none"
               data-testid="send-button"
               disabled={!input.trim() || uploadQueue.length > 0}
               status={status}
             >
-              <ArrowUpIcon size={14} />
+              <ArrowUpIcon size={16} />
             </PromptInputSubmit>
           )}
         </PromptInputToolbar>
@@ -446,7 +447,7 @@ function PureAttachmentsButton({
 
   return (
     <Button
-      className="aspect-square h-8 rounded-lg p-1 transition-colors hover:bg-accent"
+      className="aspect-square size-9 rounded-xl p-1 text-muted-foreground transition-all duration-200 hover:bg-primary/10 hover:text-primary active:scale-95"
       data-testid="attachments-button"
       disabled={status !== "ready" || isReasoningModel}
       onClick={(event) => {
@@ -535,8 +536,9 @@ function PureVoiceButton({
   return (
     <Button
       className={cn(
-        "aspect-square h-8 rounded-lg p-1 transition-colors hover:bg-accent",
-        isRecording && "bg-red-500 text-white hover:bg-red-600"
+        "aspect-square size-9 rounded-xl p-1 text-muted-foreground transition-all duration-200 hover:bg-primary/10 hover:text-primary active:scale-95",
+        isRecording &&
+          "bg-red-500 text-white shadow-[0_2px_8px_rgba(239,68,68,0.4)] hover:bg-red-600"
       )}
       data-testid="voice-button"
       disabled={status !== "ready"}
@@ -572,48 +574,46 @@ function PureModelSelectorCompact({
     chatModels[0];
   const [provider] = selectedModel.id.split("/");
 
-  // Provider display names
-  const providerNames: Record<string, string> = {
-    anthropic: "Anthropic",
-    openai: "OpenAI",
-    google: "Google",
-    xai: "xAI",
-    reasoning: "Reasoning",
-  };
-
   return (
     <ModelSelector onOpenChange={setOpen} open={open}>
       <ModelSelectorTrigger asChild>
-        <Button className="h-8 w-[200px] justify-between px-2" variant="ghost">
+        <Button className="h-8 gap-1.5 px-2.5" variant="ghost">
           {provider && <ModelSelectorLogo provider={provider} />}
-          <ModelSelectorName>{selectedModel.name}</ModelSelectorName>
+          <ModelSelectorName>
+            {providerDisplayNames[provider] ?? provider} · {selectedModel.name}
+          </ModelSelectorName>
         </Button>
       </ModelSelectorTrigger>
       <ModelSelectorContent>
-        <ModelSelectorInput placeholder="Search models..." />
+        <ModelSelectorInput placeholder="ابحث عن نموذج..." />
         <ModelSelectorList>
           {Object.entries(modelsByProvider).map(
             ([providerKey, providerModels]) => (
               <ModelSelectorGroup
-                heading={providerNames[providerKey] ?? providerKey}
+                heading={providerDisplayNames[providerKey] ?? providerKey}
                 key={providerKey}
               >
-                {providerModels.map((model) => {
-                  const logoProvider = model.id.split("/")[0];
+                {providerModels.map((m) => {
+                  const logoProvider = m.id.split("/")[0];
                   return (
                     <ModelSelectorItem
-                      key={model.id}
+                      key={m.id}
                       onSelect={() => {
-                        onModelChange?.(model.id);
-                        setCookie("chat-model", model.id);
+                        onModelChange?.(m.id);
+                        setCookie("chat-model", m.id);
                         setOpen(false);
                       }}
-                      value={model.id}
+                      value={m.id}
                     >
                       <ModelSelectorLogo provider={logoProvider} />
-                      <ModelSelectorName>{model.name}</ModelSelectorName>
-                      {model.id === selectedModel.id && (
-                        <CheckIcon className="ml-auto size-4" />
+                      <div className="flex flex-col">
+                        <ModelSelectorName>{m.name}</ModelSelectorName>
+                        <span className="text-[11px] text-muted-foreground">
+                          {m.description}
+                        </span>
+                      </div>
+                      {m.id === selectedModel.id && (
+                        <CheckIcon className="mr-auto size-4 text-primary" />
                       )}
                     </ModelSelectorItem>
                   );
@@ -638,7 +638,7 @@ function PureStopButton({
 }) {
   return (
     <Button
-      className="size-7 rounded-full bg-foreground p-1 text-background transition-colors duration-200 hover:bg-foreground/90 disabled:bg-muted disabled:text-muted-foreground"
+      className="size-9 rounded-xl bg-destructive/90 p-1 text-destructive-foreground shadow-sm transition-all duration-200 hover:bg-destructive hover:shadow-md active:scale-95"
       data-testid="stop-button"
       onClick={(event) => {
         event.preventDefault();

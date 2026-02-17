@@ -1,13 +1,8 @@
 import "server-only";
 
 import { and, desc, eq } from "drizzle-orm";
-import { drizzle } from "drizzle-orm/postgres-js";
-import postgres from "postgres";
-
 import { type Agent, agent, agentUsage } from "./agents-schema";
-
-const client = postgres(process.env.POSTGRES_URL!);
-const db = drizzle(client);
+import { db } from "./index";
 
 // Get all published agents for marketplace
 export async function getPublishedAgents({

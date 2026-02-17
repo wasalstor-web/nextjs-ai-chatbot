@@ -1,5 +1,6 @@
 import { anthropic } from "@ai-sdk/anthropic";
 import { gateway } from "@ai-sdk/gateway";
+import { google } from "@ai-sdk/google";
 import { openai } from "@ai-sdk/openai";
 import {
   customProvider,
@@ -20,6 +21,9 @@ const useDirectAnthropic =
 const useDirectOpenAI =
   !!process.env.OPENAI_API_KEY &&
   !process.env.OPENAI_API_KEY.includes("YOUR_KEY_HERE");
+const useDirectGoogle =
+  !!process.env.GOOGLE_GENERATIVE_AI_API_KEY &&
+  !process.env.GOOGLE_GENERATIVE_AI_API_KEY.includes("YOUR_KEY_HERE");
 
 /**
  * Map gateway-style model IDs (e.g. "anthropic/claude-sonnet-4.5")
@@ -44,6 +48,16 @@ const OPENAI_MODEL_MAP: Record<string, string> = {
   "openai/gpt-4-turbo": "gpt-4-turbo",
 };
 
+/**
+ * Map gateway-style Google model IDs to actual Google Gemini model names.
+ */
+const GOOGLE_MODEL_MAP: Record<string, string> = {
+  "google/gemini-3-pro": "gemini-3-pro",
+  "google/gemini-2.5-flash": "gemini-2.5-flash",
+  "google/gemini-2.5-flash-lite": "gemini-2.5-flash-lite",
+  "google/gemini-3-pro-preview": "gemini-3-pro-preview",
+};
+
 // Internal function that returns the raw model type for wrapping
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function resolveModelInternal(modelId: string): any {
@@ -58,6 +72,12 @@ function resolveModelInternal(modelId: string): any {
   if (useDirectOpenAI && modelId.startsWith("openai/")) {
     const bareId = OPENAI_MODEL_MAP[modelId] ?? modelId.replace("openai/", "");
     return openai(bareId);
+  }
+
+  // If the model is a Google model and we have a direct key, use it
+  if (useDirectGoogle && modelId.startsWith("google/")) {
+    const bareId = GOOGLE_MODEL_MAP[modelId] ?? modelId.replace("google/", "");
+    return google(bareId);
   }
 
   // Otherwise use the gateway

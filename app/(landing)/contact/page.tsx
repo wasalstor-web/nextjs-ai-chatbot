@@ -1,6 +1,5 @@
 "use client";
 
-import { GlassCard } from "@/components/landing/glass-card";
 import { motion } from "framer-motion";
 import {
   CheckCircle,
@@ -14,6 +13,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
+import { GlassCard } from "@/components/landing/glass-card";
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -86,7 +86,7 @@ export default function ContactPage() {
   ];
 
   return (
-    <div className="min-h-screen overflow-hidden bg-gradient-to-b from-white via-green-50/30 to-white dark:from-gray-950 dark:via-gray-900 dark:to-gray-950">
+    <div className="min-h-screen overflow-hidden bg-linear-to-b from-white via-green-50/30 to-white dark:from-gray-950 dark:via-gray-900 dark:to-gray-950">
       {/* Gradient orbs */}
       <div className="pointer-events-none fixed top-20 left-20 h-72 w-72 rounded-full bg-green-400/10 blur-[100px]" />
       <div className="pointer-events-none fixed right-20 bottom-20 h-96 w-96 rounded-full bg-emerald-400/10 blur-[100px]" />
@@ -113,7 +113,7 @@ export default function ContactPage() {
             <h1 className="mb-6 font-bold text-5xl lg:text-7xl">
               <span className="text-gray-900 dark:text-white">نحن هنا</span>
               <br />
-              <span className="bg-gradient-to-l from-green-600 via-emerald-600 to-teal-600 bg-clip-text text-transparent">
+              <span className="bg-linear-to-l from-green-600 via-emerald-600 to-teal-600 bg-clip-text text-transparent">
                 لمساعدتك
               </span>
             </h1>
@@ -135,7 +135,7 @@ export default function ContactPage() {
                   delay={index * 0.1}
                 >
                   <motion.div
-                    className={`h-14 w-14 rounded-2xl bg-gradient-to-br ${method.gradient} mb-4 flex items-center justify-center shadow-lg`}
+                    className={`h-14 w-14 rounded-2xl bg-linear-to-br ${method.gradient} mb-4 flex items-center justify-center shadow-lg`}
                     whileHover={{ scale: 1.1, rotate: 5 }}
                   >
                     <method.icon className="h-7 w-7 text-white" />
@@ -248,7 +248,7 @@ export default function ContactPage() {
                   className={`flex w-full items-center justify-center gap-3 rounded-xl py-4 font-bold text-lg transition-all ${
                     status === "success"
                       ? "bg-green-500 text-white"
-                      : "bg-gradient-to-r from-green-600 to-emerald-600 text-white shadow-green-500/30 shadow-xl"
+                      : "bg-linear-to-r from-green-600 to-emerald-600 text-white shadow-green-500/30 shadow-xl"
                   }`}
                   disabled={status === "loading" || status === "success"}
                   type="submit"
@@ -308,7 +308,7 @@ export default function ContactPage() {
 
               {/* Map Placeholder */}
               <GlassCard className="h-[300px] overflow-hidden p-0" delay={0.4}>
-                <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-green-100 to-emerald-100 dark:from-green-900/30 dark:to-emerald-900/30">
+                <div className="flex h-full w-full items-center justify-center bg-linear-to-br from-green-100 to-emerald-100 dark:from-green-900/30 dark:to-emerald-900/30">
                   <div className="text-center">
                     <MapPin className="mx-auto mb-4 h-12 w-12 text-green-600 dark:text-green-400" />
                     <p className="text-gray-600 dark:text-gray-400">

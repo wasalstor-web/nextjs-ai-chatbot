@@ -1,11 +1,7 @@
 import { eq } from "drizzle-orm";
-import { drizzle } from "drizzle-orm/postgres-js";
-import postgres from "postgres";
 import { auth } from "@/app/(auth)/auth";
+import { db } from "@/lib/db";
 import { user } from "@/lib/db/schema";
-
-const client = postgres(process.env.POSTGRES_URL!);
-const db = drizzle(client);
 
 /**
  * Check if the current user is an admin using DB role field

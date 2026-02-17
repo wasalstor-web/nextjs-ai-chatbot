@@ -93,8 +93,7 @@ const STORE_TYPES: Record<
   home: {
     label: "منزل",
     emoji: "🏠",
-    color:
-      "bg-green-500/10 text-green-600 dark:text-green-400 border-green-500/20",
+    color: "bg-teal-500/10 text-teal-600 dark:text-teal-400 border-teal-500/20",
   },
   perfume: {
     label: "عطور",
@@ -323,7 +322,7 @@ export function StoresManagement() {
                 className={cn(
                   "h-2",
                   store.status === "active"
-                    ? "bg-gradient-to-r from-emerald-500 to-green-500"
+                    ? "bg-gradient-to-r from-emerald-500 to-teal-500"
                     : "bg-gradient-to-r from-gray-300 to-gray-400 dark:from-gray-600 dark:to-gray-700"
                 )}
               />

@@ -64,7 +64,11 @@
   },
   "[markdown]": {
     "editor.wordWrap": "on",
-    "editor.quickSuggestions": false
+    "editor.quickSuggestions": {
+      "comments": "off",
+      "strings": "off",
+      "other": "off"
+    }
   },
 
   // ═══════════════════════════════════════════════════════════
@@ -102,20 +106,6 @@
   },
 
   // ═══════════════════════════════════════════════════════════
-  // 🤖 GitHub Copilot
-  // ═══════════════════════════════════════════════════════════
-  "github.copilot.enable": {
-    "*": true,
-    "yaml": true,
-    "plaintext": false,
-    "markdown": true,
-    "typescript": true,
-    "javascript": true,
-    "typescriptreact": true,
-    "javascriptreact": true
-  },
-
-  // ═══════════════════════════════════════════════════════════
   // 🔎 Search Settings
   // ═══════════════════════════════════════════════════════════
   "search.exclude": {
@@ -131,5 +121,6 @@
   // ═══════════════════════════════════════════════════════════
   "terminal.integrated.defaultProfile.windows": "PowerShell",
   "terminal.integrated.fontFamily": "Cascadia Code, Consolas, monospace",
-  "terminal.integrated.fontSize": 14
+  "terminal.integrated.fontSize": 14,
+  "snyk.advanced.autoSelectOrganization": true
 }

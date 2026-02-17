@@ -1,13 +1,9 @@
 import { count, desc, eq, like } from "drizzle-orm";
-import { drizzle } from "drizzle-orm/postgres-js";
 import { NextResponse } from "next/server";
-import postgres from "postgres";
 import { auth } from "@/app/(auth)/auth";
 import { isAdmin } from "@/lib/auth/admin";
+import { db } from "@/lib/db";
 import { chat, user } from "@/lib/db/schema";
-
-const client = postgres(process.env.POSTGRES_URL!);
-const db = drizzle(client);
 
 export async function GET(request: Request): Promise<NextResponse> {
   const session = await auth();

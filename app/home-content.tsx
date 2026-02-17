@@ -1,10 +1,6 @@
 "use client";
 
-import { GlassCard } from "@/components/landing/glass-card";
-import { AnimatedCounter } from "@/components/ui/animated-counter";
-import {
-  motion,
-} from "framer-motion";
+import { motion } from "framer-motion";
 import {
   ArrowLeft,
   Award,
@@ -13,20 +9,23 @@ import {
   Check,
   ChevronRight,
   Clock,
-  Globe,
+  FileText,
   MessageSquare,
+  Mic,
   Play,
+  Scale,
   Shield,
   Smartphone,
   Sparkles,
   Star,
   TrendingUp,
-  Upload,
   Users,
   Zap,
 } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { GlassCard } from "@/components/landing/glass-card";
+import { AnimatedCounter } from "@/components/ui/animated-counter";
 
 // Floating particles background
 function FloatingParticles() {
@@ -65,27 +64,27 @@ export default function HomePageContent() {
 
   const testimonials = [
     {
-      name: "أحمد محمد",
-      role: "مدير تسويق",
-      image: "أ",
+      name: "المحامي فهد الشمري",
+      role: "محامي ومستشار قانوني",
+      image: "ف",
       content:
-        "أفضل مساعد ذكي استخدمته على الإطلاق! ساعدني في كتابة محتوى تسويقي احترافي بسرعة فائقة.",
+        "مستشار قانوني ذكي ودقيق! ساعدني في صياغة العقود ومراجعة القضايا بسرعة فائقة مع مراعاة الأنظمة السعودية.",
       rating: 5,
     },
     {
-      name: "سارة علي",
-      role: "مطورة برمجيات",
+      name: "سارة القحطاني",
+      role: "مديرة قسم قانوني",
       image: "س",
       content:
-        "أداة رائعة لمراجعة الكود وشرح المفاهيم البرمجية. أصبحت جزءاً أساسياً من عملي اليومي.",
+        "أداة رائعة للبحث القانوني والاستشارات الفورية. أصبح جزءاً أساسياً من عمل فريقنا القانوني.",
       rating: 5,
     },
     {
-      name: "خالد العمري",
-      role: "طالب جامعي",
-      image: "خ",
+      name: "عبدالله العتيبي",
+      role: "صاحب شركة تجارية",
+      image: "ع",
       content:
-        "ساعدني كثيراً في البحث والدراسة. إجابات دقيقة ومفصلة لجميع أسئلتي الأكاديمية.",
+        "استشارات قانونية دقيقة في دقائق! ساعدني في فهم الأنظمة التجارية وحقوقي القانونية بوضوح.",
       rating: 5,
     },
   ];
@@ -99,60 +98,60 @@ export default function HomePageContent() {
   }, [testimonials.length]);
 
   const stats = [
-    { value: 50_000, suffix: "+", label: "مستخدم نشط", icon: Users },
+    { value: 10_000, suffix: "+", label: "استشارة قانونية", icon: Users },
     {
-      value: 1_000_000,
+      value: 500_000,
       suffix: "+",
-      label: "محادثة مكتملة",
+      label: "وثيقة قانونية",
       icon: MessageSquare,
     },
-    { value: 99, suffix: ".9%", label: "وقت التشغيل", icon: TrendingUp },
-    { value: 4, suffix: ".9", label: "تقييم المستخدمين", icon: Star },
+    { value: 99, suffix: ".9%", label: "دقة الاستشارات", icon: TrendingUp },
+    { value: 4, suffix: ".9", label: "تقييم المحامين", icon: Star },
   ];
 
   const pricingFeatures = [
-    "محادثات غير محدودة",
-    "دعم جميع الملفات",
-    "الوضع الليلي",
-    "تزامن سحابي",
-    "دعم فني 24/7",
+    "استشارات قانونية غير محدودة",
+    "مراجعة العقود والوثائق",
+    "استشارة صوتية وكتابية",
+    "متخصص في القانون السعودي",
+    "دعم قانوني 24/7",
   ];
 
   const features = [
     {
-      icon: MessageSquare,
-      title: "محادثات طبيعية",
-      description: "تفاعل بشكل طبيعي وكأنك تتحدث مع صديق",
+      icon: Scale,
+      title: "متخصص في القانون السعودي",
+      description: "خبرة شاملة بالأنظمة واللوائح والقوانين السعودية",
       gradient: "from-emerald-400 to-green-500",
     },
     {
-      icon: Zap,
-      title: "استجابة فورية",
-      description: "إجابات دقيقة في أقل من ثانية واحدة",
+      icon: Mic,
+      title: "استشارة صوتية وكتابية",
+      description: "تحدث أو اكتب استشارتك واحصل على إجابة فورية دقيقة",
       gradient: "from-green-400 to-teal-500",
     },
     {
-      icon: Upload,
-      title: "دعم الملفات",
-      description: "أرفق صور ومستندات للتحليل الذكي",
+      icon: FileText,
+      title: "مراجعة العقود والوثائق",
+      description: "تحليل ومراجعة احترافية للعقود والمستندات القانونية",
       gradient: "from-teal-400 to-cyan-500",
     },
     {
       icon: Shield,
-      title: "خصوصية تامة",
-      description: "تشفير متقدم وحماية بياناتك",
+      title: "سرية وخصوصية تامة",
+      description: "تشفير متقدم وحماية كاملة لاستشاراتك القانونية",
       gradient: "from-green-500 to-emerald-600",
     },
     {
-      icon: Globe,
-      title: "متاح في كل مكان",
-      description: "استخدم من أي جهاز في أي وقت",
+      icon: Zap,
+      title: "استشارات فورية 24/7",
+      description: "متاح دائماً لتقديم الاستشارات القانونية في أي وقت",
       gradient: "from-emerald-500 to-green-600",
     },
     {
       icon: Brain,
-      title: "ذكاء متقدم",
-      description: "أحدث نماذج الذكاء الاصطناعي",
+      title: "ذكاء قانوني متقدم",
+      description: "مدعوم بأحدث تقنيات الذكاء الاصطناعي القانوني",
       gradient: "from-green-600 to-teal-600",
     },
   ];
@@ -185,7 +184,7 @@ export default function HomePageContent() {
           className="absolute right-20 bottom-20 h-96 w-96 animate-pulse rounded-full bg-emerald-400/8 blur-[100px]"
           style={{ animationDelay: "1s" }}
         />
-        <div className="-translate-x-1/2 -translate-y-1/2 absolute top-1/2 left-1/2 h-[600px] w-[600px] rounded-full bg-gradient-to-br from-green-300/5 to-emerald-300/5 blur-[120px]" />
+        <div className="-translate-x-1/2 -translate-y-1/2 absolute top-1/2 left-1/2 h-[600px] w-[600px] rounded-full bg-linear-to-br from-green-300/5 to-emerald-300/5 blur-[120px]" />
 
         <div className="container relative z-10 mx-auto px-4 py-24">
           <div className="mx-auto max-w-7xl">
@@ -201,8 +200,8 @@ export default function HomePageContent() {
                   className="mb-8 inline-flex items-center gap-2 rounded-full border border-green-200/50 bg-white/80 px-6 py-3 font-medium text-green-700 text-sm shadow-green-500/10 shadow-lg backdrop-blur-xl dark:border-green-700/50 dark:bg-white/10 dark:text-green-300"
                   variants={itemVariants}
                 >
-                  <Sparkles className="h-4 w-4" />
-                  مدعوم بالذكاء الاصطناعي المتقدم
+                  <Scale className="h-4 w-4" />
+                  متخصص في القانون السعودي
                   <span className="h-2 w-2 animate-pulse rounded-full bg-green-500" />
                 </motion.div>
 
@@ -210,12 +209,12 @@ export default function HomePageContent() {
                   className="mb-8 font-bold text-5xl leading-tight lg:text-7xl"
                   variants={itemVariants}
                 >
-                  <span className="bg-gradient-to-l from-green-600 via-emerald-600 to-teal-600 bg-clip-text text-transparent">
-                    مساعدك الذكي
+                  <span className="bg-linear-to-l from-green-600 via-emerald-600 to-teal-600 bg-clip-text text-transparent">
+                    مستشارك القانوني
                   </span>
                   <br />
                   <span className="text-gray-900 dark:text-white">
-                    في كل خطوة
+                    الذكي والاحترافي
                   </span>
                 </motion.h1>
 
@@ -223,9 +222,10 @@ export default function HomePageContent() {
                   className="mb-10 text-gray-600 text-xl leading-relaxed dark:text-gray-300"
                   variants={itemVariants}
                 >
-                  محادثات ذكية، إجابات فورية، ودعم متواصل على مدار الساعة.
+                  استشارات قانونية فورية، مراجعة العقود، وإجابات دقيقة على مدار
+                  الساعة.
                   <br className="hidden lg:block" />
-                  استمتع بتجربة محادثة طبيعية مع الذكاء الاصطناعي الأكثر تطوراً.
+                  استشارة صوتية أو كتابية بخبرة شاملة في القانون السعودي.
                 </motion.p>
 
                 <motion.div
@@ -241,7 +241,7 @@ export default function HomePageContent() {
                       }}
                       whileTap={{ scale: 0.98 }}
                     >
-                      ابدأ المحادثة الآن
+                      احصل على استشارة قانونية
                       <ArrowLeft className="h-5 w-5" />
                     </motion.button>
                   </Link>
@@ -269,7 +269,7 @@ export default function HomePageContent() {
                   <div className="-space-x-2 flex rtl:space-x-reverse">
                     {["أ", "س", "م"].map((letter, i) => (
                       <div
-                        className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-green-400 to-emerald-600 font-bold text-white text-xs ring-2 ring-white dark:ring-gray-900"
+                        className="flex h-8 w-8 items-center justify-center rounded-full bg-linear-to-br from-green-400 to-emerald-600 font-bold text-white text-xs ring-2 ring-white dark:ring-gray-900"
                         key={i}
                       >
                         {letter}
@@ -297,13 +297,13 @@ export default function HomePageContent() {
                     ease: "easeInOut",
                   }}
                 >
-                  <div className="h-[580px] w-72 rounded-[3rem] border border-gray-700 bg-gradient-to-b from-gray-900 to-gray-800 p-3 shadow-2xl shadow-green-900/20">
+                  <div className="h-[580px] w-72 rounded-[3rem] border border-gray-700 bg-linear-to-b from-gray-900 to-gray-800 p-3 shadow-2xl shadow-green-900/20">
                     <div className="relative h-full w-full overflow-hidden rounded-[2.25rem] bg-white dark:bg-gray-900">
-                      <div className="flex h-8 items-center justify-center bg-gradient-to-r from-green-600 to-emerald-600">
+                      <div className="flex h-8 items-center justify-center bg-linear-to-r from-green-600 to-emerald-600">
                         <div className="h-5 w-20 rounded-full bg-black/20" />
                       </div>
 
-                      <div className="bg-gradient-to-r from-green-600 to-emerald-600 px-4 pt-2 pb-4">
+                      <div className="bg-linear-to-r from-green-600 to-emerald-600 px-4 pt-2 pb-4">
                         <div className="flex items-center gap-3" dir="rtl">
                           <motion.div
                             animate={{ rotate: [0, 5, -5, 0] }}
@@ -353,7 +353,7 @@ export default function HomePageContent() {
                           initial={{ opacity: 0, x: 20 }}
                           transition={{ delay: 1 }}
                         >
-                          <div className="max-w-[85%] rounded-2xl rounded-tl-sm bg-gradient-to-r from-green-600 to-emerald-600 p-3">
+                          <div className="max-w-[85%] rounded-2xl rounded-tl-sm bg-linear-to-r from-green-600 to-emerald-600 p-3">
                             <p className="text-white text-xs">
                               أحتاج مساعدة في كتابة مقال احترافي
                             </p>
@@ -428,7 +428,7 @@ export default function HomePageContent() {
                             readOnly
                             type="text"
                           />
-                          <div className="flex h-7 w-7 items-center justify-center rounded-full bg-gradient-to-r from-green-600 to-emerald-600 shadow-green-500/30 shadow-lg">
+                          <div className="flex h-7 w-7 items-center justify-center rounded-full bg-linear-to-r from-green-600 to-emerald-600 shadow-green-500/30 shadow-lg">
                             <ArrowLeft className="h-4 w-4 text-white" />
                           </div>
                         </div>
@@ -438,7 +438,7 @@ export default function HomePageContent() {
 
                   <motion.div
                     animate={{ scale: [1, 1.2, 1], rotate: [0, 10, 0] }}
-                    className="-top-6 -right-6 absolute h-24 w-24 rounded-3xl bg-gradient-to-br from-green-400/30 to-emerald-400/30 blur-xl"
+                    className="-top-6 -right-6 absolute h-24 w-24 rounded-3xl bg-linear-to-br from-green-400/30 to-emerald-400/30 blur-xl"
                     transition={{
                       duration: 4,
                       repeat: Number.POSITIVE_INFINITY,
@@ -446,7 +446,7 @@ export default function HomePageContent() {
                   />
                   <motion.div
                     animate={{ scale: [1, 1.2, 1], rotate: [0, -10, 0] }}
-                    className="-bottom-6 -left-6 absolute h-32 w-32 rounded-3xl bg-gradient-to-br from-emerald-400/30 to-teal-400/30 blur-xl"
+                    className="-bottom-6 -left-6 absolute h-32 w-32 rounded-3xl bg-linear-to-br from-emerald-400/30 to-teal-400/30 blur-xl"
                     transition={{
                       duration: 4,
                       repeat: Number.POSITIVE_INFINITY,
@@ -461,11 +461,11 @@ export default function HomePageContent() {
                     transition={{ delay: 2.5 }}
                   >
                     <div className="flex items-center gap-2">
-                      <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-green-500 to-emerald-600">
+                      <div className="flex h-8 w-8 items-center justify-center rounded-full bg-linear-to-br from-green-500 to-emerald-600">
                         <Sparkles className="h-4 w-4 text-white" />
                       </div>
                       <span className="font-medium text-gray-800 text-xs dark:text-white">
-                        ذكاء خارق! 🚀
+                        استشارة قانونية دقيقة! ⚖️
                       </span>
                     </div>
                   </motion.div>
@@ -511,10 +511,7 @@ export default function HomePageContent() {
       </section>
 
       {/* Saudi Vision Video */}
-      <section
-        className="bg-white py-24 dark:bg-gray-950"
-        dir="rtl"
-      >
+      <section className="bg-white py-24 dark:bg-gray-950" dir="rtl">
         <div className="container mx-auto px-4">
           <motion.div
             className="mb-12 text-center"
@@ -546,7 +543,7 @@ export default function HomePageContent() {
               rel="noopener noreferrer"
               target="_blank"
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-green-900 via-green-800 to-emerald-900">
+              <div className="absolute inset-0 bg-linear-to-br from-green-900 via-green-800 to-emerald-900">
                 <div className="absolute inset-0 opacity-20">
                   <svg
                     className="h-full w-full"
@@ -604,8 +601,8 @@ export default function HomePageContent() {
                 🇸🇦 رؤية المملكة
               </div>
 
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-green-900/60 via-transparent to-transparent" />
-              <div className="absolute right-0 bottom-0 left-0 h-1 bg-gradient-to-r from-green-600 via-white to-green-600" />
+              <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-green-900/60 via-transparent to-transparent" />
+              <div className="absolute right-0 bottom-0 left-0 h-1 bg-linear-to-r from-green-600 via-white to-green-600" />
             </a>
 
             <div className="mt-8 grid grid-cols-3 gap-6">
@@ -616,7 +613,7 @@ export default function HomePageContent() {
               ].map((item, index) => (
                 <GlassCard delay={index * 0.1} key={index}>
                   <div className="p-4 text-center">
-                    <div className="bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text font-bold text-2xl text-transparent">
+                    <div className="bg-linear-to-r from-green-600 to-emerald-600 bg-clip-text font-bold text-2xl text-transparent">
                       {item.label}
                     </div>
                     <div className="text-gray-500 text-sm dark:text-gray-400">
@@ -640,10 +637,10 @@ export default function HomePageContent() {
             whileInView={{ opacity: 1, y: 0 }}
           >
             <h2 className="mb-4 font-bold text-4xl text-gray-900 lg:text-5xl dark:text-white">
-              لماذا تختار مساعدك الذكي؟
+              لماذا تختار مستشارك القانوني الذكي؟
             </h2>
             <p className="mx-auto max-w-2xl text-gray-600 text-xl dark:text-gray-400">
-              نوفر لك أفضل تجربة محادثة ذكية مع ميزات متقدمة
+              نوفر لك استشارات قانونية احترافية مع خبرة شاملة بالقانون السعودي
             </p>
           </motion.div>
 
@@ -651,7 +648,7 @@ export default function HomePageContent() {
             {features.map((feature, index) => (
               <GlassCard className="p-8" delay={index * 0.1} key={index}>
                 <motion.div
-                  className={`h-14 w-14 rounded-2xl bg-gradient-to-br ${feature.gradient} mb-5 flex items-center justify-center shadow-lg`}
+                  className={`h-14 w-14 rounded-2xl bg-linear-to-br ${feature.gradient} mb-5 flex items-center justify-center shadow-lg`}
                   whileHover={{ scale: 1.1, rotate: 5 }}
                 >
                   <feature.icon className="h-7 w-7 text-white" />
@@ -669,10 +666,7 @@ export default function HomePageContent() {
       </section>
 
       {/* How It Works */}
-      <section
-        className="bg-gray-50/50 py-24 dark:bg-gray-900"
-        dir="rtl"
-      >
+      <section className="bg-gray-50/50 py-24 dark:bg-gray-900" dir="rtl">
         <div className="container mx-auto px-4">
           <motion.div
             className="mb-16 text-center"
@@ -690,7 +684,7 @@ export default function HomePageContent() {
           </motion.div>
 
           <div className="relative mx-auto grid max-w-5xl gap-8 md:grid-cols-3">
-            <div className="absolute top-16 right-1/4 left-1/4 hidden h-0.5 bg-gradient-to-l from-green-400/50 via-green-500/50 to-green-400/50 md:block" />
+            <div className="absolute top-16 right-1/4 left-1/4 hidden h-0.5 bg-linear-to-l from-green-400/50 via-green-500/50 to-green-400/50 md:block" />
 
             {[
               {
@@ -718,7 +712,7 @@ export default function HomePageContent() {
                 whileInView={{ opacity: 1, y: 0 }}
               >
                 <motion.div
-                  className="relative z-10 mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-green-600 to-emerald-600 font-bold text-2xl text-white shadow-green-500/30 shadow-xl"
+                  className="relative z-10 mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-linear-to-br from-green-600 to-emerald-600 font-bold text-2xl text-white shadow-green-500/30 shadow-lg"
                   whileHover={{ scale: 1.1, rotate: 5 }}
                 >
                   {item.step}
@@ -762,7 +756,7 @@ export default function HomePageContent() {
                 initial={{ opacity: 0, x: 20 }}
                 key={activeTestimonial}
               >
-                <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-green-500 to-emerald-600 font-bold text-3xl text-white shadow-green-500/30 shadow-xl">
+                <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-2xl bg-linear-to-br from-green-500 to-emerald-600 font-bold text-3xl text-white shadow-green-500/30 shadow-lg">
                   {testimonials[activeTestimonial].image}
                 </div>
                 <div className="flex-1 text-center lg:text-right">
@@ -795,7 +789,7 @@ export default function HomePageContent() {
                   <button
                     className={`h-2 rounded-full transition-all duration-300 ${
                       index === activeTestimonial
-                        ? "w-8 bg-gradient-to-r from-green-600 to-emerald-600"
+                        ? "w-8 bg-linear-to-r from-green-600 to-emerald-600"
                         : "w-2 bg-gray-300 hover:bg-gray-400 dark:bg-gray-700"
                     }`}
                     key={index}
@@ -810,7 +804,7 @@ export default function HomePageContent() {
 
       {/* Stats */}
       <section
-        className="relative overflow-hidden border-y border-gray-100 bg-white py-20 dark:border-gray-800 dark:bg-gray-950"
+        className="relative overflow-hidden border-gray-100 border-y bg-white py-20 dark:border-gray-800 dark:bg-gray-950"
         dir="rtl"
       >
         <div className="container relative z-10 mx-auto px-4">
@@ -833,7 +827,9 @@ export default function HomePageContent() {
                 <div className="mb-1 font-bold text-3xl text-gray-900 lg:text-4xl dark:text-white">
                   <AnimatedCounter suffix={stat.suffix} value={stat.value} />
                 </div>
-                <div className="text-gray-500 dark:text-gray-400">{stat.label}</div>
+                <div className="text-gray-500 dark:text-gray-400">
+                  {stat.label}
+                </div>
               </motion.div>
             ))}
           </div>
@@ -864,7 +860,7 @@ export default function HomePageContent() {
             whileInView={{ opacity: 1, scale: 1 }}
           >
             <GlassCard className="relative overflow-hidden border-2 border-green-500/50 p-8">
-              <div className="absolute top-0 right-0 left-0 h-1 bg-gradient-to-r from-green-600 via-emerald-600 to-teal-600" />
+              <div className="absolute top-0 right-0 left-0 h-1 bg-linear-to-r from-green-600 via-emerald-600 to-teal-600" />
 
               <motion.div
                 className="-top-4 -translate-x-1/2 absolute left-1/2"
@@ -872,13 +868,13 @@ export default function HomePageContent() {
                 viewport={{ once: true }}
                 whileInView={{ y: 0, opacity: 1 }}
               >
-                <span className="rounded-full bg-gradient-to-r from-green-600 to-emerald-600 px-6 py-2 font-bold text-sm text-white shadow-green-500/30 shadow-lg">
+                <span className="rounded-full bg-linear-to-r from-green-600 to-emerald-600 px-6 py-2 font-bold text-sm text-white shadow-green-500/30 shadow-lg">
                   الأكثر شعبية
                 </span>
               </motion.div>
 
               <div className="mt-4 mb-8 text-center">
-                <div className="mb-2 bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text font-bold text-5xl text-transparent">
+                <div className="mb-2 bg-linear-to-r from-green-600 to-emerald-600 bg-clip-text font-bold text-5xl text-transparent">
                   مجاني
                 </div>
                 <div className="text-gray-500 dark:text-gray-400">
@@ -908,7 +904,7 @@ export default function HomePageContent() {
 
               <Link href="/register">
                 <motion.button
-                  className="block w-full rounded-xl bg-gradient-to-r from-green-600 to-emerald-600 py-4 text-center font-bold text-lg text-white shadow-green-500/30 shadow-xl transition-all hover:from-green-500 hover:to-emerald-500"
+                  className="block w-full rounded-xl bg-linear-to-r from-green-600 to-emerald-600 py-4 text-center font-bold text-lg text-white shadow-green-500/30 shadow-xl transition-all hover:from-green-700 hover:to-emerald-700"
                   whileHover={{
                     scale: 1.02,
                     boxShadow: "0 20px 40px -10px rgba(34, 197, 94, 0.4)",

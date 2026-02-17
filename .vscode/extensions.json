@@ -38,7 +38,5 @@
     "formulahendry.auto-rename-tag",
     "naumovs.color-highlight"
   ],
-  "unwantedRecommendations": [
-    "esbenp.prettier-vscode"
-  ]
+  "unwantedRecommendations": ["esbenp.prettier-vscode"]
 }

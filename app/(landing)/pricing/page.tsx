@@ -1,6 +1,5 @@
 "use client";
 
-import { GlassCard } from "@/components/landing/glass-card";
 import { motion } from "framer-motion";
 import {
   ArrowLeft,
@@ -12,6 +11,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
+import { GlassCard } from "@/components/landing/glass-card";
 
 export default function PricingPage() {
   const [annual, setAnnual] = useState(true);
@@ -117,7 +117,7 @@ export default function PricingPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   return (
-    <div className="min-h-screen overflow-hidden bg-gradient-to-b from-white via-green-50/30 to-white dark:from-gray-950 dark:via-gray-900 dark:to-gray-950">
+    <div className="min-h-screen overflow-hidden bg-linear-to-b from-white via-green-50/30 to-white dark:from-gray-950 dark:via-gray-900 dark:to-gray-950">
       {/* Gradient orbs */}
       <div className="pointer-events-none fixed top-20 left-20 h-72 w-72 rounded-full bg-green-400/10 blur-[100px]" />
       <div className="pointer-events-none fixed right-20 bottom-20 h-96 w-96 rounded-full bg-emerald-400/10 blur-[100px]" />
@@ -134,7 +134,7 @@ export default function PricingPage() {
             <h1 className="mb-6 font-bold text-5xl lg:text-7xl">
               <span className="text-gray-900 dark:text-white">اختر الباقة</span>
               <br />
-              <span className="bg-gradient-to-l from-green-600 via-emerald-600 to-teal-600 bg-clip-text text-transparent">
+              <span className="bg-linear-to-l from-green-600 via-emerald-600 to-teal-600 bg-clip-text text-transparent">
                 المناسبة لك
               </span>
             </h1>
@@ -155,8 +155,9 @@ export default function PricingPage() {
                 شهري
               </span>
               <button
-                className={`relative h-7 w-14 rounded-full transition-colors ${annual ? "bg-gradient-to-r from-green-600 to-emerald-600" : "bg-gray-300 dark:bg-gray-700"}`}
+                className={`relative h-7 w-14 rounded-full transition-colors ${annual ? "bg-linear-to-r from-green-600 to-emerald-600" : "bg-gray-300 dark:bg-gray-700"}`}
                 onClick={() => setAnnual(!annual)}
+                type="button"
               >
                 <motion.div
                   animate={{ left: annual ? "32px" : "4px" }}
@@ -192,7 +193,7 @@ export default function PricingPage() {
                   <div className="-top-5 absolute right-0 left-0 flex justify-center">
                     <motion.span
                       animate={{ y: 0, opacity: 1 }}
-                      className="rounded-full bg-gradient-to-r from-green-600 to-emerald-600 px-6 py-2 font-bold text-sm text-white shadow-green-500/30 shadow-lg"
+                      className="rounded-full bg-linear-to-r from-green-600 to-emerald-600 px-6 py-2 font-bold text-sm text-white shadow-green-500/30 shadow-lg"
                       initial={{ y: -10, opacity: 0 }}
                       transition={{ delay: 0.5 }}
                     >
@@ -203,7 +204,7 @@ export default function PricingPage() {
 
                 {/* Icon */}
                 <motion.div
-                  className={`h-16 w-16 rounded-2xl bg-gradient-to-br ${plan.gradient} mb-6 flex items-center justify-center shadow-lg`}
+                  className={`h-16 w-16 rounded-2xl bg-linear-to-br ${plan.gradient} mb-6 flex items-center justify-center shadow-lg`}
                   whileHover={{ scale: 1.1, rotate: 5 }}
                 >
                   <plan.icon className="h-8 w-8 text-white" />
@@ -220,7 +221,7 @@ export default function PricingPage() {
                 {/* Price */}
                 <div className="mb-6">
                   <div className="flex items-baseline gap-1">
-                    <span className="bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text font-bold text-5xl text-transparent">
+                    <span className="bg-linear-to-r from-green-600 to-emerald-600 bg-clip-text font-bold text-5xl text-transparent">
                       ${plan.price}
                     </span>
                     {plan.price !== "0" && (
@@ -260,7 +261,7 @@ export default function PricingPage() {
                   <motion.button
                     className={`w-full rounded-xl py-4 font-bold text-lg transition-all ${
                       plan.popular
-                        ? "bg-gradient-to-r from-green-600 to-emerald-600 text-white shadow-green-500/30 shadow-xl"
+                        ? "bg-linear-to-r from-green-600 to-emerald-600 text-white shadow-green-500/30 shadow-xl"
                         : "bg-gray-100 text-gray-900 hover:bg-gray-200 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
                     }`}
                     whileHover={{
@@ -338,7 +339,7 @@ export default function PricingPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-green-600 via-emerald-600 to-teal-600 py-24">
+      <section className="relative overflow-hidden bg-linear-to-br from-green-600 via-emerald-600 to-teal-600 py-24">
         <div className="absolute inset-0">
           <div className="absolute top-0 left-0 h-96 w-96 rounded-full bg-white/10 blur-3xl" />
           <div className="absolute right-0 bottom-0 h-96 w-96 rounded-full bg-white/10 blur-3xl" />
