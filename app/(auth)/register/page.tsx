@@ -48,7 +48,7 @@ export default function Page() {
           toast({ type: "error", description: "فشل تسجيل الدخول!" });
           setIsSuccessful(false);
         } else {
-          router.push("/");
+          router.push("/chat");
         }
       });
     }

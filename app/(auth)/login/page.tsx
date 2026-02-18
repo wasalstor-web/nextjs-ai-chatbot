@@ -33,7 +33,7 @@ export default function Page() {
         toast({ type: "error", description: "بيانات الدخول غير صحيحة!" });
       } else {
         setIsSuccessful(true);
-        router.push("/");
+        router.push("/chat");
       }
     } catch {
       toast({ type: "error", description: "حدث خطأ، حاول مرة ثانية" });
