@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useSession } from "next-auth/react";
+import { signIn } from "next-auth/react";
 import { useActionState, useEffect, useState } from "react";
 
 import { AuthForm } from "@/components/auth-form";
@@ -14,6 +14,7 @@ export default function Page() {
   const router = useRouter();
 
   const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [isSuccessful, setIsSuccessful] = useState(false);
 
   const [state, formAction] = useActionState<LoginActionState, FormData>(
@@ -23,9 +24,7 @@ export default function Page() {
     }
   );
 
-  const { update: updateSession } = useSession();
-
-  // biome-ignore lint/correctness/useExhaustiveDependencies: router and updateSession are stable refs
+  // biome-ignore lint/correctness/useExhaustiveDependencies: router is stable ref
   useEffect(() => {
     if (state.status === "failed") {
       toast({
@@ -39,13 +38,26 @@ export default function Page() {
       });
     } else if (state.status === "success") {
       setIsSuccessful(true);
-      updateSession();
-      router.push("/");
+
+      // Sign in from client
+      signIn("credentials", {
+        email: state.email || email,
+        password: state.password || password,
+        redirect: false,
+      }).then((result) => {
+        if (result?.error) {
+          toast({ type: "error", description: "فشل تسجيل الدخول!" });
+          setIsSuccessful(false);
+        } else {
+          router.push("/");
+        }
+      });
     }
-  }, [state.status]);
+  }, [state.status, state.email, state.password, email, password, router]);
 
   const handleSubmit = (formData: FormData) => {
     setEmail(formData.get("email") as string);
+    setPassword(formData.get("password") as string);
     formAction(formData);
   };
 

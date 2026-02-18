@@ -1,12 +1,8 @@
 "use server";
 
-import { isRedirectError } from "next/dist/client/components/redirect-error";
-import { AuthError } from "next-auth";
 import { z } from "zod";
 
 import { createUser, getUser } from "@/lib/db/queries";
-
-import { signIn } from "./auth";
 
 const authFormSchema = z.object({
   email: z.string().email(),
@@ -15,6 +11,8 @@ const authFormSchema = z.object({
 
 export type LoginActionState = {
   status: "idle" | "in_progress" | "success" | "failed" | "invalid_data";
+  email?: string;
+  password?: string;
 };
 
 export const login = async (
@@ -27,26 +25,21 @@ export const login = async (
       password: formData.get("password"),
     });
 
-    await signIn("credentials", {
-      email: validatedData.email,
-      password: validatedData.password,
-      redirect: false,
-    });
-
-    return { status: "success" };
-  } catch (error) {
-    if (error instanceof z.ZodError) {
-      return { status: "invalid_data" };
-    }
-
-    if (error instanceof AuthError) {
+    // Validate credentials
+    const [user] = await getUser(validatedData.email);
+    if (!user) {
       return { status: "failed" };
     }
 
-    // Next.js 15+ throws NEXT_REDIRECT even with redirect: false
-    // If signIn reached this point without AuthError, auth succeeded
-    if (isRedirectError(error)) {
-      return { status: "success" };
+    // Return credentials to client for signIn
+    return {
+      status: "success",
+      email: validatedData.email,
+      password: validatedData.password,
+    };
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      return { status: "invalid_data" };
     }
 
     throw error;
@@ -80,26 +73,11 @@ export const register = async (
     }
 
     await createUser(validatedData.email, validatedData.password);
-    await signIn("credentials", {
-      email: validatedData.email,
-      password: validatedData.password,
-      redirect: false,
-    });
 
     return { status: "success" };
   } catch (error) {
     if (error instanceof z.ZodError) {
       return { status: "invalid_data" };
-    }
-
-    if (error instanceof AuthError) {
-      return { status: "failed" };
-    }
-
-    // Next.js 15+ throws NEXT_REDIRECT even with redirect: false
-    // If signIn reached this point without AuthError, auth succeeded
-    if (isRedirectError(error)) {
-      return { status: "success" };
     }
 
     throw error;

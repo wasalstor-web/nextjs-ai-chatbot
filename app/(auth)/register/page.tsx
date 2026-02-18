@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useSession } from "next-auth/react";
+import { signIn } from "next-auth/react";
 import { useActionState, useEffect, useState } from "react";
 import { AuthForm } from "@/components/auth-form";
 import { SubmitButton } from "@/components/submit-button";
@@ -13,6 +13,7 @@ export default function Page() {
   const router = useRouter();
 
   const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [isSuccessful, setIsSuccessful] = useState(false);
 
   const [state, formAction] = useActionState<RegisterActionState, FormData>(
@@ -22,9 +23,7 @@ export default function Page() {
     }
   );
 
-  const { update: updateSession } = useSession();
-
-  // biome-ignore lint/correctness/useExhaustiveDependencies: router and updateSession are stable refs
+  // biome-ignore lint/correctness/useExhaustiveDependencies: router is stable ref
   useEffect(() => {
     if (state.status === "user_exists") {
       toast({ type: "error", description: "الحساب موجود مسبقاً!" });
@@ -36,16 +35,28 @@ export default function Page() {
         description: "تعذّر التحقق من البيانات!",
       });
     } else if (state.status === "success") {
-      toast({ type: "success", description: "تم إنشاء الحساب بنجاح!" });
-
+      toast({ type: "success", description: "جاري تسجيل الدخول..." });
       setIsSuccessful(true);
-      updateSession();
-      router.push("/");
+
+      // Sign in from client after successful registration
+      signIn("credentials", {
+        email,
+        password,
+        redirect: false,
+      }).then((result) => {
+        if (result?.error) {
+          toast({ type: "error", description: "فشل تسجيل الدخول!" });
+          setIsSuccessful(false);
+        } else {
+          router.push("/");
+        }
+      });
     }
-  }, [state.status]);
+  }, [state.status, email, password, router]);
 
   const handleSubmit = (formData: FormData) => {
     setEmail(formData.get("email") as string);
+    setPassword(formData.get("password") as string);
     formAction(formData);
   };
 
