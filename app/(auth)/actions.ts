@@ -9,41 +9,10 @@ const authFormSchema = z.object({
   password: z.string().min(6),
 });
 
+// Login is handled entirely client-side via next-auth/react signIn()
+// No server action needed — NextAuth Credentials provider validates password
 export type LoginActionState = {
   status: "idle" | "in_progress" | "success" | "failed" | "invalid_data";
-  email?: string;
-  password?: string;
-};
-
-export const login = async (
-  _: LoginActionState,
-  formData: FormData
-): Promise<LoginActionState> => {
-  try {
-    const validatedData = authFormSchema.parse({
-      email: formData.get("email"),
-      password: formData.get("password"),
-    });
-
-    // Validate credentials
-    const [user] = await getUser(validatedData.email);
-    if (!user) {
-      return { status: "failed" };
-    }
-
-    // Return credentials to client for signIn
-    return {
-      status: "success",
-      email: validatedData.email,
-      password: validatedData.password,
-    };
-  } catch (error) {
-    if (error instanceof z.ZodError) {
-      return { status: "invalid_data" };
-    }
-
-    throw error;
-  }
 };
 
 export type RegisterActionState = {

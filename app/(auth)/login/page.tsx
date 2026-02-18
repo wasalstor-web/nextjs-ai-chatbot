@@ -3,62 +3,41 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
-import { useActionState, useEffect, useState } from "react";
+import { useState } from "react";
 
 import { AuthForm } from "@/components/auth-form";
 import { SubmitButton } from "@/components/submit-button";
 import { toast } from "@/components/toast";
-import { type LoginActionState, login } from "../actions";
 
 export default function Page() {
   const router = useRouter();
-
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [isSuccessful, setIsSuccessful] = useState(false);
 
-  const [state, formAction] = useActionState<LoginActionState, FormData>(
-    login,
-    {
-      status: "idle",
+  const handleSubmit = async (formData: FormData) => {
+    const email = formData.get("email") as string;
+    const password = formData.get("password") as string;
+
+    if (!email || !password) {
+      toast({ type: "error", description: "أدخل البريد وكلمة المرور" });
+      return;
     }
-  );
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: router is stable ref
-  useEffect(() => {
-    if (state.status === "failed") {
-      toast({
-        type: "error",
-        description: "بيانات الدخول غير صحيحة!",
-      });
-    } else if (state.status === "invalid_data") {
-      toast({
-        type: "error",
-        description: "تعذّر التحقق من البيانات!",
-      });
-    } else if (state.status === "success") {
-      setIsSuccessful(true);
-
-      // Sign in from client
-      signIn("credentials", {
-        email: state.email || email,
-        password: state.password || password,
+    try {
+      const result = await signIn("credentials", {
+        email,
+        password,
         redirect: false,
-      }).then((result) => {
-        if (result?.error) {
-          toast({ type: "error", description: "فشل تسجيل الدخول!" });
-          setIsSuccessful(false);
-        } else {
-          router.push("/");
-        }
       });
-    }
-  }, [state.status, state.email, state.password, email, password, router]);
 
-  const handleSubmit = (formData: FormData) => {
-    setEmail(formData.get("email") as string);
-    setPassword(formData.get("password") as string);
-    formAction(formData);
+      if (result?.error) {
+        toast({ type: "error", description: "بيانات الدخول غير صحيحة!" });
+      } else {
+        setIsSuccessful(true);
+        router.push("/");
+      }
+    } catch {
+      toast({ type: "error", description: "حدث خطأ، حاول مرة ثانية" });
+    }
   };
 
   return (
@@ -85,7 +64,7 @@ export default function Page() {
             سجّل دخولك للوصول إلى استشاراتك القانونية
           </p>
         </div>
-        <AuthForm action={handleSubmit} defaultEmail={email}>
+        <AuthForm action={handleSubmit} defaultEmail="">
           <SubmitButton isSuccessful={isSuccessful}>تسجيل الدخول</SubmitButton>
           <p
             className="mt-4 text-center text-sm text-zinc-600 dark:text-zinc-400"

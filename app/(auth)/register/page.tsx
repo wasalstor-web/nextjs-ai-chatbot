@@ -54,10 +54,10 @@ export default function Page() {
     }
   }, [state.status, email, password, router]);
 
-  const handleSubmit = (formData: FormData) => {
+  const handleSubmit = async (formData: FormData) => {
     setEmail(formData.get("email") as string);
     setPassword(formData.get("password") as string);
-    formAction(formData);
+    await formAction(formData);
   };
 
   return (
