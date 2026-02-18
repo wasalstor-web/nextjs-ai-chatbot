@@ -491,7 +491,9 @@ function PureVoiceButton({
 
       recorder.onstop = async () => {
         const audioBlob = new Blob(chunksRef.current, { type: "audio/webm" });
-        stream.getTracks().forEach((track) => track.stop());
+        for (const track of stream.getTracks()) {
+          track.stop();
+        }
 
         // Send to transcription API
         const formData = new FormData();

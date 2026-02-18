@@ -35,7 +35,7 @@ import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 
-interface StoreItem {
+type StoreItem = {
   id: string;
   name: string;
   slug: string;
@@ -45,7 +45,7 @@ interface StoreItem {
   orders_count: number;
   revenue: number;
   created_at: string;
-}
+};
 
 const STORE_TYPES: Record<
   string,
@@ -210,13 +210,13 @@ export function StoresManagement() {
       <div className="flex-1 space-y-6 p-4 pt-6 md:p-8">
         <Skeleton className="h-10 w-56" />
         <div className="grid gap-4 md:grid-cols-4">
-          {Array.from({ length: 4 }).map((_, i) => (
-            <Skeleton className="h-24 rounded-xl" key={`stat-sk-${i}`} />
+          {["a", "b", "c", "d"].map((id) => (
+            <Skeleton className="h-24 rounded-xl" key={`stat-sk-${id}`} />
           ))}
         </div>
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {Array.from({ length: 3 }).map((_, i) => (
-            <Skeleton className="h-64 rounded-xl" key={`card-sk-${i}`} />
+          {["x", "y", "z"].map((id) => (
+            <Skeleton className="h-64 rounded-xl" key={`card-sk-${id}`} />
           ))}
         </div>
       </div>
@@ -407,7 +407,7 @@ export function StoresManagement() {
         })}
 
         {/* Add New Store Card */}
-        <Card className="group flex min-h-[240px] cursor-pointer items-center justify-center border-2 border-dashed transition-all hover:border-primary/50 hover:bg-muted/30">
+        <Card className="group flex min-h-60 cursor-pointer items-center justify-center border-2 border-dashed transition-all hover:border-primary/50 hover:bg-muted/30">
           <div className="p-6 text-center">
             <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 transition-colors group-hover:bg-primary/20">
               <Plus className="h-6 w-6 text-primary" />

@@ -9,7 +9,6 @@ import {
   Scale,
   TrendingUp,
 } from "lucide-react";
-import Link from "next/link";
 import { useState } from "react";
 
 const ease = [0.32, 0.72, 0, 1] as const;

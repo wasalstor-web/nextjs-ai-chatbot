@@ -1,5 +1,6 @@
 "use server";
 
+import { isRedirectError } from "next/dist/client/components/redirect-error";
 import { AuthError } from "next-auth";
 import { z } from "zod";
 
@@ -42,7 +43,12 @@ export const login = async (
       return { status: "failed" };
     }
 
-    // Re-throw redirect errors and other unexpected errors
+    // Next.js 15+ throws NEXT_REDIRECT even with redirect: false
+    // If signIn reached this point without AuthError, auth succeeded
+    if (isRedirectError(error)) {
+      return { status: "success" };
+    }
+
     throw error;
   }
 };
@@ -70,8 +76,9 @@ export const register = async (
     const [user] = await getUser(validatedData.email);
 
     if (user) {
-      return { status: "user_exists" } as RegisterActionState;
+      return { status: "user_exists" };
     }
+
     await createUser(validatedData.email, validatedData.password);
     await signIn("credentials", {
       email: validatedData.email,
@@ -89,7 +96,12 @@ export const register = async (
       return { status: "failed" };
     }
 
-    // Re-throw redirect errors and other unexpected errors
+    // Next.js 15+ throws NEXT_REDIRECT even with redirect: false
+    // If signIn reached this point without AuthError, auth succeeded
+    if (isRedirectError(error)) {
+      return { status: "success" };
+    }
+
     throw error;
   }
 };

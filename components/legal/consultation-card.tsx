@@ -2,11 +2,11 @@
 
 import { motion } from "framer-motion";
 import { AlertCircle, Award, CheckCircle, Clock } from "lucide-react";
-import * as React from "react";
+import { type ReactNode, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 
-interface Consultation {
+type Consultation = {
   id: string;
   title: string;
   consultationType: string;
@@ -15,7 +15,7 @@ interface Consultation {
   description: string;
   createdAt: Date;
   riskLevel?: "منخفض" | "متوسط" | "عالي" | "حرج";
-}
+};
 
 const consultationTypeConfig: Record<
   string,
@@ -75,7 +75,7 @@ const consultationTypeConfig: Record<
 
 const statusConfig: Record<
   string,
-  { label: string; icon: React.ReactNode; color: string }
+  { label: string; icon: ReactNode; color: string }
 > = {
   مفتوح: {
     label: "مفتوح",
@@ -217,9 +217,9 @@ export function NewConsultationForm({
   onSubmit,
 }: {
   isLoading: boolean;
-  onSubmit: (data: any) => void;
+  onSubmit: (data: Record<string, string>) => void;
 }) {
-  const [formData, setFormData] = React.useState({
+  const [formData, setFormData] = useState({
     title: "",
     description: "",
     consultationType: "عقاري",
@@ -245,11 +245,15 @@ export function NewConsultationForm({
           }}
         >
           <div>
-            <label className="mb-2 block font-medium text-gray-700 text-sm dark:text-gray-300">
+            <label
+              className="mb-2 block font-medium text-gray-700 text-sm dark:text-gray-300"
+              htmlFor="consultation-type"
+            >
               نوع الاستشارة
             </label>
             <select
               className="w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-gray-900 dark:border-gray-600 dark:bg-gray-800 dark:text-white"
+              id="consultation-type"
               onChange={(e) =>
                 setFormData({ ...formData, consultationType: e.target.value })
               }
@@ -264,11 +268,15 @@ export function NewConsultationForm({
           </div>
 
           <div>
-            <label className="mb-2 block font-medium text-gray-700 text-sm dark:text-gray-300">
+            <label
+              className="mb-2 block font-medium text-gray-700 text-sm dark:text-gray-300"
+              htmlFor="consultation-title"
+            >
               العنوان
             </label>
             <input
               className="w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-gray-900 dark:border-gray-600 dark:bg-gray-800 dark:text-white"
+              id="consultation-title"
               onChange={(e) =>
                 setFormData({ ...formData, title: e.target.value })
               }
@@ -280,11 +288,15 @@ export function NewConsultationForm({
           </div>
 
           <div>
-            <label className="mb-2 block font-medium text-gray-700 text-sm dark:text-gray-300">
+            <label
+              className="mb-2 block font-medium text-gray-700 text-sm dark:text-gray-300"
+              htmlFor="consultation-description"
+            >
               الوصف التفصيلي
             </label>
             <textarea
               className="min-h-24 w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-gray-900 dark:border-gray-600 dark:bg-gray-800 dark:text-white"
+              id="consultation-description"
               onChange={(e) =>
                 setFormData({ ...formData, description: e.target.value })
               }
@@ -295,11 +307,15 @@ export function NewConsultationForm({
           </div>
 
           <div>
-            <label className="mb-2 block font-medium text-gray-700 text-sm dark:text-gray-300">
+            <label
+              className="mb-2 block font-medium text-gray-700 text-sm dark:text-gray-300"
+              htmlFor="consultation-severity"
+            >
               درجة الاستعجالية
             </label>
             <select
               className="w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-gray-900 dark:border-gray-600 dark:bg-gray-800 dark:text-white"
+              id="consultation-severity"
               onChange={(e) =>
                 setFormData({ ...formData, severity: e.target.value })
               }

@@ -1,36 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
-import {
-  AlertCircle,
-  BarChart3,
-  CalendarDays,
-  DollarSign,
-  Eye,
-  FileText,
-  TrendingUp,
-  Users,
-} from "lucide-react";
+import { BarChart3, Eye, FileText, TrendingUp, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-
-interface AdminMetrics {
-  totalUsers: number;
-  activeConsultations: number;
-  totalContracts: number;
-  systemHealth: number;
-  pendingReview: number;
-  weeklyGrowth: number;
-}
-
-const defaultMetrics: AdminMetrics = {
-  totalUsers: 1250,
-  activeConsultations: 342,
-  totalContracts: 589,
-  systemHealth: 99.2,
-  pendingReview: 28,
-  weeklyGrowth: 12,
-};
 
 const statCards = [
   {
@@ -97,13 +70,13 @@ export default function AdminDashboardPage() {
 
         {/* Stats Grid */}
         <div className="mb-12 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-          {statCards.map((stat, idx) => {
+          {statCards.map((stat) => {
             const Icon = stat.icon;
             return (
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
-                key={idx}
-                transition={{ delay: idx * 0.1 }}
+                key={stat.title}
+                transition={{ delay: 0.1 }}
                 viewport={{ once: true }}
                 whileInView={{ opacity: 1, y: 0 }}
               >

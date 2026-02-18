@@ -24,7 +24,7 @@ import { MessageReasoning } from "./message-reasoning";
 import { PreviewAttachment } from "./preview-attachment";
 
 const PurePreviewMessage = ({
-  addToolApprovalResponse,
+  addToolApprovalResponse: _addToolApprovalResponse,
   chatId,
   message,
   vote,

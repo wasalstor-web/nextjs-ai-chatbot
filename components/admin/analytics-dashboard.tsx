@@ -19,7 +19,7 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 /* ────────────────────────────── types ────────────────────────────── */
-interface Stats {
+type Stats = {
   totalUsers: number;
   totalChats: number;
   totalMessages: number;
@@ -27,7 +27,7 @@ interface Stats {
   totalDocuments: number;
   activeUsers: number;
   growthRate: number;
-}
+};
 
 type Period = "7d" | "30d" | "90d";
 
@@ -48,7 +48,7 @@ function BarChartVisual({
             "flex-1 rounded-t-sm transition-all duration-500 hover:opacity-80",
             color
           )}
-          key={`bar-${i}`}
+          key={`bar-${v}-${i}`}
           style={{ height: `${(v / max) * 100}%`, minHeight: 4 }}
           title={v.toLocaleString("ar-SA")}
         />
@@ -69,7 +69,7 @@ function DonutChart({
   return (
     <div className="relative mx-auto h-40 w-40">
       <svg className="-rotate-90 h-full w-full" viewBox="0 0 36 36">
-        {segments.map((seg, i) => {
+        {segments.map((seg) => {
           const pct = (seg.value / total) * 100;
           const offset = cumulative;
           cumulative += pct;
@@ -79,7 +79,7 @@ function DonutChart({
               cx="18"
               cy="18"
               fill="transparent"
-              key={`donut-${i}`}
+              key={seg.label}
               r="15.91549"
               stroke={seg.color}
               strokeDasharray={`${pct} ${100 - pct}`}
@@ -161,13 +161,13 @@ function MetricCard({
 
       {/* spark line */}
       {sparkData && (
-        <div className="mt-3 flex h-8 items-end gap-[2px] opacity-40 transition-opacity group-hover:opacity-70">
+        <div className="mt-3 flex h-8 items-end gap-0.5 opacity-40 transition-opacity group-hover:opacity-70">
           {sparkData.map((v, i) => {
             const max = Math.max(...sparkData, 1);
             return (
               <div
                 className="flex-1 rounded-t-sm bg-current"
-                key={`sp-${i}`}
+                key={`sp-${v}-${i}`}
                 style={{ height: `${(v / max) * 100}%`, minHeight: 2 }}
               />
             );
@@ -189,7 +189,9 @@ export function AnalyticsDashboard() {
       try {
         const res = await fetch("/admin/api/stats");
         const data = await res.json();
-        if (data.success) setStats(data.stats);
+        if (data.success) {
+          setStats(data.stats);
+        }
       } catch {
         /* silent */
       } finally {
@@ -229,10 +231,10 @@ export function AnalyticsDashboard() {
     return (
       <div className="space-y-6">
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {Array.from({ length: 6 }).map((_, i) => (
+          {["a", "b", "c", "d", "e", "f"].map((id) => (
             <div
               className="h-32 animate-pulse rounded-xl border bg-muted/40"
-              key={`skel-${i}`}
+              key={`skel-${id}`}
             />
           ))}
         </div>

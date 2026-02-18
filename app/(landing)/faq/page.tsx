@@ -2,7 +2,6 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import {
-  BookOpen,
   ChevronDown,
   CreditCard,
   FileText,
@@ -24,16 +23,16 @@ const fadeUp = {
   }),
 };
 
-interface FAQItem {
+type FAQItem = {
   question: string;
   answer: string;
-}
-interface FAQCategory {
+};
+type FAQCategory = {
   id: string;
   name: string;
   icon: React.ReactNode;
   questions: FAQItem[];
-}
+};
 
 const FAQ_CATEGORIES: FAQCategory[] = [
   {
@@ -155,7 +154,8 @@ const FAQ_CATEGORIES: FAQCategory[] = [
 export default function FAQPage() {
   const [activeCategory, setActiveCategory] = useState("general");
   const [openIndex, setOpenIndex] = useState<number | null>(0);
-  const active = FAQ_CATEGORIES.find((c) => c.id === activeCategory)!;
+  const active =
+    FAQ_CATEGORIES.find((c) => c.id === activeCategory) ?? FAQ_CATEGORIES[0];
 
   return (
     <div

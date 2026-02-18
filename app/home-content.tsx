@@ -33,7 +33,9 @@ function AnimatedCounter({
   const [display, setDisplay] = useState("0");
 
   useEffect(() => {
-    if (!isInView) return;
+    if (!isInView) {
+      return;
+    }
     const duration = 2000;
     const startTime = performance.now();
     function step(currentTime: number) {
@@ -42,7 +44,9 @@ function AnimatedCounter({
       const eased = 1 - (1 - progress) ** 3;
       const value = Math.round(eased * target);
       setDisplay(value.toLocaleString("ar-SA"));
-      if (progress < 1) requestAnimationFrame(step);
+      if (progress < 1) {
+        requestAnimationFrame(step);
+      }
     }
     requestAnimationFrame(step);
   }, [isInView, target]);
@@ -90,13 +94,13 @@ const MARQUEE_ITEMS = [
   "أمان مطلق",
 ];
 
-interface ServiceData {
+type ServiceData = {
   num: string;
   title: string;
   description: string;
   icon: React.ComponentType<{ className?: string }>;
   subservices: string[];
-}
+};
 
 const SERVICES: ServiceData[] = [
   {
@@ -262,10 +266,11 @@ function MarqueeBanner() {
           ease: "linear",
         }}
       >
-        {doubled.map((item, i) => (
+        {doubled.map((item, idx) => (
           <span
             className="font-medium text-sm text-zinc-500 dark:text-zinc-400"
-            key={i}
+            // biome-ignore lint: duplicated marquee items require index-based keys
+            key={`marquee-${idx}`}
           >
             {item}{" "}
             <span className="mx-4 text-zinc-300 dark:text-zinc-700">●</span>
@@ -292,6 +297,7 @@ function ServiceItem({
         aria-expanded={isOpen}
         className="flex w-full items-center justify-between gap-4 py-6 text-right transition-colors hover:bg-zinc-50 md:py-8 dark:hover:bg-zinc-900/50"
         onClick={onToggle}
+        type="button"
       >
         <div className="flex items-center gap-4 md:gap-6">
           <span className="font-mono text-sm text-zinc-400">{service.num}</span>
@@ -450,10 +456,10 @@ export function HomeContent() {
             viewport={{ once: true }}
             whileInView="visible"
           >
-            {STORIES.map((story, i) => (
+            {STORIES.map((story) => (
               <motion.div
                 className="group rounded-2xl bg-zinc-100 p-6 transition-colors hover:bg-zinc-200 dark:bg-zinc-900 dark:hover:bg-zinc-800"
-                key={i}
+                key={story.title}
                 variants={staggerItem}
               >
                 <span className="mb-3 inline-block rounded-full bg-zinc-200 px-3 py-1 font-medium text-xs text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400">
@@ -476,12 +482,12 @@ export function HomeContent() {
             موثوق من قبل
           </p>
           <div className="grid grid-cols-3 gap-8 md:grid-cols-6">
-            {Array.from({ length: 6 }).map((_, i) => (
+            {[1, 2, 3, 4, 5, 6].map((n) => (
               <div
                 className="flex h-12 items-center justify-center rounded-lg bg-zinc-100 dark:bg-zinc-900"
-                key={i}
+                key={`partner-${n}`}
               >
-                <span className="text-xs text-zinc-400">شريك {i + 1}</span>
+                <span className="text-xs text-zinc-400">شريك {n}</span>
               </div>
             ))}
           </div>
@@ -544,12 +550,12 @@ export function HomeContent() {
               { value: 2000, suffix: "+", label: "نظام ولائحة سعودية" },
               { value: 50_000, suffix: "+", label: "استشارة تم تقديمها" },
               { value: 98, suffix: "%", label: "نسبة رضا العملاء" },
-            ].map((stat, i) => (
+            ].map((stat) => (
               <motion.div
                 className="rounded-2xl border border-zinc-800 bg-zinc-900/50 p-8 text-center dark:border-zinc-700 dark:bg-zinc-800/50"
-                custom={i * 0.1}
+                custom={0}
                 initial="hidden"
-                key={i}
+                key={stat.label}
                 variants={fadeUp}
                 viewport={{ once: true }}
                 whileInView="visible"
@@ -638,10 +644,10 @@ export function HomeContent() {
             viewport={{ once: true }}
             whileInView="visible"
           >
-            {BLOG_POSTS.map((post, i) => (
+            {BLOG_POSTS.map((post) => (
               <motion.article
                 className="group rounded-2xl border border-zinc-200 p-6 transition-all hover:border-zinc-400 dark:border-zinc-800 dark:hover:border-zinc-600"
-                key={i}
+                key={post.title}
                 variants={staggerItem}
               >
                 <time className="text-xs text-zinc-400">{post.date}</time>

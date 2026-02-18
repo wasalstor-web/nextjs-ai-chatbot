@@ -1,14 +1,7 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import {
-  FileText,
-  Filter,
-  LayoutGrid,
-  LayoutList,
-  Plus,
-  Search,
-} from "lucide-react";
+import { FileText, LayoutGrid, LayoutList, Plus, Search } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
@@ -18,10 +11,9 @@ import {
   NewConsultationForm,
 } from "@/components/legal";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 
-interface Consultation {
+type Consultation = {
   id: string;
   title: string;
   consultationType: string;
@@ -30,14 +22,14 @@ interface Consultation {
   description: string;
   createdAt: Date;
   riskLevel?: "منخفض" | "متوسط" | "عالي" | "حرج";
-}
+};
 
-interface ConsultationStats {
+type ConsultationStats = {
   totalConsultations: number;
   openConsultations: number;
   closedConsultations: number;
   byType: Record<string, number>;
-}
+};
 
 export default function LegalConsultationsPage() {
   const { data: session, status } = useSession();
@@ -61,7 +53,8 @@ export default function LegalConsultationsPage() {
     if (session?.user?.id) {
       fetchConsultations();
     }
-  }, [session]);
+    // biome-ignore lint/correctness/useExhaustiveDependencies: fetchConsultations is stable within the component scope
+  }, [session?.user?.id]);
 
   async function fetchConsultations() {
     try {
@@ -105,7 +98,7 @@ export default function LegalConsultationsPage() {
     }
   }
 
-  async function handleCreateConsultation(formData: any) {
+  async function handleCreateConsultation(formData: Record<string, string>) {
     try {
       setIsCreating(true);
       const response = await fetch("/api/legal/consultations", {
@@ -237,6 +230,7 @@ export default function LegalConsultationsPage() {
 
             <div className="flex items-center gap-3">
               <select
+                aria-label="تصفية حسب الحالة"
                 className="rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-gray-900 dark:border-gray-600 dark:bg-gray-800 dark:text-white"
                 onChange={(e) => setFilterStatus(e.target.value)}
                 value={filterStatus}
@@ -257,6 +251,7 @@ export default function LegalConsultationsPage() {
                   }`}
                   onClick={() => setViewMode("grid")}
                   title="عرض شبكة"
+                  type="button"
                 >
                   <LayoutGrid className="h-5 w-5" />
                 </button>
@@ -268,6 +263,7 @@ export default function LegalConsultationsPage() {
                   }`}
                   onClick={() => setViewMode("list")}
                   title="عرض قائمة"
+                  type="button"
                 >
                   <LayoutList className="h-5 w-5" />
                 </button>

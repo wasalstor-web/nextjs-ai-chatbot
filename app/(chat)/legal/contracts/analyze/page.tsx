@@ -45,11 +45,15 @@ export default function ContractAnalysisPage() {
       const reader = response.body?.getReader();
       const decoder = new TextDecoder();
 
-      if (!reader) throw new Error("No reader available");
+      if (!reader) {
+        throw new Error("No reader available");
+      }
 
       while (true) {
         const { done, value } = await reader.read();
-        if (done) break;
+        if (done) {
+          break;
+        }
 
         const chunk = decoder.decode(value);
         fullText += chunk;
@@ -146,11 +150,15 @@ export default function ContractAnalysisPage() {
 
               <div className="space-y-4">
                 <div>
-                  <label className="mb-3 block font-medium text-gray-700 text-sm dark:text-gray-300">
+                  <label
+                    className="mb-3 block font-medium text-gray-700 text-sm dark:text-gray-300"
+                    htmlFor="contract-text"
+                  >
                     نص العقد
                   </label>
                   <textarea
                     className="w-full resize-none rounded-lg border border-gray-300 bg-white px-4 py-3 font-mono text-gray-900 text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-800 dark:text-white"
+                    id="contract-text"
                     onChange={(e) => setContractText(e.target.value)}
                     placeholder="الصق نص العقد هنا أو اكتبه مباشرة..."
                     rows={12}
@@ -170,6 +178,7 @@ export default function ContractAnalysisPage() {
                   className="w-full bg-linear-to-r from-green-600 to-emerald-600 text-white hover:from-green-500 hover:to-emerald-500 disabled:cursor-not-allowed disabled:opacity-50"
                   disabled={isAnalyzing || !contractText.trim()}
                   onClick={handleAnalyze}
+                  type="button"
                 >
                   {isAnalyzing ? (
                     <>
@@ -206,6 +215,7 @@ export default function ContractAnalysisPage() {
                         `<!-- ${sample} -->\nعقد يقر على [التفاصيل]...`
                       )
                     }
+                    type="button"
                   >
                     {sample}
                   </button>

@@ -2,79 +2,43 @@
 
 import { motion } from "framer-motion";
 import {
-  AlertCircle,
   BarChart3,
   Briefcase,
-  Calendar,
   CheckCircle,
-  Clock,
   FileText,
   TrendingUp,
-  Users,
 } from "lucide-react";
-import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 
-interface LegalCaseStats {
+type LegalCaseStats = {
   totalCases: number;
   openCases: number;
   closedCases: number;
   wonCases: number;
   byType: Record<string, number>;
-}
+};
 
-interface ConsultationStats {
+type ConsultationStats = {
   totalConsultations: number;
   openConsultations: number;
   closedConsultations: number;
   byType: Record<string, number>;
-}
+};
 
-interface ContractStats {
+type ContractStats = {
   totalContracts: number;
   draftContracts: number;
   signedContracts: number;
   totalDownloads: number;
-}
+};
 
-interface LegalDashboardProps {
+type LegalDashboardProps = {
   consultationStats?: ConsultationStats;
   caseStats?: LegalCaseStats;
   contractStats?: ContractStats;
-}
-
-const statCardConfig = [
-  {
-    key: "consultations",
-    label: "الاستشارات",
-    icon: FileText,
-    color: "from-blue-500 to-blue-600",
-    bgColor: "bg-blue-50 dark:bg-blue-900/20",
-  },
-  {
-    key: "cases",
-    label: "القضايا",
-    icon: Briefcase,
-    color: "from-purple-500 to-purple-600",
-    bgColor: "bg-purple-50 dark:bg-purple-900/20",
-  },
-  {
-    key: "contracts",
-    label: "العقود",
-    icon: FileText,
-    color: "from-green-500 to-green-600",
-    bgColor: "bg-green-50 dark:bg-green-900/20",
-  },
-  {
-    key: "team",
-    label: "الفريق",
-    icon: Users,
-    color: "from-pink-500 to-pink-600",
-    bgColor: "bg-pink-50 dark:bg-pink-900/20",
-  },
-];
+};
 
 export function StatCard({
   icon: Icon,
@@ -85,7 +49,7 @@ export function StatCard({
   gradientColor,
   trend,
 }: {
-  icon: React.ComponentType<any>;
+  icon: React.ComponentType<{ className?: string }>;
   label: string;
   value: string | number;
   subtext?: string;
@@ -323,10 +287,10 @@ export function LegalDashboard({
               time: "منذ يوم واحد",
               status: "تحليل",
             },
-          ].map((activity, idx) => (
+          ].map((activity) => (
             <div
               className="flex items-start gap-4 border-gray-200 border-b pb-4 last:border-b-0 last:pb-0 dark:border-gray-700"
-              key={idx}
+              key={activity.title}
             >
               <div
                 className={`rounded-lg p-2 ${activity.type === "consultation" ? "bg-blue-100 dark:bg-blue-900" : activity.type === "case" ? "bg-purple-100 dark:bg-purple-900" : "bg-green-100 dark:bg-green-900"}`}
