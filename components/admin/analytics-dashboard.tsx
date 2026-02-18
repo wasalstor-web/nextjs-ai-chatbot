@@ -380,7 +380,7 @@ export function AnalyticsDashboard() {
       </div>
 
       {/* ── active users highlight */}
-      <div className="relative overflow-hidden rounded-xl border bg-gradient-to-l from-blue-500/10 via-transparent to-violet-500/10 p-6 shadow-sm">
+      <div className="relative overflow-hidden rounded-xl border bg-linear-to-l from-blue-500/10 via-transparent to-violet-500/10 p-6 shadow-sm">
         <div className="flex items-center justify-between">
           <div className="space-y-1">
             <div className="flex items-center gap-2">

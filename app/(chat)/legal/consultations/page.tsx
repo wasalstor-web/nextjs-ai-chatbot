@@ -183,7 +183,7 @@ export default function LegalConsultationsPage() {
               </p>
             </div>
             <Button
-              className="bg-gradient-to-r from-green-600 to-emerald-600 text-white hover:from-green-500 hover:to-emerald-500"
+              className="bg-linear-to-r from-green-600 to-emerald-600 text-white hover:from-green-500 hover:to-emerald-500"
               onClick={() => setShowNewForm(true)}
             >
               <Plus className="ml-2 h-4 w-4" />
@@ -317,7 +317,7 @@ export default function LegalConsultationsPage() {
               </p>
               {consultations.length === 0 && (
                 <Button
-                  className="bg-gradient-to-r from-green-600 to-emerald-600 text-white hover:from-green-500 hover:to-emerald-500"
+                  className="bg-linear-to-r from-green-600 to-emerald-600 text-white hover:from-green-500 hover:to-emerald-500"
                   onClick={() => setShowNewForm(true)}
                 >
                   <Plus className="ml-2 h-4 w-4" />

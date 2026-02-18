@@ -143,11 +143,10 @@ export default function FeaturesPage() {
       {/* Hero */}
       <section className="relative overflow-hidden px-6 py-24 md:py-36">
         <div className="-translate-x-1/2 -translate-y-1/2 pointer-events-none absolute top-1/2 left-1/2">
-          {[400, 500, 600].map((size) => (
+          {["size-[400px]", "size-[500px]", "size-[600px]"].map((sizeClass) => (
             <div
-              className="-translate-x-1/2 -translate-y-1/2 absolute top-1/2 left-1/2 rounded-full border border-zinc-200/50 dark:border-zinc-800/50"
-              key={size}
-              style={{ width: size, height: size }}
+              className={`-translate-x-1/2 -translate-y-1/2 absolute top-1/2 left-1/2 rounded-full border border-zinc-200/50 dark:border-zinc-800/50 ${sizeClass}`}
+              key={sizeClass}
             />
           ))}
         </div>
@@ -173,7 +172,7 @@ export default function FeaturesPage() {
           >
             أدوات قانونية
             <br />
-            <span className="bg-gradient-to-l from-zinc-400 to-zinc-900 bg-clip-text text-transparent dark:from-zinc-500 dark:to-white">
+            <span className="bg-linear-to-l from-zinc-400 to-zinc-900 bg-clip-text text-transparent dark:from-zinc-500 dark:to-white">
               ذكية وقوية.
             </span>
           </motion.h1>

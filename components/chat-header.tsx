@@ -34,7 +34,7 @@ function PureChatHeader({
         className="group flex items-center gap-2 transition-opacity hover:opacity-80 active:scale-[0.97]"
         href="/"
       >
-        <div className="flex size-8 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-primary/80 text-primary-foreground shadow-sm">
+        <div className="flex size-8 items-center justify-center rounded-lg bg-linear-to-br from-primary to-primary/80 text-primary-foreground shadow-sm">
           <ScaleIcon className="size-4" strokeWidth={1.8} />
         </div>
         <div className="hidden items-center gap-1.5 md:flex">

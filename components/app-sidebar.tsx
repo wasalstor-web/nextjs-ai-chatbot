@@ -72,7 +72,7 @@ export function AppSidebar({ user }: { user: User | undefined }) {
                   setOpenMobile(false);
                 }}
               >
-                <div className="relative flex size-9 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-primary/80 text-primary-foreground shadow-sm transition-transform duration-200 group-hover:scale-105">
+                <div className="relative flex size-9 items-center justify-center rounded-xl bg-linear-to-br from-primary to-primary/80 text-primary-foreground shadow-sm transition-transform duration-200 group-hover:scale-105">
                   <ScaleIcon className="size-4.5" strokeWidth={1.8} />
                 </div>
                 <div className="flex flex-col">

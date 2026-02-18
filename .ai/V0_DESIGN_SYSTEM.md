@@ -237,7 +237,7 @@ text-xs font-medium uppercase tracking-widest
 ### Dividers
 ```
 Horizontal: border-b border-border (full width)
-Section:    <div className="h-px bg-gradient-to-r from-transparent via-border to-transparent" />
+Section:    <div className="h-px bg-linear-to-r from-transparent via-border to-transparent" />
 ```
 
 ---

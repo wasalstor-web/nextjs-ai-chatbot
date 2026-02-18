@@ -103,9 +103,7 @@ export function StatCard({
       <Card className={`overflow-hidden ${bgColor}`}>
         <div className="p-6">
           <div className="mb-4 flex items-center justify-between">
-            <div
-              className={`rounded-lg bg-gradient-to-br p-3 ${gradientColor}`}
-            >
+            <div className={`rounded-lg bg-linear-to-br p-3 ${gradientColor}`}>
               <Icon className="h-6 w-6 text-white" />
             </div>
             {trend && (
@@ -236,7 +234,7 @@ export function LegalDashboard({
                     </div>
                     <div className="h-2 w-full rounded-full bg-gray-200 dark:bg-gray-700">
                       <motion.div
-                        className="h-2 rounded-full bg-gradient-to-r from-green-500 to-emerald-500"
+                        className="h-2 rounded-full bg-linear-to-r from-green-500 to-emerald-500"
                         initial={{ width: 0 }}
                         transition={{ duration: 0.8, ease: "easeOut" }}
                         viewport={{ once: true }}
@@ -281,7 +279,7 @@ export function LegalDashboard({
           الإجراءات السريعة
         </h2>
         <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-4">
-          <Button className="h-auto justify-start bg-gradient-to-r from-green-500 to-emerald-500 px-4 py-3 text-white hover:from-green-600 hover:to-emerald-600">
+          <Button className="h-auto justify-start bg-linear-to-r from-green-500 to-emerald-500 px-4 py-3 text-white hover:from-green-600 hover:to-emerald-600">
             <FileText className="ml-2 h-4 w-4" />
             <span>استشارة جديدة</span>
           </Button>

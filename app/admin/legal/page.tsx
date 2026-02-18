@@ -71,7 +71,7 @@ export default function AdminDashboardPage() {
   return (
     <motion.div
       animate={{ opacity: 1 }}
-      className="min-h-screen bg-gradient-to-b from-slate-50 to-white dark:from-slate-950 dark:to-gray-950"
+      className="min-h-screen bg-linear-to-b from-slate-50 to-white dark:from-slate-950 dark:to-gray-950"
       initial={{ opacity: 0 }}
     >
       <div className="mx-auto max-w-7xl px-4 py-12" dir="rtl">
@@ -110,7 +110,7 @@ export default function AdminDashboardPage() {
                 <Card className={`overflow-hidden p-6 ${stat.bgColor}`}>
                   <div className="mb-4 flex items-start justify-between">
                     <div
-                      className={`rounded-lg bg-gradient-to-br p-3 ${stat.color}`}
+                      className={`rounded-lg bg-linear-to-br p-3 ${stat.color}`}
                     >
                       <Icon className="h-6 w-6 text-white" />
                     </div>
@@ -165,7 +165,7 @@ export default function AdminDashboardPage() {
                       </span>
                     </div>
                     <motion.div
-                      className="h-2 rounded-full bg-gradient-to-r from-green-500 to-emerald-500"
+                      className="h-2 rounded-full bg-linear-to-r from-green-500 to-emerald-500"
                       initial={{ width: 0 }}
                       transition={{ duration: 0.8, ease: "easeOut" }}
                       viewport={{ once: true }}
@@ -207,7 +207,7 @@ export default function AdminDashboardPage() {
                       </span>
                     </div>
                     <motion.div
-                      className="h-3 rounded-full bg-gradient-to-r from-purple-500 to-indigo-500"
+                      className="h-3 rounded-full bg-linear-to-r from-purple-500 to-indigo-500"
                       initial={{ width: 0 }}
                       transition={{ duration: 0.8, ease: "easeOut" }}
                       viewport={{ once: true }}
@@ -234,7 +234,7 @@ export default function AdminDashboardPage() {
 
             <div className="grid gap-6 md:grid-cols-3">
               {/* Database Status */}
-              <div className="rounded-lg bg-gradient-to-br from-slate-50 to-slate-100 p-6 dark:from-slate-800 dark:to-slate-900">
+              <div className="rounded-lg bg-linear-to-br from-slate-50 to-slate-100 p-6 dark:from-slate-800 dark:to-slate-900">
                 <h3 className="mb-4 flex items-center gap-2 font-semibold text-gray-900 dark:text-white">
                   <span className="h-2 w-2 rounded-full bg-green-500" />
                   قاعدة البيانات
@@ -248,7 +248,7 @@ export default function AdminDashboardPage() {
               </div>
 
               {/* Storage */}
-              <div className="rounded-lg bg-gradient-to-br from-slate-50 to-slate-100 p-6 dark:from-slate-800 dark:to-slate-900">
+              <div className="rounded-lg bg-linear-to-br from-slate-50 to-slate-100 p-6 dark:from-slate-800 dark:to-slate-900">
                 <h3 className="mb-4 flex items-center gap-2 font-semibold text-gray-900 dark:text-white">
                   <span className="h-2 w-2 rounded-full bg-blue-500" />
                   التخزين
@@ -262,7 +262,7 @@ export default function AdminDashboardPage() {
               </div>
 
               {/* API Response */}
-              <div className="rounded-lg bg-gradient-to-br from-slate-50 to-slate-100 p-6 dark:from-slate-800 dark:to-slate-900">
+              <div className="rounded-lg bg-linear-to-br from-slate-50 to-slate-100 p-6 dark:from-slate-800 dark:to-slate-900">
                 <h3 className="mb-4 flex items-center gap-2 font-semibold text-gray-900 dark:text-white">
                   <span className="h-2 w-2 rounded-full bg-emerald-500" />
                   API Performance

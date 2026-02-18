@@ -167,7 +167,7 @@ export default function ContractAnalysisPage() {
                 </div>
 
                 <Button
-                  className="w-full bg-gradient-to-r from-green-600 to-emerald-600 text-white hover:from-green-500 hover:to-emerald-500 disabled:cursor-not-allowed disabled:opacity-50"
+                  className="w-full bg-linear-to-r from-green-600 to-emerald-600 text-white hover:from-green-500 hover:to-emerald-500 disabled:cursor-not-allowed disabled:opacity-50"
                   disabled={isAnalyzing || !contractText.trim()}
                   onClick={handleAnalyze}
                 >
