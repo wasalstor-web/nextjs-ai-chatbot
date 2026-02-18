@@ -40,7 +40,7 @@ export default function Page() {
 
       setIsSuccessful(true);
       updateSession();
-      router.refresh();
+      router.push("/");
     }
   }, [state.status]);
 
@@ -53,20 +53,37 @@ export default function Page() {
     <div className="flex h-dvh w-screen items-start justify-center bg-background pt-12 md:items-center md:pt-0">
       <div className="flex w-full max-w-md flex-col gap-12 overflow-hidden rounded-2xl">
         <div className="flex flex-col items-center justify-center gap-2 px-4 text-center sm:px-16">
-          <div className="mb-2 flex h-12 w-12 items-center justify-center rounded-2xl bg-linear-to-br from-amber-500 to-amber-600 shadow-amber-500/20 shadow-lg">
-            <svg className="h-6 w-6 text-slate-900" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" /></svg>
+          <div className="mb-2 flex h-12 w-12 items-center justify-center rounded-2xl bg-zinc-950 shadow-lg shadow-zinc-950/10 dark:bg-zinc-100">
+            <svg
+              className="h-6 w-6 text-white dark:text-zinc-950"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth={2}
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M12 3v17.25m0 0c-1.472 0-2.882.265-4.185.75M12 20.25c1.472 0 2.882.265 4.185.75M18.75 4.97A48.416 48.416 0 0012 4.5c-2.291 0-4.545.16-6.75.47m13.5 0c1.01.143 2.01.317 3 .52m-3-.52 2.62 10.726c.122.499-.106 1.028-.589 1.202a5.988 5.988 0 01-2.031.352a5.988 5.988 0 01-2.031-.352c-.483-.174-.711-.703-.59-1.202L18.75 4.971zm-16.5.52c.99-.203 1.99-.377 3-.52m0 0 2.62 10.726c.122.499-.106 1.028-.589 1.202a5.989 5.989 0 01-2.031.352 5.989 5.989 0 01-2.031-.352c-.483-.174-.711-.703-.59-1.202L5.25 4.971z"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
           </div>
-          <h3 className="font-bold text-xl dark:text-zinc-50">إنشاء حساب جديد</h3>
-          <p className="text-slate-500 text-sm dark:text-zinc-400">
+          <h3 className="font-bold text-xl dark:text-zinc-50">
+            إنشاء حساب جديد
+          </h3>
+          <p className="text-sm text-zinc-500 dark:text-zinc-400">
             سجّل للحصول على استشارات قانونية ذكية مجاناً
           </p>
         </div>
         <AuthForm action={handleSubmit} defaultEmail={email}>
           <SubmitButton isSuccessful={isSuccessful}>إنشاء حساب</SubmitButton>
-          <p className="mt-4 text-center text-slate-600 text-sm dark:text-zinc-400" dir="rtl">
+          <p
+            className="mt-4 text-center text-sm text-zinc-600 dark:text-zinc-400"
+            dir="rtl"
+          >
             لديك حساب بالفعل؟{" "}
             <Link
-              className="font-semibold text-amber-600 hover:underline dark:text-amber-400"
+              className="font-semibold text-zinc-900 hover:underline dark:text-zinc-200"
               href="/login"
             >
               سجّل دخولك

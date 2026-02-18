@@ -63,8 +63,12 @@ export const legalConsultation = tool({
     `),
   }),
 
-  execute: async ({ consultationType, userQuery, collectedInfo = {}, stage }) => {
-
+  execute: async ({
+    consultationType,
+    userQuery,
+    collectedInfo = {},
+    stage,
+  }) => {
     // جلب الأسئلة المطلوبة لهذا النوع من الاستشارة
     const questions = getIntakeQuestions(consultationType as ConsultationType);
 

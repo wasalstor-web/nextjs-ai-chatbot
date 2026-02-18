@@ -54,8 +54,12 @@ export const searchSaudiLaw = tool({
     articleNumber: z.string().optional().describe("رقم مادة محددة للبحث عنها"),
   }),
 
-  execute: async ({ query, category = "كل الفئات", specificLaw, articleNumber }) => {
-
+  execute: async ({
+    query,
+    category = "كل الفئات",
+    specificLaw,
+    articleNumber,
+  }) => {
     let searchResults = `## 🔍 نتائج البحث في الأنظمة السعودية
 
 **البحث عن:** "${query}"
@@ -84,9 +88,7 @@ ${articleNumber ? `**رقم المادة:** ${articleNumber}` : ""}
 
       const typeToSearch = categoryMap[category];
       if (typeToSearch) {
-        relevantSources = getSourcesByType(
-          typeToSearch as LegalSource["type"]
-        );
+        relevantSources = getSourcesByType(typeToSearch as LegalSource["type"]);
       }
     }
 

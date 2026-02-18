@@ -39,7 +39,7 @@ function PureChatHeader({
         </div>
         <div className="hidden items-center gap-1.5 md:flex">
           <span className="font-bold text-[14px] text-foreground tracking-tight">
-            مبسط <span className="font-black text-primary">LAW</span>
+            محامي <span className="font-black text-primary">فيصل</span>
           </span>
         </div>
       </Link>

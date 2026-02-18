@@ -1,6 +1,11 @@
+﻿"use client";
+
+import { motion } from "framer-motion";
 import {
+  ArrowLeft,
   Globe,
   Heart,
+  Scale,
   Shield,
   Sparkles,
   Target,
@@ -10,318 +15,418 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 
+const ease = [0.32, 0.72, 0, 1] as const;
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 24 },
+  visible: (delay = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease, delay },
+  }),
+};
+
+const staggerContainer = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.08 } },
+};
+
+const staggerItem = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease } },
+};
+
+const VALUES = [
+  {
+    icon: Heart,
+    title: "دقة قانونية",
+    description:
+      "نلتزم بأعلى معايير الدقة في الاستشارات القانونية المبنية على الأنظمة السعودية.",
+  },
+  {
+    icon: Zap,
+    title: "ابتكار تقني",
+    description:
+      "ندمج أحدث تقنيات الذكاء الاصطناعي مع الخبرة القانونية السعودية المتخصصة.",
+  },
+  {
+    icon: Shield,
+    title: "سرية تامة",
+    description:
+      "نحمي بياناتك القانونية بأعلى معايير التشفير ونلتزم بالسرية المهنية.",
+  },
+  {
+    icon: Users,
+    title: "خدمة العدالة",
+    description:
+      "نؤمن بأن الخدمات القانونية يجب أن تكون متاحة للجميع في المملكة.",
+  },
+];
+
+const MILESTONES = [
+  {
+    year: "2023",
+    title: "الفكرة",
+    description:
+      "انطلقت فكرة محامي فيصل لتسهيل الوصول للاستشارات القانونية في المملكة",
+  },
+  {
+    year: "2024",
+    title: "إطلاق المنصة",
+    description: "إطلاق النسخة الأولى مع تغطية لأكثر من 200 نظام سعودي",
+  },
+  {
+    year: "2024",
+    title: "التوسع",
+    description: "إضافة تحليل العقود والبحث المتقدم في الأنظمة السعودية",
+  },
+  {
+    year: "2025",
+    title: "رؤية 2030",
+    description: "تطوير مستمر لدعم التحول الرقمي القانوني في المملكة",
+  },
+];
+
+const TEAM = [
+  {
+    icon: Zap,
+    name: "فريق القانون",
+    role: "المحتوى القانوني",
+    description: "محامون ومستشارون متخصصون في الأنظمة السعودية",
+  },
+  {
+    icon: Sparkles,
+    name: "فريق التقنية",
+    role: "الذكاء الاصطناعي",
+    description: "مهندسون متخصصون في AI ومعالجة اللغة العربية",
+  },
+  {
+    icon: Heart,
+    name: "فريق الدعم",
+    role: "خدمة العملاء",
+    description: "متواجدون دائماً لمساعدتك وحل أي مشكلة تواجهك",
+  },
+  {
+    icon: TrendingUp,
+    name: "فريق البحث",
+    role: "تحديث الأنظمة",
+    description: "باحثون يتابعون أحدث التعديلات في الأنظمة السعودية",
+  },
+];
+
+const STATS = [
+  { value: "50K+", label: "استشارة قانونية" },
+  { value: "200+", label: "نظام سعودي" },
+  { value: "99.9%", label: "دقة التحليل" },
+  { value: "24/7", label: "متاح دائماً" },
+];
+
 export default function AboutPage() {
-  const values = [
-    {
-      icon: Heart,
-      title: "دقة قانونية",
-      description:
-        "نلتزم بأعلى معايير الدقة في الاستشارات القانونية المبنية على الأنظمة السعودية.",
-      color: "from-amber-500 to-amber-400",
-    },
-    {
-      icon: Zap,
-      title: "ابتكار قانوني تقني",
-      description:
-        "ندمج أحدث تقنيات الذكاء الاصطناعي مع الخبرة القانونية السعودية المتخصصة.",
-      color: "from-amber-600 to-amber-500",
-    },
-    {
-      icon: Shield,
-      title: "سرية تامة",
-      description: "نحمي بياناتك القانونية بأعلى معايير التشفير ونلتزم بالسرية المهنية.",
-      color: "from-amber-500 to-amber-400",
-    },
-    {
-      icon: Users,
-      title: "خدمة العدالة",
-      description:
-        "نؤمن بأن الخدمات القانونية يجب أن تكون متاحة للجميع في المملكة.",
-      color: "from-amber-700 to-amber-600",
-    },
-  ];
-
-  const milestones = [
-    {
-      year: "2023",
-      title: "الفكرة",
-      description:
-        "انطلقت فكرة مبسط LAW لتسهيل الوصول للاستشارات القانونية في المملكة",
-    },
-    {
-      year: "2024",
-      title: "إطلاق المنصة",
-      description: "إطلاق النسخة الأولى مع تغطية لأكثر من 200 نظام سعودي",
-    },
-    {
-      year: "2024",
-      title: "التوسع",
-      description: "إضافة تحليل العقود والبحث المتقدم في الأنظمة السعودية",
-    },
-    {
-      year: "2025",
-      title: "رؤية 2030",
-      description: "تطوير مستمر لدعم التحول الرقمي القانوني في المملكة",
-    },
-  ];
-
-  const team = [
-    {
-      name: "فريق القانون",
-      role: "المحتوى القانوني",
-      description: "محامون ومستشارون متخصصون في الأنظمة السعودية",
-      icon: Zap,
-    },
-    {
-      name: "فريق التقنية",
-      role: "الذكاء الاصطناعي",
-      description: "مهندسون متخصصون في AI ومعالجة اللغة العربية",
-      icon: Sparkles,
-    },
-    {
-      name: "فريق الدعم",
-      role: "خدمة العملاء",
-      description: "متواجدون دائماً لمساعدتك وحل أي مشكلة تواجهك",
-      icon: Heart,
-    },
-    {
-      name: "فريق البحث",
-      role: "تحديث الأنظمة",
-      description: "باحثون يتابعون أحدث التعديلات في الأنظمة السعودية",
-      icon: TrendingUp,
-    },
-  ];
-
-  const stats = [
-    { value: "50K+", label: "استشارة قانونية" },
-    { value: "200+", label: "نظام سعودي" },
-    { value: "99.9%", label: "دقة التحليل" },
-    { value: "24/7", label: "متاح دائماً" },
-  ];
-
   return (
-    <div className="min-h-screen bg-linear-to-b from-white to-amber-50/80 dark:from-slate-950 dark:to-slate-900">
-      {/* Hero Section */}
-      <section className="relative overflow-hidden pt-20 pb-12">
-        <div className="absolute inset-0 bg-linear-to-br from-amber-500/10 via-amber-400/10 to-amber-300/10 dark:from-amber-500/5 dark:via-amber-400/5 dark:to-amber-300/5" />
+    <div
+      className="min-h-screen bg-white text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100"
+      dir="rtl"
+    >
+      {/* Hero */}
+      <section className="relative overflow-hidden px-6 py-24 md:py-36">
+        <div className="-translate-x-1/2 -translate-y-1/2 pointer-events-none absolute top-1/2 left-1/2">
+          {[400, 500, 600].map((size) => (
+            <div
+              className="-translate-x-1/2 -translate-y-1/2 absolute top-1/2 left-1/2 rounded-full border border-zinc-200/50 dark:border-zinc-800/50"
+              key={size}
+              style={{ width: size, height: size }}
+            />
+          ))}
+        </div>
 
-        <div className="container relative mx-auto px-4" dir="rtl">
-          <div className="mx-auto max-w-3xl text-center">
-            <h1 className="mb-6 font-bold text-5xl lg:text-6xl">
-              <span className="text-slate-900 dark:text-white">
-                نؤمن بحق الجميع
-              </span>
-              <br />
-              <span className="bg-linear-to-l from-amber-500 via-amber-400 to-amber-300 bg-clip-text text-transparent">
-                في الوصول للعدالة
-              </span>
-            </h1>
-            <p className="text-slate-600 text-xl leading-relaxed dark:text-slate-400">
-              مهمتنا هي تسهيل الوصول للاستشارات القانونية السعودية باستخدام
-              الذكاء الاصطناعي، مع الحفاظ على الدقة والسرية المهنية.
-            </p>
-          </div>
+        <div className="relative mx-auto max-w-4xl text-center">
+          <motion.div
+            animate="visible"
+            className="mb-4 inline-flex items-center gap-2 rounded-full border border-zinc-200 bg-zinc-50 px-4 py-1.5 text-sm text-zinc-600 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-400"
+            custom={0}
+            initial="hidden"
+            variants={fadeUp}
+          >
+            <Scale className="h-4 w-4" />
+            من نحن
+          </motion.div>
+
+          <motion.h1
+            animate="visible"
+            className="mb-6 font-bold text-4xl text-zinc-900 leading-tight tracking-tight md:text-6xl lg:text-7xl dark:text-white"
+            custom={0.1}
+            initial="hidden"
+            variants={fadeUp}
+          >
+            نؤمن بحق الجميع
+            <br />
+            <span className="bg-gradient-to-l from-zinc-400 to-zinc-900 bg-clip-text text-transparent dark:from-zinc-500 dark:to-white">
+              في الوصول للعدالة.
+            </span>
+          </motion.h1>
+
+          <motion.p
+            animate="visible"
+            className="mx-auto mb-10 max-w-2xl text-lg text-zinc-600 dark:text-zinc-400"
+            custom={0.2}
+            initial="hidden"
+            variants={fadeUp}
+          >
+            مهمتنا هي تسهيل الوصول للاستشارات القانونية السعودية باستخدام الذكاء
+            الاصطناعي — مع الحفاظ على الدقة والسرية المهنية.
+          </motion.p>
         </div>
       </section>
 
-      {/* Stats Section */}
-      <section className="py-12" dir="rtl">
-        <div className="container mx-auto px-4">
-          <div className="mx-auto grid max-w-5xl grid-cols-2 gap-8 lg:grid-cols-4">
-            {stats.map((stat) => (
-              <div
-                className="rounded-2xl border border-slate-200 bg-white p-6 text-center transition-all hover:shadow-lg dark:border-slate-800 dark:bg-slate-900"
+      {/* Stats */}
+      <section className="border-zinc-200 border-y px-6 py-16 dark:border-zinc-800">
+        <div className="mx-auto max-w-4xl">
+          <motion.div
+            className="grid grid-cols-2 gap-8 md:grid-cols-4"
+            initial="hidden"
+            variants={staggerContainer}
+            viewport={{ once: true }}
+            whileInView="visible"
+          >
+            {STATS.map((stat) => (
+              <motion.div
+                className="text-center"
                 key={stat.label}
+                variants={staggerItem}
               >
-                <div className="mb-2 bg-linear-to-l from-amber-500 via-amber-400 to-amber-300 bg-clip-text font-bold text-4xl text-transparent lg:text-5xl">
+                <div className="mb-1 font-bold text-4xl text-zinc-900 tracking-tight md:text-5xl dark:text-white">
                   {stat.value}
                 </div>
-                <div className="text-slate-600 text-sm dark:text-slate-400">
-                  {stat.label}
-                </div>
-              </div>
+                <p className="text-sm text-zinc-500">{stat.label}</p>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
-      {/* Mission Section */}
-      <section className="bg-white py-20 dark:bg-slate-950" dir="rtl">
-        <div className="container mx-auto px-4">
-          <div className="mx-auto grid max-w-5xl items-center gap-12 lg:grid-cols-2">
-            <div>
-              <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-linear-to-br from-amber-500 to-amber-400">
-                <Target className="h-8 w-8 text-white" />
-              </div>
-              <h2 className="mb-6 font-bold text-4xl text-slate-900 dark:text-white">
+      {/* Mission */}
+      <section className="px-6 py-20 md:py-28">
+        <div className="mx-auto max-w-5xl">
+          <div className="grid items-center gap-16 lg:grid-cols-2">
+            <motion.div
+              initial="hidden"
+              variants={fadeUp}
+              viewport={{ once: true }}
+              whileInView="visible"
+            >
+              <span className="mb-2 block font-mono text-sm text-zinc-400">
                 مهمتنا
+              </span>
+              <h2 className="mb-6 font-bold text-3xl tracking-tight md:text-4xl">
+                تمكين الجميع من فهم القانون
               </h2>
-              <p className="mb-4 text-slate-600 text-lg leading-relaxed dark:text-slate-400">
-                نسعى لتمكين كل فرد وجهة في المملكة من الوصول لاستشارات
-                قانونية دقيقة ومبنية على الأنظمة السعودية المعتمدة — بسرعة فائقة
-                وتكلفة معقولة.
+              <p className="mb-4 text-lg text-zinc-600 leading-relaxed dark:text-zinc-400">
+                نسعى لتمكين كل فرد وجهة في المملكة من الوصول لاستشارات قانونية
+                دقيقة ومبنية على الأنظمة السعودية المعتمدة — بسرعة فائقة وتكلفة
+                معقولة.
               </p>
-              <p className="text-slate-600 text-lg leading-relaxed dark:text-slate-400">
-                نؤمن بأن فهم القانون حق للجميع، ومبسط LAW يجعل ذلك ممكناً
+              <p className="text-lg text-zinc-600 leading-relaxed dark:text-zinc-400">
+                نؤمن بأن فهم القانون حق للجميع، ومحامي فيصل يجعل ذلك ممكناً
                 باستخدام الذكاء الاصطناعي المتخصص.
               </p>
-            </div>
-            <div className="relative">
-              <div className="aspect-square rounded-3xl bg-linear-to-br from-amber-500 via-amber-400 to-amber-300 p-1">
-                <div className="flex h-full w-full items-center justify-center rounded-3xl bg-white dark:bg-slate-900">
-                  <Globe className="h-32 w-32 animate-pulse text-amber-500 dark:text-amber-300" />
-                </div>
+            </motion.div>
+
+            <motion.div
+              className="flex items-center justify-center"
+              custom={0.2}
+              initial="hidden"
+              variants={fadeUp}
+              viewport={{ once: true }}
+              whileInView="visible"
+            >
+              <div className="flex h-64 w-64 items-center justify-center rounded-3xl border border-zinc-200 bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900">
+                <Globe className="h-24 w-24 text-zinc-300 dark:text-zinc-700" />
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
 
-      {/* Values Section */}
-      <section className="py-20" dir="rtl">
-        <div className="container mx-auto px-4">
-          <div className="mx-auto mb-12 max-w-3xl text-center">
-            <h2 className="mb-4 font-bold text-4xl text-slate-900 dark:text-white">
-              قيمنا الأساسية
+      {/* Values */}
+      <section className="border-zinc-200 border-t px-6 py-20 md:py-28 dark:border-zinc-800">
+        <div className="mx-auto max-w-6xl">
+          <motion.div
+            className="mb-12 text-center"
+            initial="hidden"
+            variants={fadeUp}
+            viewport={{ once: true }}
+            whileInView="visible"
+          >
+            <span className="mb-2 block font-mono text-sm text-zinc-400">
+              قيمنا
+            </span>
+            <h2 className="font-bold text-3xl tracking-tight md:text-4xl">
+              المبادئ التي توجهنا
             </h2>
-            <p className="text-slate-600 text-lg dark:text-slate-400">
-              المبادئ التي توجه عملنا وقراراتنا اليومية
-            </p>
-          </div>
+          </motion.div>
 
-          <div className="mx-auto grid max-w-7xl gap-8 md:grid-cols-2 lg:grid-cols-4">
-            {values.map((value) => (
-              <div
-                className="group rounded-2xl border border-slate-200 bg-white p-6 transition-all hover:shadow-xl dark:border-slate-800 dark:bg-slate-900"
+          <motion.div
+            className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4"
+            initial="hidden"
+            variants={staggerContainer}
+            viewport={{ once: true }}
+            whileInView="visible"
+          >
+            {VALUES.map((value) => (
+              <motion.div
+                className="rounded-2xl bg-zinc-50 p-6 dark:bg-zinc-900"
                 key={value.title}
+                variants={staggerItem}
               >
-                <div
-                  className={`h-14 w-14 rounded-xl bg-linear-to-br ${value.color} mb-4 flex items-center justify-center transition-transform group-hover:scale-110`}
-                >
-                  <value.icon className="h-7 w-7 text-white" />
+                <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-zinc-200 dark:bg-zinc-800">
+                  <value.icon className="h-5 w-5 text-zinc-600 dark:text-zinc-400" />
                 </div>
-                <h3 className="mb-3 font-bold text-slate-900 text-xl dark:text-white">
+                <h3 className="mb-2 font-semibold text-zinc-900 dark:text-zinc-100">
                   {value.title}
                 </h3>
-                <p className="text-slate-600 text-sm leading-relaxed dark:text-slate-400">
+                <p className="text-sm text-zinc-500 leading-relaxed dark:text-zinc-400">
                   {value.description}
                 </p>
-              </div>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Timeline */}
+      <section className="px-6 py-20 md:py-28">
+        <div className="mx-auto max-w-3xl">
+          <motion.div
+            className="mb-12 text-center"
+            initial="hidden"
+            variants={fadeUp}
+            viewport={{ once: true }}
+            whileInView="visible"
+          >
+            <span className="mb-2 block font-mono text-sm text-zinc-400">
+              رحلتنا
+            </span>
+            <h2 className="font-bold text-3xl tracking-tight md:text-4xl">
+              من فكرة إلى منصة يثق بها الآلاف
+            </h2>
+          </motion.div>
+
+          <div className="space-y-0">
+            {MILESTONES.map((milestone, index) => (
+              <motion.div
+                className="flex gap-6 pb-8"
+                custom={index * 0.1}
+                initial="hidden"
+                key={`${milestone.year}-${milestone.title}`}
+                variants={fadeUp}
+                viewport={{ once: true }}
+                whileInView="visible"
+              >
+                <div className="flex flex-col items-center">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border-2 border-zinc-200 bg-white font-mono font-semibold text-xs text-zinc-600 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-400">
+                    {milestone.year.slice(2)}
+                  </div>
+                  {index < MILESTONES.length - 1 && (
+                    <div className="mt-2 h-full w-px bg-zinc-200 dark:bg-zinc-800" />
+                  )}
+                </div>
+                <div className="pb-4">
+                  <span className="mb-1 block font-mono text-xs text-zinc-400">
+                    {milestone.year}
+                  </span>
+                  <h3 className="mb-1 font-semibold text-zinc-900 dark:text-zinc-100">
+                    {milestone.title}
+                  </h3>
+                  <p className="text-sm text-zinc-500 leading-relaxed">
+                    {milestone.description}
+                  </p>
+                </div>
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Timeline Section */}
-      <section className="bg-white py-20 dark:bg-slate-950" dir="rtl">
-        <div className="container mx-auto px-4">
-          <div className="mx-auto mb-12 max-w-3xl text-center">
-            <h2 className="mb-4 font-bold text-4xl text-slate-900 dark:text-white">
-              رحلتنا
-            </h2>
-            <p className="text-slate-600 text-lg dark:text-slate-400">
-              من فكرة بسيطة إلى منصة يثق بها الآلاف
-            </p>
-          </div>
-
-          <div className="mx-auto max-w-4xl">
-            <div className="space-y-8">
-              {milestones.map((milestone, index) => (
-                <div
-                  className="relative pr-12 lg:pr-16"
-                  key={`${milestone.year}-${milestone.title}`}
-                >
-                  {/* Timeline line */}
-                  {index < milestones.length - 1 && (
-                    <div className="absolute top-16 right-6 h-full w-0.5 bg-linear-to-b from-amber-500 to-amber-400 lg:right-8" />
-                  )}
-
-                  {/* Timeline dot */}
-                  <div className="absolute top-2 right-4 h-5 w-5 rounded-full border-4 border-white bg-linear-to-br from-amber-500 to-amber-400 lg:right-6 dark:border-slate-950" />
-
-                  <div className="rounded-xl border border-slate-200 bg-white p-6 transition-all hover:shadow-lg dark:border-slate-800 dark:bg-slate-900">
-                    <div className="mb-3 flex items-start justify-between">
-                      <div>
-                        <span className="mb-2 inline-block rounded-full bg-linear-to-l from-amber-500 to-amber-400 px-3 py-1 font-bold text-sm text-white">
-                          {milestone.year}
-                        </span>
-                        <h3 className="font-bold text-slate-900 text-xl dark:text-white">
-                          {milestone.title}
-                        </h3>
-                      </div>
-                    </div>
-                    <p className="text-slate-600 dark:text-slate-400">
-                      {milestone.description}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Team Section */}
-      <section className="py-20" dir="rtl">
-        <div className="container mx-auto px-4">
-          <div className="mx-auto mb-12 max-w-3xl text-center">
-            <h2 className="mb-4 font-bold text-4xl text-slate-900 dark:text-white">
+      {/* Team */}
+      <section className="border-zinc-200 border-t px-6 py-20 md:py-28 dark:border-zinc-800">
+        <div className="mx-auto max-w-6xl">
+          <motion.div
+            className="mb-12 text-center"
+            initial="hidden"
+            variants={fadeUp}
+            viewport={{ once: true }}
+            whileInView="visible"
+          >
+            <span className="mb-2 block font-mono text-sm text-zinc-400">
               فريقنا
+            </span>
+            <h2 className="font-bold text-3xl tracking-tight md:text-4xl">
+              خبراء يعملون لأجلك
             </h2>
-            <p className="text-slate-600 text-lg dark:text-slate-400">
-              مجموعة من المبدعين والمبتكرين يعملون معاً لتحقيق رؤيتنا
-            </p>
-          </div>
+          </motion.div>
 
-          <div className="mx-auto grid max-w-7xl gap-8 md:grid-cols-2 lg:grid-cols-4">
-            {team.map((member) => (
-              <div
-                className="rounded-2xl border border-slate-200 bg-white p-6 text-center transition-all hover:shadow-xl dark:border-slate-800 dark:bg-slate-900"
+          <motion.div
+            className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4"
+            initial="hidden"
+            variants={staggerContainer}
+            viewport={{ once: true }}
+            whileInView="visible"
+          >
+            {TEAM.map((member) => (
+              <motion.div
+                className="rounded-2xl border border-zinc-200 p-6 text-center transition-colors hover:bg-zinc-50 dark:border-zinc-800 dark:hover:bg-zinc-900"
                 key={member.name}
+                variants={staggerItem}
               >
-                <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-linear-to-br from-amber-500 via-amber-400 to-amber-300">
-                  <member.icon className="h-8 w-8 text-white" />
+                <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-zinc-100 dark:bg-zinc-800">
+                  <member.icon className="h-5 w-5 text-zinc-500" />
                 </div>
-                <h3 className="mb-1 font-bold text-slate-900 text-lg dark:text-white">
+                <h3 className="mb-0.5 font-semibold text-zinc-900 dark:text-zinc-100">
                   {member.name}
                 </h3>
-                <p className="mb-3 font-medium text-amber-500 text-sm dark:text-amber-300">
-                  {member.role}
-                </p>
-                <p className="text-slate-600 text-sm dark:text-slate-400">
+                <p className="mb-3 text-xs text-zinc-400">{member.role}</p>
+                <p className="text-sm text-zinc-500 leading-relaxed">
                   {member.description}
                 </p>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="bg-linear-to-br from-amber-600 via-amber-500 to-amber-400 py-20">
-        <div className="container mx-auto px-4" dir="rtl">
-          <div className="mx-auto max-w-3xl text-center">
-            <h2 className="mb-6 font-bold text-4xl text-white lg:text-5xl">
-              انضم إلى مستخدمي مبسط LAW
+      {/* CTA */}
+      <section className="px-6 py-20 md:py-28">
+        <div className="mx-auto max-w-4xl">
+          <motion.div
+            className="rounded-3xl bg-zinc-950 p-10 text-center text-white md:p-16 dark:bg-zinc-900"
+            initial="hidden"
+            variants={fadeUp}
+            viewport={{ once: true }}
+            whileInView="visible"
+          >
+            <Target className="mx-auto mb-6 h-10 w-10 text-zinc-500" />
+            <h2 className="mb-4 font-bold text-3xl tracking-tight md:text-4xl">
+              انضم إلى مستخدمي محامي فيصل
             </h2>
-            <p className="mb-8 text-amber-50 text-xl">
-              احصل على استشارات قانونية سعودية دقيقة في ثوانٍ
+            <p className="mx-auto mb-8 max-w-xl text-zinc-400">
+              احصل على استشارات قانونية سعودية دقيقة في ثوان
             </p>
-            <div className="flex flex-col justify-center gap-4 sm:flex-row">
+            <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
               <Link
-                className="inline-flex items-center justify-center gap-2 rounded-xl bg-white px-8 py-4 font-semibold text-amber-500 text-lg shadow-lg transition-all hover:scale-105 hover:shadow-xl"
+                className="inline-flex items-center gap-2 rounded-full bg-white px-8 py-3.5 font-medium text-sm text-zinc-900 transition-all hover:bg-zinc-100"
                 href="/register"
               >
-                ابدأ الآن مجاناً
+                ابدأ الآن مجانا
+                <ArrowLeft className="h-4 w-4" />
               </Link>
               <Link
-                className="inline-flex items-center justify-center gap-2 rounded-xl border-2 border-white/30 bg-amber-400/20 px-8 py-4 font-semibold text-lg text-white transition-all hover:bg-amber-400/30"
+                className="inline-flex items-center gap-2 rounded-full border border-zinc-700 px-8 py-3.5 font-medium text-sm text-zinc-300 transition-all hover:bg-zinc-800"
                 href="/contact"
               >
                 تواصل معنا
               </Link>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
     </div>

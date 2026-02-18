@@ -75,7 +75,6 @@ export const analyzeContract = tool({
     specificConcerns = [],
     analysisDepth,
   }) => {
-
     let analysis = `## 📋 تحليل ${contractType}
 
 ${CONTRACT_REVIEW_PROMPT}

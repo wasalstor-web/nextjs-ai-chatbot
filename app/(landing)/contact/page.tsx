@@ -1,349 +1,321 @@
-"use client";
+﻿"use client";
 
 import { motion } from "framer-motion";
 import {
-  CheckCircle,
+  ArrowLeft,
+  Check,
   Clock,
   Mail,
   MapPin,
   MessageSquare,
   Phone,
+  Scale,
   Send,
-  Sparkles,
 } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
-import { GlassCard } from "@/components/landing/glass-card";
+
+const ease = [0.32, 0.72, 0, 1] as const;
+const fadeUp = {
+  hidden: { opacity: 0, y: 24 },
+  visible: (d = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease, delay: d },
+  }),
+};
+const staggerContainer = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.08 } },
+};
+const staggerItem = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease } },
+};
+
+const CONTACT_METHODS = [
+  {
+    icon: Mail,
+    title: "البريد الإلكتروني",
+    value: "support@faisallawyer.com",
+    desc: "نرد خلال 24 ساعة",
+    href: "mailto:support@faisallawyer.com",
+  },
+  {
+    icon: MessageSquare,
+    title: "الدردشة المباشرة",
+    value: "متاح الآن",
+    desc: "رد فوري من فريق الدعم",
+    href: "/chat",
+  },
+  {
+    icon: Phone,
+    title: "الهاتف",
+    value: "+966 50 000 0000",
+    desc: "الأحد  الخميس ص  م",
+    href: "tel:+966500000000",
+  },
+];
 
 export default function ContactPage() {
-  const [formData, setFormData] = useState({
+  const [form, setForm] = useState({
     name: "",
     email: "",
     subject: "",
     message: "",
   });
-  const [status, setStatus] = useState<
-    "idle" | "loading" | "success" | "error"
-  >("idle");
+  const [status, setStatus] = useState<"idle" | "loading" | "success">("idle");
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => setForm({ ...form, [e.target.name]: e.target.value });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus("loading");
-
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-
+    await new Promise((r) => setTimeout(r, 1500));
     setStatus("success");
-    setFormData({ name: "", email: "", subject: "", message: "" });
-
-    setTimeout(() => setStatus("idle"), 3000);
+    setForm({ name: "", email: "", subject: "", message: "" });
+    setTimeout(() => setStatus("idle"), 4000);
   };
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const contactMethods = [
-    {
-      icon: Mail,
-      title: "البريد الإلكتروني",
-      value: "support@mubassatlaw.com",
-      description: "نرد خلال 24 ساعة",
-      gradient: "from-amber-400 to-amber-500",
-      href: "mailto:support@mubassatlaw.com",
-    },
-    {
-      icon: MessageSquare,
-      title: "الدردشة المباشرة",
-      value: "متاح الآن",
-      description: "رد فوري من فريق الدعم",
-      gradient: "from-amber-400 to-teal-600",
-      href: "/chat",
-    },
-    {
-      icon: Phone,
-      title: "الهاتف",
-      value: "+966 50 123 4567",
-      description: "من الأحد إلى الخميس",
-      gradient: "from-teal-500 to-cyan-600",
-      href: "tel:+966501234567",
-    },
-  ];
-
-  const officeInfo = [
-    {
-      icon: MapPin,
-      title: "المكتب الرئيسي",
-      value: "الرياض، المملكة العربية السعودية",
-    },
-    {
-      icon: Clock,
-      title: "ساعات العمل",
-      value: "الأحد - الخميس: 9 صباحاً - 6 مساءً",
-    },
-  ];
+  const inputCls =
+    "w-full rounded-xl border border-zinc-200 bg-white px-4 py-3 text-sm outline-none transition-colors placeholder:text-zinc-400 focus:border-zinc-500 dark:border-zinc-700 dark:bg-zinc-900 dark:focus:border-zinc-500";
 
   return (
-    <div className="min-h-screen overflow-hidden bg-linear-to-b from-white via-amber-50/80/30 to-white dark:from-slate-950 dark:via-slate-900 dark:to-slate-950">
-      {/* Gradient orbs */}
-      <div className="pointer-events-none fixed top-20 left-20 h-72 w-72 rounded-full bg-amber-300/10 blur-[100px]" />
-      <div className="pointer-events-none fixed right-20 bottom-20 h-96 w-96 rounded-full bg-amber-300/10 blur-[100px]" />
-
-      {/* Hero Section */}
-      <section className="relative overflow-hidden pt-24 pb-12">
-        <div className="container relative z-10 mx-auto px-4" dir="rtl">
+    <div
+      className="min-h-screen bg-white text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100"
+      dir="rtl"
+    >
+      {/* Hero */}
+      <section className="relative overflow-hidden px-6 py-24 md:py-32">
+        <div className="-translate-x-1/2 -translate-y-1/2 pointer-events-none absolute top-1/2 left-1/2">
+          {[400, 500, 600].map((s) => (
+            <div
+              className="-translate-x-1/2 -translate-y-1/2 absolute top-1/2 left-1/2 rounded-full border border-zinc-200/50 dark:border-zinc-800/50"
+              key={s}
+              style={{ width: s, height: s }}
+            />
+          ))}
+        </div>
+        <div className="relative mx-auto max-w-4xl text-center">
           <motion.div
-            animate={{ opacity: 1, y: 0 }}
-            className="mx-auto max-w-3xl text-center"
-            initial={{ opacity: 0, y: 20 }}
-            transition={{ duration: 0.6 }}
+            animate="visible"
+            className="mb-4 inline-flex items-center gap-2 rounded-full border border-zinc-200 bg-zinc-50 px-4 py-1.5 text-sm text-zinc-600 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-400"
+            custom={0}
+            initial="hidden"
+            variants={fadeUp}
           >
-            <motion.div
-              animate={{ opacity: 1, scale: 1 }}
-              className="mb-8 inline-flex items-center gap-2 rounded-full border border-amber-100/50 bg-white/80 px-6 py-3 font-medium text-amber-600 text-sm shadow-lg backdrop-blur-xl dark:border-amber-600/50 dark:bg-white/10 dark:text-amber-200"
-              initial={{ opacity: 0, scale: 0.9 }}
-              transition={{ delay: 0.2 }}
-            >
-              <Sparkles className="h-4 w-4" />
-              تواصل معنا
-            </motion.div>
+            <Scale className="h-4 w-4" />
+            تواصل معنا
+          </motion.div>
+          <motion.h1
+            animate="visible"
+            className="mb-6 font-bold text-4xl text-zinc-900 leading-tight tracking-tight md:text-6xl dark:text-white"
+            custom={0.1}
+            initial="hidden"
+            variants={fadeUp}
+          >
+            نحن هنا
+            <br />
+            <span className="bg-gradient-to-l from-zinc-400 to-zinc-900 bg-clip-text text-transparent dark:from-zinc-500 dark:to-white">
+              لمساعدتك.
+            </span>
+          </motion.h1>
+          <motion.p
+            animate="visible"
+            className="mx-auto max-w-xl text-lg text-zinc-600 dark:text-zinc-400"
+            custom={0.2}
+            initial="hidden"
+            variants={fadeUp}
+          >
+            لديك سؤال أو اقتراح؟ تواصل معنا وسنرد عليك في أقرب وقت ممكن.
+          </motion.p>
+        </div>
+      </section>
 
-            <h1 className="mb-6 font-bold text-5xl lg:text-7xl">
-              <span className="text-slate-900 dark:text-white">نحن هنا</span>
-              <br />
-              <span className="bg-linear-to-l from-amber-500 via-amber-500 to-teal-600 bg-clip-text text-transparent">
-                لمساعدتك
-              </span>
-            </h1>
-            <p className="text-slate-600 text-xl leading-relaxed dark:text-slate-300">
-              لديك سؤال أو اقتراح؟ تواصل معنا وسنرد عليك في أقرب وقت ممكن.
-            </p>
+      {/* Contact Cards */}
+      <section className="border-zinc-200 border-t px-6 py-16 dark:border-zinc-800">
+        <div className="mx-auto max-w-5xl">
+          <motion.div
+            className="grid gap-4 sm:grid-cols-3"
+            initial="hidden"
+            variants={staggerContainer}
+            viewport={{ once: true }}
+            whileInView="visible"
+          >
+            {CONTACT_METHODS.map((m) => (
+              <motion.div key={m.title} variants={staggerItem}>
+                <Link
+                  className="group flex gap-4 rounded-2xl border border-zinc-200 p-6 transition-all hover:border-zinc-400 hover:bg-zinc-50 dark:border-zinc-800 dark:hover:border-zinc-600 dark:hover:bg-zinc-900"
+                  href={m.href}
+                >
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-zinc-100 dark:bg-zinc-800">
+                    <m.icon className="h-5 w-5 text-zinc-600 dark:text-zinc-400" />
+                  </div>
+                  <div>
+                    <p className="text-xs text-zinc-400">{m.title}</p>
+                    <p className="font-semibold text-zinc-900 dark:text-zinc-100">
+                      {m.value}
+                    </p>
+                    <p className="text-xs text-zinc-500">{m.desc}</p>
+                  </div>
+                </Link>
+              </motion.div>
+            ))}
           </motion.div>
         </div>
       </section>
 
-      {/* Contact Methods */}
-      <section className="py-12" dir="rtl">
-        <div className="container mx-auto px-4">
-          <div className="mx-auto grid max-w-5xl gap-6 md:grid-cols-3">
-            {contactMethods.map((method, index) => (
-              <Link href={method.href} key={method.title}>
-                <GlassCard
-                  className="h-full cursor-pointer p-6"
-                  delay={index * 0.1}
-                >
-                  <motion.div
-                    className={`h-14 w-14 rounded-2xl bg-linear-to-br ${method.gradient} mb-4 flex items-center justify-center shadow-lg`}
-                    whileHover={{ scale: 1.1, rotate: 5 }}
-                  >
-                    <method.icon className="h-7 w-7 text-white" />
-                  </motion.div>
-                  <h3 className="mb-1 font-bold text-slate-900 text-lg dark:text-white">
-                    {method.title}
-                  </h3>
-                  <p className="mb-1 font-medium text-amber-500 dark:text-amber-300">
-                    {method.value}
-                  </p>
-                  <p className="text-slate-500 text-sm dark:text-slate-400">
-                    {method.description}
-                  </p>
-                </GlassCard>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Contact Form & Info */}
-      <section className="py-16" dir="rtl">
-        <div className="container mx-auto px-4">
-          <div className="mx-auto grid max-w-6xl gap-12 lg:grid-cols-2">
+      {/* Form + Info */}
+      <section className="px-6 py-16 md:py-24">
+        <div className="mx-auto max-w-5xl">
+          <div className="grid gap-12 lg:grid-cols-5">
             {/* Form */}
-            <GlassCard className="p-8" delay={0.2}>
-              <h2 className="mb-6 font-bold text-2xl text-slate-900 dark:text-white">
+            <motion.form
+              className="space-y-4 lg:col-span-3"
+              initial="hidden"
+              onSubmit={handleSubmit}
+              variants={fadeUp}
+              viewport={{ once: true }}
+              whileInView="visible"
+            >
+              <h2 className="mb-6 font-bold text-2xl tracking-tight">
                 أرسل لنا رسالة
               </h2>
 
-              <form className="space-y-6" onSubmit={handleSubmit}>
-                <div className="grid gap-6 md:grid-cols-2">
-                  <div>
-                    <label
-                      className="mb-2 block font-medium text-slate-700 text-sm dark:text-slate-300"
-                      htmlFor="name"
-                    >
-                      الاسم الكامل
-                    </label>
-                    <input
-                      className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-slate-900 placeholder-slate-400 transition-all focus:border-transparent focus:ring-2 focus:ring-amber-400 dark:border-slate-700 dark:bg-slate-900 dark:text-white"
-                      id="name"
-                      name="name"
-                      onChange={handleChange}
-                      placeholder="أدخل اسمك"
-                      required
-                      type="text"
-                      value={formData.name}
-                    />
-                  </div>
-                  <div>
-                    <label
-                      className="mb-2 block font-medium text-slate-700 text-sm dark:text-slate-300"
-                      htmlFor="email"
-                    >
-                      البريد الإلكتروني
-                    </label>
-                    <input
-                      className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-slate-900 placeholder-slate-400 transition-all focus:border-transparent focus:ring-2 focus:ring-amber-400 dark:border-slate-700 dark:bg-slate-900 dark:text-white"
-                      id="email"
-                      name="email"
-                      onChange={handleChange}
-                      placeholder="example@email.com"
-                      required
-                      type="email"
-                      value={formData.email}
-                    />
-                  </div>
-                </div>
+              <div className="grid gap-4 sm:grid-cols-2">
+                <input
+                  aria-label="الاسم الكامل"
+                  className={inputCls}
+                  name="name"
+                  onChange={handleChange}
+                  placeholder="الاسم الكامل"
+                  required
+                  type="text"
+                  value={form.name}
+                />
+                <input
+                  aria-label="البريد الإلكتروني"
+                  className={inputCls}
+                  name="email"
+                  onChange={handleChange}
+                  placeholder="البريد الإلكتروني"
+                  required
+                  type="email"
+                  value={form.email}
+                />
+              </div>
+              <input
+                aria-label="الموضوع"
+                className={inputCls}
+                name="subject"
+                onChange={handleChange}
+                placeholder="الموضوع"
+                required
+                type="text"
+                value={form.subject}
+              />
+              <textarea
+                aria-label="الرسالة"
+                className={inputCls}
+                name="message"
+                onChange={handleChange}
+                placeholder="رسالتك..."
+                required
+                rows={5}
+                value={form.message}
+              />
 
-                <div>
-                  <label
-                    className="mb-2 block font-medium text-slate-700 text-sm dark:text-slate-300"
-                    htmlFor="subject"
-                  >
-                    الموضوع
-                  </label>
-                  <input
-                    className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-slate-900 placeholder-slate-400 transition-all focus:border-transparent focus:ring-2 focus:ring-amber-400 dark:border-slate-700 dark:bg-slate-900 dark:text-white"
-                    id="subject"
-                    name="subject"
-                    onChange={handleChange}
-                    placeholder="موضوع الرسالة"
-                    required
-                    type="text"
-                    value={formData.subject}
-                  />
-                </div>
-
-                <div>
-                  <label
-                    className="mb-2 block font-medium text-slate-700 text-sm dark:text-slate-300"
-                    htmlFor="message"
-                  >
-                    الرسالة
-                  </label>
-                  <textarea
-                    className="w-full resize-none rounded-xl border border-slate-200 bg-white px-4 py-3 text-slate-900 placeholder-slate-400 transition-all focus:border-transparent focus:ring-2 focus:ring-amber-400 dark:border-slate-700 dark:bg-slate-900 dark:text-white"
-                    id="message"
-                    name="message"
-                    onChange={handleChange}
-                    placeholder="اكتب رسالتك هنا..."
-                    required
-                    rows={5}
-                    value={formData.message}
-                  />
-                </div>
-
-                <motion.button
-                  className={`flex w-full items-center justify-center gap-3 rounded-xl py-4 font-bold text-lg transition-all ${
-                    status === "success"
-                      ? "bg-amber-400 text-white"
-                      : "bg-linear-to-r from-amber-500 to-amber-500 text-white shadow-amber-400/30 shadow-xl"
-                  }`}
-                  disabled={status === "loading" || status === "success"}
-                  type="submit"
-                  whileHover={{
-                    scale: 1.02,
-                    boxShadow: "0 20px 40px -10px rgba(34, 197, 94, 0.4)",
-                  }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  {status === "loading" && (
-                    <motion.div
-                      animate={{ rotate: 360 }}
-                      className="h-5 w-5 rounded-full border-2 border-white/30 border-t-white"
-                      transition={{
-                        duration: 1,
-                        repeat: Number.POSITIVE_INFINITY,
-                        ease: "linear",
-                      }}
-                    />
-                  )}
-                  {status === "success" && <CheckCircle className="h-5 w-5" />}
-                  {status === "idle" && <Send className="h-5 w-5" />}
-                  {status === "loading"
-                    ? "جارٍ الإرسال..."
-                    : status === "success"
-                      ? "تم الإرسال بنجاح!"
-                      : "إرسال الرسالة"}
-                </motion.button>
-              </form>
-            </GlassCard>
+              <button
+                className={`flex w-full items-center justify-center gap-2 rounded-full py-3.5 font-medium text-sm transition-all ${
+                  status === "success"
+                    ? "bg-emerald-600 text-white"
+                    : "bg-zinc-900 text-white hover:bg-zinc-800 dark:bg-white dark:text-zinc-900 dark:hover:bg-zinc-100"
+                }`}
+                disabled={status === "loading" || status === "success"}
+                type="submit"
+              >
+                {status === "loading" && (
+                  <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
+                )}
+                {status === "success" && <Check className="h-4 w-4" />}
+                {status === "idle" && <Send className="h-4 w-4" />}
+                {status === "loading"
+                  ? "جارٍ الإرسال..."
+                  : status === "success"
+                    ? "تم الإرسال!"
+                    : "إرسال الرسالة"}
+              </button>
+            </motion.form>
 
             {/* Info */}
-            <div className="space-y-6">
-              <GlassCard className="p-8" delay={0.3}>
-                <h2 className="mb-6 font-bold text-2xl text-slate-900 dark:text-white">
-                  معلومات الاتصال
-                </h2>
-
-                <div className="space-y-6">
-                  {officeInfo.map((info) => (
-                    <div className="flex items-start gap-4" key={info.title}>
-                      <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-amber-50 dark:bg-amber-900/30">
-                        <info.icon className="h-6 w-6 text-amber-500 dark:text-amber-300" />
-                      </div>
-                      <div>
-                        <h3 className="font-semibold text-slate-900 dark:text-white">
-                          {info.title}
-                        </h3>
-                        <p className="text-slate-600 dark:text-slate-400">
-                          {info.value}
-                        </p>
-                      </div>
+            <motion.div
+              className="flex flex-col gap-4 lg:col-span-2"
+              initial="hidden"
+              variants={staggerContainer}
+              viewport={{ once: true }}
+              whileInView="visible"
+            >
+              <motion.div
+                className="rounded-2xl border border-zinc-200 p-6 dark:border-zinc-800"
+                variants={staggerItem}
+              >
+                <div className="space-y-5">
+                  <div className="flex items-start gap-3">
+                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-zinc-100 dark:bg-zinc-800">
+                      <MapPin className="h-4 w-4 text-zinc-500" />
                     </div>
-                  ))}
-                </div>
-              </GlassCard>
-
-              {/* Map Placeholder */}
-              <GlassCard className="h-[300px] overflow-hidden p-0" delay={0.4}>
-                <div className="flex h-full w-full items-center justify-center bg-linear-to-br from-amber-50 to-emerald-100 dark:from-amber-900/30 dark:to-emerald-900/30">
-                  <div className="text-center">
-                    <MapPin className="mx-auto mb-4 h-12 w-12 text-amber-500 dark:text-amber-300" />
-                    <p className="text-slate-600 dark:text-slate-400">
-                      الرياض، المملكة العربية السعودية
-                    </p>
+                    <div>
+                      <p className="text-xs text-zinc-400">الموقع</p>
+                      <p className="font-medium text-sm text-zinc-900 dark:text-zinc-100">
+                        الرياض، المملكة العربية السعودية
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-zinc-100 dark:bg-zinc-800">
+                      <Clock className="h-4 w-4 text-zinc-500" />
+                    </div>
+                    <div>
+                      <p className="text-xs text-zinc-400">ساعات العمل</p>
+                      <p className="font-medium text-sm text-zinc-900 dark:text-zinc-100">
+                        الأحد – الخميس: ٩ صباحاً – ٦ مساءً
+                      </p>
+                    </div>
                   </div>
                 </div>
-              </GlassCard>
-            </div>
-          </div>
-        </div>
-      </section>
+              </motion.div>
 
-      {/* FAQ CTA */}
-      <section className="py-16" dir="rtl">
-        <div className="container mx-auto px-4">
-          <GlassCard className="mx-auto max-w-4xl p-12 text-center" delay={0.5}>
-            <h2 className="mb-4 font-bold text-3xl text-slate-900 dark:text-white">
-              هل تبحث عن إجابة سريعة؟
-            </h2>
-            <p className="mb-8 text-slate-600 dark:text-slate-400">
-              تصفح قسم الأسئلة الشائعة للعثور على إجابات لأكثر الاستفسارات
-              شيوعاً.
-            </p>
-            <Link href="/pricing#faq">
-              <motion.button
-                className="inline-flex items-center gap-2 rounded-xl bg-slate-100 px-8 py-4 font-semibold text-slate-900 transition-all hover:bg-slate-200 dark:bg-slate-800 dark:text-white dark:hover:bg-slate-700"
-                type="button"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.98 }}
+              <motion.div
+                className="flex items-center justify-center rounded-2xl border border-zinc-200 bg-zinc-50 p-10 dark:border-zinc-800 dark:bg-zinc-900"
+                variants={staggerItem}
               >
-                الأسئلة الشائعة
-              </motion.button>
-            </Link>
-          </GlassCard>
+                <div className="text-center">
+                  <MapPin className="mx-auto mb-3 h-10 w-10 text-zinc-300 dark:text-zinc-700" />
+                  <p className="text-sm text-zinc-500">
+                    الرياض، المملكة العربية السعودية
+                  </p>
+                </div>
+              </motion.div>
+
+              <motion.div
+                className="rounded-2xl bg-zinc-950 p-6 text-white dark:bg-zinc-900"
+                variants={staggerItem}
+              >
+                <h3 className="mb-2 font-semibold">تبحث عن إجابة سريعة؟</h3>
+                <p className="mb-4 text-sm text-zinc-400">
+                  تصفح الأسئلة الشائعة للعثور على إجابات فورية.
+                </p>
+                <Link
+                  className="inline-flex items-center gap-2 rounded-full border border-zinc-700 px-4 py-2 text-sm text-zinc-300 transition-colors hover:border-zinc-500 hover:text-white"
+                  href="/faq"
+                >
+                  الأسئلة الشائعة <ArrowLeft className="h-3 w-3" />
+                </Link>
+              </motion.div>
+            </motion.div>
+          </div>
         </div>
       </section>
     </div>

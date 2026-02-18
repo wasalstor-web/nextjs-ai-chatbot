@@ -1,0 +1,281 @@
+﻿{
+  "servers": {
+    "console-ninja": {
+      "command": "powershell.exe",
+      "args": ["node", "$Env:USERPROFILE/.console-ninja/mcp/"],
+      "type": "stdio"
+    },
+    "sequential-thinking": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-sequential-thinking"],
+      "type": "stdio"
+    },
+    "memory": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-memory"],
+      "type": "stdio"
+    },
+    "filesystem": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "${workspaceFolder}"
+      ],
+      "type": "stdio"
+    },
+    "fetch": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-fetch"],
+      "type": "stdio"
+    },
+    "puppeteer": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-puppeteer"],
+      "type": "stdio"
+    },
+    "playwright": {
+      "command": "npx",
+      "args": ["-y", "@playwright/mcp@latest"],
+      "type": "stdio"
+    },
+    "context7": {
+      "command": "npx",
+      "args": ["-y", "@upstash/context7-mcp"],
+      "type": "stdio"
+    },
+    "prisma": {
+      "command": "npx",
+      "args": ["-y", "prisma-mcp"],
+      "type": "stdio"
+    },
+    "git": {
+      "command": "npx",
+      "args": ["-y", "@cyanheads/git-mcp-server"],
+      "type": "stdio",
+      "env": { "GIT_REPOS_PATH": "${workspaceFolder}" }
+    },
+    "shadcn": {
+      "command": "npx",
+      "args": ["-y", "shadcn@latest", "registry:mcp"],
+      "type": "stdio"
+    },
+    "sqlite": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-sqlite",
+        "--db-path",
+        "${workspaceFolder}/.mcp-dev.db"
+      ],
+      "type": "stdio"
+    },
+    "time": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-time"],
+      "type": "stdio"
+    },
+    "desktop-commander": {
+      "command": "npx",
+      "args": ["-y", "@wonderwhy-er/desktop-commander"],
+      "type": "stdio"
+    },
+    "youtube-transcript": {
+      "command": "npx",
+      "args": ["-y", "mcp-youtube-transcript"],
+      "type": "stdio"
+    },
+    "docker": {
+      "command": "npx",
+      "args": ["-y", "mcp-server-docker"],
+      "type": "stdio"
+    },
+    "everything": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-everything"],
+      "type": "stdio"
+    },
+    "mcp-installer": {
+      "command": "npx",
+      "args": ["-y", "@anaisbetts/mcp-installer"],
+      "type": "stdio"
+    },
+    "snyk": {
+      "command": "npx",
+      "args": ["-y", "@snyk/snyk-mcp"],
+      "type": "stdio"
+    },
+    "github": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "type": "stdio",
+      "env": { "GITHUB_PERSONAL_ACCESS_TOKEN": "${input:githubToken}" }
+    },
+    "figma": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "figma-developer-mcp",
+        "--figma-api-key=${input:figmaToken}",
+        "--stdio"
+      ],
+      "type": "stdio"
+    },
+    "postgres": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-postgres",
+        "${input:postgresUrl}"
+      ],
+      "type": "stdio"
+    },
+    "redis": {
+      "command": "npx",
+      "args": ["-y", "mcp-server-redis", "${input:redisUrl}"],
+      "type": "stdio"
+    },
+    "brave-search": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-brave-search"],
+      "type": "stdio",
+      "env": { "BRAVE_API_KEY": "${input:braveApiKey}" }
+    },
+    "vercel": {
+      "command": "npx",
+      "args": ["-y", "@vercel/mcp-adapter"],
+      "type": "stdio",
+      "env": { "VERCEL_TOKEN": "${input:vercelToken}" }
+    },
+    "sentry": {
+      "command": "npx",
+      "args": ["-y", "@sentry/mcp-server"],
+      "type": "stdio",
+      "env": {
+        "SENTRY_AUTH_TOKEN": "${input:sentryToken}",
+        "SENTRY_ORG": "${input:sentryOrg}"
+      }
+    },
+    "openai": {
+      "command": "npx",
+      "args": ["-y", "openai-mcp-server"],
+      "type": "stdio",
+      "env": { "OPENAI_API_KEY": "${input:openaiKey}" }
+    },
+    "magic": {
+      "command": "npx",
+      "args": ["-y", "@21st-dev/magic@latest"],
+      "type": "stdio",
+      "env": { "API_KEY": "${input:magicApiKey}" }
+    },
+    "exa": {
+      "command": "npx",
+      "args": ["-y", "exa-mcp-server"],
+      "type": "stdio",
+      "env": { "EXA_API_KEY": "${input:exaApiKey}" }
+    },
+    "browserbase": {
+      "command": "npx",
+      "args": ["-y", "@browserbasehq/mcp-server-browserbase"],
+      "type": "stdio",
+      "env": {
+        "BROWSERBASE_API_KEY": "${input:browserbaseApiKey}",
+        "BROWSERBASE_PROJECT_ID": "${input:browserbaseProjectId}"
+      }
+    },
+    "supabase": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@supabase/mcp-server-supabase@latest",
+        "--access-token",
+        "${input:supabaseToken}"
+      ],
+      "type": "stdio"
+    }
+  },
+  "inputs": [
+    {
+      "id": "githubToken",
+      "type": "promptString",
+      "description": "GitHub Personal Access Token  https://github.com/settings/tokens",
+      "password": true
+    },
+    {
+      "id": "figmaToken",
+      "type": "promptString",
+      "description": "Figma API Token  https://figma.com/settings",
+      "password": true
+    },
+    {
+      "id": "postgresUrl",
+      "type": "promptString",
+      "description": "PostgreSQL URL  من .env  POSTGRES_URL",
+      "password": true
+    },
+    {
+      "id": "redisUrl",
+      "type": "promptString",
+      "description": "Redis URL  من .env  REDIS_URL",
+      "password": true
+    },
+    {
+      "id": "braveApiKey",
+      "type": "promptString",
+      "description": "Brave Search API Key  https://api.search.brave.com",
+      "password": true
+    },
+    {
+      "id": "vercelToken",
+      "type": "promptString",
+      "description": "Vercel Token  https://vercel.com/account/tokens",
+      "password": true
+    },
+    {
+      "id": "sentryToken",
+      "type": "promptString",
+      "description": "Sentry Auth Token  https://sentry.io/settings/auth-tokens",
+      "password": true
+    },
+    {
+      "id": "sentryOrg",
+      "type": "promptString",
+      "description": "Sentry Organization Slug"
+    },
+    {
+      "id": "openaiKey",
+      "type": "promptString",
+      "description": "OpenAI API Key  https://platform.openai.com/api-keys",
+      "password": true
+    },
+    {
+      "id": "magicApiKey",
+      "type": "promptString",
+      "description": "21st.dev Magic API Key  https://21st.dev/magic/console",
+      "password": true
+    },
+    {
+      "id": "exaApiKey",
+      "type": "promptString",
+      "description": "Exa Search API Key  https://dashboard.exa.ai/api-keys",
+      "password": true
+    },
+    {
+      "id": "browserbaseApiKey",
+      "type": "promptString",
+      "description": "Browserbase API Key  https://browserbase.com/dashboard",
+      "password": true
+    },
+    {
+      "id": "browserbaseProjectId",
+      "type": "promptString",
+      "description": "Browserbase Project ID"
+    },
+    {
+      "id": "supabaseToken",
+      "type": "promptString",
+      "description": "Supabase Access Token  https://supabase.com/dashboard/account/tokens",
+      "password": true
+    }
+  ]
+}

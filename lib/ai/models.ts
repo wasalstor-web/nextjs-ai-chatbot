@@ -14,25 +14,25 @@ export type ChatModel = {
 export const chatModels: ChatModel[] = [
   {
     id: "openai/gpt-4o",
-    name: "مبسط 1",
+    name: "فيصل 1",
     provider: "openai",
     description: "النموذج الأول - الأكثر قدرة",
   },
   {
     id: "openai/gpt-4o-mini",
-    name: "مبسط 2",
+    name: "فيصل 2",
     provider: "openai",
     description: "النموذج الثاني - سريع واقتصادي",
   },
   {
     id: "openai/gpt-4.1-mini",
-    name: "مبسط 3",
+    name: "فيصل 3",
     provider: "openai",
     description: "النموذج الثالث - الجيل الجديد",
   },
   {
     id: "openai/gpt-5.2",
-    name: "مبسط 4",
+    name: "فيصل 4",
     provider: "openai",
     description: "النموذج الرابع - أحدث إصدار",
   },
@@ -40,7 +40,7 @@ export const chatModels: ChatModel[] = [
 
 // أسماء المزودين بالعربي
 export const providerDisplayNames: Record<string, string> = {
-  openai: "مبسط",
+  openai: "فيصل",
 };
 
 // Group models by provider for UI

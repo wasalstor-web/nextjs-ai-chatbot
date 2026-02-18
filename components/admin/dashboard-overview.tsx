@@ -19,9 +19,9 @@ import {
   Zap,
 } from "lucide-react";
 import { useEffect, useState } from "react";
+import { AnimatedCounter } from "@/components/ui/animated-counter";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { AnimatedCounter } from "@/components/ui/animated-counter";
 import {
   Card,
   CardContent,
@@ -223,14 +223,17 @@ export function DashboardOverview() {
 
   if (loading) {
     return (
-      <div className="flex-1 space-y-6 p-6 md:p-8 bg-white dark:bg-slate-950">
+      <div className="flex-1 space-y-6 bg-white p-6 md:p-8 dark:bg-slate-950">
         <div className="flex items-center justify-between">
           <Skeleton className="h-10 w-56" />
           <Skeleton className="h-9 w-32 rounded-xl" />
         </div>
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {Array.from({ length: 6 }).map((_, i) => (
-            <Card className="overflow-hidden border-slate-100 shadow-sm" key={`skeleton-${i}`}>
+            <Card
+              className="overflow-hidden border-slate-100 shadow-sm"
+              key={`skeleton-${i}`}
+            >
               <CardHeader className="pb-2">
                 <Skeleton className="h-4 w-28" />
               </CardHeader>
@@ -246,24 +249,33 @@ export function DashboardOverview() {
   }
 
   return (
-    <div className="flex-1 space-y-6 p-6 md:p-8 bg-white dark:bg-slate-950 min-h-screen">
+    <div className="min-h-screen flex-1 space-y-6 bg-white p-6 md:p-8 dark:bg-slate-950">
       {/* Header */}
       <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
         <div>
-          <h2 className="font-bold text-3xl tracking-tight text-slate-900 dark:text-white">لوحة التحكم</h2>
+          <h2 className="font-bold text-3xl text-slate-900 tracking-tight dark:text-white">
+            لوحة التحكم
+          </h2>
           <p className="mt-1 text-slate-500 dark:text-slate-400">
             نظرة عامة على نشاط وإحصائيات النظام
           </p>
         </div>
         <div className="flex items-center gap-2">
-          <Badge className="gap-1.5 px-3 py-1 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 border-emerald-200" variant="outline">
+          <Badge
+            className="gap-1.5 border-emerald-200 bg-emerald-50 px-3 py-1 text-emerald-700 hover:bg-emerald-100"
+            variant="outline"
+          >
             <span className="relative flex h-2 w-2">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
               <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
             </span>
             النظام يعمل
           </Badge>
-          <Button className="gap-1.5 text-xs text-slate-500 border-slate-200 bg-white hover:bg-slate-50" size="sm" variant="outline">
+          <Button
+            className="gap-1.5 border-slate-200 bg-white text-slate-500 text-xs hover:bg-slate-50"
+            size="sm"
+            variant="outline"
+          >
             <Clock className="h-3.5 w-3.5" />
             آخر تحديث: الآن
           </Button>
@@ -276,14 +288,14 @@ export function DashboardOverview() {
           const Icon = card.icon;
           return (
             <Card
-              key={card.title}
               className={cn(
-                "overflow-hidden transition-all duration-200 hover:shadow-md border",
+                "overflow-hidden border transition-all duration-200 hover:shadow-md",
                 card.border
               )}
+              key={card.title}
             >
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium text-slate-600 dark:text-slate-300">
+                <CardTitle className="font-medium text-slate-600 text-sm dark:text-slate-300">
                   {card.title}
                 </CardTitle>
                 <div className={cn("rounded-full p-2", card.bg)}>
@@ -293,20 +305,24 @@ export function DashboardOverview() {
               <CardContent>
                 <div className="flex items-end justify-between">
                   <div>
-                     <div className="text-2xl font-bold text-slate-900 dark:text-white mb-1">
-                       <AnimatedCounter value={card.value} locale="ar-SA" duration={0.8} />
-                     </div>
-                     <p className="text-xs text-muted-foreground">
-                       {card.sub}
-                       {card.change > 0 && (
-                         <span className="mr-2 inline-flex items-center text-emerald-600 font-medium bg-emerald-50 px-1.5 py-0.5 rounded text-[10px]">
-                           <TrendingUp className="h-3 w-3 mr-1" />
-                           {card.change}%+
-                         </span>
-                       )}
-                     </p>
+                    <div className="mb-1 font-bold text-2xl text-slate-900 dark:text-white">
+                      <AnimatedCounter
+                        duration={0.8}
+                        locale="ar-SA"
+                        value={card.value}
+                      />
+                    </div>
+                    <p className="text-muted-foreground text-xs">
+                      {card.sub}
+                      {card.change > 0 && (
+                        <span className="mr-2 inline-flex items-center rounded bg-emerald-50 px-1.5 py-0.5 font-medium text-[10px] text-emerald-600">
+                          <TrendingUp className="mr-1 h-3 w-3" />
+                          {card.change}%+
+                        </span>
+                      )}
+                    </p>
                   </div>
-                  <MiniChart data={card.chart} color={card.chartColor} />
+                  <MiniChart color={card.chartColor} data={card.chart} />
                 </div>
               </CardContent>
             </Card>
@@ -319,72 +335,74 @@ export function DashboardOverview() {
         <Card className="col-span-4 border-slate-100 shadow-sm">
           <CardHeader>
             <CardTitle className="text-xl">النشاط الأخير</CardTitle>
-            <CardDescription>
-              آخر العمليات التي تمت على النظام
-            </CardDescription>
+            <CardDescription>آخر العمليات التي تمت على النظام</CardDescription>
           </CardHeader>
           <CardContent>
-             <div className="space-y-8">
-                {recentActivity.map((item) => (
-                  <div className="flex items-center" key={item.id}>
-                    <div className="ml-4 space-y-1">
-                      <p className="text-sm font-medium leading-none text-slate-900 dark:text-white">{item.title}</p>
-                      <p className="text-sm text-slate-500 dark:text-slate-400">{item.description}</p>
-                    </div>
-                    <div className="mr-auto font-medium text-xs text-slate-400">
-                      {item.time}
-                    </div>
+            <div className="space-y-8">
+              {recentActivity.map((item) => (
+                <div className="flex items-center" key={item.id}>
+                  <div className="ml-4 space-y-1">
+                    <p className="font-medium text-slate-900 text-sm leading-none dark:text-white">
+                      {item.title}
+                    </p>
+                    <p className="text-slate-500 text-sm dark:text-slate-400">
+                      {item.description}
+                    </p>
                   </div>
-                ))}
-             </div>
+                  <div className="mr-auto font-medium text-slate-400 text-xs">
+                    {item.time}
+                  </div>
+                </div>
+              ))}
+            </div>
           </CardContent>
         </Card>
 
         {/* Quick Actions / System Health */}
-        <Card className="col-span-3 border-slate-100 shadow-sm bg-slate-900 text-white">
+        <Card className="col-span-3 border-slate-100 bg-slate-900 text-white shadow-sm">
           <CardHeader>
-            <CardTitle className="text-xl text-white">حالة الخوادم</CardTitle>
+            <CardTitle className="text-white text-xl">حالة الخوادم</CardTitle>
             <CardDescription className="text-slate-400">
               مراقبة حية لأداء البنية التحتية
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
-             <div className="space-y-2">
-                <div className="flex items-center justify-between text-sm">
-                   <span className="text-slate-300">استهلاك المعالج</span>
-                   <span className="text-emerald-400 font-bold">12%</span>
-                </div>
-                <div className="h-2 w-full bg-slate-800 rounded-full overflow-hidden">
-                   <div className="h-full bg-emerald-500 w-[12%] rounded-full shadow-[0_0_10px_rgba(16,185,129,0.5)]"></div>
-                </div>
-             </div>
+            <div className="space-y-2">
+              <div className="flex items-center justify-between text-sm">
+                <span className="text-slate-300">استهلاك المعالج</span>
+                <span className="font-bold text-emerald-400">12%</span>
+              </div>
+              <div className="h-2 w-full overflow-hidden rounded-full bg-slate-800">
+                <div className="h-full w-[12%] rounded-full bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.5)]" />
+              </div>
+            </div>
 
-             <div className="space-y-2">
-                <div className="flex items-center justify-between text-sm">
-                   <span className="text-slate-300">الذاكرة</span>
-                   <span className="text-emerald-400 font-bold">45%</span>
-                </div>
-                <div className="h-2 w-full bg-slate-800 rounded-full overflow-hidden">
-                   <div className="h-full bg-emerald-500 w-[45%] rounded-full shadow-[0_0_10px_rgba(16,185,129,0.5)]"></div>
-                </div>
-             </div>
+            <div className="space-y-2">
+              <div className="flex items-center justify-between text-sm">
+                <span className="text-slate-300">الذاكرة</span>
+                <span className="font-bold text-emerald-400">45%</span>
+              </div>
+              <div className="h-2 w-full overflow-hidden rounded-full bg-slate-800">
+                <div className="h-full w-[45%] rounded-full bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.5)]" />
+              </div>
+            </div>
 
-             <div className="space-y-2">
-                <div className="flex items-center justify-between text-sm">
-                   <span className="text-slate-300">قاعدة البيانات</span>
-                   <span className="text-emerald-400 font-bold">99.9%</span>
-                </div>
-                <div className="h-2 w-full bg-slate-800 rounded-full overflow-hidden">
-                   <div className="h-full bg-emerald-500 w-full rounded-full shadow-[0_0_10px_rgba(16,185,129,0.5)]"></div>
-                </div>
-             </div>
+            <div className="space-y-2">
+              <div className="flex items-center justify-between text-sm">
+                <span className="text-slate-300">قاعدة البيانات</span>
+                <span className="font-bold text-emerald-400">99.9%</span>
+              </div>
+              <div className="h-2 w-full overflow-hidden rounded-full bg-slate-800">
+                <div className="h-full w-full rounded-full bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.5)]" />
+              </div>
+            </div>
 
-             <div className="pt-4 border-t border-slate-800">
-                <Button className="w-full bg-emerald-600 hover:bg-emerald-700 text-white border-none">
-                   <Activity className="mr-2 h-4 w-4" />
-                   تقرير مفصل
-                </Button>
-             </div>
+            <div className="border-slate-800 border-t pt-4">
+              <Button className="w-full border-none bg-emerald-600 text-white hover:bg-emerald-700">
+                <Activity className="mr-2 h-4 w-4" />
+                تقرير مفصل
+              </Button>
+            </div>
           </CardContent>
         </Card>
       </div>

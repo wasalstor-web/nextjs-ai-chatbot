@@ -1,10 +1,10 @@
 "use client";
 
+import { AnimatePresence, motion } from "framer-motion";
 import { Menu, Moon, Scale, Sun, X } from "lucide-react";
 import Link from "next/link";
 import { useTheme } from "next-themes";
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 
 /* ────────────────────────────────────────────────
  *  Header — NOB-Style Minimal Navigation
@@ -22,7 +22,7 @@ export function Header() {
   ];
 
   return (
-    <header className="sticky top-0 z-50 border-b border-zinc-100 bg-white/90 backdrop-blur-xl dark:border-zinc-900 dark:bg-zinc-950/90">
+    <header className="sticky top-0 z-50 border-zinc-100 border-b bg-white/90 backdrop-blur-xl dark:border-zinc-900 dark:bg-zinc-950/90">
       <nav className="mx-auto max-w-7xl px-6 md:px-8" dir="rtl">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
@@ -33,10 +33,10 @@ export function Header() {
             <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-zinc-950 dark:bg-zinc-100">
               <Scale className="h-4.5 w-4.5 text-white dark:text-zinc-950" />
             </div>
-            <span className="text-lg font-bold tracking-tight text-zinc-950 dark:text-zinc-50">
-              مبسّط{" "}
+            <span className="font-bold text-lg text-zinc-950 tracking-tight dark:text-zinc-50">
+              محامي{" "}
               <span className="font-light text-zinc-400 dark:text-zinc-600">
-                LAW
+                فيصل
               </span>
             </span>
           </Link>
@@ -45,7 +45,7 @@ export function Header() {
           <div className="hidden items-center gap-1 lg:flex">
             {navLinks.map((link) => (
               <Link
-                className="rounded-lg px-3.5 py-2 text-sm font-medium text-zinc-500 transition-colors hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-zinc-50"
+                className="rounded-lg px-3.5 py-2 font-medium text-sm text-zinc-500 transition-colors hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-zinc-50"
                 href={link.href}
                 key={link.href}
               >
@@ -73,13 +73,13 @@ export function Header() {
             {/* Auth Buttons */}
             <div className="hidden items-center gap-2 lg:flex">
               <Link
-                className="rounded-lg px-4 py-2 text-sm font-medium text-zinc-600 transition-colors hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-zinc-50"
+                className="rounded-lg px-4 py-2 font-medium text-sm text-zinc-600 transition-colors hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-zinc-50"
                 href="/login"
               >
                 تسجيل الدخول
               </Link>
               <Link
-                className="rounded-full bg-zinc-950 px-5 py-2 text-sm font-semibold text-white transition-all hover:opacity-90 dark:bg-zinc-100 dark:text-zinc-950"
+                className="rounded-full bg-zinc-950 px-5 py-2 font-semibold text-sm text-white transition-all hover:opacity-90 dark:bg-zinc-100 dark:text-zinc-950"
                 href="/register"
               >
                 ابدأ الآن
@@ -112,10 +112,10 @@ export function Header() {
               initial={{ height: 0, opacity: 0 }}
               transition={{ duration: 0.2 }}
             >
-              <div className="space-y-1 border-t border-zinc-100 py-4 dark:border-zinc-900">
+              <div className="space-y-1 border-zinc-100 border-t py-4 dark:border-zinc-900">
                 {navLinks.map((link) => (
                   <Link
-                    className="block rounded-lg px-4 py-2.5 text-sm font-medium text-zinc-600 transition-colors hover:bg-zinc-50 hover:text-zinc-950 dark:text-zinc-400 dark:hover:bg-zinc-900 dark:hover:text-zinc-50"
+                    className="block rounded-lg px-4 py-2.5 font-medium text-sm text-zinc-600 transition-colors hover:bg-zinc-50 hover:text-zinc-950 dark:text-zinc-400 dark:hover:bg-zinc-900 dark:hover:text-zinc-50"
                     href={link.href}
                     key={link.href}
                     onClick={() => setIsMenuOpen(false)}
@@ -123,16 +123,16 @@ export function Header() {
                     {link.label}
                   </Link>
                 ))}
-                <div className="space-y-2 border-t border-zinc-100 pt-4 dark:border-zinc-900">
+                <div className="space-y-2 border-zinc-100 border-t pt-4 dark:border-zinc-900">
                   <Link
-                    className="block rounded-lg border border-zinc-200 px-4 py-2.5 text-center text-sm font-medium text-zinc-700 transition-colors hover:border-zinc-300 dark:border-zinc-800 dark:text-zinc-300 dark:hover:border-zinc-700"
+                    className="block rounded-lg border border-zinc-200 px-4 py-2.5 text-center font-medium text-sm text-zinc-700 transition-colors hover:border-zinc-300 dark:border-zinc-800 dark:text-zinc-300 dark:hover:border-zinc-700"
                     href="/login"
                     onClick={() => setIsMenuOpen(false)}
                   >
                     تسجيل الدخول
                   </Link>
                   <Link
-                    className="block rounded-full bg-zinc-950 px-4 py-2.5 text-center text-sm font-semibold text-white transition-all hover:opacity-90 dark:bg-zinc-100 dark:text-zinc-950"
+                    className="block rounded-full bg-zinc-950 px-4 py-2.5 text-center font-semibold text-sm text-white transition-all hover:opacity-90 dark:bg-zinc-100 dark:text-zinc-950"
                     href="/register"
                     onClick={() => setIsMenuOpen(false)}
                   >
@@ -156,7 +156,7 @@ export function Footer() {
 
   return (
     <footer
-      className="border-t border-zinc-100 bg-white dark:border-zinc-900 dark:bg-zinc-950"
+      className="border-zinc-100 border-t bg-white dark:border-zinc-900 dark:bg-zinc-950"
       dir="rtl"
     >
       {/* Main Footer */}
@@ -172,17 +172,17 @@ export function Footer() {
               <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-zinc-950 dark:bg-zinc-100">
                 <Scale className="h-4.5 w-4.5 text-white dark:text-zinc-950" />
               </div>
-              <span className="text-lg font-bold tracking-tight">
-                مبسّط{" "}
+              <span className="font-bold text-lg tracking-tight">
+                محامي{" "}
                 <span className="font-light text-zinc-400 dark:text-zinc-600">
-                  LAW
+                  فيصل
                 </span>
               </span>
             </Link>
 
-            <p className="max-w-sm text-sm leading-relaxed text-zinc-500 dark:text-zinc-400">
-              مستشارك القانوني الذكي — أخبرنا عن احتياجك القانوني وسنساعدك
-              بأفضل الحلول المدعومة بالذكاء الاصطناعي.
+            <p className="max-w-sm text-sm text-zinc-500 leading-relaxed dark:text-zinc-400">
+              مستشارك القانوني الذكي — أخبرنا عن احتياجك القانوني وسنساعدك بأفضل
+              الحلول المدعومة بالذكاء الاصطناعي.
             </p>
 
             {/* Quick Contact */}
@@ -204,7 +204,7 @@ export function Footer() {
                   </svg>
                 </div>
                 <span
-                  className="text-sm font-medium text-zinc-600 dark:text-zinc-400"
+                  className="font-medium text-sm text-zinc-600 dark:text-zinc-400"
                   dir="ltr"
                 >
                   +966 50 000 0000
@@ -226,8 +226,8 @@ export function Footer() {
                     />
                   </svg>
                 </div>
-                <span className="text-sm font-medium text-zinc-600 dark:text-zinc-400">
-                  info@mubassat-law.com
+                <span className="font-medium text-sm text-zinc-600 dark:text-zinc-400">
+                  محامي فيصل
                 </span>
               </div>
             </div>
@@ -235,7 +235,7 @@ export function Footer() {
 
           {/* Navigation */}
           <div className="lg:col-span-2">
-            <h3 className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-zinc-950 dark:text-zinc-50">
+            <h3 className="mb-4 font-semibold text-xs text-zinc-950 uppercase tracking-[0.2em] dark:text-zinc-50">
               التنقل
             </h3>
             <ul className="space-y-3">
@@ -259,7 +259,7 @@ export function Footer() {
 
           {/* Social */}
           <div className="lg:col-span-2">
-            <h3 className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-zinc-950 dark:text-zinc-50">
+            <h3 className="mb-4 font-semibold text-xs text-zinc-950 uppercase tracking-[0.2em] dark:text-zinc-50">
               تابعنا
             </h3>
             <ul className="space-y-3">
@@ -285,7 +285,7 @@ export function Footer() {
 
           {/* Legal */}
           <div className="lg:col-span-3">
-            <h3 className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-zinc-950 dark:text-zinc-50">
+            <h3 className="mb-4 font-semibold text-xs text-zinc-950 uppercase tracking-[0.2em] dark:text-zinc-50">
               قانوني
             </h3>
             <ul className="space-y-3">
@@ -310,10 +310,10 @@ export function Footer() {
       </div>
 
       {/* Bottom Bar */}
-      <div className="border-t border-zinc-100 dark:border-zinc-900">
+      <div className="border-zinc-100 border-t dark:border-zinc-900">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-6 py-6 md:flex-row md:px-8">
           <p className="text-xs text-zinc-400">
-            © {currentYear} مبسّط LAW. جميع الحقوق محفوظة.
+            © {currentYear} محامي فيصل. جميع الحقوق محفوظة.
           </p>
           <div className="flex items-center gap-4">
             <Link
@@ -336,7 +336,7 @@ export function Footer() {
       {/* WhatsApp Floating Button */}
       <Link
         aria-label="تواصل عبر واتساب"
-        className="fixed bottom-6 left-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] shadow-lg shadow-[#25D366]/30 transition-all hover:scale-105 hover:shadow-xl hover:shadow-[#25D366]/40"
+        className="fixed bottom-6 left-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] shadow-[#25D366]/30 shadow-lg transition-all hover:scale-105 hover:shadow-[#25D366]/40 hover:shadow-xl"
         href="https://wa.me/966500000000"
         rel="noopener noreferrer"
         target="_blank"

@@ -44,9 +44,10 @@ import { auth, type UserType } from "@/app/(auth)/auth";
 import { entitlementsByUserType } from "@/lib/ai/entitlements";
 import { type RequestHints, systemPrompt } from "@/lib/ai/prompts";
 import { getLanguageModel } from "@/lib/ai/providers";
-import { legalConsultation } from "@/lib/ai/tools/legal-consultation";
 import { analyzeContract } from "@/lib/ai/tools/analyze-contract";
+import { legalConsultation } from "@/lib/ai/tools/legal-consultation";
 import { searchSaudiLaw } from "@/lib/ai/tools/search-saudi-law";
+import { verifyLegalInfo } from "@/lib/ai/tools/verify-legal-search";
 import { isProductionEnvironment } from "@/lib/constants";
 import {
   createStreamId,
@@ -205,7 +206,12 @@ export async function POST(request: Request) {
           stopWhen: stepCountIs(5),
           experimental_activeTools: isReasoningModel
             ? []
-            : ["legalConsultation", "analyzeContract", "searchSaudiLaw"],
+            : [
+                "verifyLegalInfo",
+                "legalConsultation",
+                "analyzeContract",
+                "searchSaudiLaw",
+              ],
           experimental_transform: isReasoningModel
             ? undefined
             : smoothStream({ chunking: "word" }),
@@ -217,6 +223,7 @@ export async function POST(request: Request) {
               }
             : undefined,
           tools: {
+            verifyLegalInfo,
             legalConsultation,
             analyzeContract,
             searchSaudiLaw,

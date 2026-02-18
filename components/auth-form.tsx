@@ -1,5 +1,3 @@
-import Form from "next/form";
-
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 
@@ -8,14 +6,16 @@ export function AuthForm({
   children,
   defaultEmail = "",
 }: {
-  action: NonNullable<
-    string | ((formData: FormData) => void | Promise<void>) | undefined
-  >;
+  action: (formData: FormData) => void | Promise<void>;
   children: React.ReactNode;
   defaultEmail?: string;
 }) {
   return (
-    <Form action={action} className="flex flex-col gap-4 px-4 sm:px-16" dir="rtl">
+    <form
+      action={action}
+      className="flex flex-col gap-4 px-4 sm:px-16"
+      dir="rtl"
+    >
       <div className="flex flex-col gap-2">
         <Label
           className="font-normal text-zinc-600 dark:text-zinc-400"
@@ -56,6 +56,6 @@ export function AuthForm({
       </div>
 
       {children}
-    </Form>
+    </form>
   );
 }

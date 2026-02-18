@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(
     process.env.NEXT_PUBLIC_APP_URL || "https://ai-chatbot.wahed.workers.dev"
   ),
-  title: "مبسط LAW — المساعد القانوني الذكي",
+  title: "محامي فيصل — المساعد القانوني الذكي",
   description: "مساعدك القانوني الذكي المتخصص في الأنظمة السعودية",
 };
 

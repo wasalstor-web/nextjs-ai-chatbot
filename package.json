@@ -15,7 +15,11 @@
     "db:pull": "drizzle-kit pull",
     "db:check": "drizzle-kit check",
     "db:up": "drizzle-kit up",
-    "test": "export PLAYWRIGHT=True && pnpm exec playwright test"
+    "test": "export PLAYWRIGHT=True && pnpm exec playwright test",
+    "security:scan": "snyk code test",
+    "security:test": "snyk test",
+    "security:monitor": "snyk monitor",
+    "security:fix": "snyk fix"
   },
   "dependencies": {
     "@ai-sdk/anthropic": "^3.0.38",

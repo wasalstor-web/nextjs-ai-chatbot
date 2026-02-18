@@ -1,202 +1,264 @@
-import { BookOpen, FileText, Lightbulb, TrendingUp } from "lucide-react";
+﻿"use client";
+
+import { motion } from "framer-motion";
+import {
+  ArrowLeft,
+  BookOpen,
+  FileText,
+  Lightbulb,
+  Scale,
+  TrendingUp,
+} from "lucide-react";
 import Link from "next/link";
+import { useState } from "react";
+
+const ease = [0.32, 0.72, 0, 1] as const;
+const fadeUp = {
+  hidden: { opacity: 0, y: 24 },
+  visible: (d = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease, delay: d },
+  }),
+};
+const staggerContainer = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.08 } },
+};
+const staggerItem = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease } },
+};
+
+const POSTS = [
+  {
+    title: "كيف يغير الذكاء الاصطناعي مستقبل المحاماة في السعودية",
+    description:
+      "استكشاف أثر التقنيات الحديثة على الممارسة القانونية وكيف يستفيد المحامون من أدوات الذكاء الاصطناعي.",
+    category: "تقنية",
+    date: "15 يناير 2025",
+    author: "فريق التحرير",
+    readTime: "5 دق",
+    icon: TrendingUp,
+  },
+  {
+    title: "5 أخطاء شائعة في العقود التجارية وكيفية تجنبها",
+    description:
+      "دليل عملي للشركات الناشئة حول أهم البنود التي يجب مراجعتها قبل توقيع أي عقد تجاري.",
+    category: "إرشادات",
+    date: "8 يناير 2025",
+    author: "المستشار القانوني",
+    readTime: "8 دق",
+    icon: FileText,
+  },
+  {
+    title: "دليلك الشامل لنظام حماية البيانات الشخصية",
+    description:
+      "شرح مبسط لأهم أحكام النظام والتزامات الجهات المعالجة للبيانات في المملكة.",
+    category: "قانوني",
+    date: "2 يناير 2025",
+    author: "فريق البحث",
+    readTime: "6 دق",
+    icon: BookOpen,
+  },
+  {
+    title: "كيف تستفيد من الذكاء الاصطناعي في عملك اليومي",
+    description:
+      "دليل شامل لزيادة إنتاجيتك باستخدام أدوات الذكاء الاصطناعي في المجال القانوني.",
+    category: "إنتاجية",
+    date: "28 ديسمبر 2024",
+    author: "فريق التحرير",
+    readTime: "5 دق",
+    icon: Lightbulb,
+  },
+];
+
+const CATEGORIES = ["الكل", "تقنية", "إرشادات", "قانوني", "إنتاجية"];
 
 export default function BlogPage() {
-  const posts = [
-    {
-      title: "كيف تستفيد من الذكاء الاصطناعي في عملك اليومي",
-      description: "دليل شامل لزيادة إنتاجيتك باستخدام أدوات الذكاء الاصطناعي",
-      category: "إنتاجية",
-      date: "15 ديسمبر 2024",
-      author: "فريق التحرير",
-      readTime: "5 دقائق",
-      icon: Lightbulb,
-      color: "from-amber-500 to-amber-400",
-    },
-    {
-      title: "مستقبل الذكاء الاصطناعي في 2025",
-      description: "توقعات واتجاهات تقنية الذكاء الاصطناعي للعام القادم",
-      category: "تقنية",
-      date: "10 ديسمبر 2024",
-      author: "أحمد الخبير",
-      readTime: "8 دقائق",
-      icon: TrendingUp,
-      color: "from-amber-600 to-amber-500",
-    },
-    {
-      title: "أفضل الممارسات لكتابة البرومبتات الفعالة",
-      description: "تعلم كيف تحصل على أفضل النتائج من محادثاتك مع AI",
-      category: "إرشادات",
-      date: "5 ديسمبر 2024",
-      author: "سارة المحترفة",
-      readTime: "6 دقائق",
-      icon: FileText,
-      color: "from-amber-500 to-amber-400",
-    },
-    {
-      title: "قصص نجاح: كيف غيّر AI حياة مستخدمينا",
-      description: "شهادات حقيقية من مستخدمين استفادوا من خدماتنا",
-      category: "قصص نجاح",
-      date: "1 ديسمبر 2024",
-      author: "فريق العملاء",
-      readTime: "10 دقائق",
-      icon: BookOpen,
-      color: "from-amber-700 to-amber-600",
-    },
-  ];
+  const [active, setActive] = useState("الكل");
+  const [email, setEmail] = useState("");
+  const [subStatus, setSubStatus] = useState<"idle" | "done">("idle");
 
-  const categories = ["الكل", "إنتاجية", "تقنية", "إرشادات", "قصص نجاح"];
+  const filtered =
+    active === "الكل" ? POSTS : POSTS.filter((p) => p.category === active);
 
   return (
-    <div className="min-h-screen bg-linear-to-b from-white to-amber-50/80 dark:from-slate-950 dark:to-slate-900">
-      {/* Hero Section */}
-      <section className="relative overflow-hidden pt-20 pb-12">
-        <div className="absolute inset-0 bg-linear-to-br from-amber-500/10 via-amber-400/10 to-amber-300/10 dark:from-amber-500/5 dark:via-amber-400/5 dark:to-amber-300/5" />
-
-        <div className="container relative mx-auto px-4" dir="rtl">
-          <div className="mx-auto max-w-3xl text-center">
-            <h1 className="mb-6 font-bold text-5xl lg:text-6xl">
-              <span className="text-slate-900 dark:text-white">مدونة</span>
-              <br />
-              <span className="bg-linear-to-l from-amber-500 via-amber-400 to-amber-300 bg-clip-text text-transparent">
-                الذكاء الاصطناعي
-              </span>
-            </h1>
-            <p className="text-slate-600 text-xl leading-relaxed dark:text-slate-400">
-              آخر الأخبار والنصائح والإرشادات حول عالم الذكاء الاصطناعي
-            </p>
-          </div>
+    <div
+      className="min-h-screen bg-white text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100"
+      dir="rtl"
+    >
+      {/* Hero */}
+      <section className="relative overflow-hidden px-6 py-24 md:py-32">
+        <div className="-translate-x-1/2 -translate-y-1/2 pointer-events-none absolute top-1/2 left-1/2">
+          {[400, 500, 600].map((s) => (
+            <div
+              className="-translate-x-1/2 -translate-y-1/2 absolute top-1/2 left-1/2 rounded-full border border-zinc-200/50 dark:border-zinc-800/50"
+              key={s}
+              style={{ width: s, height: s }}
+            />
+          ))}
+        </div>
+        <div className="relative mx-auto max-w-4xl text-center">
+          <motion.div
+            animate="visible"
+            className="mb-4 inline-flex items-center gap-2 rounded-full border border-zinc-200 bg-zinc-50 px-4 py-1.5 text-sm text-zinc-600 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-400"
+            custom={0}
+            initial="hidden"
+            variants={fadeUp}
+          >
+            <Scale className="h-4 w-4" />
+            المدونة
+          </motion.div>
+          <motion.h1
+            animate="visible"
+            className="mb-6 font-bold text-4xl text-zinc-900 leading-tight tracking-tight md:text-6xl dark:text-white"
+            custom={0.1}
+            initial="hidden"
+            variants={fadeUp}
+          >
+            رؤى وأفكار
+            <br />
+            <span className="bg-gradient-to-l from-zinc-400 to-zinc-900 bg-clip-text text-transparent dark:from-zinc-500 dark:to-white">
+              قانونية وتقنية.
+            </span>
+          </motion.h1>
+          <motion.p
+            animate="visible"
+            className="mx-auto max-w-xl text-lg text-zinc-600 dark:text-zinc-400"
+            custom={0.2}
+            initial="hidden"
+            variants={fadeUp}
+          >
+            آخر الأخبار والإرشادات حول القانون السعودي والذكاء الاصطناعي.
+          </motion.p>
         </div>
       </section>
 
       {/* Categories */}
-      <section className="py-8" dir="rtl">
-        <div className="container mx-auto px-4">
-          <div className="mx-auto flex max-w-4xl flex-wrap justify-center gap-3">
-            {categories.map((category) => (
+      <section className="border-zinc-200 border-t px-6 py-6 dark:border-zinc-800">
+        <div className="mx-auto max-w-6xl">
+          <div className="flex flex-wrap gap-2">
+            {CATEGORIES.map((cat) => (
               <button
-                className={`rounded-full px-6 py-2 font-medium transition-all ${
-                  category === "الكل"
-                    ? "bg-linear-to-l from-amber-500 to-amber-400 text-white shadow-lg"
-                    : "border border-slate-200 bg-white text-slate-600 hover:border-amber-500 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-400 dark:hover:border-amber-300"
+                className={`rounded-full px-4 py-1.5 font-medium text-sm transition-all ${
+                  active === cat
+                    ? "bg-zinc-900 text-white dark:bg-white dark:text-zinc-900"
+                    : "border border-zinc-200 text-zinc-600 hover:border-zinc-400 dark:border-zinc-800 dark:text-zinc-400 dark:hover:border-zinc-600"
                 }`}
-                key={category}
+                key={cat}
+                onClick={() => setActive(cat)}
                 type="button"
               >
-                {category}
+                {cat}
               </button>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Blog Posts */}
-      <section className="py-12" dir="rtl">
-        <div className="container mx-auto px-4">
-          <div className="mx-auto grid max-w-6xl gap-8 md:grid-cols-2">
-            {posts.map((post) => (
-              <article
-                className="group cursor-pointer rounded-3xl border border-slate-200 bg-white p-8 transition-all hover:shadow-xl dark:border-slate-800 dark:bg-slate-900"
+      {/* Posts Grid */}
+      <section className="px-6 py-12 md:py-16">
+        <div className="mx-auto max-w-6xl">
+          <motion.div
+            className="grid gap-6 sm:grid-cols-2"
+            initial="hidden"
+            key={active}
+            variants={staggerContainer}
+            viewport={{ once: true }}
+            whileInView="visible"
+          >
+            {filtered.map((post) => (
+              <motion.article
+                className="group rounded-2xl border border-zinc-200 p-6 transition-all hover:border-zinc-400 dark:border-zinc-800 dark:hover:border-zinc-600"
                 key={post.title}
+                variants={staggerItem}
               >
-                <div
-                  className={`h-16 w-16 rounded-2xl bg-linear-to-br ${post.color} mb-6 flex items-center justify-center transition-transform group-hover:scale-110`}
-                >
-                  <post.icon className="h-8 w-8 text-white" />
-                </div>
-
                 <div className="mb-4 flex items-center gap-3">
-                  <span className="font-semibold text-amber-500 text-sm dark:text-amber-300">
+                  <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-zinc-100 dark:bg-zinc-800">
+                    <post.icon className="h-4 w-4 text-zinc-500" />
+                  </div>
+                  <span className="rounded-full bg-zinc-100 px-2.5 py-0.5 font-medium text-xs text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400">
                     {post.category}
                   </span>
-                  <span className="text-slate-500 text-sm dark:text-slate-500">
-                    {post.readTime}
-                  </span>
+                  <span className="text-xs text-zinc-400">{post.readTime}</span>
                 </div>
 
-                <h2 className="mb-3 font-bold text-2xl text-slate-900 transition-colors group-hover:text-amber-500 dark:text-white dark:group-hover:text-amber-300">
+                <h2 className="mb-2 font-semibold text-zinc-900 leading-snug transition-colors group-hover:text-zinc-600 dark:text-zinc-100 dark:group-hover:text-zinc-300">
                   {post.title}
                 </h2>
-
-                <p className="mb-6 text-slate-600 leading-relaxed dark:text-slate-400">
+                <p className="mb-5 text-sm text-zinc-500 leading-relaxed dark:text-zinc-400">
                   {post.description}
                 </p>
 
-                <div className="flex items-center justify-between border-slate-200 border-t pt-4 dark:border-slate-800">
-                  <div className="flex items-center gap-3">
-                    <div className="h-10 w-10 rounded-full bg-linear-to-br from-amber-500 to-amber-400" />
-                    <div>
-                      <p className="font-semibold text-slate-900 text-sm dark:text-white">
-                        {post.author}
-                      </p>
-                      <p className="text-slate-500 text-xs dark:text-slate-500">
-                        {post.date}
-                      </p>
-                    </div>
+                <div className="flex items-center justify-between border-zinc-100 border-t pt-4 dark:border-zinc-800">
+                  <div>
+                    <p className="font-medium text-xs text-zinc-700 dark:text-zinc-300">
+                      {post.author}
+                    </p>
+                    <time className="text-xs text-zinc-400">{post.date}</time>
                   </div>
-
                   <button
-                    className="flex items-center gap-1 font-semibold text-amber-500 transition-all group-hover:gap-2 dark:text-amber-300"
+                    className="flex items-center gap-1 font-medium text-xs text-zinc-500 transition-all hover:text-zinc-900 dark:hover:text-zinc-100"
                     type="button"
                   >
-                    اقرأ المزيد
-                    <svg
-                      className="h-5 w-5"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        d="M15 19l-7-7 7-7"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                      />
-                    </svg>
+                    اقرأ <ArrowLeft className="h-3 w-3" />
                   </button>
                 </div>
-              </article>
+              </motion.article>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* Newsletter */}
-      <section className="bg-linear-to-br from-amber-600 via-amber-500 to-amber-400 py-20">
-        <div className="container mx-auto px-4" dir="rtl">
-          <div className="mx-auto max-w-3xl text-center">
-            <h2 className="mb-6 font-bold text-4xl text-white">
+      <section className="border-zinc-200 border-t px-6 py-20 md:py-28 dark:border-zinc-800">
+        <div className="mx-auto max-w-4xl">
+          <motion.div
+            className="rounded-3xl bg-zinc-950 p-10 text-center text-white md:p-16 dark:bg-zinc-900"
+            initial="hidden"
+            variants={fadeUp}
+            viewport={{ once: true }}
+            whileInView="visible"
+          >
+            <Scale className="mx-auto mb-6 h-10 w-10 text-zinc-500" />
+            <h2 className="mb-4 font-bold text-3xl tracking-tight">
               اشترك في نشرتنا البريدية
             </h2>
-            <p className="mb-8 text-amber-50 text-xl">
-              احصل على آخر المقالات والنصائح مباشرة في بريدك الإلكتروني
+            <p className="mx-auto mb-8 max-w-md text-zinc-400">
+              احصل على آخر المقالات القانونية والتقنية مباشرة في بريدك.
             </p>
-            <div className="mx-auto flex max-w-xl flex-col gap-4 sm:flex-row">
-              <input
-                className="flex-1 rounded-xl border-2 border-white/30 bg-white/20 px-6 py-4 text-white backdrop-blur-sm transition-all placeholder:text-amber-50 focus:border-white focus:outline-none"
-                placeholder="بريدك الإلكتروني"
-                type="email"
-              />
-              <button
-                className="rounded-xl bg-white px-8 py-4 font-semibold text-amber-500 transition-all hover:scale-105 hover:shadow-xl"
-                type="button"
-              >
-                اشترك الآن
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
 
-      {/* Coming Soon Message */}
-      <section className="py-12" dir="rtl">
-        <div className="container mx-auto px-4">
-          <div className="mx-auto max-w-3xl rounded-3xl border-2 border-amber-100 bg-amber-50/80 p-8 text-center dark:border-amber-700 dark:bg-amber-900/20">
-            <p className="text-amber-700 text-lg dark:text-amber-200">
-              💡 المزيد من المقالات قادمة قريباً! تابعنا لتبقى على اطلاع بآخر
-              المستجدات.
-            </p>
-          </div>
+            {subStatus === "done" ? (
+              <p className="font-medium text-emerald-400">
+                ✓ تم الاشتراك بنجاح!
+              </p>
+            ) : (
+              <form
+                className="mx-auto flex max-w-md flex-col gap-3 sm:flex-row"
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  setSubStatus("done");
+                }}
+              >
+                <input
+                  aria-label="البريد الإلكتروني"
+                  className="flex-1 rounded-full border border-zinc-700 bg-zinc-900 px-5 py-3 text-sm text-white outline-none placeholder:text-zinc-500 focus:border-zinc-500 dark:bg-zinc-800"
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="بريدك الإلكتروني"
+                  required
+                  type="email"
+                  value={email}
+                />
+                <button
+                  className="rounded-full bg-white px-6 py-3 font-medium text-sm text-zinc-900 transition-all hover:bg-zinc-100"
+                  type="submit"
+                >
+                  اشترك
+                </button>
+              </form>
+            )}
+          </motion.div>
         </div>
       </section>
     </div>

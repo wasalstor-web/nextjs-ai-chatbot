@@ -77,7 +77,7 @@ export function AppSidebar({ user }: { user: User | undefined }) {
                 </div>
                 <div className="flex flex-col">
                   <span className="cursor-pointer font-bold text-[15px] text-foreground tracking-tight">
-                    مبسط <span className="font-black text-primary">LAW</span>
+                    محامي <span className="font-black text-primary">فيصل</span>
                   </span>
                   <span className="text-[10px] text-muted-foreground">
                     المساعد القانوني

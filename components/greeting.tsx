@@ -14,37 +14,37 @@ const QUICK_ACTIONS = [
     icon: ScaleIcon,
     label: "استشارة قانونية",
     description: "توجيهات متخصصة في الأنظمة السعودية",
-    gradient: "from-emerald-500/10 to-emerald-600/5",
-    iconBg: "bg-emerald-500/15 dark:bg-emerald-400/15",
-    iconColor: "text-emerald-600 dark:text-emerald-400",
-    hoverBorder: "hover:border-emerald-200 dark:hover:border-emerald-800",
+    gradient: "from-zinc-500/10 to-zinc-600/5",
+    iconBg: "bg-zinc-500/15 dark:bg-zinc-400/15",
+    iconColor: "text-zinc-700 dark:text-zinc-300",
+    hoverBorder: "hover:border-zinc-300 dark:hover:border-zinc-700",
   },
   {
     icon: FileTextIcon,
     label: "مراجعة عقد",
     description: "تحليل بنود العقود وتقييم المخاطر",
-    gradient: "from-blue-500/10 to-blue-600/5",
-    iconBg: "bg-blue-500/15 dark:bg-blue-400/15",
-    iconColor: "text-blue-600 dark:text-blue-400",
-    hoverBorder: "hover:border-blue-200 dark:hover:border-blue-800",
+    gradient: "from-zinc-500/10 to-zinc-600/5",
+    iconBg: "bg-zinc-500/15 dark:bg-zinc-400/15",
+    iconColor: "text-zinc-700 dark:text-zinc-300",
+    hoverBorder: "hover:border-zinc-300 dark:hover:border-zinc-700",
   },
   {
     icon: BriefcaseIcon,
     label: "قضايا عمالية",
     description: "حقوق العمال والتعويضات",
-    gradient: "from-violet-500/10 to-violet-600/5",
-    iconBg: "bg-violet-500/15 dark:bg-violet-400/15",
-    iconColor: "text-violet-600 dark:text-violet-400",
-    hoverBorder: "hover:border-violet-200 dark:hover:border-violet-800",
+    gradient: "from-zinc-500/10 to-zinc-600/5",
+    iconBg: "bg-zinc-500/15 dark:bg-zinc-400/15",
+    iconColor: "text-zinc-700 dark:text-zinc-300",
+    hoverBorder: "hover:border-zinc-300 dark:hover:border-zinc-700",
   },
   {
     icon: BookOpenIcon,
     label: "الأنظمة واللوائح",
     description: "البحث في أنظمة المملكة",
-    gradient: "from-amber-500/10 to-amber-600/5",
-    iconBg: "bg-amber-500/15 dark:bg-amber-400/15",
-    iconColor: "text-amber-600 dark:text-amber-400",
-    hoverBorder: "hover:border-amber-200 dark:hover:border-amber-800",
+    gradient: "from-zinc-500/10 to-zinc-600/5",
+    iconBg: "bg-zinc-500/15 dark:bg-zinc-400/15",
+    iconColor: "text-zinc-700 dark:text-zinc-300",
+    hoverBorder: "hover:border-zinc-300 dark:hover:border-zinc-700",
   },
 ];
 
@@ -80,7 +80,7 @@ export const Greeting = () => {
 
         {/* Title */}
         <h1 className="font-extrabold text-[28px] text-foreground tracking-tight md:text-[34px]">
-          مبسط <span className="font-black text-primary">LAW</span>
+          محامي <span className="font-black text-primary">فيصل</span>
         </h1>
         <p className="mt-2.5 max-w-sm text-[14px] text-muted-foreground leading-relaxed md:text-[15px]">
           مساعدك القانوني الذكي المتخصص في الأنظمة السعودية
